@@ -623,7 +623,7 @@ describe('fw-datepicker', () => {
     const page = await newE2EPage();
     const fullyear = new Date().getFullYear();
     await page.setContent(
-      '<fw-datepicker mode="range" min-year="2020" min-date="2020-07-31"></fw-datepicker>'
+      '<fw-datepicker mode="range" min-year="2020" min-date="2020-07-31" value="2020-07-25 to 2020-07-31"></fw-datepicker>'
     );
     await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
