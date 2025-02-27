@@ -99,11 +99,7 @@ export class Draggable {
   };
 
   private isDropNotAllowed() {
-    const inValidTypesForSection = [
-      'DEPENDENT_FIELD',
-      'MULTI_SELECT',
-      'RELATIONSHIP',
-    ];
+    const inValidTypesForSection = ['RELATIONSHIP'];
     const dragId = this.dragContainer.id;
     const isSection = dragId.includes('sectionIdentifier-');
     const isFieldTypeNotAllowed = inValidTypesForSection.includes(
@@ -130,7 +126,14 @@ export class Draggable {
       parseBoolean(dragElement.dataProvider?.field_options?.has_sections);
     // Check if the section already has the maximum number of fields
     const isSectionFieldLimitExceeded =
-      this.dragContainer?.children?.length > 15;
+      Array.from(this.dragContainer?.children || []).reduce((count, child) => {
+        const childDataProvider = (
+          child as HTMLElement & {
+            dataProvider?: { type?: string };
+          }
+        )?.dataProvider;
+        return count + (childDataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1);
+      }, 0) > 15;
 
     // Check if the dragElement is present and the field is required
     const isFieldRequired = dragElement?.dataProvider?.required;

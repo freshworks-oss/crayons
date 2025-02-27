@@ -311,6 +311,28 @@ export class FormBuilder {
             arrFields[i1] = checkAndAppendLevel3(arrFields[i1]);
           }
 
+          if (arrFields[i1].field_options?.has_sections) {
+            for (let j1 = 0; j1 < arrFields[i1]?.fields.length; j1++) {
+              if (
+                arrFields[i1]?.fields[j1].field_options?.dependent === 'true'
+              ) {
+                const internalNamePrefix = objProductConfig.internalNamePrefix;
+                arrFields[i1].fields[j1] = getDefaultDependentLevels(
+                  {
+                    type: '22',
+                    label: arrFields[i1]?.fields[j1].label,
+                    name: arrFields[i1]?.fields[j1].name,
+                    fields: [arrFields[i1]?.fields[j1]],
+                  },
+                  internalNamePrefix
+                );
+                arrFields[i1].fields[j1] = checkAndAppendLevel3(
+                  arrFields[i1].fields[j1]
+                );
+              }
+            }
+          }
+
           const objField = arrFields[i1];
           if (!objField) {
             continue;
@@ -320,10 +342,9 @@ export class FormBuilder {
             if (hasCustomProperty(mappedFieldTypes, objField.type)) {
               if (objField.field_options?.has_sections) {
                 //Changes to handle the type for sections
-                objField?.fields?.forEach(
-                  (sectionField) =>
-                    (sectionField.type = mappedFieldTypes[sectionField.type])
-                );
+                objField?.fields?.forEach((sectionField) => {
+                  sectionField.type = mappedFieldTypes[sectionField.type];
+                });
                 objField.type = mappedFieldTypes[objField.type];
               } else {
                 objField.type = mappedFieldTypes[objField.type];
@@ -465,7 +486,6 @@ export class FormBuilder {
       this.productName,
       objSaveFieldDetails.type
     );
-
     this.fwSaveField.emit(objSaveField);
   };
 
@@ -536,7 +556,21 @@ export class FormBuilder {
     const objDetail = event.detail,
       elField = objDetail.droppedElement;
     let elFieldType = elField.dataProvider.type;
-    if (objDetail.dragContainer.children.length > 15) {
+    const maxLimit =
+      Array.from(objDetail.dragContainer?.children || []).reduce<number>(
+        (count, child) => {
+          const childDataProvider = (
+            child as HTMLElement & {
+              dataProvider?: { type?: string };
+            }
+          )?.dataProvider;
+          return (
+            count + (childDataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1)
+          );
+        },
+        0
+      ) > 15;
+    if (maxLimit) {
       elFieldType = 'MAX_LIMIT';
     }
     if (elField.dataProvider.required) {
@@ -580,7 +614,10 @@ export class FormBuilder {
     if (sectionOut.length > 1 && sectionOut[1]) {
       sectionData = {
         data: {
-          id: elFieldType.dataProvider.parent_id,
+          id:
+            elFieldType.dataProvider.type === 'DEPENDENT_FIELD'
+              ? elFieldType.dataProvider?.fields[0]?.parent_id
+              : elFieldType.dataProvider?.parent_id,
           field_options: { has_sections: true },
         },
         name: sectionName,
@@ -627,7 +664,10 @@ export class FormBuilder {
           sourceIndex: elFieldType.index,
           targetIndex: intDroppedIndex,
           sectionData,
-          sourceFieldId: elFieldType.dataProvider?.id,
+          sourceFieldId:
+            elFieldType.dataProvider.type === 'DEPENDENT_FIELD'
+              ? elFieldType.dataProvider?.fields[0]?.id
+              : elFieldType.dataProvider?.id,
           isRepositionSection,
         });
       }
@@ -1154,7 +1194,14 @@ export class FormBuilder {
           const fieldsContent = isEmptySection
             ? this.renderDragDropEmptyState(sectionName, boolFieldEditingState)
             : choice.dependent_ids?.field?.map((fieldId, index) => {
-                const field = dataItem.fields.find((f) => f.id === fieldId);
+                const field = dataItem.fields.find(
+                  (f) =>
+                    (f.type === 'DEPENDENT_FIELD'
+                      ? f?.fields[0]?.id
+                        ? f?.fields[0]?.id
+                        : f.id
+                      : f.id) === fieldId
+                );
                 return field
                   ? this.renderFieldEditorElement(
                       field,
