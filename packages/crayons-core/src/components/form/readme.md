@@ -3498,6 +3498,9 @@ graph TD;
   fw-form-control --> fw-timepicker
   fw-form-control --> fw-file-uploader-2
   fw-input --> fw-icon
+  fw-input --> fw-tooltip
+  fw-tooltip --> fw-popover
+  fw-textarea --> fw-tooltip
   fw-datepicker --> fw-tooltip
   fw-datepicker --> fw-icon
   fw-datepicker --> fw-button
@@ -3505,7 +3508,6 @@ graph TD;
   fw-datepicker --> fw-timepicker
   fw-datepicker --> fw-popover
   fw-datepicker --> fw-select
-  fw-tooltip --> fw-popover
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-timepicker --> fw-select
@@ -3516,6 +3518,7 @@ graph TD;
   fw-select --> fw-spinner
   fw-select --> fw-icon
   fw-select --> fw-list-options
+  fw-select --> fw-tooltip
   fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon

@@ -387,7 +387,10 @@ promise that resolves to true
  - [fw-data-table](../data-table)
  - [fw-datepicker](../datepicker)
  - [fw-file-2](../file-uploader-2/file-2)
+ - [fw-input](../input)
+ - [fw-select](../select)
  - [fw-tag](../tag)
+ - [fw-textarea](../textarea)
 
 ### Depends on
 
@@ -401,7 +404,10 @@ graph TD;
   fw-data-table --> fw-tooltip
   fw-datepicker --> fw-tooltip
   fw-file-2 --> fw-tooltip
+  fw-input --> fw-tooltip
+  fw-select --> fw-tooltip
   fw-tag --> fw-tooltip
+  fw-textarea --> fw-tooltip
   style fw-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

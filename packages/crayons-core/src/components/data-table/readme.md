@@ -2434,10 +2434,11 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
   fw-input --> fw-icon
+  fw-input --> fw-tooltip
+  fw-tooltip --> fw-popover
   fw-custom-cell-user --> fw-avatar
   fw-custom-cell-icon --> fw-icon
   fw-custom-cell-paragraph --> fw-tooltip
-  fw-tooltip --> fw-popover
   style fw-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

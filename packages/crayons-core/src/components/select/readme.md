@@ -2168,6 +2168,7 @@ Type: `Promise<any>`
 - [fw-spinner](../spinner)
 - [fw-icon](../icon)
 - [fw-list-options](../options-list)
+- [fw-tooltip](../tooltip)
 
 ### Graph
 ```mermaid
@@ -2178,6 +2179,7 @@ graph TD;
   fw-select --> fw-spinner
   fw-select --> fw-icon
   fw-select --> fw-list-options
+  fw-select --> fw-tooltip
   fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
@@ -2191,6 +2193,7 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
   fw-input --> fw-icon
+  fw-input --> fw-tooltip
   fw-country-phone --> fw-select
   fw-datepicker --> fw-select
   fw-form-control --> fw-select

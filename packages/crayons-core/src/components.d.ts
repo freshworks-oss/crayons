@@ -1181,6 +1181,22 @@ export namespace Components {
          */
         "step": string;
         /**
+          * Optional tooltip's content, shown on hover of the input.
+         */
+        "tooltipContent"?: string;
+        /**
+          * The optional tooltip's header.
+         */
+        "tooltipHeader"?: string;
+        /**
+          * The tooltip placement type for the optional tooltip.
+         */
+        "tooltipPlacement"?: PopoverPlacementType;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow": boolean;
+        /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
         "type": 'text' | 'number' | 'email' | 'url';
@@ -4288,6 +4304,22 @@ declare namespace LocalJSX {
           * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
          */
         "step"?: string;
+        /**
+          * Optional tooltip's content, shown on hover of the input.
+         */
+        "tooltipContent"?: string;
+        /**
+          * The optional tooltip's header.
+         */
+        "tooltipHeader"?: string;
+        /**
+          * The tooltip placement type for the optional tooltip.
+         */
+        "tooltipPlacement"?: PopoverPlacementType;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow"?: boolean;
         /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */

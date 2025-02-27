@@ -167,7 +167,7 @@
     "noCreatePermissionFieldAddDisabledHeader": "You do not have permission to create new properties",
     "noCreatePermissionFieldAddDisabledMessage": "Please reach out to your admin for more details.",
     "ertText": "Effective resolution timer",
-    "pstText": "Pause SLA timer",
+    "pstText": "Pause resolution SLA",
     "dropdownChoices": "Dropdown choices",
     "dependentDropdownMessage": "Dropdown choices will be categorized based on the indentation (use the ‘tab’ key to indent choices).If a choice is repeated in the same category, it will be skipped.",
     "moreOnDependentFields": "More on Dependent fields",
@@ -198,7 +198,7 @@
       "addTooltipDescription": "Sections are conditional fields that show up based on the rules you have defined.",
       "sectionCreatedForAllChoices": "The dropdown property is not available for adding new sections",
       "editTooltipText": "Edit Section",
-      "deleteTooltipText":"Delete Section",
+      "deleteTooltipText": "Delete Section",
       "hide": "Hide sections",
       "show": "Show sections",
       "new": "New section",
@@ -210,16 +210,16 @@
       "sectionHeadingName": "{{sectionName}}",
       "sectionHeadingLabel": "Show section if {{fieldLabel}} is :",
       "sectionHeadingChoice": "{{sectionChoiceValue}}",
-      "deleteSectionContent":"Are you sure you want to delete this section? This will delete the conversation properties within the section and will impact the conversations, views, forms, automations and reports.",
+      "deleteSectionContent": "Are you sure you want to delete this section? This will delete the conversation properties within the section and will impact the conversations, views, forms, automations and reports.",
       "deleteSection": "Delete Section",
       "disableChoiceOption": "This option is used to create a section and cannot be edited",
-      "errorMessages" : {
-        "DROPDOWN" : "This field cannot be moved into sections",
-        "MULTI_SELECT" : "Multi Select  Dropdown fields cannot be added into sections",
-        "DEPENDENT_FIELD" : "Dependent fields cannot be added into sections",
-        "RELATIONSHIP" : "Lookup fields cannot be added into sections",
-        "REQUIRED" : "Fields marked as required cannot be added into sections",
-        "DEFAULT" : "Default fields cannot be added into sections",
+      "errorMessages": {
+        "DROPDOWN": "This field cannot be moved into sections",
+        "MULTI_SELECT": "Multi Select  Dropdown fields cannot be added into sections",
+        "DEPENDENT_FIELD": "Dependent fields cannot be added into sections",
+        "RELATIONSHIP": "Lookup fields cannot be added into sections",
+        "REQUIRED": "Fields marked as required cannot be added into sections",
+        "DEFAULT": "Default fields cannot be added into sections",
         "MAX_LIMIT": "Sections cannot contain more than 15 fields"
       }
     }
