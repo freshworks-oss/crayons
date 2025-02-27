@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-beta.26](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.25...@freshworks/crayons@4.3.0-beta.26) (2025-02-27)
-
+## [4.3.0-beta.26](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.25...@freshworks/crayons@4.3.0-beta.26) (2025-02-27)
 
 ### Bug Fixes
 
-* added dependent changes ([191d7f1](https://github.com/freshworks/crayons/commit/191d7f15b08f58953558815055266d2dc4fb68ce))
-
-
-
-
+- added dependent changes ([191d7f1](https://github.com/freshworks/crayons/commit/191d7f15b08f58953558815055266d2dc4fb68ce))
 
 ## [4.3.0-beta.23](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.22...@freshworks/crayons@4.3.0-beta.23) (2024-12-10)
 
