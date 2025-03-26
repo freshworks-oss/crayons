@@ -505,6 +505,10 @@ export namespace Components {
           * Whether the list should be sortable.
          */
         "sortable": boolean;
+        /**
+          * flag to support dependentFields & Multi select dropdown within sections
+         */
+        "supportDependentAndMSDDInSections": boolean;
     }
     interface FwDragItem {
         /**
@@ -3627,6 +3631,10 @@ declare namespace LocalJSX {
           * Whether the list should be sortable.
          */
         "sortable"?: boolean;
+        /**
+          * flag to support dependentFields & Multi select dropdown within sections
+         */
+        "supportDependentAndMSDDInSections"?: boolean;
     }
     interface FwDragItem {
         /**

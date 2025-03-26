@@ -582,6 +582,10 @@ export namespace Components {
          */
         "showRelationshipTypeSelect": boolean;
         /**
+          * flag to support dependentFields & Multi select dropdown within sections
+         */
+        "supportDependentAndMSDDInSections": boolean;
+        /**
           * Show explore plans and disable features for user having free-plan
          */
         "userPlan": 'trial' | 'admin';
@@ -1630,6 +1634,10 @@ declare namespace LocalJSX {
           * flag to show relationshipTypeSelect dropdown or not
          */
         "showRelationshipTypeSelect"?: boolean;
+        /**
+          * flag to support dependentFields & Multi select dropdown within sections
+         */
+        "supportDependentAndMSDDInSections"?: boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */
