@@ -329,8 +329,8 @@ export class FormBuilder {
                     label: arrFields[i1]?.fields[j1].label,
                     name: arrFields[i1]?.fields[j1].name,
                     fields: [arrFields[i1]?.fields[j1]],
-                    field_options: arrFields[i1]?.field_options,
-                    custom: arrFields[i1]?.custom,
+                    field_options: arrFields[i1]?.fields[j1]?.field_options,
+                    custom: arrFields[i1]?.fields[j1]?.custom,
                   },
                   internalNamePrefix
                 );
