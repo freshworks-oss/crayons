@@ -145,7 +145,7 @@ export class Draggable {
     }, 0);
 
     const isFieldInTheSameContainer =
-      this.dragContainer.id === dragElement.parentElement.id;
+      this.dragContainer.id === dragElement.parentElement?.id;
 
     const newFieldsCount = isFieldInTheSameContainer
       ? existingFieldsCount

@@ -579,9 +579,14 @@ export class FormBuilder {
       return count;
     }, 0);
 
+    const isFieldInTheSameContainer =
+      objDetail.dragContainer?.id === elField.parentElement?.id;
+
     // Adding the dragged field to the count
-    const count =
-      existingCount + (elField.dataProvider.type === 'DEPENDENT_FIELD' ? 3 : 1);
+    const count = isFieldInTheSameContainer
+      ? existingCount
+      : existingCount +
+        (elField.dataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1);
 
     const maxLimit = count > 15;
 
