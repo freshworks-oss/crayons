@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.26...@freshworks/crayons@4.3.0-beta.27) (2025-04-08)
+
+
+### Bug Fixes
+
+* **draggable.ts, drag-container.tsx, and form-builder.tsx:** fix bugs related to dep & msdd epic ([6529787](https://github.com/freshworks/crayons/commit/652978711b2cc0a4e19fcd4ce277bec650962f5d))
+* **form-builder:** include same container check in count logic ([7b57550](https://github.com/freshworks/crayons/commit/7b57550ed914fadcec7675209ec3a1e90d842b12))
+
+
+### BREAKING CHANGES
+
+* **draggable.ts, drag-container.tsx, and form-builder.tsx:** The logic for computing the count within sections is revised
+
+
+
+
+
 ## [4.3.0-beta.26](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.25...@freshworks/crayons@4.3.0-beta.26) (2025-02-27)
 
 ### Bug Fixes
