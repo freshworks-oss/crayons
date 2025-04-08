@@ -39,6 +39,11 @@ export class DragContainer {
   @Prop() sortable = true;
 
   /**
+   * flag to support dependentFields & Multi select dropdown within sections
+   */
+  @Prop() supportDependentAndMSDDInSections = false;
+
+  /**
    * Triggered when a draggable item is dropped inside the container.
    */
   @Event() fwDrop: EventEmitter<void>;
@@ -60,6 +65,7 @@ export class DragContainer {
       copy: this.copy,
       placeholderClass: this.placeholderClass,
       sortable: this.sortable,
+      supportDependentAndMSDDInSections: this.supportDependentAndMSDDInSections,
     });
 
     this.host.addEventListener('fwDropBase', this.emitFwDrop.bind(this));

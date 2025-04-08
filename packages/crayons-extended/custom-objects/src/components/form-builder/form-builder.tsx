@@ -99,6 +99,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = true;
   /**
+   * flag to support dependentFields & Multi select dropdown within sections
+   */
+  @Prop({ mutable: true }) supportDependentAndMSDDInSections = false;
+  /**
    * link to show dependent field document
    */
   @Prop() dependentFieldLink = '';
@@ -305,6 +309,8 @@ export class FormBuilder {
                 label: arrFields[i1].label,
                 name: arrFields[i1].name,
                 fields: [arrFields[i1]],
+                field_options: arrFields[i1]?.field_options,
+                custom: arrFields[i1]?.custom,
               },
               internalNamePrefix
             );
@@ -323,6 +329,8 @@ export class FormBuilder {
                     label: arrFields[i1]?.fields[j1].label,
                     name: arrFields[i1]?.fields[j1].name,
                     fields: [arrFields[i1]?.fields[j1]],
+                    field_options: arrFields[i1]?.fields[j1]?.field_options,
+                    custom: arrFields[i1]?.fields[j1]?.custom,
                   },
                   internalNamePrefix
                 );
@@ -556,20 +564,32 @@ export class FormBuilder {
     const objDetail = event.detail,
       elField = objDetail.droppedElement;
     let elFieldType = elField.dataProvider.type;
-    const maxLimit =
-      Array.from(objDetail.dragContainer?.children || []).reduce<number>(
-        (count, child) => {
-          const childDataProvider = (
-            child as HTMLElement & {
-              dataProvider?: { type?: string };
-            }
-          )?.dataProvider;
-          return (
-            count + (childDataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1)
-          );
-        },
-        0
-      ) > 15;
+
+    const existingCount = Array.from(
+      objDetail.dragContainer?.children || []
+    ).reduce<number>((count, child) => {
+      const childDataProvider = (
+        child as HTMLElement & {
+          dataProvider?: { type?: string };
+        }
+      )?.dataProvider;
+      if (childDataProvider?.type) {
+        count = count + (childDataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1);
+      }
+      return count;
+    }, 0);
+
+    const isFieldInTheSameContainer =
+      objDetail.dragContainer?.id === elField.parentElement?.id;
+
+    // Adding the dragged field to the count
+    const count = isFieldInTheSameContainer
+      ? existingCount
+      : existingCount +
+        (elField.dataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1);
+
+    const maxLimit = count > 15;
+
     if (maxLimit) {
       elFieldType = 'MAX_LIMIT';
     }
@@ -1315,6 +1335,9 @@ export class FormBuilder {
                     acceptFrom={`fieldTypesList,fieldsContainer,${acceptFromSections}`}
                     addOnDrop={false}
                     sortable={true}
+                    supportDependentAndMSDDInSections={
+                      this.supportDependentAndMSDDInSections
+                    }
                     onFwDrop={(e) =>
                       this.fieldTypeDropHandler(
                         e,
