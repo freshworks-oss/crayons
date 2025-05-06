@@ -57,6 +57,14 @@ export const config: Config = {
           dest: '../../dew/colors.css',
           src: '../../../styles/dew/colors.css',
         },
+        {
+          dest: '../../dew/numbers.css',
+          src: '../../../styles/dew/numbers.css',
+        },
+        {
+          dest: '../../dew/fonts.css',
+          src: '../../../styles/dew/fonts.css',
+        },
       ],
     },
     {

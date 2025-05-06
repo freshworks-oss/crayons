@@ -4,8 +4,8 @@
 */
 
 //=== Button Style ===//
-$btn-primary-color: var(--color-text-brand, $color-milk);
-$btn-primary-bg: $color-elephant-800;
+$btn-primary-color: var(--color-text-inverse, $color-milk);
+$btn-primary-bg: var(--color-fill-brand, $color-elephant-800);
 $btn-primary-bg-dark: $color-elephant-900;
 $btn-primary-border: $color-elephant-900;
 $btn-primary-border-active: $color-elephant-800;
