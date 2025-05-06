@@ -1,6 +1,7 @@
 /components*
 /.vuepress/public/scripts*
 /.vuepress/public/css*
+/.vuepress/public/dew*
 /core*
 /crayons-custom-objects*
 /versions*
