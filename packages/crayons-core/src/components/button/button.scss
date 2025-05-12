@@ -7,29 +7,65 @@
 $btn-primary-color: var(--color-text-inverse, $color-milk);
 $btn-primary-bg: var(--color-fill-brand, $color-elephant-800);
 $btn-primary-bg-dark: $color-elephant-900;
-$btn-primary-border: $color-elephant-900;
+$btn-primary-border: var(--color-fill-brand, $color-elephant-900);
 $btn-primary-border-active: $color-elephant-800;
-
 $btn-primary-disabled-bg: $color-smoke-300;
-$btn-primary-disabled-bg-dark: #7b8e9f;
-$btn-primary-disabled-color: rgba($btn-primary-color, 0.5);
+$btn-primary-disabled-bg-dark: var(--color-fill-brand, #7b8e9f);
+$btn-primary-disabled-color: rgba($color-milk, 0.5);
+$btn-primary-gradient: var(
+  --gradient-fill,
+  linear-gradient(to bottom, $btn-primary-bg, $btn-primary-bg-dark)
+);
+$btn-primary-gradient-disabled: var(
+  --gradient-fill,
+  linear-gradient(
+    to bottom,
+    $btn-primary-disabled-bg,
+    $btn-primary-disabled-bg-dark
+  )
+);
 
-$btn-secondary-color: $text-default;
+$btn-secondary-color: var(--color-text-primary, $text-default);
 $btn-secondary-bg: $color-milk;
-$btn-secondary-bg-dark: $color-smoke-25;
-$btn-secondary-border: $border-color;
+$btn-secondary-bg-dark: var(--color-fill-surface, $color-smoke-25);
+$btn-secondary-border: var(--color-boundary-border-mildest, $border-color);
 $btn-secondary-border-active: $color-smoke-50;
-$btn-secondary-disabled-bg: $color-smoke-50;
-$btn-secondary-disabled-bg-dark: $color-smoke-100;
-$btn-secondary-disabled-color: $color-smoke-300;
+$btn-secondary-disabled-bg: var(--color-fill-surface, $color-smoke-50);
+$btn-secondary-disabled-bg-dark: var(
+  --color-boundary-border-mildest,
+  $color-smoke-100
+);
+$btn-secondary-disabled-color: var(--color-text-primary, $color-smoke-300);
+$btn-secondary-gradient: var(
+  --gradient-fill,
+  linear-gradient(to bottom, $btn-secondary-bg, $btn-secondary-bg-dark)
+);
 
-$btn-danger-color: $color-milk;
-$btn-danger-bg: $color-persimmon-800;
+$btn-danger-color: var(--color-text-inverse, $color-milk);
+$btn-danger-bg: var(--color-fill-semantic-error-bold, $color-persimmon-800);
 $btn-danger-bg-dark: $color-persimmon-900;
-$btn-danger-border: $color-persimmon-900;
+$btn-danger-border: var(
+  --color-boundary-semantic-error-bold,
+  $color-persimmon-900
+);
 $btn-danger-disabled-bg: #f89fa1;
-$btn-danger-disabled-bg-dark: #f2797b;
-$btn-danger-disabled-color: rgba($btn-primary-color, 0.5);
+$btn-danger-disabled-bg-dark: var(
+  --color-boundary-semantic-error-bold,
+  #f2797b
+);
+$btn-danger-disabled-color: rgba($color-milk, 0.5);
+$btn-danger-gradient: var(
+  --gradient-fill,
+  linear-gradient(to bottom, $btn-danger-bg, $btn-danger-bg-dark)
+);
+$btn-danger-gradient-disabled: var(
+  --gradient-fill,
+  linear-gradient(
+    to bottom,
+    $btn-danger-disabled-bg,
+    $btn-danger-disabled-bg-dark
+  )
+);
 
 $btn-link-color: $color-azure-800;
 $btn-link-bg: $color-smoke-50;
@@ -46,6 +82,9 @@ $btn-mini-font-size: $font-size-10;
 $btn-font-weight: $font-weight-600;
 
 $btn-border-width: 1px;
+$btn-opacity: var(--opacity-half, 1);
+$btn-focus-border: var(--color-boundary-border-boldest, $color-azure-800);
+
 $input-height-small: 24px;
 $input-height-normal: 32px;
 $input-height-mini: 16px;
@@ -84,7 +123,7 @@ $input-height-mini: 16px;
   cursor: inherit;
   letter-spacing: 0;
   outline: 0;
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium, 4px);
   --fw-icon-color: currentColor;
 
   .fw-btn--label {
@@ -97,52 +136,77 @@ $input-height-mini: 16px;
   }
 
   &:active:not(.fw-btn--loading) {
+    --fw-button-active-box-shadow: var(--shadow-clicked-button);
     box-shadow: $active-box-shadow;
   }
 
   &:focus {
-    border: 1px solid var(--fw-button--lg-focus-border, $btn-lg-focus-border);
-    box-shadow: 0 0 0 1px
-      var(--fw-button--lg-focus-border, $btn-lg-focus-border);
+    border: var(--border-width-large, 1px) solid
+      var(--fw-button--lg-focus-border, $btn-focus-border);
+    box-shadow: var(
+      --shadow-xs,
+      0 0 0 1px var(--fw-button--lg-focus-border, $btn-focus-border)
+    );
+  }
+
+  &:focus:not([disabled]) {
+    background-color: var(--color-fill-brand, $btn-primary-bg-dark);
+    background-image: none;
+  }
+
+  &:focus:not([disabled]):not(:hover) {
+    border-color: $btn-focus-border;
+  }
+
+  &:hover:not([disabled]):not(:focus) {
+    border-color: var(--color-fill-semantic-info-bold, $btn-primary-bg-dark);
   }
 
   &.disabled,
   &[disabled] {
-    cursor: not-allowed;
+    background-image: $btn-primary-gradient-disabled;
+    border-color: $btn-primary-disabled-bg-dark;
+    color: var(--color-text-inverse, $btn-primary-disabled-color);
+    opacity: $btn-opacity;
   }
 
   &--primary {
     background-color: $btn-primary-bg;
     color: $btn-primary-color;
     border-color: $btn-primary-border;
-    background-image: linear-gradient(
-      to bottom,
-      $btn-primary-bg,
-      $btn-primary-bg-dark
-    );
+    background-image: $btn-primary-gradient;
 
     &:active {
       border-color: $btn-primary-border-active;
     }
 
-    &:focus:not([disabled]),
     &:hover:not([disabled]) {
       background-color: var(
-        --fw-button-hover-background-color,
+        --color-fill-semantic-info-bold,
         $btn-primary-bg-dark
       );
       background-image: none;
     }
 
+    &:focus:not([disabled]) {
+      background-color: var(--color-fill-brand, $btn-primary-bg-dark);
+      background-image: none;
+    }
+
+    &:focus:not([disabled]):not(:hover) {
+      border-color: $btn-focus-border;
+    }
+
+    &:hover:not([disabled]):not(:focus) {
+      border-color: var(--color-fill-semantic-info-bold, $btn-primary-bg-dark);
+    }
+
     &.disabled,
     &[disabled] {
-      background-image: linear-gradient(
-        to bottom,
-        $btn-primary-disabled-bg,
-        $btn-primary-disabled-bg-dark
-      );
+      background-image: $btn-primary-gradient-disabled;
       border-color: $btn-primary-disabled-bg-dark;
-      color: $btn-primary-disabled-color;
+      color: var(--color-text-inverse, $btn-primary-disabled-color);
+      opacity: $btn-opacity;
     }
   }
 
@@ -150,18 +214,14 @@ $input-height-mini: 16px;
     background-color: $btn-secondary-bg-dark;
     color: $btn-secondary-color;
     border-color: $btn-secondary-border;
-    background-image: linear-gradient(
-      to bottom,
-      $btn-secondary-bg,
-      $btn-secondary-bg-dark
-    );
+    background-image: $btn-secondary-gradient;
 
     &:active {
       border-color: $btn-secondary-border-active;
     }
 
-    &:focus:not([disabled]),
     &:hover:not([disabled]) {
+      --fw-button-hover-background-color: var(--color-fill-container);
       background-color: var(
         --fw-button-hover-background-color,
         $btn-secondary-bg-dark
@@ -169,11 +229,22 @@ $input-height-mini: 16px;
       background-image: none;
     }
 
+    &:focus:not([disabled]) {
+      --fw-button-hover-background-color: var(--color-fill-surface);
+      border-color: var(--color-boundary-brand, $btn-focus-border);
+      background-image: none;
+      background-color: var(
+        --fw-button-hover-background-color,
+        $btn-secondary-bg-dark
+      );
+    }
+
     &.disabled,
     &[disabled] {
       background: $btn-secondary-disabled-bg;
       border-color: $btn-secondary-disabled-bg-dark;
       color: $btn-secondary-disabled-color;
+      opacity: $btn-opacity;
     }
   }
 
@@ -181,14 +252,22 @@ $input-height-mini: 16px;
     color: $btn-danger-color;
     background-color: $btn-danger-bg;
     border-color: $btn-danger-border;
-    background-image: linear-gradient(
-      to bottom,
-      $btn-danger-bg,
-      $btn-danger-bg-dark
-    );
+    background-image: $btn-danger-gradient;
 
-    &:focus:not([disabled]),
     &:hover:not([disabled]) {
+      --fw-button-hover-background-color: var(
+        --color-fill-semantic-error-bolder
+      );
+      background-color: var(
+        --fw-button-hover-background-color,
+        $btn-danger-bg-dark
+      );
+      background-image: none;
+    }
+
+    &:focus:not([disabled]) {
+      --fw-button-hover-background-color: var(--color-fill-semantic-error-bold);
+      border-color: var(--color-boundary-brand, $btn-focus-border);
       background-color: var(
         --fw-button-hover-background-color,
         $btn-danger-bg-dark
@@ -198,13 +277,10 @@ $input-height-mini: 16px;
 
     &.disabled,
     &[disabled] {
-      background-image: linear-gradient(
-        to bottom,
-        $btn-danger-disabled-bg,
-        $btn-danger-disabled-bg-dark
-      );
+      background-image: $btn-danger-gradient-disabled;
       border-color: $btn-danger-disabled-bg-dark;
-      color: rgba($color-milk, 0.5);
+      color: var(--color-text-inverse, $btn-danger-disabled-color);
+      opacity: $btn-opacity;
     }
   }
 

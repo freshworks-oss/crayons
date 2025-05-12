@@ -67,6 +67,7 @@ headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
 headScripts.push(['link', { rel: 'stylesheet', href: `/dew/colors.css` }]);
 headScripts.push(['link', { rel: 'stylesheet', href: `/dew/fonts.css` }]);
 headScripts.push(['link', { rel: 'stylesheet', href: `/dew/numbers.css` }]);
+headScripts.push(['link', { rel: 'stylesheet', href: `/dew/overrides.css` }]);
 
 const getUtils = () =>
   [

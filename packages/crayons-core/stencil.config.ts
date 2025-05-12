@@ -47,6 +47,7 @@ export const config: Config = {
         { dest: 'dew/colors.css', src: '../../../styles/dew/colors.css' },
         { dest: 'dew/numbers.css', src: '../../../styles/dew/numbers.css' },
         { dest: 'dew/fonts.css', src: '../../../styles/dew/fonts.css' },
+        { dest: 'dew/overrides.css', src: '../../../styles/dew/overrides.css' },
       ],
     },
     {
@@ -64,6 +65,10 @@ export const config: Config = {
         {
           dest: '../../dew/fonts.css',
           src: '../../../styles/dew/fonts.css',
+        },
+        {
+          dest: '../../dew/overrides.css',
+          src: '../../../styles/dew/overrides.css',
         },
       ],
     },
