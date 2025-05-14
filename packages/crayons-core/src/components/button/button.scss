@@ -154,14 +154,6 @@ $input-height-mini: 16px;
     background-image: none;
   }
 
-  &:focus:not([disabled]):not(:hover) {
-    border-color: $btn-focus-border;
-  }
-
-  &:hover:not([disabled]):not(:focus) {
-    border-color: var(--color-fill-semantic-info-bold, $btn-primary-bg-dark);
-  }
-
   &.disabled,
   &[disabled] {
     background-image: $btn-primary-gradient-disabled;
@@ -183,7 +175,7 @@ $input-height-mini: 16px;
     &:hover:not([disabled]) {
       background-color: var(
         --color-fill-semantic-info-bold,
-        $btn-primary-bg-dark
+        var(--fw-button-hover-background-color, $btn-primary-bg-dark)
       );
       background-image: none;
     }
@@ -221,21 +213,19 @@ $input-height-mini: 16px;
     }
 
     &:hover:not([disabled]) {
-      --fw-button-hover-background-color: var(--color-fill-container);
       background-color: var(
-        --fw-button-hover-background-color,
-        $btn-secondary-bg-dark
+        --color-fill-container,
+        var(--fw-button-hover-background-color, $btn-secondary-bg-dark)
       );
       background-image: none;
     }
 
     &:focus:not([disabled]) {
-      --fw-button-hover-background-color: var(--color-fill-surface);
       border-color: var(--color-boundary-brand, $btn-focus-border);
       background-image: none;
       background-color: var(
-        --fw-button-hover-background-color,
-        $btn-secondary-bg-dark
+        --color-fill-surface,
+        var(--fw-button-hover-background-color, $btn-secondary-bg-dark)
       );
     }
 
@@ -255,22 +245,18 @@ $input-height-mini: 16px;
     background-image: $btn-danger-gradient;
 
     &:hover:not([disabled]) {
-      --fw-button-hover-background-color: var(
-        --color-fill-semantic-error-bolder
-      );
       background-color: var(
-        --fw-button-hover-background-color,
-        $btn-danger-bg-dark
+        --color-fill-semantic-error-bolder,
+        var(--fw-button-hover-background-color, $btn-danger-bg-dark)
       );
       background-image: none;
     }
 
     &:focus:not([disabled]) {
-      --fw-button-hover-background-color: var(--color-fill-semantic-error-bold);
       border-color: var(--color-boundary-brand, $btn-focus-border);
       background-color: var(
-        --fw-button-hover-background-color,
-        $btn-danger-bg-dark
+        --color-fill-semantic-error-bold,
+        var(--fw-button-hover-background-color, $btn-danger-bg-dark)
       );
       background-image: none;
     }
