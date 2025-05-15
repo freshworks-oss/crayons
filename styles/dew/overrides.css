@@ -1,15 +1,18 @@
 :root.dew-light-theme {
   --gradient-fill: none;
+  --border-none: none;
 }
 
 :root.dew-dark-theme {
   --gradient-fill: none;
+  --border-none: none;
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root.dew-system-theme {
     --gradient-fill: none;
+    --border-none: none;
     color-scheme: dark;
   }
 }

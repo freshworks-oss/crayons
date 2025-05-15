@@ -10,12 +10,6 @@ import {
   h,
 } from '@stencil/core';
 import { handleKeyDown } from '../../utils';
-const iconColorMap = {
-  error: '#e43538',
-  warning: '#f48928',
-  info: '#2c5cc5',
-  success: '#00a886',
-};
 
 /**
  * @parent toast
@@ -168,12 +162,7 @@ export class ToastMessage {
             {this.type === 'inprogress' ? (
               <fw-spinner class='icon'></fw-spinner>
             ) : (
-              <fw-icon
-                class='icon'
-                size={this.iconSize}
-                name={this.type}
-                color={iconColorMap[this.type]}
-              />
+              <fw-icon class='icon' size={this.iconSize} name={this.type} />
             )}
 
             <div class='content'>
@@ -199,7 +188,6 @@ export class ToastMessage {
               size={10}
               name='cross'
               class='remove'
-              color='#183247'
               onClick={() => this.closeToast()}
               library='system'
             ></fw-icon>
