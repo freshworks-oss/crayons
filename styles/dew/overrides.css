@@ -1,11 +1,13 @@
 :root.dew-light-theme {
   --gradient-fill: none;
   --border-none: none;
+  --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
 }
 
 :root.dew-dark-theme {
   --gradient-fill: none;
   --border-none: none;
+  --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
   color-scheme: dark;
 }
 
@@ -13,6 +15,7 @@
   :root.dew-system-theme {
     --gradient-fill: none;
     --border-none: none;
+    --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
     color-scheme: dark;
   }
 }
