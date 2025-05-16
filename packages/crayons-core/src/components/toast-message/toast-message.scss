@@ -63,7 +63,7 @@
   place-content: center;
 
   .content {
-    color: $color-elephant-900;
+    color: var(--color-text-primary, $color-elephant-900);
     line-height: 20px;
     flex: 1 1 auto;
     font-size: $font-size-14;

@@ -2,12 +2,14 @@
   --gradient-fill: none;
   --border-none: none;
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
+  --stroke-width: 4;
 }
 
 :root.dew-dark-theme {
   --gradient-fill: none;
   --border-none: none;
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
+  --stroke-width: 4;
   color-scheme: dark;
 }
 
@@ -16,6 +18,7 @@
     --gradient-fill: none;
     --border-none: none;
     --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
+    --stroke-width: 4;
     color-scheme: dark;
   }
 }
