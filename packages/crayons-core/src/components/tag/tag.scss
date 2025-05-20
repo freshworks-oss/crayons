@@ -2,24 +2,25 @@
   min-width: inherit;
   display: inline-flex;
   align-items: center;
-  color: $color-elephant-900;
+  color: var(--color-text-primary, $color-elephant-900);
   font-size: $font-size-12;
   word-break: break-all;
 
   &:hover {
-    outline: 1px solid $color-smoke-200;
+    outline: 1px solid var(--color-boundary-border-mild, $color-smoke-200);
   }
 
   &:focus {
-    outline: 2px solid $color-azure-800;
+    outline: 2px solid var(--color-boundary-semantic-info, $color-azure-800);
   }
 
   &.disabled {
     outline: 0px !important;
+    color: var(--color-text-disabled, $color-elephant-900);
   }
 
   &.focused {
-    outline: 2px solid $color-azure-800 !important;
+    outline: 2px solid var(--color-boundary-semantic-info, $color-azure-800) !important;
   }
 
   &.transparent {
@@ -33,15 +34,19 @@
   }
 
   &.error {
-    outline: 1px solid $color-persimmon-900;
-    background: $color-persimmon-50 !important;
+    outline: 1px solid
+      var(--color-boundary-semantic-error, $color-persimmon-900);
+    background: var(
+      --color-fill-semantic-error-mildest,
+      $color-persimmon-50
+    ) !important;
 
     &:hover {
       background: $color-persimmon-100 !important;
     }
 
     &:focus {
-      outline: 2px solid $color-azure-800;
+      outline: 2px solid var(--color-boundary-semantic-info, $color-azure-800);
     }
   }
 
@@ -78,15 +83,19 @@
     padding-block-end: 2px;
     padding-inline-end: 2px;
     padding-block-start: 2px;
-    border-radius: 4px;
+    border-radius: var(--border-radius-xsmall, 4px);
     font-weight: 600;
-    background-color: $color-smoke-50;
+    background-color: var(--color-fill-base, $color-smoke-50);
   }
 
   &-avatar {
     padding: 4px;
-    border-radius: 24px;
-    background: linear-gradient(180deg, $color-smoke-25 2.56%, #f3f5f7 95.75%);
+    border-radius: var(--border-radius-circular, 24px);
+    background: var(
+      --color-fill-container,
+      linear-gradient(180deg, $color-smoke-25 2.56%, #f3f5f7 95.75%)
+    );
+    font-size: var(--font-size-14, 12px);
 
     fw-avatar {
       margin-inline-end: 8px;
@@ -98,7 +107,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: $color-elephant-800;
+    color: var(--color-icon-primary, $color-elephant-800);
     font-size: $font-size-16;
 
     &.standard {
@@ -114,7 +123,7 @@
 
       &:hover,
       &:focus {
-        background-color: $color-milk;
+        background-color: var(--color-fill-surface, $color-milk);
         cursor: pointer;
       }
     }
@@ -126,9 +135,10 @@
     }
 
     &.disabled {
-      color: $color-elephant-600;
+      color: var(--color-icon-disabled, $color-elephant-600);
       background-color: $color-smoke-50;
       cursor: not-allowed;
+      --fw-icon-color: var(--color-icon-disabled, #12344d);
     }
   }
 }
