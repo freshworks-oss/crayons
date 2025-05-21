@@ -5,11 +5,17 @@
 */
 .accordion {
   box-shadow: var(
-    --fw-accordion-box-shadow,
-    0px 1px 4px rgba(18, 52, 77, 0.08)
+    --shadow-xs,
+    var(--fw-accordion-box-shadow, 0px 1px 4px rgba(18, 52, 77, 0.08))
   );
-  border: var(--fw-accordion-border, 1px solid $app-border-primary);
-  border-radius: var(--fw-accordion-border-radius, 8px);
+  border: var(
+    --border-accordion,
+    var(--fw-accordion-border, 1px solid $app-border-primary)
+  );
+  border-radius: var(
+    --border-radius-medium,
+    var(--fw-accordion-border-radius, 8px)
+  );
 
   &.no-bounding-box {
     border-inline-start: 0;
