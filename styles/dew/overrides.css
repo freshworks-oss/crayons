@@ -1,4 +1,23 @@
 :root.dew-light-theme {
+  --border-width-large: 2px;
+  --border-width-small: 1px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-24: 24px;
+  --font-size-32: 32px;
+  --font-size-44: 44px;
+  --line-height-16: 16px;
+  --line-height-20: 20px;
+  --line-height-24: 24px;
+  --line-height-28: 28px;
+  --line-height-36: 36px;
+  --line-height-48: 48px;
+  --line-height-64: 64px;
   --gradient-fill: none;
   --border-none: none;
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
@@ -7,6 +26,25 @@
 }
 
 :root.dew-dark-theme {
+  --border-width-large: 2px;
+  --border-width-small: 1px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-24: 24px;
+  --font-size-32: 32px;
+  --font-size-44: 44px;
+  --line-height-16: 16px;
+  --line-height-20: 20px;
+  --line-height-24: 24px;
+  --line-height-28: 28px;
+  --line-height-36: 36px;
+  --line-height-48: 48px;
+  --line-height-64: 64px;
   --gradient-fill: none;
   --border-none: none;
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
@@ -17,6 +55,25 @@
 
 @media (prefers-color-scheme: dark) {
   :root.dew-system-theme {
+    --border-width-large: 2px;
+    --border-width-small: 1px;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semi-bold: 600;
+    --font-size-12: 12px;
+    --font-size-14: 14px;
+    --font-size-16: 16px;
+    --font-size-18: 18px;
+    --font-size-24: 24px;
+    --font-size-32: 32px;
+    --font-size-44: 44px;
+    --line-height-16: 16px;
+    --line-height-20: 20px;
+    --line-height-24: 24px;
+    --line-height-28: 28px;
+    --line-height-36: 36px;
+    --line-height-48: 48px;
+    --line-height-64: 64px;
     --gradient-fill: none;
     --border-none: none;
     --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);

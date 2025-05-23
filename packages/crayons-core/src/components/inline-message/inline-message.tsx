@@ -17,13 +17,6 @@ const iconMap = {
   success: 'success',
 };
 
-const iconColorMap = {
-  error: '#e43538',
-  warning: '#c7502f',
-  info: '#264966',
-  success: '#00795b',
-};
-
 @Component({
   tag: 'fw-inline-message',
   styleUrl: 'inline-message.scss',
@@ -135,11 +128,7 @@ export class InlineMessage {
       <Host role='alert' aria-hidden={this.open ? 'false' : 'true'}>
         <div class={'alert ' + 'alert--' + this.type}>
           <span class='alert__icon'>
-            <fw-icon
-              size={16}
-              name={iconMap[this.type]}
-              color={iconColorMap[this.type]}
-            ></fw-icon>
+            <fw-icon size={16} name={iconMap[this.type]}></fw-icon>
           </span>
           <span class='alert__message'>
             <slot />
@@ -152,12 +141,7 @@ export class InlineMessage {
               onKeyUp={(e) => this.handleKeyUp(e)}
               onClick={() => this.handleClose()}
             >
-              <fw-icon
-                name='cross'
-                color='#12344d'
-                size={8}
-                library='system'
-              ></fw-icon>
+              <fw-icon name='cross' size={8} library='system'></fw-icon>
             </span>
           )}
         </div>

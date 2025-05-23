@@ -6,45 +6,57 @@
   position: relative;
   display: flex;
   width: 100%;
-  border-radius: $radius;
+  border-radius: var(--border-radius-medium, $radius);
   box-sizing: border-box;
   margin: inherit;
   padding: 8px;
   background-color: transparent;
 
   &--success {
-    background: $bg-success;
-    border: 1px solid $border-success-color;
+    background: var(--color-fill-semantic-success-mildest, $bg-success);
+    border: 1px solid
+      var(--color-boundary-semantic-success-mild, $border-success-color);
+    --fw-icon-color: var(--color-icon-semantic-success, #00795b);
 
     .alert__message {
-      border-inline-start: 1px solid $border-success-color;
+      border-inline-start: 1px solid
+        var(--color-boundary-semantic-success-mild, $border-success-color);
     }
   }
 
   &--warning {
-    background: $bg-warning;
-    border: 1px solid $border-warning-color;
+    background: var(--color-fill-semantic-warning-mildest, $bg-warning);
+    border: 1px solid
+      var(--color-boundary-semantic-warning-mild, $border-warning-color);
+    --fw-icon-color: var(--color-icon-semantic-warning, #c7502f);
 
     .alert__message {
-      border-inline-start: 1px solid $border-warning-color;
+      border-inline-start: 1px solid
+        var(--color-boundary-semantic-warning-mild, $border-warning-color);
     }
   }
 
   &--info {
-    background: $bg-info;
-    border: 1px solid $border-info-color;
+    background: var(--color-fill-semantic-info-mildest, $bg-info);
+    border: 1px solid
+      var(--color-boundary-semantic-info-mild, $border-info-color);
+    --fw-icon-color: var(--color-icon-semantic-info, #264966);
 
     .alert__message {
-      border-inline-start: 1px solid $border-info-color;
+      border-inline-start: 1px solid
+        var(--color-boundary-semantic-info-mild, $border-info-color);
     }
   }
 
   &--error {
-    border: 1px solid $border-danger-color;
-    background: $bg-danger;
+    border: 1px solid
+      var(--color-boundary-semantic-error-mild, $border-danger-color);
+    background: var(--color-fill-semantic-error-mildest, $bg-danger);
+    --fw-icon-color: var(--color-icon-semantic-error, #e43538);
 
     .alert__message {
-      border-inline-start: 1px solid $border-danger-color;
+      border-inline-start: 1px solid
+        var(--color-boundary-semantic-error-mild, $border-danger-color);
     }
   }
 
@@ -59,14 +71,14 @@
   &__message {
     padding-inline-start: 12px;
     flex: 1 1 auto;
-    color: $color-elephant-900;
+    color: var(--color-text-primary, $color-elephant-900);
     font-size: $font-size-14;
-    font-weight: $font-weight-400;
+    font-weight: var(--font-weight-medium, $font-weight-400);
     line-height: 20px;
 
     ::slotted(a) {
       font-weight: $font-weight-500;
-      color: #365dbe;
+      color: var(--color-text-brand, #365dbe);
       text-decoration: none;
     }
   }
@@ -80,5 +92,6 @@
     margin-inline-start: 8px;
     box-sizing: border-box;
     cursor: pointer;
+    --fw-icon-color: var(--color-icon-primary, #12344d);
   }
 }
