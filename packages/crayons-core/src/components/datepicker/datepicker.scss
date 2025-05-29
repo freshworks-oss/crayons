@@ -133,8 +133,8 @@
   display: block;
   width: 6px;
   height: 6px;
-  border-inline-start: 2px solid $app-primary-black;
-  border-block-end: 2px solid $app-primary-black;
+  border-inline-start: 2px solid var(--color-icon-primary, $app-primary-black);
+  border-block-end: 2px solid var(--color-icon-primary, $app-primary-black);
   position: absolute;
 }
 
@@ -235,10 +235,10 @@
 .cch-name {
   width: 14.285%;
   height: 30px;
-  line-height: 30px;
-  font-weight: 700;
-  color: $color-smoke-700;
-  font-size: 13px;
+  line-height: var(-line-height-20, 30px);
+  font-weight: var(--font-weight-semi-bold, 700);
+  color: var(--color-text-secondary, $color-smoke-700);
+  font-size: var(--font-size-12, 13px);
   text-align: center;
 }
 
@@ -277,9 +277,9 @@
   inset-inline-start: 50%;
   inset-block-start: 50%;
   font-weight: 400;
-  border-radius: 10%;
+  border-radius: var(--border-radius-medium, 10%);
   line-height: 20px;
-  color: #12344d;
+  color: var(--color-text-primary, #12344d);
 }
 
 .c-day-container.disabled {
@@ -321,20 +321,25 @@
   align-items: center;
   justify-content: center;
   background-color: $color-smoke-50;
+  --fw-icon-color: var(--color-icon-primary, $color-elephant-900);
+
+  &.error {
+    --fw-icon-color: #d72d30;
+  }
 }
 
 .c-day-container.disabled .cdc-day span {
-  color: $color-smoke-300;
+  color: var(--color-text-disabled, $color-smoke-300);
   background: $color-milk !important;
 }
 
 .c-day-container.highlight:not(.disabled) .cdc-day span {
-  border: 1px solid $color-smoke-100;
+  border: 1px solid var(--color-boundary-border-mild, $color-smoke-100);
 }
 
 .c-day-container.highlight-blue:not(.disabled) .cdc-day span {
-  background: $color-azure-800;
-  color: $color-smoke-25;
+  background: var(--color-fill-brand, $color-azure-800);
+  color: var(--color-text-inverse, $color-smoke-25);
 }
 
 .c-day-container.start-day {
@@ -358,7 +363,7 @@
 }
 
 .c-day-container.highlight-range:not(.disabled) .cdc-day {
-  background: #e4f2fd;
+  background: var(--color-fill-semantic-info-mildest, #e4f2fd);
 }
 
 .time-container {
@@ -382,8 +387,9 @@
 
   span {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: var(--font-weight-regular, 500);
     line-height: 20px;
+    color: var(--color-text-seondary, $color-elephant-900);
   }
 }
 

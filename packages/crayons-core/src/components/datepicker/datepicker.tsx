@@ -1946,12 +1946,11 @@ export class Datepicker {
                       this.state === 'error' ? '#d72d30' : '#ebeff3',
                   }}
                 ></div>
-                <span class='date-icon'>
+                <span
+                  class={`date-icon ${this.state === 'error' ? ' error' : ''}`}
+                >
                   <fw-icon
                     name={this.showTimePicker ? 'calendar-time' : 'calendar'}
-                    style={{
-                      '--fw-icon-color': this.state === 'error' && '#d72d30',
-                    }}
                   ></fw-icon>
                 </span>
               </div>
