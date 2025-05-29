@@ -22,14 +22,14 @@
   border-radius: 4px;
 
   &--blue {
-    background-color: var(--color-text-semantic-info-mildest, $color-azure-50);
+    background-color: var(--color-fill-semantic-info-mildest, $color-azure-50);
     color: var(--color-text-semantic-info, $color-azure-800);
     border: var(--border-none, 1px solid $color-azure-100);
   }
 
   &--red {
     background-color: var(
-      --color-text-semantic-error-mildest,
+      --color-fill-semantic-error-mildest,
       $color-persimmon-50
     );
     color: var(--color-text-semantic-error, $color-persimmon-800);
@@ -38,7 +38,7 @@
 
   &--green {
     background-color: var(
-      --color-text-semantic-success-mildest,
+      --color-fill-semantic-success-mildest,
       $color-jungle-50
     );
     color: var(--color-text-semantic-success, $color-jungle-800);
@@ -47,7 +47,7 @@
 
   &--yellow {
     background-color: var(
-      --color-text-semantic-warning-mildest,
+      --color-fill-semantic-warning-mildest,
       $color-casablanca-50
     );
     color: var(--color-text-semantic-warning, $color-casablanca-700);

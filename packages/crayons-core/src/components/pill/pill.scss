@@ -44,47 +44,62 @@
   }
 
   &--blue {
-    background-color: $color-azure-50;
-    color: $color-azure-800;
+    background-color: var(--color-fill-semantic-info-mildest, $color-azure-50);
+    color: var(--color-text-semantic-info, $color-azure-800);
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-azure-800};
+      --fw-icon-color: var(--color-text-semantic-info, #{$color-azure-800});
     }
   }
 
   &--red {
-    background-color: $color-persimmon-50;
-    color: $color-persimmon-800;
+    background-color: var(
+      --color-fill-semantic-error-mildest,
+      $color-persimmon-50
+    );
+    color: var(--color-text-semantic-error, $color-persimmon-800);
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-persimmon-800};
+      --fw-icon-color: var(
+        --color-icon-semantic-error,
+        #{$color-persimmon-800}
+      );
     }
   }
 
   &--green {
-    background-color: $color-jungle-50;
-    color: $color-jungle-800;
+    background-color: var(
+      --color-fill-semantic-success-mildest,
+      $color-jungle-50
+    );
+    color: var(--color-text-semantic-success, $color-jungle-800);
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-jungle-800};
+      --fw-icon-color: var(--color-icon-semantic-success, #{$color-jungle-800});
     }
   }
 
   &--yellow {
-    background-color: $color-casablanca-50;
-    color: $color-casablanca-700;
+    background-color: var(
+      --color-fill-semantic-warning-mildest,
+      $color-casablanca-50
+    );
+    color: var(--color-text-semantic-warning, $color-casablanca-700);
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-casablanca-700};
+      --fw-icon-color: var(
+        --color-icon-semantic-warning,
+        #{$color-casablanca-700}
+      );
     }
   }
 
   &--grey {
-    background-color: $color-smoke-50;
-    color: $color-smoke-700;
+    background-color: var(--color-fill-base, $color-smoke-50);
+    color: var(--color-text-secondary, $color-smoke-700);
 
     ::slotted(fw-icon) {
-      --fw-icon-color: #{$color-smoke-700};
+      --fw-icon-color: var(--color-icon-secondary, #{$color-smoke-700});
     }
   }
 }

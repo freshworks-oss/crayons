@@ -3,12 +3,12 @@
 }
 
 .tooltip {
-  color: $color-milk;
-  background: $color-elephant-900;
-  border-radius: 4px;
+  color: var(--color-text-inverse, $color-milk);
+  background: var(--color-fill-neutral, $color-elephant-900);
+  border-radius: var(--border-radius-medium, 4px);
   font-size: 12px;
-  font-weight: 600;
-  line-height: 18px;
+  font-weight: var(--font-weight-regular, 600);
+  line-height: var(--line-height-20, 18px);
   padding-inline: 8px;
   padding-block: 6px;
   max-width: 236px;
