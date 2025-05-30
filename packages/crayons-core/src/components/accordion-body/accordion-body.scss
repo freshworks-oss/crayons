@@ -7,14 +7,14 @@ $accordion-border-radius: var(--fw-accordion-border-radius, 8px);
   @prop --fw-accordion-body-padding: Accordion body padding
 */
 .accordion-body {
-  font-size: var(--font-size-14, var(--fw-accordion-body-font-size, 14px));
+  font-size: var(--fw-accordion-body-font-size, var(--font-size-14, 14px));
   line-height: var(
-    --line-height-20,
-    var(--fw-accordion-body-line-height, 18px)
+    --fw-accordion-body-line-height,
+    var(--line-height-20, 18px)
   );
   background-color: var(
-    --color-fill-surface,
-    var(--fw-accordion-body-background-color, #f5f7f9)
+    --fw-accordion-body-background-color,
+    var(--color-fill-surface, #f5f7f9)
   );
   // stylelint-disable
   padding: var(--fw-accordion-body-padding, 20px);
