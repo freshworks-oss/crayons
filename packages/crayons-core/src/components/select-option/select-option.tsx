@@ -148,12 +148,7 @@ export class SelectOption {
     const selectedIconContainer = !this.hideTick ? (
       <span class='selected-icon'>
         {this.selected && (
-          <fw-icon
-            name='check'
-            size={12}
-            color='#2C5CC5'
-            library='system'
-          ></fw-icon>
+          <fw-icon name='check' size={12} library='system'></fw-icon>
         )}
       </span>
     ) : null;

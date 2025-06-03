@@ -1,8 +1,8 @@
-$error-color: $app-error;
+$error-color: var(--color-text-semantic-error, $app-error);
 $input-color: $app-primary-black;
 $label-font: $font-stack-sans !default;
-$help-color: $muted-secondary;
-$warning-color: $color-casablanca-300;
+$help-color: var(--color-text-secondary, $muted-secondary);
+$warning-color: var(--color-text-semantic-warning, $color-casablanca-300);
 
 .field-control {
   position: relative;
@@ -13,8 +13,8 @@ $warning-color: $color-casablanca-300;
 .field-control-label {
   display: block;
   font-size: 12px;
-  color: var(--fw-label-color, $label-default);
-  font-weight: $font-weight-600;
+  color: var(--fw-label-color, var(--color-text-secondary, $label-default));
+  font-weight: var(--font-weight-regular, $font-weight-600);
   margin-block-end: 4px;
   padding-inline-start: 2px;
   line-height: 20px;
@@ -25,7 +25,7 @@ $warning-color: $color-casablanca-300;
     display: inline-block;
     inset-block-start: 2px;
     font-size: 14px;
-    color: $app-error;
+    color: $error-color;
     padding-inline-start: 2px;
     font-weight: $font-weight-bold;
   }
@@ -36,7 +36,7 @@ $warning-color: $color-casablanca-300;
 .field-control-hint-text {
   font-family: $label-font;
   font-size: 12px;
-  line-height: 20px;
+  line-height: var(--line-height-18, 20px);
   margin-block-start: 4px;
   margin-block-end: 0;
   color: var(--fw-hint-color, $help-color);
@@ -50,10 +50,10 @@ $warning-color: $color-casablanca-300;
 .field-control-error-text {
   font-family: $label-font;
   font-size: 12px;
-  line-height: 20px;
+  line-height: var(--line-height-18, 20px);
   margin-block-start: 4px;
   margin-block-end: 0;
-  color: var(--fw-error-color, $app-error);
+  color: var(--fw-error-color, $error-color);
   position: inherit;
   display: block;
   padding-inline-start: 2px;
@@ -64,7 +64,7 @@ $warning-color: $color-casablanca-300;
 .field-control-warning-text {
   font-family: $label-font;
   font-size: 12px;
-  line-height: 20px;
+  line-height: var(--line-height-18, 20px);
   margin-block-start: 4px;
   margin-block-end: 0;
   color: var(--fw-warning-color, $warning-color);

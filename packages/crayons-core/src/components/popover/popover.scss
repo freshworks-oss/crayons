@@ -18,13 +18,19 @@
   overflow-x: hidden;
   overscroll-behavior-y: contain;
   margin: 0px;
-  border-radius: var(--fw-popover-border-radius, 8px);
-  border: 1px solid $app-border-secondary;
+  border-radius: var(
+    --fw-popover-border-radius,
+    var(--border-radius-medium, 8px)
+  );
+  border: 1px solid var(--color-boundary-border-mildest, $app-border-secondary);
   position: absolute;
-  background: $popover-background;
+  background: var(--color-fill-surface, $popover-background);
   box-sizing: border-box;
   outline: none;
-  box-shadow: var(--fw-popover-box-shadow, -15px 20px 40px rgba(0, 0, 0, 0.04));
+  box-shadow: var(
+    --fw-popover-box-shadow,
+    var(--shadow-dropdown-list, -15px 20px 40px rgba(0, 0, 0, 0.04))
+  );
   user-select: none;
   transform: scale(0.01);
   transition: 150ms color, 150ms border, 150ms box-shadow;
