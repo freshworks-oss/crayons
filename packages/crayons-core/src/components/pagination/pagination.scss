@@ -4,13 +4,13 @@
 }
 
 .current-record {
-  color: $app-info-color;
+  color: var(--color-text-secondary, $app-info-color);
   margin-inline-start: 10px;
   margin-inline-end: 14px;
   line-height: 20px;
   font-size: 14px;
 
   .record {
-    font-weight: 700;
+    font-weight: var(--font-weight-regular, 700);
   }
 }

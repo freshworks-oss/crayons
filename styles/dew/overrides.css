@@ -23,6 +23,7 @@
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
   --stroke-width: 4;
   --border-accordion: 1px solid var(--color-boundary-border-mildest);
+  --box-shadow-none: none;
 }
 
 :root.dew-dark-theme {
@@ -50,6 +51,7 @@
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
   --stroke-width: 4;
   --border-accordion: 1px solid var(--color-boundary-border-mildest);
+  --box-shadow-none: none;
   color-scheme: dark;
 }
 
@@ -79,6 +81,7 @@
     --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
     --stroke-width: 4;
     --border-accordion: 1px solid var(--color-boundary-border-mildest);
+    --box-shadow-none: none;
     color-scheme: dark;
   }
 }
