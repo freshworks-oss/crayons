@@ -173,7 +173,7 @@
   }
 
   input:disabled + .slider {
-    opacity: 0.4;
+    opacity: var(--opacity-half, 0.4);
     cursor: not-allowed;
   }
 }
