@@ -109,6 +109,7 @@
     justify-content: center;
     color: var(--color-icon-primary, $color-elephant-800);
     font-size: $font-size-16;
+    --fw-icon-color: var(--color-icon-primary, #12344d);
 
     &.standard {
       min-height: 20px;
@@ -130,7 +131,7 @@
 
     &:hover,
     &:focus {
-      background-color: $color-smoke-100;
+      background-color: var(--color-fill-container, $color-smoke-100);
       cursor: pointer;
     }
 

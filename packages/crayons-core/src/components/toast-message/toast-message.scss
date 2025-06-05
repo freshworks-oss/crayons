@@ -20,9 +20,9 @@
   padding-block-end: 16px;
   padding-inline-end: 0px;
   padding-block-start: 0px;
-  border: 1px solid $color-smoke-50;
+  border: 1px solid var(--color-boundary-border-mildest, $color-smoke-50);
   border-radius: 4px;
-  background-color: $color-milk;
+  background-color: var(--color-fill-surface, $color-milk);
   margin-block-end: 16px;
   box-sizing: border-box;
   box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06),

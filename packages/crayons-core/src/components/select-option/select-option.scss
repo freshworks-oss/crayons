@@ -74,10 +74,13 @@ $bg-color-disabled: $color-smoke-25;
   }
   /* stylelint-enable */
   &.disabled {
-    color: $disabled-color;
+    color: var(--color-text-primary, $disabled-color);
     position: relative;
     cursor: not-allowed;
-    background-color: $bg-color-disabled;
+    background-color: var(
+      --color-fill-semantic-info-mildest,
+      $bg-color-disabled
+    );
   }
 
   .description {
