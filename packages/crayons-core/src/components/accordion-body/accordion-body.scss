@@ -1,4 +1,7 @@
-$accordion-border-radius: var(--fw-accordion-border-radius, 8px);
+$accordion-border-radius: var(
+  --fw-accordion-border-radius,
+  var(--border-radius-small, 8px)
+);
 
 /**
   @prop --fw-accordion-body-font-size: Accordion body font size
@@ -23,6 +26,7 @@ $accordion-border-radius: var(--fw-accordion-border-radius, 8px);
   border-end-end-radius: $accordion-border-radius;
   border-start-end-radius: 0;
   border-start-start-radius: 0;
+  color: var(--color-text-primary, $app-text-dark);
 
   &.collapsed {
     display: none;

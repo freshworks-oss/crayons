@@ -10,7 +10,7 @@
   );
   border: var(
     --fw-accordion-border,
-    var(--border-accordion, 1px solid $app-border-primary)
+    1px solid var(--color-boundary-border-mildest, $app-border-primary)
   );
   border-radius: var(
     --fw-accordion-border-radius,

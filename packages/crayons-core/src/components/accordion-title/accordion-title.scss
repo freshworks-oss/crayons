@@ -8,7 +8,10 @@
   @prop --fw-accordion-title-collapsed-icon-color: Accordion title collapsed icon color
 */
 
-$accordion-border-radius: var(--fw-accordion-border-radius, 8px);
+$accordion-border-radius: var(
+  --fw-accordion-border-radius,
+  var(--border-radius-small, 8px)
+);
 $accordion-title-icon-color: #475867;
 
 .accordion-header {

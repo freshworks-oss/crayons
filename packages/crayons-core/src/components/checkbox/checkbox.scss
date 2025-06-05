@@ -12,7 +12,7 @@
 }
 
 /* Focus event occurs on the root element */
-/* stylelint-disable-next-line a11y/no-outline-none -- currently on focus, 
+/* stylelint-disable-next-line a11y/no-outline-none -- currently on focus,
   outline is on checkbox. if we dont remove outline on host there will be a
   second outline wrapping label and description.
 */
@@ -49,12 +49,20 @@
       box-shadow: 0 0 0 var(--border-width-large, 5px)
         var(--color-boundary-border-milder, rgb(235, 239, 243));
     }
+
+    &.error::before {
+      border-color: var(--color-boundary-semantic-error, $color-azure-800);
+    }
   }
 
   input[type='checkbox'] {
     &:checked + label {
       &::before {
         border-color: var(--color-fill-brand, $color-azure-800);
+      }
+
+      &.error::before {
+        border-color: var(--color-boundary-semantic-error, $color-azure-800);
       }
     }
   }
@@ -194,6 +202,11 @@ input[type='checkbox'] {
       background: var(--color-fill-brand, $checkbox-checked-color);
       border-color: var(--color-fill-brand, $checkbox-checked-color);
       box-shadow: none;
+    }
+
+    &.error::before {
+      background: var(--color-fill-semantic-error, $checkbox-checked-color);
+      border-color: var(--color-boundary-semantic-error, $color-azure-800);
     }
 
     .after {
