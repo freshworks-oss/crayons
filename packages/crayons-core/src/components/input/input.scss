@@ -8,17 +8,17 @@
 
 @import '../../function-components/field-control.scss';
 
-$label-font: $font-stack-sans !default;
-$placeholder-color: $color-smoke-300;
+$label-font: var(--base-font-family, $font-stack-sans) !default;
+$placeholder-color: var(--color-text-placeholder, $color-smoke-300);
 $help-color: $muted-secondary;
-$disabled-color: $input-disabled-color;
-$error-color: $app-error;
-$input-border: #cfd7df;
-$input-hover-color: #475867;
-$input-focus-color: #2c5cc5;
-$input-bg: #fff;
-$input-color: $app-primary-black;
-$warning-color: $color-casablanca-300;
+$disabled-color: var(--color-text-primary, $input-disabled-color);
+$error-color: var(--color-boundary-semantic-error, $app-error);
+$input-border: var(--color-boundary-border-milder, #cfd7df);
+$input-hover-color: var(--color-boundary-border, #475867);
+$input-focus-color: var(--color-boundary-brand, #2c5cc5);
+$input-bg: var(--color-fill-surface, #fff);
+$input-color: var(--color-text-primary, $app-primary-black);
+$warning-color: var(--color-boundary-semantic-warning, $color-casablanca-300);
 
 *,
 ::after,
@@ -71,8 +71,11 @@ $warning-color: $color-casablanca-300;
   width: 100%;
   position: relative;
   border: 1px solid $input-border;
-  background-color: $app-light-bg;
-  border-radius: var(--fw-input-border-radius, 4px);
+  background-color: var(--color-fill-surface, $app-light-bg);
+  border-radius: var(
+    --fw-input-border-radius,
+    var(--border-radius-medium, 4px)
+  );
   transition: border 0.3s ease;
 
   &.error {
@@ -103,8 +106,8 @@ $warning-color: $color-casablanca-300;
         outline: none;
         box-shadow: none;
         min-height: 24px;
-        font-size: $font-size-14;
-        font-weight: $font-weight-semibold;
+        font-size: var(--font-size-12, $font-size-14);
+        font-weight: var(--font-weight-medium, $font-weight-semibold);
         letter-spacing: 0;
         line-height: 20px;
         color: $input-color;
@@ -114,9 +117,9 @@ $warning-color: $color-casablanca-300;
         font-family: inherit;
 
         &[disabled] {
-          font-weight: $font-weight-default;
+          font-weight: var(--font-weight-medium, $font-weight-default);
           color: $disabled-color;
-          background-color: $input-disabled-bg;
+          background-color: var(--color-fill-container, $input-disabled-bg);
           pointer-events: none;
         }
 
@@ -131,6 +134,7 @@ $warning-color: $color-casablanca-300;
       align-items: center;
       flex: 0 1 auto;
       margin-inline-start: 4px;
+      --fw-icon-color: var(--color-icon-primary, $app-icon-color);
 
       &.hasContent {
         margin-inline-start: 8px;
@@ -160,10 +164,10 @@ $warning-color: $color-casablanca-300;
   }
 
   &.disabled {
-    font-weight: $font-weight-default;
+    font-weight: var(--font-weight-medium, $font-weight-default);
     color: $disabled-color;
-    border: 1px solid $color-smoke-50;
-    background-color: $input-disabled-bg;
+    border: 1px solid var(--color-boundary-border-mild, $color-smoke-50);
+    background-color: var(--color-fill-container, $input-disabled-bg);
     border-style: solid;
     cursor: not-allowed;
   }
@@ -175,6 +179,7 @@ $warning-color: $color-casablanca-300;
     justify-content: center;
     height: 16px;
     width: 16px;
+    --fw-icon-color: var(--color-icon-primary, $app-icon-color);
 
     &:hover,
     &:focus {

@@ -295,6 +295,7 @@
     cursor: pointer;
     margin-block-start: 4px;
     margin-inline-start: 4px;
+    --fw-icon-color: var(--color-icon-semantic-error, #d72d30);
   }
 }
 
@@ -310,6 +311,14 @@
     height: 20px;
     margin-inline: 4px;
     margin-block: 0px;
+    border-inline-start-color: var(
+      --color-boundary-border-milder,
+      $color-smoke-50
+    );
+
+    &.error {
+      border-inline-start-color: var(--color-boundary-semantic-error, #d72d30);
+    }
   }
 }
 
@@ -320,11 +329,11 @@
   border-radius: 4px;
   align-items: center;
   justify-content: center;
-  background-color: $color-smoke-50;
+  background-color: var(--color-fill-surface, $color-smoke-50);
   --fw-icon-color: var(--color-icon-primary, $color-elephant-900);
 
   &.error {
-    --fw-icon-color: #d72d30;
+    --fw-icon-color: var(--color-icon-semantic-error, #d72d30);
   }
 }
 

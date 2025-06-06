@@ -1642,7 +1642,7 @@ export class Datepicker {
           }
           hoist={this.hoistTooltip}
         >
-          <fw-icon name='alert' size={14} color='#d72d30'></fw-icon>
+          <fw-icon name='alert' size={14}></fw-icon>
         </fw-tooltip>
       </div>
     );
@@ -1940,11 +1940,7 @@ export class Datepicker {
                 this.renderInvalidAlert()}
               <div class='icon-calendar' slot='input-suffix'>
                 <div
-                  class='separator'
-                  style={{
-                    borderLeftColor:
-                      this.state === 'error' ? '#d72d30' : '#ebeff3',
-                  }}
+                  class={`separator ${this.state === 'error' ? ' error' : ''}`}
                 ></div>
                 <span
                   class={`date-icon ${this.state === 'error' ? ' error' : ''}`}

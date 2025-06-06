@@ -246,7 +246,7 @@ $disabled-color: $input-disabled-color;
     min-width: 20px;
     min-height: 20px;
     transition: all 0.15s;
-    --icon-color: var(--color-icon-primary, $color-elephant-800);
+    --fw-icon-color: var(--color-icon-primary, $color-elephant-800);
   }
 
   //Help Block
