@@ -22,9 +22,9 @@
   padding-inline: 8px;
   padding-block: 10px;
   line-height: 20px;
-  color: $color-smoke-700;
+  color: var(--color-text-secondary, $color-smoke-700);
   font-size: $font-size-14;
-  font-weight: $font-weight-400;
+  font-weight: var(--font-weight-medium, $font-weight-400);
   margin-inline: 4px;
   margin-block: 0;
 
@@ -39,9 +39,9 @@
 
   &.active:not(.disabled) {
     padding-block-end: 8px;
-    border-block-end: 2px solid $color-azure-800;
-    color: $color-azure-800;
-    font-weight: $font-weight-600;
+    border-block-end: 2px solid var(--color-boundary-brand, $color-azure-800);
+    color: var(--color-text-brand, $color-azure-800);
+    font-weight: var(--font-weight-medium, $font-weight-600);
   }
 
   &.disabled {
