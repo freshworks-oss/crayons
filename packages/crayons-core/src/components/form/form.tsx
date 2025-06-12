@@ -46,6 +46,8 @@ export class Form {
 
   private controls: any;
   private fields: any;
+  private isInternalUpdate = false;
+  private internalUpdateResetTimer: any;
 
   /**
    * Initial field values of the form. It is an object with keys pointing to field name
@@ -274,6 +276,9 @@ export class Form {
     this.el?.removeEventListener?.('fwBlur', this.handleBlurListener);
     this.el?.removeEventListener?.('fwInput', this.handleInputListener);
     this.el?.removeEventListener?.('fwChange', this.handleChangeListener);
+    if (this.internalUpdateResetTimer) {
+      clearTimeout(this.internalUpdateResetTimer);
+    }
   }
 
   handleSubmit = async (event: Event): Promise<FormSubmit> => {
@@ -384,22 +389,36 @@ export class Form {
 
     // reset for section fields when values changed
 
-    const previousfield = this.formSchema?.fields?.find(
-      (field) => field.name === name
-    );
-
-    if (previousfield && previousfield?.field_options?.has_sections) {
-      const selectedObj = previousfield?.choices?.find(
-        ({ id }) => id === this.values[name]
+    if (!this.isInternalUpdate) {
+      const previousfield = this.formSchema?.fields?.find(
+        (field) => field.name === name
       );
 
-      selectedObj?.dependent_ids?.field?.forEach((fieldId) => {
-        const fieldOptionName = previousfield?.fields.find(
-          ({ id }) => id === fieldId
-        )?.name;
+      if (previousfield && previousfield?.field_options?.has_sections) {
+        const selectedObj = previousfield?.choices?.find(
+          ({ id }) => id === this.values[name]
+        );
 
-        delete this.values[fieldOptionName];
-      });
+        selectedObj?.dependent_ids?.field?.forEach((fieldId) => {
+          const fieldOption = previousfield?.fields.find(
+            ({ id }) => id === fieldId
+          );
+
+          const isDependentField = fieldOption?.field_options?.dependent;
+
+          if (isDependentField) {
+            // If the field is dependent, we need to delete all the values of the dependent fields
+            let next = fieldOption;
+
+            while (next) {
+              delete this.values[next.name];
+              next = next.fields?.[0];
+            }
+          } else {
+            delete this.values[fieldOption?.name];
+          }
+        });
+      }
     }
 
     this.values = {
@@ -599,10 +618,14 @@ export class Form {
   @Method()
   async setFieldsValue(
     valuesObj: FormValues,
-    shouldValidate = true
+    shouldValidate = true,
+    isManualUpdate = false
   ): Promise<void> {
     if (!valuesObj) return;
 
+    if (isManualUpdate) {
+      this.isInternalUpdate = true;
+    }
     let newValues = { ...this.values };
     let newTouchedFields = { ...this.touched };
 
@@ -622,6 +645,13 @@ export class Form {
 
     if (shouldValidate) {
       await this.handleValidation();
+    }
+
+    if (isManualUpdate) {
+      // Adding a delay to ensure that handleInput is called before resetting the isInternalUpdate flag.
+      this.internalUpdateResetTimer = setTimeout(() => {
+        this.isInternalUpdate = false;
+      }, 1000);
     }
   }
 
