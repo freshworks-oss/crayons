@@ -63,7 +63,7 @@ $size-height-ratio: (
 }
 
 @mixin anchor {
-  color: $color-azure-800;
+  color: var(--color-text-brand, $color-azure-800);
   text-decoration: none;
   font-weight: 600;
 }

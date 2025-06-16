@@ -17,7 +17,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     text-align: center;
-    color: $color-azure-800;
+    color: var(--color-text-brand, $color-azure-800);
     white-space: nowrap;
     font-weight: $font-weight-600;
 

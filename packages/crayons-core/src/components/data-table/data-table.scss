@@ -3,13 +3,13 @@
 }
 
 div.fw-data-table-container {
-  $grid-header-bg: $color-smoke-25;
-  $grid-body-bg: $color-milk;
-  $grid-row-active: $color-azure-50;
-  $grid-row-border: $color-smoke-50;
+  $grid-header-bg: var(--color-fill-container, $color-smoke-25);
+  $grid-body-bg: var(--color-fill-surface, $color-milk);
+  $grid-row-active: var(--color-overlay-semantic-info, $color-azure-50);
+  $grid-row-border: var(--color-boundary-border-mildest, $color-smoke-50);
 
-  $grid-header-txt-color: $color-smoke-700;
-  $grid-row-txt-color: $color-elephant-900;
+  $grid-header-txt-color: var(--color-text-primary, $color-smoke-700);
+  $grid-row-txt-color: var(--color-text-primary, $color-elephant-900);
 
   $grid-header-txt-size: $font-size-12;
   $grid-row-txt-size: $font-size-14;
@@ -50,7 +50,7 @@ div.fw-data-table-container {
             font-size: $grid-header-txt-size;
             line-height: $grid-line-height;
             padding: $grid-density-md;
-            font-weight: 600;
+            font-weight: var(--font-weight-semi-bold, 600);
             letter-spacing: 0.2px;
             text-overflow: ellipsis;
             text-align: start;
