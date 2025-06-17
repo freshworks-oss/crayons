@@ -858,7 +858,7 @@ export namespace Components {
         /**
           * Method to set values on the form fields.  param: valuesObj - Object with key as form field name and value as the updated value for the field example: `{ first_name: "new name", last_name: "new last name" }` param: shouldValidate - should this form be validated with the updated values. Default to true.
          */
-        "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
+        "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean, isManualUpdate?: boolean) => Promise<void>;
         /**
           * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.  param: hiddenFields - key value pair of [fieldName]: true | false example: `setHiddenFields({ first_name: true, last_name: false })`
          */

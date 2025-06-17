@@ -3447,7 +3447,7 @@ Type: `Promise<void>`
 
 
 
-### `setFieldsValue(valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>`
+### `setFieldsValue(valuesObj: FormValues, shouldValidate?: boolean, isManualUpdate?: boolean) => Promise<void>`
 
 Method to set values on the form fields.
 
