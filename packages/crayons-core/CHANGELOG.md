@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-beta.28](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.27...@freshworks/crayons@4.3.0-beta.28) (2025-06-17)
+
+
+### Bug Fixes
+
+* **form.tsx:** skip resetting section fields when a flag is passed for setFieldsValue method ([bc639b2](https://github.com/freshworks/crayons/commit/bc639b2cbcc57d003aae28f72b418c8218717730))
+
+
+
+
+
 ## [4.3.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.26...@freshworks/crayons@4.3.0-beta.27) (2025-04-08)
 
 ### Bug Fixes
