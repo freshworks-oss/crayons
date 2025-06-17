@@ -84,7 +84,7 @@ export function createProgressLoaderContainer(
     style.id = 'fw-progress-bar-style';
     style.innerHTML = `
             .nprogress .bar {
-              background: var(--progress-loader-color,#2c5cc5);
+              background: var(--progress-loader-color,var(--color-fill-brand, #2c5cc5));
               position: fixed;
               z-index: 1031;
               top: 0;
