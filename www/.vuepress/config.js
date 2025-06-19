@@ -64,10 +64,7 @@ for (const wwwBuild of wwwBuilds) {
 
 headScripts.push(['script', { type: 'module', src: `/global/header.esm.js` }]);
 headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
-headScripts.push(['link', { rel: 'stylesheet', href: `/dew/colors.css` }]);
-headScripts.push(['link', { rel: 'stylesheet', href: `/dew/fonts.css` }]);
-headScripts.push(['link', { rel: 'stylesheet', href: `/dew/numbers.css` }]);
-headScripts.push(['link', { rel: 'stylesheet', href: `/dew/overrides.css` }]);
+headScripts.push(['link', { rel: 'stylesheet', href: `/css/dew-min.css` }]);
 
 const getUtils = () =>
   [
