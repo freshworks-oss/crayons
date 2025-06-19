@@ -20,6 +20,7 @@
   --line-height-64: 64px;
   --gradient-fill: none;
   --border-none: none;
+  --border-transparent: transparent;
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
   --stroke-width: 4;
   --box-shadow-none: none;
@@ -47,6 +48,7 @@
   --line-height-64: 64px;
   --gradient-fill: none;
   --border-none: none;
+  --border-transparent: transparent;
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
   --stroke-width: 4;
   --box-shadow-none: none;
@@ -76,6 +78,7 @@
     --line-height-64: 64px;
     --gradient-fill: none;
     --border-none: none;
+    --border-transparent: transparent;
     --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
     --stroke-width: 4;
     --box-shadow-none: none;

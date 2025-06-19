@@ -10,7 +10,7 @@
   inset-inline-start: 0;
   display: none;
   z-index: 990;
-  background-color: rgba(18, 52, 77, 0.5);
+  background-color: var(--color-overlay-backdrop-bold, rgba(18, 52, 77, 0.5));
   align-items: center;
   justify-content: center;
   transition: all 0.3s linear;
@@ -20,9 +20,9 @@
   position: relative;
   display: flex;
   max-height: 70vh;
-  background: $color-milk;
-  box-shadow: 0px 2px 18px rgba(18, 52, 77, 0.2);
-  border-radius: 4px;
+  background: var(--color-fill-surface, $color-milk);
+  box-shadow: var(--shadow-3xl, 0px 2px 18px rgba(18, 52, 77, 0.2));
+  border-radius: var(--border-radius-large, 4px);
   z-index: 999;
   animation: 'modal-entry' 0.5s 1;
 
@@ -49,7 +49,7 @@
     background-color: transparent;
     background-image: none;
     border: 1px solid transparent;
-    color: $color-elephant-800;
+    color: var(--color-icon-primary, $color-elephant-800);
     padding-inline: 6px;
     padding-block: 4px;
     min-width: 16px;
@@ -62,9 +62,9 @@
 
     &:hover,
     &:focus {
-      background-color: $color-smoke-50;
+      background-color: var(--color-fill-container, $color-smoke-50);
       border-radius: 4px;
-      border-color: $color-smoke-50;
+      border-color: var(--border-transparent, $color-smoke-50);
       cursor: pointer;
     }
   }
@@ -98,7 +98,7 @@
       box-sizing: border-box;
       inset-block-start: 0px;
       inset-inline-end: 600px;
-      background-color: $color-elephant-900;
+      background-color: var(--color-fill-neutral-bold, $color-elephant-900);
       border-end-start-radius: 2px;
       border-end-end-radius: 0px;
       border-start-end-radius: 0px;
@@ -111,12 +111,12 @@
       &:hover,
       &:focus,
       &:focus-visible {
-        background-color: $color-elephant-900;
+        background-color: var(--color-fill-neutral-bold, $color-elephant-900);
         border-end-start-radius: 2px;
         border-end-end-radius: 0px;
         border-start-end-radius: 0px;
         border-start-start-radius: 2px;
-        border-color: $color-elephant-900;
+        border-color: var(--color-fill-neutral-bold, $color-elephant-900);
         outline: 0px;
       }
 
@@ -129,6 +129,14 @@
       fw-icon {
         height: 12px;
         width: 12px;
+      }
+
+      &.slider-mode {
+        --fw-icon-color: var(--color-icon-inverse, #ffffff);
+      }
+
+      &.modal-mode {
+        --fw-icon-color: var(--color-icon-primary, #475867);
       }
     }
 
