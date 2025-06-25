@@ -3,21 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.27...@freshworks/crayons@4.3.0-dew.0) (2025-06-25)
-
+## [4.3.0-dew.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.27...@freshworks/crayons@4.3.0-dew.0) (2025-06-25)
 
 ### Bug Fixes
 
-* **button:** added button component styles ([65c90e2](https://github.com/freshworks/crayons/commit/65c90e2685f295e1d04f54551f9849bf017c21d8))
-
+- **button:** added button component styles ([65c90e2](https://github.com/freshworks/crayons/commit/65c90e2685f295e1d04f54551f9849bf017c21d8))
 
 ### Features
 
-* **crayons-core:** introduce Dew 2.0 theming for Crayons ([07dfa93](https://github.com/freshworks/crayons/commit/07dfa93fbe94cb2b1254ab092dfcd118ffbc433a))
-
-
-
-
+- **crayons-core:** introduce Dew 2.0 theming for Crayons ([07dfa93](https://github.com/freshworks/crayons/commit/07dfa93fbe94cb2b1254ab092dfcd118ffbc433a))
 
 ## [4.3.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.26...@freshworks/crayons@4.3.0-beta.27) (2025-04-08)
 
