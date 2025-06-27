@@ -46,7 +46,7 @@
     "build:dew:watch": "npx onchange '../../styles/dew/*.css' -- npm run build:dew",
     "build:mincss": "cleancss -b css/*.css css",
     "build:react": "tsc --project tsconfig-react.json",
-    "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive ../../styles/global/ -o css",
+    "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive ../../styles/global/ -o css && cat ../../styles/dew/overrides.css >> css/crayons.css",
     "build:styles": "npm run build:scss && npm run build:dew && npm run build:autoprefix && npm run build:mincss && npx copy css/crayons-min.css ../../www/.vuepress/public && npx copy css/dew-min.css ../../www/.vuepress/public",
     "build": "npm run add:react && npm run add:css && npm run build:components && npm run build:react && npm run build:styles",
     "clean:css": "rimraf css",

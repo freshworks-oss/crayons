@@ -67,8 +67,8 @@ $btn-danger-gradient-disabled: var(
   )
 );
 
-$btn-link-color: $color-azure-800;
-$btn-link-bg: $color-smoke-50;
+$btn-link-color: var(--color-text-brand, $color-azure-800);
+$btn-link-bg: var(--color-fill-container, $color-smoke-50);
 
 $active-box-shadow: var(
   --fw-button-active-box-shadow,
@@ -151,14 +151,6 @@ $input-height-mini: 16px;
   &:focus:not([disabled]) {
     background-color: var(--color-fill-brand, $btn-primary-bg-dark);
     background-image: none;
-  }
-
-  &.disabled,
-  &[disabled] {
-    background-image: $btn-primary-gradient-disabled;
-    border-color: $btn-primary-disabled-bg-dark;
-    color: var(--color-text-inverse, $btn-primary-disabled-color);
-    opacity: $btn-opacity;
   }
 
   &--primary {
@@ -280,15 +272,21 @@ $input-height-mini: 16px;
     background-color: transparent;
     background-image: none;
     border: 1px solid transparent;
-    color: $btn-primary-bg;
+    color: var(--color-text-primary, $color-elephant-800);
   }
 
   &--text,
   &--link {
     &:focus:not([disabled]) {
-      border-color: var(--fw-button--lg-focus-border, $btn-lg-focus-border);
+      border-color: var(
+        --fw-button--lg-focus-border,
+        var(--color-boundary-brand, $btn-lg-focus-border)
+      );
       box-shadow: 0 0 0 1px
-        var(--fw-button--lg-focus-border, $btn-lg-focus-border);
+        var(
+          --fw-button--lg-focus-border,
+          var(--color-boundary-brand, $btn-lg-focus-border)
+        );
       background-color: transparent;
     }
 
@@ -298,7 +296,8 @@ $input-height-mini: 16px;
 
     &.disabled,
     &[disabled] {
-      opacity: 0.5;
+      opacity: var(--opacity-half, 0.5);
+      border-color: var(--color-boundary-border-mildest, transparent);
     }
   }
 
