@@ -98,6 +98,7 @@ $warning-color: var(--color-boundary-semantic-warning, $color-casablanca-300);
       margin-inline-start: 8px;
 
       input {
+        background: var(--color-fill-surface, $color-milk);
         width: 100%;
         padding-inline: 0px;
         padding-block: 5px;
