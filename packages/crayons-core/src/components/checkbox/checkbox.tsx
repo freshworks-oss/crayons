@@ -25,7 +25,11 @@ export class Checkbox {
    */
   @Prop({ mutable: true, reflect: true }) checked = false;
   /**
-   * Disables the check box on the interface. If the attribute’s value is undefined, the value is set to false.
+   * Sets the state of the check box to partially selected (neither checked nor unchecked). If the attribute's value is undefined, the value is set to false.
+   */
+  @Prop({ mutable: true, reflect: true }) indeterminate = false;
+  /**
+   * Disables the check box on the interface. If the attribute's value is undefined, the value is set to false.
    */
   @Prop({ mutable: true, reflect: true }) disabled = false;
   /**
@@ -93,11 +97,21 @@ export class Checkbox {
   componentDidLoad() {
     this.checkbox.checked = this.checked;
     this.checkbox.disabled = this.disabled;
+    this.checkbox.indeterminate = this.indeterminate;
   }
 
   @Watch('checked')
   checkChanged(isChecked: boolean) {
     this.checkbox.checked = isChecked;
+  }
+
+  @Watch('indeterminate')
+  checkIndeterminate(isIndeterminate: boolean) {
+    this.checkbox.indeterminate = isIndeterminate;
+    if (isIndeterminate) {
+      this.checked = false;
+      this.checkbox.checked = false;
+    }
   }
 
   componentWillLoad() {
@@ -149,12 +163,16 @@ export class Checkbox {
 
   private toggle = (e: any) => {
     if (!this.disabled) {
+      if (this.indeterminate) {
+        this.indeterminate = false;
+        this.checkbox.indeterminate = false;
+      }
       this.checked = !this.checked;
       this.fwChange.emit({
         event: e,
         value: this.value,
         name: this.name,
-        meta: { checked: this.checked },
+        meta: { checked: this.checked, indeterminate: this.indeterminate },
       });
     }
   };
@@ -190,7 +208,9 @@ export class Checkbox {
         role='checkbox'
         tabIndex='0'
         aria-disabled={this.disabled ? 'true' : 'false'}
-        aria-checked={this.checked ? 'true' : 'false'}
+        aria-checked={
+          this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'
+        }
         aria-labelledby='label'
         aria-describedby={`description ${this.getAriaDescribedBy()}`}
         onClick={this.toggle}
@@ -223,10 +243,10 @@ export class Checkbox {
             ) : (
               ''
             )}
-            {this.checked && (
+            {(this.checked || this.indeterminate) && (
               <span class='after'>
                 <fw-icon
-                  name='check'
+                  name={this.indeterminate ? 'minus' : 'check'}
                   color={this.disabled ? '#92A2B1' : '#ffffff'}
                   size={8}
                 ></fw-icon>

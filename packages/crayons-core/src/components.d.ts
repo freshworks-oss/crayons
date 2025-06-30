@@ -123,6 +123,10 @@ export namespace Components {
          */
         "hintText": string;
         /**
+          * Sets the state of the check box to partially selected (neither checked nor unchecked). If the attribute's value is undefined, the value is set to false.
+         */
+        "indeterminate": boolean;
+        /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */
         "label": string;
@@ -3248,6 +3252,10 @@ declare namespace LocalJSX {
           * /**   Hint text displayed below the radio group.
          */
         "hintText"?: string;
+        /**
+          * Sets the state of the check box to partially selected (neither checked nor unchecked). If the attribute's value is undefined, the value is set to false.
+         */
+        "indeterminate"?: boolean;
         /**
           * @deprecated Use `description` instead. Label displayed on the interface, for the check box.
          */

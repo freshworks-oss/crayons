@@ -28,7 +28,7 @@
   input[type='checkbox'] {
     &:checked + label {
       &::before {
-        border: 1px solid #ffffff;
+        border: 1px solid var(--color-fill-surface, #ffffff);
       }
     }
   }
@@ -214,6 +214,23 @@ input[type='checkbox'] {
     }
   }
 
+  &:indeterminate + label {
+    &::before {
+      background: var(--color-fill-neutral, $checkbox-checked-color);
+      border-color: var(--color-fill-neutral, $checkbox-checked-color);
+      box-shadow: none;
+    }
+
+    &.error::before {
+      background: var(--color-fill-semantic-error, $checkbox-checked-color);
+      border-color: var(--color-boundary-semantic-error, $color-azure-800);
+    }
+
+    .after {
+      opacity: 1;
+    }
+  }
+
   &:checked:hover + label {
     &::before {
       border-color: var(--color-fill-brand, $color-azure-800);
@@ -239,10 +256,10 @@ input[type='checkbox'] {
 
   &[disabled] {
     & + label {
-      color: $color-smoke-300;
+      color: var(--color-text-primary, $color-smoke-300);
 
       .label-field {
-        color: $color-smoke-300;
+        color: var(--color-text-primary, $color-smoke-300);
       }
 
       &::before {
@@ -252,7 +269,7 @@ input[type='checkbox'] {
     }
 
     &:checked + label {
-      color: $color-smoke-300;
+      color: var(--color-text-primary, $color-smoke-300);
 
       &::before {
         background-color: var(--color-fill-base, $ticket-tag-background);
