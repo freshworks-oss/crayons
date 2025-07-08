@@ -12,8 +12,14 @@
   outline: none;
   overflow: hidden;
   position: relative;
-  background: var(--fw-skeleton-background, $color-smoke-100);
-  border-radius: var(--fw-skeleton-border-radius, 999px);
+  background: var(
+    --fw-skeleton-background,
+    var(--color-fill-base, $color-smoke-100)
+  );
+  border-radius: var(
+    --fw-skeleton-border-radius,
+    var(--border-radius-medium, 999px)
+  );
   width: var(--fw-skeleton-width, 100%);
   height: var(--fw-skeleton-height, 16px);
   display: block;
