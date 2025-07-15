@@ -204,9 +204,15 @@ Type: `Promise<void>`
 
  - [fw-form-control](../form-control)
 
+### Depends on
+
+- [fw-tooltip](../tooltip)
+
 ### Graph
 ```mermaid
 graph TD;
+  fw-textarea --> fw-tooltip
+  fw-tooltip --> fw-popover
   fw-form-control --> fw-textarea
   style fw-textarea fill:#f9f,stroke:#333,stroke-width:4px
 ```

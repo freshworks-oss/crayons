@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.0-beta.28](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.27...@freshworks/crayons@4.3.0-beta.28) (2025-06-17)
+
+### Bug Fixes
+
+- **form.tsx:** skip resetting section fields when a flag is passed for setFieldsValue method ([bc639b2](https://github.com/freshworks/crayons/commit/bc639b2cbcc57d003aae28f72b418c8218717730))
+
+## [4.3.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.26...@freshworks/crayons@4.3.0-beta.27) (2025-04-08)
+
+### Bug Fixes
+
+- **draggable.ts, drag-container.tsx, and form-builder.tsx:** fix bugs related to dep & msdd epic ([6529787](https://github.com/freshworks/crayons/commit/652978711b2cc0a4e19fcd4ce277bec650962f5d))
+- **form-builder:** include same container check in count logic ([7b57550](https://github.com/freshworks/crayons/commit/7b57550ed914fadcec7675209ec3a1e90d842b12))
+
+### BREAKING CHANGES
+
+- **draggable.ts, drag-container.tsx, and form-builder.tsx:** The logic for computing the count within sections is revised
+
+## [4.3.0-beta.26](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.25...@freshworks/crayons@4.3.0-beta.26) (2025-02-27)
+
+### Bug Fixes
+
+- added dependent changes ([191d7f1](https://github.com/freshworks/crayons/commit/191d7f15b08f58953558815055266d2dc4fb68ce))
+
+## [4.3.0-beta.23](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.22...@freshworks/crayons@4.3.0-beta.23) (2024-12-10)
+
+### Bug Fixes
+
+- added the error message for section inside section ([#959](https://github.com/freshworks/crayons/issues/959)) ([277a49f](https://github.com/freshworks/crayons/commit/277a49ff3ca19a659f84d914712448e83e5179a8))
+
+## [4.3.0-beta.22](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.21...@freshworks/crayons@4.3.0-beta.22) (2024-12-04)
+
+### Bug Fixes
+
+- unable to drag and drop fields on custom objects ([2c4228e](https://github.com/freshworks/crayons/commit/2c4228eeb309b6b6febec6953e89ea5738690ee4))
+
 ## [4.3.0-beta.21](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.20...@freshworks/crayons@4.3.0-beta.21) (2024-11-14)
 
 ### Bug Fixes

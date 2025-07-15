@@ -300,6 +300,7 @@ graph TD;
   fw-select --> fw-spinner
   fw-select --> fw-icon
   fw-select --> fw-list-options
+  fw-select --> fw-tooltip
   fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
@@ -313,6 +314,7 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
   fw-input --> fw-icon
+  fw-input --> fw-tooltip
   style fw-country-phone fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

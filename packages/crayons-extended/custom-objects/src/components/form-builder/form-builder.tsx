@@ -99,6 +99,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = true;
   /**
+   * flag to support dependentFields & Multi select dropdown within sections
+   */
+  @Prop({ mutable: true }) supportDependentAndMSDDInSections = false;
+  /**
    * link to show dependent field document
    */
   @Prop() dependentFieldLink = '';
@@ -305,10 +309,36 @@ export class FormBuilder {
                 label: arrFields[i1].label,
                 name: arrFields[i1].name,
                 fields: [arrFields[i1]],
+                field_options: arrFields[i1]?.field_options,
+                custom: arrFields[i1]?.custom,
               },
               internalNamePrefix
             );
             arrFields[i1] = checkAndAppendLevel3(arrFields[i1]);
+          }
+
+          if (arrFields[i1].field_options?.has_sections) {
+            for (let j1 = 0; j1 < arrFields[i1]?.fields.length; j1++) {
+              if (
+                arrFields[i1]?.fields[j1].field_options?.dependent === 'true'
+              ) {
+                const internalNamePrefix = objProductConfig.internalNamePrefix;
+                arrFields[i1].fields[j1] = getDefaultDependentLevels(
+                  {
+                    type: '22',
+                    label: arrFields[i1]?.fields[j1].label,
+                    name: arrFields[i1]?.fields[j1].name,
+                    fields: [arrFields[i1]?.fields[j1]],
+                    field_options: arrFields[i1]?.fields[j1]?.field_options,
+                    custom: arrFields[i1]?.fields[j1]?.custom,
+                  },
+                  internalNamePrefix
+                );
+                arrFields[i1].fields[j1] = checkAndAppendLevel3(
+                  arrFields[i1].fields[j1]
+                );
+              }
+            }
           }
 
           const objField = arrFields[i1];
@@ -320,10 +350,9 @@ export class FormBuilder {
             if (hasCustomProperty(mappedFieldTypes, objField.type)) {
               if (objField.field_options?.has_sections) {
                 //Changes to handle the type for sections
-                objField?.fields?.forEach(
-                  (sectionField) =>
-                    (sectionField.type = mappedFieldTypes[sectionField.type])
-                );
+                objField?.fields?.forEach((sectionField) => {
+                  sectionField.type = mappedFieldTypes[sectionField.type];
+                });
                 objField.type = mappedFieldTypes[objField.type];
               } else {
                 objField.type = mappedFieldTypes[objField.type];
@@ -465,7 +494,6 @@ export class FormBuilder {
       this.productName,
       objSaveFieldDetails.type
     );
-
     this.fwSaveField.emit(objSaveField);
   };
 
@@ -536,7 +564,33 @@ export class FormBuilder {
     const objDetail = event.detail,
       elField = objDetail.droppedElement;
     let elFieldType = elField.dataProvider.type;
-    if (objDetail.dragContainer.children.length > 15) {
+
+    const existingCount = Array.from(
+      objDetail.dragContainer?.children || []
+    ).reduce<number>((count, child) => {
+      const childDataProvider = (
+        child as HTMLElement & {
+          dataProvider?: { type?: string };
+        }
+      )?.dataProvider;
+      if (childDataProvider?.type) {
+        count = count + (childDataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1);
+      }
+      return count;
+    }, 0);
+
+    const isFieldInTheSameContainer =
+      objDetail.dragContainer?.id === elField.parentElement?.id;
+
+    // Adding the dragged field to the count
+    const count = isFieldInTheSameContainer
+      ? existingCount
+      : existingCount +
+        (elField.dataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1);
+
+    const maxLimit = count > 15;
+
+    if (maxLimit) {
       elFieldType = 'MAX_LIMIT';
     }
     if (elField.dataProvider.required) {
@@ -580,7 +634,10 @@ export class FormBuilder {
     if (sectionOut.length > 1 && sectionOut[1]) {
       sectionData = {
         data: {
-          id: elFieldType.dataProvider.parent_id,
+          id:
+            elFieldType.dataProvider.type === 'DEPENDENT_FIELD'
+              ? elFieldType.dataProvider?.fields[0]?.parent_id
+              : elFieldType.dataProvider?.parent_id,
           field_options: { has_sections: true },
         },
         name: sectionName,
@@ -627,7 +684,10 @@ export class FormBuilder {
           sourceIndex: elFieldType.index,
           targetIndex: intDroppedIndex,
           sectionData,
-          sourceFieldId: elFieldType.dataProvider?.id,
+          sourceFieldId:
+            elFieldType.dataProvider.type === 'DEPENDENT_FIELD'
+              ? elFieldType.dataProvider?.fields[0]?.id
+              : elFieldType.dataProvider?.id,
           isRepositionSection,
         });
       }
@@ -1154,7 +1214,14 @@ export class FormBuilder {
           const fieldsContent = isEmptySection
             ? this.renderDragDropEmptyState(sectionName, boolFieldEditingState)
             : choice.dependent_ids?.field?.map((fieldId, index) => {
-                const field = dataItem.fields.find((f) => f.id === fieldId);
+                const field = dataItem.fields.find(
+                  (f) =>
+                    (f.type === 'DEPENDENT_FIELD'
+                      ? f?.fields[0]?.id
+                        ? f?.fields[0]?.id
+                        : f.id
+                      : f.id) === fieldId
+                );
                 return field
                   ? this.renderFieldEditorElement(
                       field,
@@ -1268,6 +1335,9 @@ export class FormBuilder {
                     acceptFrom={`fieldTypesList,fieldsContainer,${acceptFromSections}`}
                     addOnDrop={false}
                     sortable={true}
+                    supportDependentAndMSDDInSections={
+                      this.supportDependentAndMSDDInSections
+                    }
                     onFwDrop={(e) =>
                       this.fieldTypeDropHandler(
                         e,

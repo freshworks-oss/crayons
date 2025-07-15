@@ -119,6 +119,10 @@ $warning-color: $color-casablanca-300;
           background-color: $input-disabled-bg;
           pointer-events: none;
         }
+
+        &.truncate {
+          text-overflow: ellipsis;
+        }
       }
     }
 

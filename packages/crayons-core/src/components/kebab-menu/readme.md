@@ -215,6 +215,8 @@ graph TD;
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
   fw-input --> fw-icon
+  fw-input --> fw-tooltip
+  fw-tooltip --> fw-popover
   fw-data-table --> fw-kebab-menu
   style fw-kebab-menu fill:#f9f,stroke:#333,stroke-width:4px
 ```

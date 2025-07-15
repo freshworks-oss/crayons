@@ -1,4 +1,5 @@
 import { h, FunctionalComponent } from '@stencil/core';
+import { PopoverPlacementType } from '../utils/types';
 
 export interface FieldControlProps {
   /** The input id, used to map the input to the label */
@@ -40,6 +41,15 @@ export interface FieldControlProps {
   /** Whether or not a warning text slot has been provided. */
   hasWarningTextSlot?: boolean;
 
+  /** The optional tooltip's header. */
+  tooltipHeader?: string;
+
+  /** The optional tooltip's content to show on hover of the input field. */
+  tooltipContent?: string;
+
+  /** The tooltip placement type for the optional tooltip. */
+  tooltipPlacement?: PopoverPlacementType;
+
   /** Whether or not the error text should be shown instead of the help text */
   state?: 'normal' | 'warning' | 'error';
 
@@ -55,6 +65,7 @@ const FieldControl: FunctionalComponent<FieldControlProps> = (
   const hasHintText = props.hintText ? true : props.hasHintTextSlot;
   const hasErrorText = props.errorText ? true : props.hasErrorTextSlot;
   const hasWarningText = props.warningText ? true : props.hasWarningTextSlot;
+  const hasTooltip = !!props.tooltipContent;
 
   const showHintText = props.state === 'normal' ? true : false;
   const showErrorText = props.state === 'error' ? true : false;
@@ -77,7 +88,19 @@ const FieldControl: FunctionalComponent<FieldControlProps> = (
         </label>
       )}
 
-      {children}
+      {hasTooltip ? (
+        <fw-tooltip
+          placement={props.tooltipPlacement}
+          content={props.tooltipContent}
+          header={props.tooltipHeader || ''}
+          hoist
+        >
+          {children}
+        </fw-tooltip>
+      ) : (
+        children
+      )}
+
       {showHintText && hasHintText && (
         <div
           id={props.hintTextId}

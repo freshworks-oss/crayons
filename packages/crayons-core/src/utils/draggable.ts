@@ -1,4 +1,5 @@
 import { debounce, cloneNodeWithEvents } from './index';
+import { parseBoolean } from './list-utils';
 
 //Global Variables
 let dragElement;
@@ -13,6 +14,7 @@ const DEFAULT_OPTIONS = {
 export class Draggable {
   dragContainer: HTMLElement;
   options;
+  supportDependentAndMSDDInSections = false;
   childElements = [];
   acceptFrom = [];
   placeholder: HTMLElement;
@@ -50,6 +52,8 @@ export class Draggable {
       ? this.options.acceptFrom.split(',')
       : [];
     this.options.sortable && this.acceptFrom.push(this.dragContainer.id);
+    this.supportDependentAndMSDDInSections =
+      this.options.supportDependentAndMSDDInSections;
     this.addListeners();
   }
 
@@ -98,11 +102,9 @@ export class Draggable {
   };
 
   private isDropNotAllowed() {
-    const inValidTypesForSection = [
-      'DEPENDENT_FIELD',
-      'MULTI_SELECT',
-      'RELATIONSHIP',
-    ];
+    const inValidTypesForSection = this.supportDependentAndMSDDInSections
+      ? ['RELATIONSHIP']
+      : ['DEPENDENT_FIELD', 'MULTI_SELECT', 'RELATIONSHIP'];
     const dragId = this.dragContainer.id;
     const isSection = dragId.includes('sectionIdentifier-');
     const isFieldTypeNotAllowed = inValidTypesForSection.includes(
@@ -126,11 +128,31 @@ export class Draggable {
     const hasSectionsInFieldOptions =
       dragElement.dataProvider?.type === 'DROPDOWN' &&
       dragElement.dataProvider?.field_options &&
-      dragElement.dataProvider?.field_options.has_sections;
-
+      parseBoolean(dragElement.dataProvider?.field_options?.has_sections);
     // Check if the section already has the maximum number of fields
-    const isSectionFieldLimitExceeded =
-      this.dragContainer?.children?.length > 15;
+    const existingFieldsCount = Array.from(
+      this.dragContainer?.children || []
+    ).reduce((count, child) => {
+      const childDataProvider = (
+        child as HTMLElement & {
+          dataProvider?: { type?: string; name?: string };
+        }
+      )?.dataProvider;
+      if (childDataProvider?.type) {
+        count = count + (childDataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1);
+      }
+      return count;
+    }, 0);
+
+    const isFieldInTheSameContainer =
+      this.dragContainer.id === dragElement.parentElement?.id;
+
+    const newFieldsCount = isFieldInTheSameContainer
+      ? existingFieldsCount
+      : existingFieldsCount +
+        (dragElement.dataProvider?.type === 'DEPENDENT_FIELD' ? 3 : 1);
+
+    const isSectionFieldLimitExceeded = newFieldsCount > 15;
 
     // Check if the dragElement is present and the field is required
     const isFieldRequired = dragElement?.dataProvider?.required;

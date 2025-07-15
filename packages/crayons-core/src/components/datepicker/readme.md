@@ -750,6 +750,7 @@ graph TD;
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-input --> fw-icon
+  fw-input --> fw-tooltip
   fw-timepicker --> fw-select
   fw-timepicker --> fw-select-option
   fw-select --> fw-tag
@@ -758,6 +759,7 @@ graph TD;
   fw-select --> fw-spinner
   fw-select --> fw-icon
   fw-select --> fw-list-options
+  fw-select --> fw-tooltip
   fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon

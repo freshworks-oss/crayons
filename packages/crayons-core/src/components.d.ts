@@ -505,6 +505,10 @@ export namespace Components {
           * Whether the list should be sortable.
          */
         "sortable": boolean;
+        /**
+          * flag to support dependentFields & Multi select dropdown within sections
+         */
+        "supportDependentAndMSDDInSections": boolean;
     }
     interface FwDragItem {
         /**
@@ -854,7 +858,7 @@ export namespace Components {
         /**
           * Method to set values on the form fields.  param: valuesObj - Object with key as form field name and value as the updated value for the field example: `{ first_name: "new name", last_name: "new last name" }` param: shouldValidate - should this form be validated with the updated values. Default to true.
          */
-        "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
+        "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean, isManualUpdate?: boolean) => Promise<void>;
         /**
           * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.  param: hiddenFields - key value pair of [fieldName]: true | false example: `setHiddenFields({ first_name: true, last_name: false })`
          */
@@ -1180,6 +1184,22 @@ export namespace Components {
           * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
          */
         "step": string;
+        /**
+          * Optional tooltip's content, shown on hover of the input.
+         */
+        "tooltipContent"?: string;
+        /**
+          * The optional tooltip's header.
+         */
+        "tooltipHeader"?: string;
+        /**
+          * The tooltip placement type for the optional tooltip.
+         */
+        "tooltipPlacement"?: PopoverPlacementType;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow": boolean;
         /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */
@@ -3611,6 +3631,10 @@ declare namespace LocalJSX {
           * Whether the list should be sortable.
          */
         "sortable"?: boolean;
+        /**
+          * flag to support dependentFields & Multi select dropdown within sections
+         */
+        "supportDependentAndMSDDInSections"?: boolean;
     }
     interface FwDragItem {
         /**
@@ -4288,6 +4312,22 @@ declare namespace LocalJSX {
           * The step attribute is used when the type is `number`. It specifies the interval between legal numbers in a number/decimal input element. Works with the min and max attributes to limit the increments at which a value can be set. Possible values are `any` or a positive floating point number. Default value is `any`
          */
         "step"?: string;
+        /**
+          * Optional tooltip's content, shown on hover of the input.
+         */
+        "tooltipContent"?: string;
+        /**
+          * The optional tooltip's header.
+         */
+        "tooltipHeader"?: string;
+        /**
+          * The tooltip placement type for the optional tooltip.
+         */
+        "tooltipPlacement"?: PopoverPlacementType;
+        /**
+          * Truncate title on text overflow
+         */
+        "truncateOnOverflow"?: boolean;
         /**
           * Type of value accepted as the input value. If a user enters a value other than the specified type, the input box is not populated.
          */

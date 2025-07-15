@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0-beta.32](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.31...@freshworks/crayons-custom-objects@1.4.0-beta.32) (2025-04-08)
+
+### Bug Fixes
+
+- **draggable.ts, drag-container.tsx, and form-builder.tsx:** fix bugs related to dep & msdd epic ([6529787](https://github.com/freshworks/crayons/commit/652978711b2cc0a4e19fcd4ce277bec650962f5d))
+- **form-builder:** include same container check in count logic ([7b57550](https://github.com/freshworks/crayons/commit/7b57550ed914fadcec7675209ec3a1e90d842b12))
+- **fw-form-builder:** pass field_options to fix delete button shown issue ([366b8c3](https://github.com/freshworks/crayons/commit/366b8c3a3e5c60e3a0a9ef8950c428f4558dfd96))
+- pass field's options ([598ed43](https://github.com/freshworks/crayons/commit/598ed43f5015ca6a7e1781d895c1225fc130badb))
+
+### BREAKING CHANGES
+
+- **draggable.ts, drag-container.tsx, and form-builder.tsx:** The logic for computing the count within sections is revised
+
+## [1.4.0-beta.31](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.30...@freshworks/crayons-custom-objects@1.4.0-beta.31) (2025-02-27)
+
+### Bug Fixes
+
+- added dependent changes ([191d7f1](https://github.com/freshworks/crayons/commit/191d7f15b08f58953558815055266d2dc4fb68ce))
+
 ## [1.4.0-beta.26](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.25...@freshworks/crayons-custom-objects@1.4.0-beta.26) (2024-11-26)
 
 ### Bug Fixes

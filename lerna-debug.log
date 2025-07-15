@@ -23,12 +23,16 @@
 11 silly isBehindUpstream next is behind origin/next by 0 commit(s) and ahead by 0
 12 silly hasTags
 13 verbose hasTags true
-14 silly git-describe.sync "@freshworks/crayons-custom-objects@1.4.0-beta.24-3-g2f404518" => {"lastTagName":"@freshworks/crayons-custom-objects@1.4.0-beta.24","lastVersion":"1.4.0-beta.24","refCount":"3","sha":"2f404518","isDirty":false}
-15 info Looking for changed packages since @freshworks/crayons-custom-objects@1.4.0-beta.24
+14 silly git-describe.sync "@freshworks/crayons-custom-objects@1.4.0-beta.26-3-gcc8bdc2d" => {"lastTagName":"@freshworks/crayons-custom-objects@1.4.0-beta.26","lastVersion":"1.4.0-beta.26","refCount":"3","sha":"cc8bdc2d","isDirty":false}
+15 info Looking for changed packages since @freshworks/crayons-custom-objects@1.4.0-beta.26
 16 info ignoring diff in paths matching [ '**/*.md', '**/*.mdx' ]
 17 silly checking diff packages/crayons-core
-18 silly found diff in packages/crayons-core/src/components/datepicker/datepicker.tsx
-19 verbose filtered diff [ 'packages/crayons-core/src/components/datepicker/datepicker.tsx' ]
+18 silly found diff in packages/crayons-core/src/components/datepicker/datepicker.e2e.ts
+18 silly found diff in packages/crayons-core/src/utils/draggable.ts
+19 verbose filtered diff [
+19 verbose filtered diff   'packages/crayons-core/src/components/datepicker/datepicker.e2e.ts',
+19 verbose filtered diff   'packages/crayons-core/src/utils/draggable.ts'
+19 verbose filtered diff ]
 20 silly checking diff packages/crayons-i18n
 21 silly no diff found in @freshworks/crayons-i18n
 22 silly checking diff packages/crayons-icon
@@ -38,8 +42,8 @@
 26 verbose no diff found in @freshworks/crayons-custom-objects (after filtering)
 27 verbose updated @freshworks/crayons
 28 verbose updated @freshworks/crayons-custom-objects
-29 verbose git-describe undefined => "@freshworks/crayons-custom-objects@1.4.0-beta.24-3-g2f404518"
-30 silly git-describe parsed => {"lastTagName":"@freshworks/crayons-custom-objects@1.4.0-beta.24","lastVersion":"1.4.0-beta.24","refCount":"3","sha":"2f404518","isDirty":false}
+29 verbose git-describe undefined => "@freshworks/crayons-custom-objects@1.4.0-beta.26-3-gcc8bdc2d"
+30 silly git-describe parsed => {"lastTagName":"@freshworks/crayons-custom-objects@1.4.0-beta.26","lastVersion":"1.4.0-beta.26","refCount":"3","sha":"cc8bdc2d","isDirty":false}
 31 silly independent for @freshworks/crayons at /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-core
 32 verbose getChangelogConfig using preset "conventional-changelog-angular"
 33 silly npa Result {
@@ -59,20 +63,20 @@
 33 silly npa }
 34 verbose getChangelogConfig Attempting to resolve preset "conventional-changelog-angular"
 35 info getChangelogConfig Successfully resolved preset "conventional-changelog-angular"
-36 verbose independent increment 4.3.0-beta.20 by prerelease
+36 verbose independent increment 4.3.0-beta.21 by prerelease
 37 silly independent for @freshworks/crayons-custom-objects at /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-extended/custom-objects
-38 verbose independent increment 1.4.0-beta.24 by prerelease
+38 verbose independent increment 1.4.0-beta.26 by prerelease
 39 info execute Creating releases...
 40 silly lifecycle No script for "preversion" in "crayons", continuing
 41 silly lifecycle No script for "preversion" in "@freshworks/crayons", continuing
 42 silly lifecycle No script for "version" in "@freshworks/crayons", continuing
 43 silly independent for @freshworks/crayons at /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-core
-44 silly independent writing new entry: "# [4.3.0-beta.21](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.20...@freshworks/crayons@4.3.0-beta.21) (2024-11-14)\n\n\n### Bug Fixes\n\n* add validation for is language for isValid ([4110887](https://github.com/freshworks/crayons/commit/411088792a8fccdff2bc2a7dd2201069f5c1dd9b))\n* check for error handling for format related issue ([1a2b66f](https://github.com/freshworks/crayons/commit/1a2b66fb95832b10d5ebe37c88e1925f30caccf5))\n* datepicker issue ([039369f](https://github.com/freshworks/crayons/commit/039369f71f1a309fd5d9dac2260104138032a647))\n* datepicker issue changes on isValid ([d077d85](https://github.com/freshworks/crayons/commit/d077d858b4e4a71316edbf0e0943cfd200907d58))\n* datepicker issue fix ([26b7a18](https://github.com/freshworks/crayons/commit/26b7a1830782f5cf4beca9d90ad60434b9760383))\n* datepicker issue on filter changes ([f422876](https://github.com/freshworks/crayons/commit/f4228764b0187dd8bd21358684526cb9ea315eca))\n* datepicker year issue fix ([20852fc](https://github.com/freshworks/crayons/commit/20852fcc9e39c196bba81da8543d7c9222164046))\n* datepicket changes on isMatch ([38d84f8](https://github.com/freshworks/crayons/commit/38d84f842d4160e9ef7cf3d62d1e78e59c3d4c28))\n* emitEvent error handling on parsing of icelandic language ([6ecaec9](https://github.com/freshworks/crayons/commit/6ecaec9f4786e8d46a5174c814300f585f2f16d4))\n* generalising the datepicker for icelandic language ([d00f87b](https://github.com/freshworks/crayons/commit/d00f87bf533abc3f7d3c6494dff363d91e35b715))\n* is date validation and matching restriction ([ccf0af2](https://github.com/freshworks/crayons/commit/ccf0af26640415bcfa2bd0d21d3e29cef58acd1d))\n* isMatch change issue for icelandic language ([d44532c](https://github.com/freshworks/crayons/commit/d44532c6b7c20e602616582ddee292e8a64a6141))\n* isMatch changes retaining ([802d614](https://github.com/freshworks/crayons/commit/802d6142954c4c9e8bdb0f1024e98f1ee1971197))\n* isMatch negation changes ([4a145bc](https://github.com/freshworks/crayons/commit/4a145bc7505954f9ce71d9661c2122e7e214f6b7))\n* isValid changes for datefixer ([2ba68f4](https://github.com/freshworks/crayons/commit/2ba68f4820c4936b788bdbb8e7a27dac03a15c68))\n* parse date on filter ([4edde18](https://github.com/freshworks/crayons/commit/4edde18ce3c1b55a0a27ee7c79c424c11ac00565))\n* parsed date for dateInvalid check ([9fc9b73](https://github.com/freshworks/crayons/commit/9fc9b739fae26d47b4872df2998522de0cfd31a0))\n* refresh handle popover parse on icelandic language issue fix ([5677657](https://github.com/freshworks/crayons/commit/56776579250a8967a9bab5772fe66e1a5e5ff881))\n* refresh handle popover parse on icelandic language issue fix ([22d391f](https://github.com/freshworks/crayons/commit/22d391fcf2345db9f1d1c16c73c9dc865e43a364))\n* remove condition changes for datepicker ([e51919c](https://github.com/freshworks/crayons/commit/e51919cf6764b60cf44130c1f3469965b8d33750))\n* retain isMatch funtionality and change in custom function ([1be7cac](https://github.com/freshworks/crayons/commit/1be7cac16adf67c8749791b229dad0148f5b1a45))\n* reverse the changes on change value of datepicker ([e4a721e](https://github.com/freshworks/crayons/commit/e4a721ea53431d39a28a65a04c3066cc4b2ac61c))\n* test cases failing on isMatch changes completed ([81e488b](https://github.com/freshworks/crayons/commit/81e488b9b0d5512b3b49d8b382f312f399af0016))\n\n\n\n"
+44 silly independent writing new entry: "# [4.3.0-beta.22](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.21...@freshworks/crayons@4.3.0-beta.22) (2024-12-04)\n\n\n### Bug Fixes\n\n* unable to drag and drop fields on custom objects ([2c4228e](https://github.com/freshworks/crayons/commit/2c4228eeb309b6b6febec6953e89ea5738690ee4))\n\n\n\n"
 45 verbose independent wrote /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-core/CHANGELOG.md
 46 silly lifecycle No script for "preversion" in "@freshworks/crayons-custom-objects", continuing
 47 silly lifecycle No script for "version" in "@freshworks/crayons-custom-objects", continuing
 48 silly independent for @freshworks/crayons-custom-objects at /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-extended/custom-objects
-49 silly independent writing new entry: "# [1.4.0-beta.25](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.24...@freshworks/crayons-custom-objects@1.4.0-beta.25) (2024-11-14)\n\n**Note:** Version bump only for package @freshworks/crayons-custom-objects\n\n\n\n"
+49 silly independent writing new entry: "# [1.4.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.26...@freshworks/crayons-custom-objects@1.4.0-beta.27) (2024-12-04)\n\n**Note:** Version bump only for package @freshworks/crayons-custom-objects\n\n\n\n"
 50 verbose independent wrote /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-extended/custom-objects/CHANGELOG.md
 51 silly lifecycle No script for "version" in "crayons", continuing
 52 silly gitAdd [
@@ -83,26 +87,26 @@
 52 silly gitAdd ]
 53 silly gitCommit chore(release): publish
 53 silly gitCommit
-53 silly gitCommit  - @freshworks/crayons@4.3.0-beta.21
-53 silly gitCommit  - @freshworks/crayons-custom-objects@1.4.0-beta.25
+53 silly gitCommit  - @freshworks/crayons@4.3.0-beta.22
+53 silly gitCommit  - @freshworks/crayons-custom-objects@1.4.0-beta.27
 54 verbose git [
 54 verbose git   'commit',
 54 verbose git   '-F',
-54 verbose git   '/private/var/folders/l0/gw853_nd52j3vs4208d7z1040000gq/T/0565d67d-8c9e-4e14-90cd-194b130a8875/lerna-commit.txt'
+54 verbose git   '/private/var/folders/l0/gw853_nd52j3vs4208d7z1040000gq/T/3268ba9b-8ae7-4b60-95c2-794dddd067bd/lerna-commit.txt'
 54 verbose git ]
-55 silly gitTag @freshworks/crayons@4.3.0-beta.21
+55 silly gitTag @freshworks/crayons@4.3.0-beta.22
 56 verbose git [
 56 verbose git   'tag',
-56 verbose git   '@freshworks/crayons@4.3.0-beta.21',
+56 verbose git   '@freshworks/crayons@4.3.0-beta.22',
 56 verbose git   '-m',
-56 verbose git   '@freshworks/crayons@4.3.0-beta.21'
+56 verbose git   '@freshworks/crayons@4.3.0-beta.22'
 56 verbose git ]
-57 silly gitTag @freshworks/crayons-custom-objects@1.4.0-beta.25
+57 silly gitTag @freshworks/crayons-custom-objects@1.4.0-beta.27
 58 verbose git [
 58 verbose git   'tag',
-58 verbose git   '@freshworks/crayons-custom-objects@1.4.0-beta.25',
+58 verbose git   '@freshworks/crayons-custom-objects@1.4.0-beta.27',
 58 verbose git   '-m',
-58 verbose git   '@freshworks/crayons-custom-objects@1.4.0-beta.25'
+58 verbose git   '@freshworks/crayons-custom-objects@1.4.0-beta.27'
 58 verbose git ]
 59 silly lifecycle No script for "postversion" in "@freshworks/crayons", continuing
 60 silly lifecycle No script for "postversion" in "@freshworks/crayons-custom-objects", continuing
@@ -111,6 +115,6 @@
 63 silly gitPush origin next
 64 silly parseGitRepo
 65 verbose git [ 'config', '--get', 'remote.origin.url' ]
-66 error HttpError: Bad credentials
+66 error HttpError: Resource protected by organization SAML enforcement. You must grant your Personal Access token access to this organization.
 66 error     at /Users/rsiddhi/Desktop/Work/crayons/node_modules/@octokit/request/dist-node/index.js:86:21
 66 error     at processTicksAndRejections (internal/process/task_queues.js:95:5)

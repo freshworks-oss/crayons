@@ -189,3 +189,10 @@ export function doKeyDownOperations(
     selected: false,
   };
 }
+
+export const parseBoolean = (value: any) => {
+  if (typeof value === 'string') {
+    return value === 'true';
+  }
+  return !!value;
+};
