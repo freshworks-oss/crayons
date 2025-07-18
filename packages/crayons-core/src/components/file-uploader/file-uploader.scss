@@ -10,9 +10,14 @@ div.file-uploader-container {
   display: flex;
   width: 100%;
   min-height: 153px;
-  border: 1px dashed var(--fw-file-uploader-border, $color-azure-100);
-  background: $color-milk;
+  border: 1px dashed
+    var(
+      --fw-file-uploader-border,
+      var(--color-boundary-border-mild, $color-azure-100)
+    );
+  background: var(--color-fill-container, $color-milk);
   justify-content: center;
+  border-radius: var(--border-radius-medium, 0);
 
   .dropzone,
   .progress,
@@ -47,8 +52,8 @@ div.file-uploader-container {
         .drop-clickable-text {
           line-height: 20px;
           font-size: 14px;
-          font-weight: 500;
-          color: $color-azure-800;
+          font-weight: var(--font-weight-semi-bold, 500);
+          color: var(--color-text-brand, $color-azure-800);
           margin-block-start: 9px;
           margin-block-end: 3px;
         }
@@ -56,20 +61,23 @@ div.file-uploader-container {
         .drop-clickable-hint {
           line-height: 20px;
           font-size: 14px;
-          color: $color-smoke-300;
+          font-weight: var(--font-weight-regular, $font-weight-400);
+          color: var(--color-text-placeholder, $color-smoke-300);
         }
       }
 
       .dropzone-hint {
-        line-height: 20px;
-        font-size: 10px;
-        color: $color-elephant-700;
+        line-height: var(--line-height-20, 12px);
+        font-size: var(--font-size-12, 10px);
+        font-weight: var(--font-weight-regular, $font-weight-400);
+        color: var(--color-text-secondary, $color-elephant-700);
         text-align: center;
       }
 
       .dropzone-error {
-        line-height: 12px;
-        font-size: 10px;
+        line-height: var(--line-height-20, 12px);
+        font-size: var(--font-size-12, 10px);
+        font-weight: var(--font-weight-regular, $font-weight-400);
         text-align: center;
         padding-inline: 0px;
         padding-block: 5px;
@@ -77,7 +85,7 @@ div.file-uploader-container {
 
         span {
           display: block;
-          color: $color-persimmon-800;
+          color: var(--color-text-semantic-error, $color-persimmon-800);
         }
       }
     }
@@ -95,10 +103,10 @@ div.file-uploader-container {
     }
 
     &-title {
-      line-height: 20px;
-      font-size: 12px;
-      color: $color-smoke-700;
-      font-weight: 600;
+      line-height: var(--line-height-20, 20px);
+      font-size: var(--font-size-12, 12px);
+      color: var(--color-text-secondary, $color-smoke-700);
+      font-weight: var(--font-weight-semi-bold, 600);
       letter-spacing: 0.2px;
     }
   }
