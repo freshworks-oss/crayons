@@ -15,7 +15,10 @@
   max-width: var(--fw-menu-max-width);
   min-height: var(--fw-menu-min-height, 10px);
   max-height: var(--fw-menu-max-height, 400px);
-  border: var(--fw-menu-border, 1px solid $app-border-secondary);
-  border-radius: var(--fw-menu-border-radius);
-  box-shadow: var(--fw-menu-box-shadow);
+  border: var(
+    --fw-menu-border,
+    1px solid var(--color-boundary-border-milder, $app-border-secondary)
+  );
+  border-radius: var(--fw-menu-border-radius, var(--border-radius-medium, 4px));
+  box-shadow: var(--fw-menu-box-shadow, --box-shadow-none);
 }

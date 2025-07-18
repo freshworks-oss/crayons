@@ -109,7 +109,7 @@
     justify-content: center;
     color: var(--color-icon-primary, $color-elephant-800);
     font-size: $font-size-16;
-    --fw-icon-color: var(--color-icon-primary, #12344d);
+    --fw-icon-color: var(--color-icon-primary, $app-icon-color);
 
     &.standard {
       min-height: 20px;

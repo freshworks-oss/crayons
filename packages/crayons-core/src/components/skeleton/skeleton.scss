@@ -61,10 +61,16 @@
   &.sheen {
     background: linear-gradient(
       270deg,
-      var(--fw-skeleton-sheen-color, $color-smoke-200),
-      var(--fw-skeleton-background, $color-smoke-100),
-      var(--fw-skeleton-background, $color-smoke-100),
-      var(--fw-skeleton-sheen-color, $color-smoke-200)
+      var(
+        --fw-skeleton-sheen-color,
+        var(--color-fill-container, $color-smoke-200)
+      ),
+      var(--fw-skeleton-background, var(--color-fill-base, $color-smoke-100)),
+      var(--fw-skeleton-background, var(--color-fill-base, $color-smoke-100)),
+      var(
+        --fw-skeleton-sheen-color,
+        var(--color-fill-container, $color-smoke-200)
+      )
     );
 
     animation: sheen 8s ease-in-out infinite;

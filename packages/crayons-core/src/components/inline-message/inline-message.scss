@@ -92,6 +92,6 @@
     margin-inline-start: 8px;
     box-sizing: border-box;
     cursor: pointer;
-    --fw-icon-color: var(--color-icon-primary, #12344d);
+    --fw-icon-color: var(--color-icon-primary, $app-icon-color);
   }
 }

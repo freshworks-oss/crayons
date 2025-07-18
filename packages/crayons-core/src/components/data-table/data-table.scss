@@ -266,7 +266,7 @@ div.fw-data-table-container {
         border-start-start-radius: 0px;
         margin: 0px;
         box-shadow: var(--shadow-md, none);
-        --fw-icon-color: var(--color-icon-primary, #12344d);
+        --fw-icon-color: var(--color-icon-primary, $app-icon-color);
 
         &:focus,
         &:hover {

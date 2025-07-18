@@ -137,7 +137,7 @@ input[type='radio'] {
 
   &:checked + label {
     &::before {
-      background: var(--color-fill-surface, $app-action-icon-bg);
+      background: var(--color-fill-container, $app-action-icon-bg);
       border-color: var(--color-fill-brand, $app-primary);
       box-shadow: none;
     }
@@ -151,7 +151,7 @@ input[type='radio'] {
 
     &.error {
       &::before {
-        background: var(--color-fill-surface, $app-action-icon-bg);
+        background: var(--color-fill-container, $app-action-icon-bg);
         border-color: var(--color-fill-semantic-error, $app-primary);
       }
 
