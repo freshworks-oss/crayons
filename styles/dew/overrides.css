@@ -26,6 +26,8 @@
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
   --stroke-width: 4;
   --box-shadow-none: none;
+  --font-italic: italic;
+  --bg-none: none;
 }
 
 :root.dew-dark-theme {
@@ -54,6 +56,8 @@
   --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
   --stroke-width: 4;
   --box-shadow-none: none;
+  --bg-none: none;
+  --font-italic: italic;
   color-scheme: dark;
 }
 
@@ -84,6 +88,8 @@
     --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
     --stroke-width: 4;
     --box-shadow-none: none;
+    --bg-none: none;
+    --font-italic: italic;
     color-scheme: dark;
   }
 }

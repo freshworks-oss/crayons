@@ -198,6 +198,7 @@ $input-height-mini: 16px;
     color: $btn-secondary-color;
     border-color: $btn-secondary-border;
     background-image: $btn-secondary-gradient;
+    box-shadow: var(--shadow-xs, none);
 
     &:active {
       border-color: $btn-secondary-border-active;

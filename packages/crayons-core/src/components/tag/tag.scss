@@ -34,15 +34,19 @@
   }
 
   &.error {
-    outline: 1px solid
-      var(--color-boundary-semantic-error, $color-persimmon-900);
+    outline: var(--border-none, 1px solid $color-persimmon-900);
     background: var(
       --color-fill-semantic-error-mildest,
       $color-persimmon-50
     ) !important;
 
     &:hover {
-      background: $color-persimmon-100 !important;
+      background: var(
+        --color-fill-semantic-error-mildest,
+        $color-persimmon-100
+      ) !important;
+      outline: 1px solid
+        var(--color-boundary-semantic-error-bold, $color-persimmon-900);
     }
 
     &:focus {
@@ -76,6 +80,7 @@
   .secondary {
     padding-inline-start: 8px;
     font-weight: $font-weight-400 !important;
+    font-style: var(--font-italic, normal);
   }
 
   &-standard {
@@ -131,7 +136,7 @@
 
     &:hover,
     &:focus {
-      background-color: var(--color-fill-container, $color-smoke-100);
+      background-color: var(--color-fill-base-bold, $color-smoke-100);
       cursor: pointer;
     }
 
