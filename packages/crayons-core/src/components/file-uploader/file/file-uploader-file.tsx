@@ -41,7 +41,7 @@ export class FileUploaderFile {
     return (
       <div class='files-content'>
         <div class='files-content-icon'>
-          <fw-icon name='checkbox' size={14} color='#00a886'></fw-icon>
+          <fw-icon name='checkbox' size={14}></fw-icon>
         </div>
         <div class='files-content-file'>
           <span class='files-content-file-name'>{this.name}</span>

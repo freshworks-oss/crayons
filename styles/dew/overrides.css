@@ -4,6 +4,7 @@
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
   --font-size-12: 12px;
   --font-size-14: 14px;
   --font-size-16: 16px;
@@ -12,6 +13,7 @@
   --font-size-32: 32px;
   --font-size-44: 44px;
   --line-height-16: 16px;
+  --line-height-18: 18px;
   --line-height-20: 20px;
   --line-height-24: 24px;
   --line-height-28: 28px;

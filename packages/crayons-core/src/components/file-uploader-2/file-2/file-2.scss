@@ -16,7 +16,7 @@
     height: 32px;
     box-sizing: border-box;
     padding: 8px;
-    background-color: $color-smoke-25;
+    background-color: var(--color-fill-container, $color-smoke-25);
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -37,6 +37,14 @@
         fw-icon {
           vertical-align: text-top;
         }
+
+        &.error {
+          --fw-icon-color: var(--color-icon-semantic-error, #d72d30);
+        }
+
+        &:not(.error) {
+          --fw-icon-color: var(--color-icon-primary, #264966);
+        }
       }
 
       .fw-attachment-content-name {
@@ -46,11 +54,10 @@
         user-select: none;
         text-align: start;
 
-        color: $color-elephant-900;
-        font-size: $font-size-12;
-        font-weight: $font-weight-400;
-        line-height: 20px;
-
+        color: var(--color-text-primary, $color-elephant-900);
+        line-height: var(--line-height-18, 18px);
+        font-size: var(--font-size-12, $font-size-12);
+        font-weight: var(--font-weight-medium, $font-weight-400);
         word-break: break-word;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -66,10 +73,10 @@
         text-align: start;
         white-space: nowrap;
 
-        color: $color-elephant-900;
-        font-size: $font-size-12;
-        font-weight: $font-weight-400;
-        line-height: 20px;
+        color: var(--color-text-primary, $color-elephant-900);
+        line-height: var(--line-height-18, 20px);
+        font-size: var(--font-size-12, $font-size-12);
+        font-weight: var(--font-weight-medium, $font-weight-400);
       }
 
       .fw-attachment-content-size {
@@ -82,10 +89,10 @@
         margin-inline-start: 4px;
         white-space: nowrap;
 
-        color: $color-smoke-700;
-        font-size: $font-size-12;
-        font-weight: $font-weight-400;
-        line-height: 20px;
+        color: var(--color-text-primary, $color-smoke-700);
+        line-height: var(--line-height-18, 20px);
+        font-size: var(--font-size-12, $font-size-12);
+        font-weight: var(--font-weight-regular, $font-weight-400);
         font-style: italic;
       }
     }
@@ -144,7 +151,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: $color-smoke-300;
+        background-color: var(--color-icon-disabled, $color-smoke-300);
         border-radius: 50%;
 
         &:hover,
@@ -159,7 +166,7 @@
           justify-content: center;
           width: 12px;
           height: 12px;
-          #{--fw-icon-color}: $color-milk;
+          #{--fw-icon-color}: var(--color-icon-inverse, $color-milk);
         }
       }
     }
@@ -193,6 +200,7 @@
       height: 20px;
       display: flex;
       align-items: center;
+      --fw-icon-color: var(--color-icon-semantic-error, #d72d30);
     }
 
     .fw-attachment-content-error-message {
@@ -203,10 +211,10 @@
       text-align: start;
       white-space: nowrap;
 
-      color: $color-persimmon-900;
-      font-size: $font-size-12;
-      font-weight: $font-weight-400;
-      line-height: 20px;
+      color: var(--color-text-semantic-error, $color-persimmon-900);
+      font-size: var(--font-size-12, $font-size-12);
+      font-weight: var(--font-weight-regular, $font-weight-400);
+      line-height: var(--line-height-20, 20px);
     }
 
     .fw-attachment-content-reupload-btn {
@@ -217,37 +225,43 @@
       padding: 0;
 
       border: none;
-      font-weight: $font-weight-500;
+      font-weight: var(--font-weight-medium, $font-weight-500);
       font-family: inherit;
-      font-size: 12px;
+      font-size: var(--font-size-12, $font-size-12);
 
       background-color: transparent;
       background-image: none;
-      color: $color-azure-800;
+      color: var(--color-fill-brand, $color-azure-800);
     }
   }
 
   &--error-state {
     .fw-attachment-content {
-      background-color: $color-persimmon-50;
+      background-color: var(
+        --color-fill-semantic-error-mildest,
+        $color-persimmon-50
+      );
 
       .fw-attachment-content-left-panel {
         max-width: calc(100% - 16px - 8px) !important;
 
         .fw-attachment-content-name {
-          color: $color-persimmon-900;
+          color: var(--color-text-semantic-error, $color-persimmon-900);
         }
         .fw-attachment-content-file-extension {
-          color: $color-persimmon-900;
+          color: var(--color-text-semantic-error, $color-persimmon-900);
         }
         .fw-attachment-content-size {
-          color: $color-persimmon-900;
+          color: var(--color-text-semantic-error, $color-persimmon-900);
         }
       }
 
       .fw-attachment-content-right-panel {
         .fw-attachment-content-delete-btn {
-          background-color: $color-persimmon-900;
+          background-color: var(
+            --color-text-semantic-error,
+            $color-persimmon-900
+          );
         }
       }
     }
@@ -255,25 +269,31 @@
 
   &--failed-state {
     .fw-attachment-content {
-      background-color: $color-persimmon-50;
+      background-color: var(
+        --color-fill-semantic-error-mildest,
+        $color-persimmon-50
+      );
 
       .fw-attachment-content-left-panel {
         max-width: calc(100% - 16px - 8px) !important;
 
         .fw-attachment-content-name {
-          color: $color-persimmon-900;
+          color: var(--color-text-semantic-error, $color-persimmon-900);
         }
         .fw-attachment-content-file-extension {
-          color: $color-persimmon-900;
+          color: var(--color-text-semantic-error, $color-persimmon-900);
         }
         .fw-attachment-content-size {
-          color: $color-persimmon-900;
+          color: var(--color-text-semantic-error, $color-persimmon-900);
         }
       }
 
       .fw-attachment-content-right-panel {
         .fw-attachment-content-delete-btn {
-          background-color: $color-persimmon-900;
+          background-color: var(
+            --color-text-semantic-error,
+            $color-persimmon-900
+          );
         }
       }
     }
@@ -289,7 +309,7 @@
           background-color: transparent;
 
           .fw-attachment-content-delete-btn-icon {
-            #{--fw-icon-color}: $color-azure-800;
+            #{--fw-icon-color}: var(--color-icon-selected, $color-azure-800);
           }
         }
       }
@@ -302,9 +322,12 @@
 
       .fw-attachment-content-right-panel {
         .fw-attachment-content-delete-btn {
-          background-color: $color-casablanca-700;
+          background-color: var(
+            --color-text-semantic-warning,
+            $color-casablanca-700
+          );
           .fw-attachment-content-delete-btn-icon {
-            #{--fw-icon-color}: $color-milk;
+            #{--fw-icon-color}: var(--color-icon-inverse, $color-milk);
           }
         }
       }
