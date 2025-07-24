@@ -65,7 +65,7 @@
       --color-fill-semantic-error-mildest,
       $avatar-background-error
     );
-    color: var(--color-text-primary, $color-elephant-900);
+    color: var(--color-text-secondary, $color-elephant-900);
 
     &--initials {
       border: var(--color-boundary-semantic-error-mild, $avatar-border-error);
