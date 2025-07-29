@@ -254,7 +254,6 @@ export class FormBuilder {
   componentWillLoad(): void {
     this.initializeSearchDebounce();
     this.validateFormValues();
-    console.log(this.theme);
     this.supportedFieldTypes = [
       'TEXT',
       'EMAIL',
@@ -276,7 +275,6 @@ export class FormBuilder {
   }
 
   private validateFormValues(objFormValue = null) {
-    console.log(this.theme);
     this.fieldTypesCount = null;
     const objMaxLimitCount = { filterable: 0, unique: 0 };
     this.localFormValues = objFormValue

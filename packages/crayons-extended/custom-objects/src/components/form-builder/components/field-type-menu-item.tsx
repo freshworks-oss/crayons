@@ -74,7 +74,6 @@ export class FieldTypeMenuItem {
   };
 
   render() {
-    console.log(this.theme);
     const strBaseClassName = 'field-type-menu-item';
     let strComponentClassName = strBaseClassName;
     if (this.disabled) {
