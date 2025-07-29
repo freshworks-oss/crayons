@@ -1634,7 +1634,7 @@ describe('fw-form-builder', () => {
   describe.each(['CUSTOM_OBJECTS', 'CONVERSATION_PROPERTIES'])(
     'test %s fields',
     (productName) => {
-      const theme = 'dew-dark-theme';
+      const theme = 'default';
       let fieldOrder = [...formMapper[productName].fieldOrder];
       if (productName === 'CUSTOM_OBJECTS') {
         fieldOrder = fieldOrder.slice(1);
@@ -2374,7 +2374,7 @@ describe('fw-form-builder', () => {
   );
 
   describe('test maximum fields for conversation properties', () => {
-    const theme = 'dew-dark-theme';
+    const theme = 'default';
     it('should not disable all the field menu items when the total active fields without default tag has not reached the maximum limit and only disable the fields which exceed their max limit', async () => {
       const page = await newE2EPage();
 
