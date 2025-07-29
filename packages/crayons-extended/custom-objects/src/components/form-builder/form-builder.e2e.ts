@@ -1662,7 +1662,7 @@ describe('fw-form-builder', () => {
           expect(fwComposeNewField).toHaveReceivedEventDetail({
             maximumLimits: formMapper[productName].maximumLimits,
             fieldSchema: {
-              ...presetSchema.fieldTypes[`dew-light-theme`][field],
+              ...presetSchema.fieldTypes[theme][field],
               checkboxes:
                 formMapper[productName].fieldProps[field].checkboxes || null,
               type:
@@ -1670,7 +1670,7 @@ describe('fw-form-builder', () => {
                   ? field
                   : formMapper[productName].mappedFieldTypes[field],
             },
-            value: presetSchema.fieldTypes[`dew-light-theme`][field],
+            value: presetSchema.fieldTypes[theme][field],
             index: -1,
           });
         }
@@ -1776,7 +1776,7 @@ describe('fw-form-builder', () => {
                   formValues[productName].fields[fieldItemIcons].type
                 ];
           expect(fieldItemIcon.getAttribute('name')).toBe(
-            presetSchema.fieldTypes[`dew-light-theme`][fieldType].icon.name
+            presetSchema.fieldTypes[theme][fieldType].icon.name
           );
           fieldItemIcons++;
         }
