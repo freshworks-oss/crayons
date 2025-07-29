@@ -1679,10 +1679,17 @@ describe('fw-form-builder', () => {
       it('opens a modal on click of delete button and on confirmation, emits fwDeleteField event with event details', async () => {
         const page = await newE2EPage();
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
         );
-        const fwDeleteField = await page.spyOnEvent('fwDeleteField');
         await page.waitForChanges();
+
+        // Wait for the component to be hydrated
+        const formBuilder = await page.find('fw-form-builder');
+        await page.waitForChanges();
+        expect(formBuilder).toHaveClass('hydrated');
+
+        const fwDeleteField = await page.spyOnEvent('fwDeleteField');
+
         await page.$eval(
           'fw-form-builder',
           (elm: any, { formValues }: any) => {
@@ -1721,7 +1728,7 @@ describe('fw-form-builder', () => {
         const page = await newE2EPage();
 
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
         );
         await page.waitForChanges();
         await page.$eval(
@@ -1781,7 +1788,7 @@ describe('fw-form-builder', () => {
         const page = await newE2EPage();
 
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
         );
         await page.waitForChanges();
         await page.$eval(
@@ -1821,7 +1828,7 @@ describe('fw-form-builder', () => {
       it('triggers fwSaveField event when a field is edited and save is clicked', async () => {
         const page = await newE2EPage();
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
         );
         const fwSaveField = await page.spyOnEvent('fwSaveField');
         const validateIndex = 2;
