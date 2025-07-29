@@ -78,6 +78,10 @@ export class FieldEditor {
    */
   @Prop() pinned: 'top' | 'bottom' | '';
   /**
+   * Theme configuration for the form builder UI
+   */
+  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
+  /**
    * flag to notify if an api call is in progress
    */
   @Prop({ mutable: true }) isLoading = false;
@@ -2076,7 +2080,7 @@ export class FieldEditor {
     }
 
     const fieldIcon = this.isDependentField
-      ? presetSchema.fieldTypes.DEPENDENT_FIELD.icon
+      ? presetSchema.fieldTypes[this.theme].DEPENDENT_FIELD.icon
       : objFieldBuilder.icon;
 
     const contentElements = this.isDependentField
