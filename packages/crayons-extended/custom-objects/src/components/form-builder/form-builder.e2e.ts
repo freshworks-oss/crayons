@@ -1898,11 +1898,18 @@ describe('fw-form-builder', () => {
       it('validates choices and label field in field editor', async () => {
         const page = await newE2EPage();
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
         );
         await page.waitForChanges();
+
+        // Wait for the component to be hydrated
+        const formBuilder = await page.find('fw-form-builder');
+        await page.waitForChanges();
+        expect(formBuilder).toHaveClass('hydrated');
+
         const validateIndex = formValues[productName].fields.length - 1;
         const id = formValues[productName].fields[validateIndex].id;
+
         await page.$eval(
           'fw-form-builder',
           (elm: any, { formValues, currentFieldIndex }: any) => {
@@ -1915,6 +1922,7 @@ describe('fw-form-builder', () => {
           }
         );
         await page.waitForChanges();
+
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
         );
@@ -1929,6 +1937,7 @@ describe('fw-form-builder', () => {
         );
         await labelInput.click();
         await labelInput.press('a');
+        await labelInput.press('d');
         await page.waitForChanges();
         let saveBtn = await fieldEditor.find('#submitFieldBtn');
         await saveBtn.click();
