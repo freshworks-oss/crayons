@@ -2379,7 +2379,7 @@ describe('fw-form-builder', () => {
       const page = await newE2EPage();
 
       await page.setContent(
-        `<fw-form-builder product-name="CONVERSATION_PROPERTIES" theme="${theme}></fw-form-builder>`
+        `<fw-form-builder product-name="CONVERSATION_PROPERTIES" theme="${theme}"></fw-form-builder>`
       );
       await page.waitForChanges();
       await page.$eval(
@@ -2407,15 +2407,14 @@ describe('fw-form-builder', () => {
         'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
       );
 
-      // total fields
-      expect(formValues.CONV_MAX.fields.length).toBe(fieldDragDropItem.length);
-      expect(formValues.CONV_MAX.fields.length).toBeGreaterThanOrEqual(
+      // total fields - add safety check
+      const totalFields = formValues.CONV_MAX.fields || [];
+      expect(totalFields.length).toBe(fieldDragDropItem.length);
+      expect(totalFields.length).toBeGreaterThanOrEqual(
         formMapper.CONVERSATION_PROPERTIES.maximumLimits.fields.count
       );
-      // total active fields
-      const activeFields = formValues.CONV_MAX.fields.filter(
-        (field) => field.custom
-      );
+      // total active fields - add safety check and filter
+      const activeFields = totalFields.filter((field) => field && field.custom);
       expect(activeFields.length).not.toBeGreaterThanOrEqual(
         formMapper.CONVERSATION_PROPERTIES.maximumLimits.fields.count
       );
@@ -2427,6 +2426,7 @@ describe('fw-form-builder', () => {
         const itemMaxLimit =
           formMapper.CONVERSATION_PROPERTIES.maximumLimits[type];
         const filteredFields = activeFields.filter((field) => {
+          if (!field || !field.type) return false;
           const formattedType =
             formMapper.CONVERSATION_PROPERTIES.reverseMappedFieldTypes[
               field.type
@@ -2448,16 +2448,16 @@ describe('fw-form-builder', () => {
       const page = await newE2EPage();
 
       await page.setContent(
-        `<fw-form-builder product-name="CONVERSATION_PROPERTIES" theme="${theme}></fw-form-builder>`
+        `<fw-form-builder product-name="CONVERSATION_PROPERTIES" theme="${theme}"></fw-form-builder>`
       );
       await page.waitForChanges();
-      const additionalFields = formValues.CONVERSATION_PROPERTIES.fields
+      const additionalFields = (formValues.CONVERSATION_PROPERTIES.fields || [])
         .slice(0, 4)
         .map((field) => ({ ...field, custom: true }));
       const clonedFormValues = JSON.parse(JSON.stringify(formValues.CONV_MAX));
       const updatedFormValues = {
         ...clonedFormValues,
-        fields: [...clonedFormValues.fields, ...additionalFields],
+        fields: [...(clonedFormValues.fields || []), ...additionalFields],
       };
       await page.$eval(
         'fw-form-builder',
@@ -2479,15 +2479,14 @@ describe('fw-form-builder', () => {
       const fieldDragDropItem = await rightPanel.findAll(
         'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
       );
-      // total fields
-      expect(updatedFormValues.fields.length).toBe(fieldDragDropItem.length);
-      expect(updatedFormValues.fields.length).toBeGreaterThanOrEqual(
+      // total fields - add safety check
+      const totalFields = updatedFormValues.fields || [];
+      expect(totalFields.length).toBe(fieldDragDropItem.length);
+      expect(totalFields.length).toBeGreaterThanOrEqual(
         formMapper.CONVERSATION_PROPERTIES.maximumLimits.fields.count
       );
-      // total active fields
-      const activeFields = updatedFormValues.fields.filter(
-        (field) => field.custom
-      );
+      // total active fields - add safety check and filter
+      const activeFields = totalFields.filter((field) => field && field.custom);
       expect(activeFields.length).toBeGreaterThanOrEqual(
         formMapper.CONVERSATION_PROPERTIES.maximumLimits.fields.count
       );
