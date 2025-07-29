@@ -55,6 +55,10 @@ export class FormBuilder {
   @Prop() productName: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES' =
     'CUSTOM_OBJECTS';
   /**
+   * Theme configuration for the form builder UI
+   */
+  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
+  /**
    * Show explore plans button and disable features for free-plan users
    */
   @Prop() role: 'trial' | 'admin' = 'admin';
@@ -250,6 +254,7 @@ export class FormBuilder {
   componentWillLoad(): void {
     this.initializeSearchDebounce();
     this.validateFormValues();
+    console.log(this.theme);
     this.supportedFieldTypes = [
       'TEXT',
       'EMAIL',
@@ -271,6 +276,7 @@ export class FormBuilder {
   }
 
   private validateFormValues(objFormValue = null) {
+    console.log(this.theme);
     this.fieldTypesCount = null;
     const objMaxLimitCount = { filterable: 0, unique: 0 };
     this.localFormValues = objFormValue
@@ -436,7 +442,7 @@ export class FormBuilder {
   private getDefaultFieldTypeSchema = (fieldType) => {
     if (presetSchema) {
       try {
-        const objDefaultField = presetSchema.fieldTypes[fieldType];
+        const objDefaultField = presetSchema.fieldTypes[this.theme][fieldType];
 
         if (objDefaultField) {
           const objNewField = deepCloneObject(objDefaultField);
@@ -508,7 +514,9 @@ export class FormBuilder {
     sectionData?
   ) => {
     const fieldType = strNewFieldType;
-    const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
+    const objNewField = deepCloneObject(
+      presetSchema.fieldTypes[this.theme][fieldType]
+    );
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
 
     try {
@@ -1124,6 +1132,7 @@ export class FormBuilder {
     return (
       <Fragment>
         <fw-field-type-menu-item
+          theme={this.theme}
           index={intIndex}
           key={strFieldType}
           value={strFieldType}
@@ -1522,7 +1531,7 @@ export class FormBuilder {
   render() {
     const strBaseClassName = 'form-builder';
     const objFormValuesSchema = this.localFormValues;
-    const objFieldTypes = presetSchema.fieldTypes;
+    const objFieldTypes = presetSchema.fieldTypes[this.theme];
     const objProductPreset = formMapper[this.productName];
     const objProductPresetConfig = objProductPreset?.config;
     const objLabelsDb = objProductPreset?.labels;
@@ -1637,7 +1646,7 @@ export class FormBuilder {
 
     return (
       <Host tabIndex='-1'>
-        <div class={strBaseClassName}>
+        <div class={`${strBaseClassName}--${this.theme} ${strBaseClassName}`}>
           <div class={strLeftPanelClassName}>
             {this.renderFieldTypesHeader(objProductPreset)}
             <div class={`${strBaseClassName}-left-panel-list-container`}>
