@@ -24,6 +24,11 @@ export class FieldTypeMenuItem {
    */
   @Prop({ mutable: true, reflect: true }) disabled = false;
   /**
+   * Theme configuration for styling
+   */
+  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
+
+  /**
    * index attached inside the parent group component
    */
   @Prop() index = -1;
@@ -69,6 +74,7 @@ export class FieldTypeMenuItem {
   };
 
   render() {
+    console.log(this.theme);
     const strBaseClassName = 'field-type-menu-item';
     let strComponentClassName = strBaseClassName;
     if (this.disabled) {
@@ -76,11 +82,11 @@ export class FieldTypeMenuItem {
     }
 
     return (
-      <Host tabIndex='-1'>
+      <Host tabIndex='-1' class={`theme-${this.theme}`}>
         <fw-tooltip placement='right' trigger='hover' content={this.tooltip}>
           <div class={strComponentClassName}>
             <div
-              class={`${strBaseClassName}-draggable-container`}
+              class={`${strBaseClassName}-draggable-container ${strBaseClassName}--${this.theme}`}
               draggable={true}
             >
               <span
