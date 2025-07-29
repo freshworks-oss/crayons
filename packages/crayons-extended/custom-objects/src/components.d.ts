@@ -110,6 +110,10 @@ export namespace Components {
           * flag to show relationshipTypeSelect dropdown or not
          */
         "showRelationshipTypeSelect": boolean;
+        /**
+          * Theme configuration for the form builder UI
+         */
+        "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
     }
     interface FbSectionCreate {
         /**
@@ -405,6 +409,10 @@ export namespace Components {
          */
         "showRelationshipTypeSelect": boolean;
         "showSections": boolean;
+        /**
+          * Theme configuration for the form builder UI
+         */
+        "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -435,6 +443,10 @@ export namespace Components {
           * Name of the component, saved as part of the form data.
          */
         "name": string;
+        /**
+          * Theme configuration for styling
+         */
+        "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
         /**
           * tooltip to be shown on hover
          */
@@ -585,6 +597,10 @@ export namespace Components {
           * flag to support dependentFields & Multi select dropdown within sections
          */
         "supportDependentAndMSDDInSections": boolean;
+        /**
+          * Theme configuration for the form builder UI
+         */
+        "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
         /**
           * Show explore plans and disable features for user having free-plan
          */
@@ -1073,6 +1089,10 @@ declare namespace LocalJSX {
           * flag to show relationshipTypeSelect dropdown or not
          */
         "showRelationshipTypeSelect"?: boolean;
+        /**
+          * Theme configuration for the form builder UI
+         */
+        "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
     }
     interface FbSectionCreate {
         /**
@@ -1422,6 +1442,10 @@ declare namespace LocalJSX {
          */
         "showRelationshipTypeSelect"?: boolean;
         "showSections"?: boolean;
+        /**
+          * Theme configuration for the form builder UI
+         */
+        "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1456,6 +1480,10 @@ declare namespace LocalJSX {
           * Triggered when the the add button is clicked.
          */
         "onFwAddClick"?: (event: FwFieldTypeMenuItemCustomEvent<any>) => void;
+        /**
+          * Theme configuration for styling
+         */
+        "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
         /**
           * tooltip to be shown on hover
          */
@@ -1638,6 +1666,10 @@ declare namespace LocalJSX {
           * flag to support dependentFields & Multi select dropdown within sections
          */
         "supportDependentAndMSDDInSections"?: boolean;
+        /**
+          * Theme configuration for the form builder UI
+         */
+        "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
         /**
           * Show explore plans and disable features for user having free-plan
          */
