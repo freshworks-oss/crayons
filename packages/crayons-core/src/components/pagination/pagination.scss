@@ -14,15 +14,3 @@
     font-weight: 700;
   }
 }
-
-.default,
-.dew-light-theme {
-  .current-record {
-    color: $app-info-color;
-  }
-}
-.dew-dark-theme {
-  .current-record {
-    color: #ffffff;
-  }
-}
