@@ -1,3 +1,8 @@
+$dew-dark-theme-background: #000;
+$dew-light-theme-background: #fff;
+$dew-dark-theme-color: white;
+$dew-dark-theme-border: 1px solid #2b3640;
+
 :host {
   display: block;
 }
@@ -22,13 +27,11 @@
   .sort-action {
     display: flex;
     align-items: center;
-    background: #ffffff;
     margin-inline-start: 2px;
     border-radius: 4px;
     padding-inline: 4px;
     padding-block: 0px;
     min-height: 36px;
-    color: #12344d;
     border: 2px solid transparent;
     box-sizing: border-box;
 
@@ -71,5 +74,28 @@
 
   .dropdown-status-icon.expanded {
     transform: rotate(180deg);
+  }
+}
+
+.default,
+.dew-light-theme {
+  .sort-action {
+    span {
+      color: #465789;
+    }
+    background: #ffffff;
+    color: #12344d;
+  }
+}
+.dew-dark-theme {
+  span {
+    color: $dew-dark-theme-color;
+  }
+  .sort-action {
+    span {
+      color: $dew-dark-theme-color;
+    }
+    background: $dew-dark-theme-background;
+    color: $dew-dark-theme-color;
   }
 }

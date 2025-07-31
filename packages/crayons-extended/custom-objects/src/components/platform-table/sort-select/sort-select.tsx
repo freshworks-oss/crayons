@@ -39,6 +39,10 @@ export class SortSelect {
    */
   @Prop({ mutable: true, reflect: true }) order;
   /**
+   * Theme configuration for the form builder UI
+   */
+  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
+  /**
    * Triggered on selecting the sort option.
    */
   @Event() fwSort: EventEmitter;
@@ -92,7 +96,7 @@ export class SortSelect {
     return (
       <fw-popover
         ref={(sortDropdown) => (this.sortDropdown = sortDropdown)}
-        class='sort'
+        class={`sort ${this.theme}`}
         same-width='false'
         placement='bottom-start'
         trigger='manual'
