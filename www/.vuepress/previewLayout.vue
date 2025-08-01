@@ -97,10 +97,10 @@ export default {
 	 padding: 20px 30px 40px;
 	 box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0;
 	 border-radius: 4px;
-	 background: #fff;
+	 background: var(--color-fill-surface, #fff);
 	 border-width: 1px;
 	 border-style: solid;
-	 border-color: #cfd7df;
+	 border-color: var(--color-boundary-border-mildest, #cfd7df);
 }
  @media screen and (prefers-reduced-motion: reduce) {
 	 .container .code {
@@ -119,7 +119,7 @@ export default {
 	 cursor: pointer;
 	 display: flex;
 	 align-items: center;
-	 color: #12344d;
+	 color: var(--color-text-primary, #12344d);
 	 font-size: 12px;
 	 line-height: 16px;
 	 font-weight: 700;
@@ -127,9 +127,9 @@ export default {
 	 border-width: 1px 0 0 1px;
 	 border-style: solid none none solid;
 	 padding: 4px 10px;
-	 background: #fff;
-	 border-top: 1px solid #cfd7df;
-	 border-left: 1px solid #cfd7df;
+	 background: var(--color-fill-surface, #fff);
+	 border-top: 1px solid var(--color-boundary-border-mildest, #cfd7df);
+	 border-left: 1px solid var(--color-boundary-border-mildest, #cfd7df);
 	 border-radius: 4px 0 4px 0;
 }
  .copy {

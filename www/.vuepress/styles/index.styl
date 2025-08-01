@@ -76,13 +76,13 @@ h3 {
 .theme-switcher-label {
   font-size: 14px;
   font-weight: 500;
-  color: #12344d;
+  color: var(--color-text-primary, #12344d);
   margin-right: 6px;
 }
 
 .theme-switcher-btns {
   display: flex;
-  background: #f5f7f9;
+  background: var(--color-fill-container, #f5f7f9);
   border-radius: 4px;
   padding: 4px;
 }
@@ -95,10 +95,89 @@ h3 {
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  color: #12344d;
+  color: var(--color-text-primary, #12344d);
+
+  &:hover {
+    background: var(--color-overlay-neutral);
+  }
 }
 
 .theme-switcher-btn.active {
-  background: #12344d;
-  color: #ffffff;
+  background: var(--color-fill-brand, #12344d);
+  color: var(--color-text-inverse, #ffffff);
+}
+
+// Apply theme variables to VuePress elements
+.dew-light-theme,
+.dew-dark-theme {
+  h1, h2, h3, h4, p, table, li {
+    color: var(--color-text-primary);
+  }
+
+  h2 {
+    border-bottom: 1px solid var(--color-boundary-border-mildest);
+  }
+
+  tr {
+    background-color: var(--color-fill-surface);
+  }
+
+  table, th, td, hr, .page-nav .inner {
+    border-color: var(--color-boundary-border-mildest);
+  }
+
+  .navbar {
+    background-color: var(--color-fill-surface);
+    border-bottom-color: var(--border-color);
+
+    .links {
+      background-color: var(--color-fill-surface);
+    }
+
+    .site-name, .nav-links a {
+      color: var(--color-text-primary);
+    }
+  }
+
+  .page {
+    background-color: var(--color-fill-surface);
+  }
+
+  .sidebar {
+    background-color: var(--color-fill-surface);
+    border-right-color: var(--color-boundary-border-mildest);
+  }
+  
+  .content {
+    background-color: var(--color-fill-surface);
+    color: var(--color-text-primary);
+  }
+  
+  .search-box input {
+    background-color: var(--color-fill-container);
+    border-color: var(--color-boundary-border-mildest);
+    color: var(--color-text-primary);
+  }
+  
+  code {
+    background-color: var(--color-fill-container);
+    color: var(--color-text-primary);
+  }
+  
+  pre {
+    background-color: var(--color-fill-container); 
+    border-color: var(--color-boundary-border-mildest);
+  }
+
+  span, a.sidebar-link, {
+    color: var(--color-text-primary);
+
+    &.active, &:hover {
+      color: var(--color-text-brand);
+    }
+  }
+
+  .prev, .next, .next a, li a {
+    color: var(--color-text-brand);
+  }
 }
