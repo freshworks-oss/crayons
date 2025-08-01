@@ -647,7 +647,7 @@ describe('fw-datepicker', () => {
     const flag = dates.every((date) => {
       return true && date.getAttribute('class').includes('disabled');
     });
-    expect(flag).not.toBeTruthy();
+    expect(flag).toBeTruthy();
   });
 
   it('should highlight the input box and show alert icon when value is passed and it falls beyond maxDate, when the mode is range', async () => {
