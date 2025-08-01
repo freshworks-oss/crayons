@@ -52,16 +52,6 @@
   }
 
   function injectThemeSwitcher() {
-    // setTimeout(() => {
-    //   const navbar = document.querySelector('.navbar .links');
-    //   if (navbar) {
-    //     if (!document.querySelector('.theme-switcher')) {
-    //       const themeSwitcher = createThemeSwitcher();
-    //       navbar.appendChild(themeSwitcher);
-    //     }
-    //   }
-    //   switchTheme('crayons');
-    // }, 5000);
     const checkNav = setInterval(() => {
       const navbar = document.querySelector('.navbar .links');
       if (navbar) {
