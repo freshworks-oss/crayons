@@ -341,7 +341,7 @@ export default {
 		 padding: 15px;
 	}
 	 .link-card .card-container .learn-more {
-		 font-family: var(--base-font-family,'System stack', sans-serif;
+		 font-family: var(--base-font-family,'System stack', sans-serif);
 		 margin-top: 10px;
 	}
 	 .link-card .card-container .learn-more .learn-more-text {
