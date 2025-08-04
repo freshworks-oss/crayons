@@ -56,13 +56,13 @@ export default {
 #content {
   color: #ffffff;
   font-size: 12px;
-  font-family: monospace;
+  font-family: var(--base-font-family, monospace);
 }
 #desc {
   background-color: #a7ed83;
   color: #000000;
   font-size: 13px;
-  font-family: monospace;
+  font-family: var(--base-font-family, monospace);
   font-weight: bolder;
   padding-left: 5px;
   padding-bottom: 3px;

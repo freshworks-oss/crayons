@@ -66,14 +66,14 @@ export default {
 		 height: 100%;
 	}
 	 .link-card .card-container .card-title {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 font-size: 20px;
 		 color: #4d4d4d;
 		 font-weight: 500;
 		 padding-top: 15px;
 	}
 	 .link-card .card-container .card-description {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 color: #666;
 		 font-size: 15px;
 		 letter-spacing: 0;
@@ -81,7 +81,7 @@ export default {
 		 padding: 15px;
 	}
 	 .link-card .card-container .learn-more {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 margin-top: 10px;
 	}
 	 .link-card .card-container .learn-more .learn-more-text {
@@ -114,14 +114,14 @@ export default {
 	 height: 100%;
 }
  .link-card .card-container .card-title {
-	 font-family: 'System stack', sans-serif;
+	 font-family: var(--base-font-family, 'System stack', sans-serif);
 	 font-size: 20px;
 	 color: #4d4d4d;
 	 font-weight: 500;
 	 padding-top: 15px;
 }
  .link-card .card-container .card-description {
-	 font-family: 'System stack', sans-serif;
+	 font-family: var(--base-font-family, 'System stack', sans-serif);
 	 color: #666;
 	 font-size: 15px;
 	 letter-spacing: 0;
@@ -129,7 +129,7 @@ export default {
 	 padding: 15px;
 }
  .link-card .card-container .learn-more {
-	 font-family: 'System stack', sans-serif;
+	 font-family: var(--base-font-family, 'System stack', sans-serif);
 	 margin-top: 10px;
 }
  .link-card .card-container .learn-more .learn-more-text {
@@ -179,7 +179,7 @@ export default {
 		 padding-top: 15px;
 	}
 	 .link-card .card-container .card-description {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 color: #666;
 		 font-size: 1.25rem;
 		 letter-spacing: 0;
@@ -187,7 +187,7 @@ export default {
 		 padding: 15px;
 	}
 	 .link-card .card-container .learn-more {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 margin-top: 10px;
 	}
 	 .link-card .card-container .learn-more .learn-more-text {
@@ -229,7 +229,7 @@ export default {
 		 padding-top: 15px;
 	}
 	 .link-card .card-container .card-description {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 color: #666;
 		 font-size: 1.25rem;
 		 letter-spacing: 0;
@@ -237,7 +237,7 @@ export default {
 		 padding: 15px;
 	}
 	 .link-card .card-container .learn-more {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 margin-top: 10px;
 	}
 	 .link-card .card-container .learn-more .learn-more-text {
@@ -288,7 +288,7 @@ export default {
 		 padding-top: 15px;
 	}
 	 .link-card .card-container .card-description {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 color: #666;
 		 font-size: 1rem;
 		 letter-spacing: 0;
@@ -296,7 +296,7 @@ export default {
 		 padding: 15px;
 	}
 	 .link-card .card-container .learn-more {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 margin-top: 10px;
 	}
 	 .link-card .card-container .learn-more .learn-more-text {
@@ -333,7 +333,7 @@ export default {
 		 padding-top: 15px;
 	}
 	 .link-card .card-container .card-description {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family, 'System stack', sans-serif);
 		 color: #666;
 		 font-size: 1rem;
 		 letter-spacing: 0;
@@ -341,7 +341,7 @@ export default {
 		 padding: 15px;
 	}
 	 .link-card .card-container .learn-more {
-		 font-family: 'System stack', sans-serif;
+		 font-family: var(--base-font-family,'System stack', sans-serif;
 		 margin-top: 10px;
 	}
 	 .link-card .card-container .learn-more .learn-more-text {

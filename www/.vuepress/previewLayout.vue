@@ -52,7 +52,7 @@ export default {
 	 border-radius: 6px;
 	 overflow: hidden;
 	 color: #fff;
-	 font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+	 font-family: var(--base-font-family, Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace);
 	 font-size: 0.85em;
 	 text-align: left;
 	 white-space: pre-wrap;
@@ -69,7 +69,7 @@ export default {
 	 border-radius: 6px;
 	 overflow: hidden;
 	 color: #fff;
-	 font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+	 font-family: var(--base-font-family, Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace);
 	 font-size: 0.85em;
 	 text-align: left;
 	 white-space: pre-wrap;

@@ -411,8 +411,16 @@ $mostlydissatisfied: #d7461f;
 $extremelydissatisfied: #d72d30;
 
 // Font stack
-$font-stack-sans: -apple-system, blinkmacsystemfont, 'Segoe UI', 'Roboto',
-  'Helvetica Neue', arial, sans-serif !default;
+$font-stack-sans: var(
+  --base-font-family,
+  -apple-system,
+  blinkmacsystemfont,
+  'Segoe UI',
+  'Roboto',
+  'Helvetica Neue',
+  arial,
+  sans-serif
+) !default;
 
 //Mailchimp colors
 $text-blue-color: #4da1ff;
