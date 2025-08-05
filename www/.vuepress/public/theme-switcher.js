@@ -4,33 +4,46 @@
     const themeSwitcher = document.createElement('div');
     themeSwitcher.className = 'theme-switcher';
     themeSwitcher.innerHTML = `
-      <div class="theme-switcher-container">
-        <span class="theme-switcher-label">Theme:</span>
-        <div class="theme-switcher-btns">
-          <button class="theme-switcher-btn active" data-theme="crayons">
-            Crayons
-          </button>
-          <button class="theme-switcher-btn" data-theme="dew-light">
-            Dew Light
-          </button>
-          <button class="theme-switcher-btn" data-theme="dew-dark">
-            Dew Dark
-          </button>
+      <div class="dropdown">
+        <div class="dropdown-container" tabindex="0" role="button">
+          <span class="dropdown-label">Theme</span>
+          <span class="arrow down"></span>
+        </div>
+        <div class="dropdown-options" style="display: none;">
+          <div class="dropdown-option" data-theme="crayons">Crayons</div>
+          <div class="dropdown-option" data-theme="dew-light">Dew Light</div>
+          <div class="dropdown-option" data-theme="dew-dark">Dew Dark</div>
         </div>
       </div>
     `;
 
-    const buttons = themeSwitcher.querySelectorAll('.theme-switcher-btn');
-    buttons.forEach(button => {
-      button.addEventListener('click', function() {
-        const theme = this.getAttribute('data-theme');
-        switchTheme(theme);
+    const dropdownContainer = themeSwitcher.querySelector('.dropdown-container');
+    const dropdownOptions = themeSwitcher.querySelector('.dropdown-options');
+    const dropdownIcon = themeSwitcher.querySelector('.arrow');
+    const options = themeSwitcher.querySelectorAll('.dropdown-option');
 
-        buttons.forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
+    dropdownContainer.addEventListener('click', function() {
+      const isVisible = dropdownOptions.style.display !== 'none';
+      dropdownOptions.style.display = isVisible ? 'none' : 'block';
+      dropdownIcon.classList.toggle('expanded', !isVisible);
+    });
+
+    options.forEach(option => {
+      option.addEventListener('click', function() {
+        const theme = this.getAttribute('data-theme');
+        switchTheme(theme);        
+        dropdownContainer.querySelector('.dropdown-label').textContent = this.textContent;        
+        dropdownOptions.style.display = 'none';
+        dropdownIcon.classList.remove('expanded');
       });
     });
 
+    document.addEventListener('click', function(e) {
+      if (!themeSwitcher.contains(e.target)) {
+        dropdownOptions.style.display = 'none';
+        dropdownIcon.classList.remove('expanded');
+      }
+    });
     return themeSwitcher;
   }
 
@@ -48,7 +61,8 @@
         html.classList.add('dew-dark-theme');
         break;
       default:
-        html.classList.remove('dew-light-theme', 'dew-dark-theme');    }
+        html.classList.remove('dew-light-theme', 'dew-dark-theme');
+    }
   }
 
   function injectThemeSwitcher() {

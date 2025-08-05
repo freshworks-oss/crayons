@@ -66,45 +66,60 @@ h3 {
   display: flex;
   align-items: center;
   margin-left: 16px;
-}
+  line-height: 0;
 
-.theme-switcher-container {
-  display: flex;
-  align-items: center;
-}
+  .dropdown {
+    position: relative;
 
-.theme-switcher-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-text-primary, #12344d);
-  margin-right: 6px;
-}
+    &-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-fill-surface, #ffffff);
+      border-radius: 4px;
+      min-width: 80px;
+      min-height: 32px;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text-primary, #12344d);
+      border: 2px solid transparent;
+      box-sizing: border-box;
+      cursor: pointer;
+      padding: 0 8px;
 
-.theme-switcher-btns {
-  display: flex;
-  background: var(--color-fill-container, #f5f7f9);
-  border-radius: 4px;
-  padding: 4px;
-}
+      .arrow {
+        margin: 2px 0 0 4px;
+      }
+    }
 
-.theme-switcher-btn {
-  padding: 6px 10px;
-  border: none;
-  background: transparent;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  color: var(--color-text-primary, #12344d);
+    &-label {
+      padding-right: 6px;
+    }
 
-  &:hover {
-    background: var(--color-overlay-neutral);
+    &-options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--color-fill-surface, #ffffff);
+      border: 1px solid var(--color-boundary-border-mildest, #e1e4e8);
+      border-radius: 4px;
+      z-index: 1000;
+      margin-top: 4px;
+      line-height: 28px;
+    }
+
+    &-option {
+      padding: 2px 8px;
+      cursor: pointer;
+      color: var(--color-text-primary, #12344d);
+      font-size: 14px;
+
+      &:hover {
+        background: var(--color-fill-container, #f6f7f8);
+      }
+    }
   }
-}
-
-.theme-switcher-btn.active {
-  background: var(--color-fill-brand, #12344d);
-  color: var(--color-text-inverse, #ffffff);
 }
 
 // Apply theme variables to VuePress elements

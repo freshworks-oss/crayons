@@ -47,7 +47,7 @@ export default {
 }
  @media screen and (prefers-reduced-motion: reduce) {
 	 .link-card .card-container {
-		 height: 420px;
+		 height: 440px;
 		 width: 100%;
 		 border-radius: 15px;
 		 background-color: #fff;
@@ -95,7 +95,7 @@ export default {
 	}
 }
  .link-card .card-container {
-	 height: 420px;
+	 height: 440px;
 	 width: 100%;
 	 border-radius: 15px;
 	 background-color: #fff;
@@ -152,7 +152,7 @@ export default {
     }
   }
   .link-card .card-container {
-		 height: 420px;
+		 height: 440px;
 		 width: 80%;
 		 margin: 0 auto;
 		 border-radius: 15px;
@@ -202,7 +202,7 @@ export default {
 }
  @media only screen and (max-width: 48rem) and (prefers-reduced-motion: reduce) {
 	 .link-card .card-container {
-		 height: 420px;
+		 height: 440px;
 		 width: 80%;
 		 margin: 0 auto;
 		 border-radius: 15px;
@@ -261,7 +261,7 @@ export default {
     }
   }
 	 .link-card .card-container {
-		 height: 420px;
+		 height: 440px;
 		 width: 90%;
 		 margin: 0 auto;
 		 border-radius: 15px;
@@ -306,7 +306,7 @@ export default {
 }
  @media only screen and (max-width: 27rem) and (prefers-reduced-motion: reduce) {
 	 .link-card .card-container {
-		 height: 420px;
+		 height: 440px;
 		 width: 90%;
 		 margin: 0 auto;
 		 border-radius: 15px;
