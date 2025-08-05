@@ -2,10 +2,6 @@
  * @prop --fw-platform-table-height: Platform-table height: Default: 100% for the data table
  * @prop --fw-platform-table-width: Platform-table width: Default: 100% for the data table
  */
-$dew-dark-theme-background: #000;
-$dew-light-theme-background: #fff;
-$dew-dark-theme-color: white;
-$dew-dark-theme-border: 1px solid #2b3640;
 
 .toolbar {
   display: flex;
@@ -16,6 +12,7 @@ $dew-dark-theme-border: 1px solid #2b3640;
   padding-block-end: 12px;
   padding-inline-end: 16px;
   padding-block-start: 12px;
+  background-color: var(--color-fill-container, #ffffff);
   border: 1px solid rgba(207, 215, 223, 0.4);
   box-shadow: 0px 1px 4px rgba(18, 52, 77, 0.16);
   box-sizing: border-box;
@@ -28,6 +25,7 @@ $dew-dark-theme-border: 1px solid #2b3640;
   .sort-label {
     font-size: 14px;
     margin-inline-start: 16px;
+    color: var(--color-text-primary, #465789);
     font-weight: 400;
   }
 
@@ -56,22 +54,4 @@ $dew-dark-theme-border: 1px solid #2b3640;
   border-start-end-radius: 4px;
   border-start-start-radius: 4px;
   box-shadow: 0px 1px 4px rgba(18, 52, 77, 0.16);
-}
-
-.default,
-.dew-light-theme {
-  .toolbar {
-    background: #ffffff;
-    .sort-label {
-      color: #465789;
-    }
-  }
-}
-.dew-dark-theme {
-  .toolbar {
-    background: $dew-dark-theme-background;
-    .sort-label {
-      color: $dew-dark-theme-color;
-    }
-  }
 }

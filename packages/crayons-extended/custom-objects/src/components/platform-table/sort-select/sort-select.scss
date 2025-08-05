@@ -1,8 +1,3 @@
-$dew-dark-theme-background: #000;
-$dew-light-theme-background: #fff;
-$dew-dark-theme-color: white;
-$dew-dark-theme-border: 1px solid #2b3640;
-
 :host {
   display: block;
 }
@@ -14,7 +9,7 @@ $dew-dark-theme-border: 1px solid #2b3640;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #465789;
+    color: var(--color-text-primary, #465789);
     font-size: 14px;
     font-weight: 400;
 
@@ -28,6 +23,8 @@ $dew-dark-theme-border: 1px solid #2b3640;
     display: flex;
     align-items: center;
     margin-inline-start: 2px;
+    background-color: var(--color-fill-container, #ffffff);
+    color: var(--color-text-primary, #465789);
     border-radius: 4px;
     padding-inline: 4px;
     padding-block: 0px;
@@ -44,7 +41,7 @@ $dew-dark-theme-border: 1px solid #2b3640;
     margin-inline-start: 20px;
     font-size: 12px;
     font-weight: 700;
-    color: #12344d;
+    color: var(--color-text-primary, #12344d);
   }
 
   .divider {
@@ -77,25 +74,25 @@ $dew-dark-theme-border: 1px solid #2b3640;
   }
 }
 
-.default,
-.dew-light-theme {
-  .sort-action {
-    span {
-      color: #465789;
-    }
-    background: #ffffff;
-    color: #12344d;
-  }
-}
-.dew-dark-theme {
-  span {
-    color: $dew-dark-theme-color;
-  }
-  .sort-action {
-    span {
-      color: $dew-dark-theme-color;
-    }
-    background: $dew-dark-theme-background;
-    color: $dew-dark-theme-color;
-  }
-}
+// .default,
+// .dew-light-theme {
+//   .sort-action {
+//     span {
+//       color: #465789;
+//     }
+//     background: #ffffff;
+//     color: #12344d;
+//   }
+// }
+// .dew-dark-theme {
+//   span {
+//     color: $dew-dark-theme-color;
+//   }
+//   .sort-action {
+//     span {
+//       color: $dew-dark-theme-color;
+//     }
+//     background: $dew-dark-theme-background;
+//     color: $dew-dark-theme-color;
+//   }
+// }
