@@ -151,6 +151,7 @@
     flex-direction: column;
     overflow-y: auto;
     background: var(--color-fill-surface, $color-smoke-25);
+    color: var(--color-text-primary, $color-elephant-900);
     border-inline-end: 1px solid $color-smoke-50;
 
     .form-builder-left-panel-header {
@@ -181,8 +182,8 @@
       pointer-events: none;
       user-select: none;
       text-align: start;
-
       color: var(--color-text-primary, $color-elephant-900);
+      background: var(--color-fill-surface, $color-smoke-25);
       font-size: $font-size-18;
       font-weight: $font-weight-700;
       line-height: 28px;
@@ -195,8 +196,8 @@
       pointer-events: none;
       user-select: none;
       text-align: start;
-
-      color: $color-smoke-700;
+      color: var(--color-text-primary, $color-smoke-700);
+      background: var(--color-fill-surface, $color-smoke-25);
       font-size: $font-size-12;
       font-weight: $font-weight-400;
       line-height: 18px;
@@ -219,7 +220,6 @@
         pointer-events: none;
         user-select: none;
         text-align: start;
-
         color: $color-smoke-700;
         font-size: $font-size-14;
         font-weight: $font-weight-400;
@@ -233,12 +233,10 @@
         margin-block-start: -2px;
         text-align: start;
         display: inline-block;
-
         font-size: $font-size-14;
         color: $color-azure-800;
         font-weight: $font-weight-400;
         text-decoration: none;
-
         word-wrap: break-word;
         word-break: break-word;
         white-space: normal;
@@ -254,8 +252,8 @@
       pointer-events: none;
       user-select: none;
       text-align: start;
-
       color: var(--color-text-primary, $color-elephant-900);
+      background: var(--color-fill-surface, $color-smoke-25);
       font-size: $font-size-16;
       font-weight: $font-weight-600;
       line-height: 24px;
@@ -290,7 +288,6 @@
         pointer-events: none;
         user-select: none;
         text-align: start;
-
         color: var(--color-text-primary, $color-elephant-900);
         font-size: $font-size-16;
         font-weight: $font-weight-600;
@@ -349,8 +346,8 @@
             pointer-events: none;
             user-select: none;
             text-align: start;
-
-            color: $color-smoke-700;
+            background-color: var(--color-fill-container, #ffffff);
+            color: var(--color-text-primary, $color-smoke-700);
             font-size: $font-size-12;
             font-weight: $font-weight-400;
           }
@@ -362,15 +359,14 @@
             margin-block-start: -2px;
             text-align: start;
             display: inline-block;
-
             font-size: $font-size-12;
-            color: $color-azure-800;
             font-weight: $font-weight-400;
             text-decoration: none;
-
             word-wrap: break-word;
             word-break: break-word;
             white-space: normal;
+            background-color: var(--color-fill-container, #ffffff);
+            color: var(--color-text-primary, $color-azure-800);
           }
 
           .field-type-menu-help-fw-icon {
@@ -405,8 +401,8 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    background: $color-milk;
-
+    background: var(--color-fill-surface, $color-milk);
+    color: var(--color-text-primary, $color-elephant-900);
     .form-builder-right-panel-header {
       width: 100%;
       height: 64px;
@@ -625,137 +621,4 @@
   flex-direction: column;
   gap: 16px;
   padding-block-start: 4px;
-}
-
-.form-builder--dew-light-theme {
-  background-color: $dew-light-theme-background;
-  .form-builder-left-panel {
-    background-color: $dew-light-theme-background;
-
-    .form-builder-left-panel-list-container {
-      .form-builder-left-panel-field-types-list {
-        .field-type-menu-description {
-          .field-type-menu-description-label {
-            color: $color-elephant-900;
-          }
-          .field-type-menu-description-link-anchor {
-            color: $color-azure-800;
-          }
-        }
-      }
-    }
-  }
-
-  .form-builder-right-panel {
-    .form-builder-right-panel-header {
-      .form-builder-right-panel-header-label {
-        color: $color-elephant-900;
-      }
-    }
-  }
-}
-
-.form-builder--dew-dark-theme {
-  .field-type-menu-description-label {
-    background-color: $dew-dark-theme-background;
-    color: $dew-dark-theme-color;
-  }
-  background-color: $dew-dark-theme-background;
-  .form-builder-left-panel {
-    background-color: $dew-dark-theme-background;
-    color: $dew-dark-theme-color;
-
-    .form-builder-left-panel-header-label,
-    .form-builder-left-panel-header-desc {
-      background-color: $dew-dark-theme-background;
-      color: $dew-dark-theme-color;
-    }
-    .form-builder-left-panel-list-container {
-      .form-builder-left-panel-field-types-list {
-        .field-type-menu-description {
-          .field-type-menu-description-label {
-            color: $dew-dark-theme-color;
-          }
-          .field-type-menu-description-link-anchor {
-            color: $dew-dark-theme-color;
-          }
-        }
-      }
-    }
-  }
-  .form-builder-right-panel {
-    background-color: $dew-dark-theme-background;
-    color: $dew-dark-theme-color;
-    .form-builder-right-panel-header {
-      .form-builder-right-panel-header-label {
-        color: $dew-dark-theme-color;
-      }
-    }
-
-    .form-builder-right-panel-header-search-input {
-      color: $dew-dark-theme-color;
-      border: 1px solid $dew-dark-theme-border;
-      .input-container-inner {
-        background-color: $dew-dark-theme-background;
-        border-color: #2b3640;
-        color: $dew-dark-theme-color;
-
-        .inner__content {
-          .input__label {
-            input {
-              color: $dew-dark-theme-color;
-              background-color: transparent;
-
-              &::placeholder {
-                color: rgba(255, 255, 255, 0.6);
-              }
-            }
-          }
-        }
-
-        &:hover,
-        &:focus {
-          border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        &.has-focus {
-          background-color: $dew-dark-theme-background;
-          border-color: transparent;
-          box-shadow: 0 0 0 2px $input-focus-color;
-        }
-      }
-    }
-
-    .form-builder-right-panel-empty-search-message {
-      color: $dew-dark-theme-color;
-    }
-  }
-}
-
-// Default theme styling (when theme = 'default')
-.form-builder--default {
-  .form-builder-left-panel {
-    .form-builder-left-panel-list-container {
-      .form-builder-left-panel-field-types-list {
-        .field-type-menu-description {
-          .field-type-menu-description-label {
-            color: $color-smoke-700;
-          }
-          .field-type-menu-description-link-anchor {
-            color: $color-azure-800;
-          }
-        }
-      }
-    }
-  }
-  .form-builder-right-panel {
-    .form-builder-right-panel-header {
-      .form-builder-right-panel-header-label {
-        color: $color-elephant-900;
-      }
-    }
-    .form-builder-right-panel-empty-search-message {
-      color: $color-elephant-900;
-    }
-  }
 }
