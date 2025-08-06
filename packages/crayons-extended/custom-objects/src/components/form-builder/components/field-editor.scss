@@ -50,7 +50,7 @@
     align-items: center;
     box-sizing: border-box;
     border-radius: $form-builder-field-editor-border-radius;
-
+    background-color: var(--color-fill-surface, $color-milk);
     .fw-field-editor-drag-container {
       min-width: 24px;
       width: 24px;
@@ -153,7 +153,7 @@
     width: 100%;
     height: auto;
     box-sizing: border-box;
-    background: var(--color-fill-surface, $color-milk);
+    background-color: var(--color-fill-surface, $color-milk);
     border-radius: $form-builder-field-editor-border-radius;
     display: none;
 
@@ -165,7 +165,7 @@
       padding-block: 20px;
       display: flex;
       box-sizing: border-box;
-
+      background-color: var(--color-fill-surface, $color-smoke-25);
       border-block-start: 1px solid #eceff2;
       border-block-end: 1px solid #eceff2;
 
@@ -247,6 +247,7 @@
           .fw-field-editor-content-checkboxes-header-label {
             font-size: $font-size-16;
             font-weight: $font-weight-600;
+            color: var(--color-text-primary, $color-smoke-700);
             display: block;
             pointer-events: none;
             user-select: none;
