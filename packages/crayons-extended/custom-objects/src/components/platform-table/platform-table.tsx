@@ -79,10 +79,6 @@ export class PlatformTable {
    */
   @Prop() isSelectable = true;
   /**
-   * Theme configuration for the form builder UI
-   */
-  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
-  /**
    * Triggered on selecting the sort option.
    */
   @Event() fwDelete: EventEmitter;
@@ -198,7 +194,6 @@ export class PlatformTable {
           orderBy={this.orderBy}
           order={this.order}
           sortOptions={this.orderByData}
-          theme={this.theme}
         ></fw-sort-select>
       </Fragment>
     );
@@ -216,39 +211,37 @@ export class PlatformTable {
   render() {
     return (
       <Fragment>
-        <div class={this.theme}>
-          <div class='toolbar'>
-            <span class='toolbar-prefix'>
-              {this.isSelectable && (
-                <fw-checkbox
-                  id='selectAll'
-                  disabled={this.showError}
-                  checked={this.checkAll}
-                ></fw-checkbox>
-              )}
-              {this.showDelete ? this.renderDeleteButton() : this.renderSort()}
-            </span>
-            <span class='toolbar-suffix'>
-              <slot name='toolbar-before'></slot>
-              <fw-pagination {...this.paginationProps}></fw-pagination>
-              <slot name='toolbar-after'></slot>
-            </span>
-          </div>
-          {this.showError ? (
-            <slot name='error-state'></slot>
-          ) : (
-            <fw-data-table
-              style={this.style}
-              {...this.defaultProps}
-              {...this.tableProps}
-              class='table dew-dark-theme'
-              ref={(table) => {
-                this.table = table;
-              }}
-              isSelectable={this.isSelectable}
-            ></fw-data-table>
-          )}
+        <div class='toolbar'>
+          <span class='toolbar-prefix'>
+            {this.isSelectable && (
+              <fw-checkbox
+                id='selectAll'
+                disabled={this.showError}
+                checked={this.checkAll}
+              ></fw-checkbox>
+            )}
+            {this.showDelete ? this.renderDeleteButton() : this.renderSort()}
+          </span>
+          <span class='toolbar-suffix'>
+            <slot name='toolbar-before'></slot>
+            <fw-pagination {...this.paginationProps}></fw-pagination>
+            <slot name='toolbar-after'></slot>
+          </span>
         </div>
+        {this.showError ? (
+          <slot name='error-state'></slot>
+        ) : (
+          <fw-data-table
+            style={this.style}
+            {...this.defaultProps}
+            {...this.tableProps}
+            class='table'
+            ref={(table) => {
+              this.table = table;
+            }}
+            isSelectable={this.isSelectable}
+          ></fw-data-table>
+        )}
       </Fragment>
     );
   }
