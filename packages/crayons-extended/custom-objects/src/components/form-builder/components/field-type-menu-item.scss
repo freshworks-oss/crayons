@@ -28,7 +28,7 @@
     padding: 8px;
     outline: 0;
 
-    background-color: $color-milk;
+    background: var(--color-fill-surface, $color-smoke-25);
     border: 1px solid $color-smoke-50;
     box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
     border-radius: 4px;
@@ -59,30 +59,30 @@
     user-select: none;
     text-align: start;
 
-    color: $color-elephant-900;
+    color: var(--color-text-primary, $color-elephant-900);
     font-size: $font-size-14;
     font-weight: $font-weight-400;
 
     @include single-line-ellipsis-label;
   }
-  .field-type-menu-item--dew-light-theme {
-    background-color: $dew-light-theme-background;
-    label {
-      color: $color-elephant-900;
-    }
-  }
-  .field-type-menu-item--dew-default {
-    background-color: $dew-dark-theme-background;
-    label {
-      color: $color-elephant-900;
-    }
-  }
-  .field-type-menu-item--dew-dark-theme {
-    background-color: $dew-dark-theme-background;
-    label {
-      color: $dew-dark-theme-color;
-    }
-  }
+  // .field-type-menu-item--dew-light-theme {
+  //   background-color: $dew-light-theme-background;
+  //   label {
+  //     color: $color-elephant-900;
+  //   }
+  // }
+  // .field-type-menu-item--dew-default {
+  //   background-color: $dew-dark-theme-background;
+  //   label {
+  //     color: $color-elephant-900;
+  //   }
+  // }
+  // .field-type-menu-item--dew-dark-theme {
+  //   background-color: $dew-dark-theme-background;
+  //   label {
+  //     color: $dew-dark-theme-color;
+  //   }
+  // }
 
   .field-type-menu-item-add-button-container {
     width: 24px;

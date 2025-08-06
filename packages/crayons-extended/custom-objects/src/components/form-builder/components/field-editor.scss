@@ -37,7 +37,7 @@
   display: flex;
   flex-direction: column;
   outline: 0;
-  background-color: $color-milk;
+  background-color: var(--color-fill-surface, $color-milk);
   border: 1px solid $color-smoke-100;
   border-radius: $form-builder-field-editor-border-radius;
   transition: box-shadow 0.3s;
@@ -153,7 +153,7 @@
     width: 100%;
     height: auto;
     box-sizing: border-box;
-    background-color: $color-milk;
+    background: var(--color-fill-surface, $color-milk);
     border-radius: $form-builder-field-editor-border-radius;
     display: none;
 
@@ -505,45 +505,4 @@
   flex-direction: column;
   gap: 16px;
   padding-block-start: 4px;
-}
-
-// Theme-specific overrides
-.form-builder--default,
-.form-builder--dew-light-theme {
-  .fw-field-editor-label {
-    color: $color-elephant-900;
-  }
-  .fw-field-editor-header {
-    background-color: $color-milk;
-  }
-  .fw-field-editor-content {
-    background-color: $color-smoke-25;
-    .fw-field-editor-content-required {
-      .fw-field-editor-content-checkboxes {
-        .fw-field-editor-content-checkboxes-header-label {
-          color: $color-smoke-700;
-        }
-      }
-    }
-  }
-}
-
-.form-builder--dew-dark-theme {
-  .fw-field-editor-label {
-    color: $dew-dark-theme-color;
-  }
-  .fw-field-editor-header {
-    background-color: $dew-dark-theme-background;
-    color: $dew-dark-theme-color;
-  }
-  .fw-field-editor-content {
-    background-color: $dew-dark-theme-background;
-    .fw-field-editor-content-required {
-      .fw-field-editor-content-checkboxes {
-        .fw-field-editor-content-checkboxes-header-label {
-          color: $dew-dark-theme-background;
-        }
-      }
-    }
-  }
 }

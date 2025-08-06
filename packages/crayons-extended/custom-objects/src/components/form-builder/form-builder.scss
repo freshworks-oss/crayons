@@ -9,15 +9,15 @@
 }
 
 .fb-section {
-  background: $color-smoke-50;
+  background-color: var(--color-fill-container, $color-smoke-50);
   border-radius: 8px;
   border: 1px solid $color-smoke-100;
   width: 100%;
   margin-block-end: 10px;
 
   .error-message {
-    color: $app-icon-color;
-    background-color: $color-persimmon-50;
+    color: var(--color-text-semantic-error, $app-icon-color);
+    background-color: var(--color-fill-semantic-error, $color-persimmon-50);
     border: 1px solid $color-persimmon-100;
     margin-block-start: 10px;
     display: flex;
@@ -62,7 +62,7 @@
     }
   }
   .fb-section-add {
-    color: $color-elephant-900;
+    color: var(--color-text-primary, $color-elephant-900);
     font-size: 14px;
     line-height: 20px;
     margin: 0;
@@ -116,7 +116,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      color: $color-elephant-900;
+      color: var(--color-text-primary, $color-elephant-900);
 
       &.disabled {
         pointer-events: none;
@@ -133,6 +133,7 @@
   height: 100%;
   padding: 0;
   box-sizing: border-box;
+  background-color: var(--color-fill-container, $color-milk);
   display: flex;
   overflow: hidden;
   position: relative;
@@ -149,7 +150,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    background: $color-smoke-25;
+    background: var(--color-fill-surface, $color-smoke-25);
     border-inline-end: 1px solid $color-smoke-50;
 
     .form-builder-left-panel-header {
@@ -167,7 +168,7 @@
       user-select: none;
       text-align: start;
 
-      color: $color-elephant-900;
+      color: var(--color-text-primary, $color-elephant-900);
       font-size: $font-size-20;
       font-weight: $font-weight-700;
       line-height: 28px;
@@ -181,7 +182,7 @@
       user-select: none;
       text-align: start;
 
-      color: $color-elephant-900;
+      color: var(--color-text-primary, $color-elephant-900);
       font-size: $font-size-18;
       font-weight: $font-weight-700;
       line-height: 28px;
@@ -254,7 +255,7 @@
       user-select: none;
       text-align: start;
 
-      color: $color-elephant-900;
+      color: var(--color-text-primary, $color-elephant-900);
       font-size: $font-size-16;
       font-weight: $font-weight-600;
       line-height: 24px;
@@ -290,7 +291,7 @@
         user-select: none;
         text-align: start;
 
-        color: $color-elephant-900;
+        color: var(--color-text-primary, $color-elephant-900);
         font-size: $font-size-16;
         font-weight: $font-weight-600;
         line-height: 24px;
@@ -432,7 +433,7 @@
           pointer-events: none;
           user-select: none;
           text-align: start;
-
+          color: var(--color-text-primary, $color-elephant-900);
           font-size: $font-size-16;
           font-weight: $font-weight-700;
           line-height: 28px;
@@ -543,7 +544,7 @@
             pointer-events: none;
             user-select: none;
             text-align: center;
-
+            color: var(--color-text-primary, $color-elephant-900);
             font-size: $font-size-18;
             font-weight: $font-weight-700;
             line-height: 24px;
