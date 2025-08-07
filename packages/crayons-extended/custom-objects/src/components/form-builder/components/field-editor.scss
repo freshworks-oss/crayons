@@ -38,7 +38,7 @@
   flex-direction: column;
   outline: 0;
   background-color: var(--color-fill-surface, $color-milk);
-  border: 1px solid $color-smoke-100;
+  border: 1px solid var(--color-boundary-border-mildest, $color-smoke-100);
   border-radius: $form-builder-field-editor-border-radius;
   transition: box-shadow 0.3s;
 
@@ -166,9 +166,9 @@
       display: flex;
       box-sizing: border-box;
       background-color: var(--color-fill-surface, $color-smoke-25);
-      border-block-start: 1px solid #eceff2;
-      border-block-end: 1px solid #eceff2;
-
+      border-block-start: 1px solid
+        var(--color-boundary-border-mildest, #eceff2);
+      border-block-end: 1px solid var(--color-boundary-border-mildest, #eceff2);
       .fw-field-editor-content-required {
         width: 100%;
         height: auto;
@@ -284,7 +284,8 @@
         }
 
         .fw-field-editor-status-toggle {
-          border: 1px solid $color-smoke-100;
+          border: 1px solid
+            var(--color-boundary-border-mildest, $color-smoke-100);
 
           .fw-field-editor-status-toggle-item {
             display: grid;
@@ -302,7 +303,8 @@
 
             &.header {
               background: $color-smoke-50;
-              border: 1px solid $color-smoke-100;
+              border: 1px solid
+                var(--color-boundary-border-mildest, $color-smoke-100);
               border-width: 0 1px 1px 1px;
               font-size: $font-size-12;
             }
