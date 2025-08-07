@@ -78,10 +78,6 @@ export class FieldEditor {
    */
   @Prop() pinned: 'top' | 'bottom' | '';
   /**
-   * Theme configuration for the form builder UI
-   */
-  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
-  /**
    * flag to notify if an api call is in progress
    */
   @Prop({ mutable: true }) isLoading = false;

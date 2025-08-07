@@ -18,10 +18,6 @@ export class FormBuilderFieldDragDropItem {
    */
   @Prop() productName = 'CUSTOM_OBJECTS';
   /**
-   * Theme configuration for the form builder UI
-   */
-  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
-  /**
    * Pinned position of the drag item, other drag item cannot be placed above or below it.
    */
   @Prop() pinned: 'top' | 'bottom' | '';
