@@ -746,3 +746,13 @@ export function getChoicesWithNoSectionCreated(choices) {
     return choicesWithNoSection;
   }, []);
 }
+
+export function generateThemeBasedIconBackground(color, theme) {
+  if (theme === 'dew-light-theme') {
+    return '#fff';
+  } else if (theme === 'dew-dark-theme') {
+    return '#000';
+  } else {
+    return color;
+  }
+}

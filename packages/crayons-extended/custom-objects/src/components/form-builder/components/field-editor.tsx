@@ -22,6 +22,7 @@ import {
   deepCloneObject,
   deleteChoicesInFields,
   deriveInternalNameFromLabel,
+  generateThemeBasedIconBackground,
   getChildChoices,
   getDependentLevels,
   getFieldBasedOnLevel,
@@ -201,6 +202,10 @@ export class FieldEditor {
    * Create dynamic section
    */
   @Prop() createDynamicSection = false;
+  /**
+   * Theme configuration for the form builder UI
+   */
+  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
   /**
    * State to check if the values have been changed and enable the save button
    */
@@ -2118,7 +2123,12 @@ export class FieldEditor {
             >
               <span
                 class={`${strBaseClassName}-icon-container`}
-                style={{ backgroundColor: fieldIcon.bg_color }}
+                style={{
+                  backgroundColor: generateThemeBasedIconBackground(
+                    fieldIcon.bg_color,
+                    this.theme
+                  ),
+                }}
               >
                 <fw-icon size={14} name={fieldIcon.name} color='#475867' />
               </span>
