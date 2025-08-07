@@ -1646,7 +1646,7 @@ export class FormBuilder {
 
     return (
       <Host tabIndex='-1'>
-        <div class={`${strBaseClassName}--${this.theme} ${strBaseClassName}`}>
+        <div class={strBaseClassName}>
           <div class={strLeftPanelClassName}>
             {this.renderFieldTypesHeader(objProductPreset)}
             <div class={`${strBaseClassName}-left-panel-list-container`}>

@@ -81,11 +81,11 @@ export class FieldTypeMenuItem {
     }
 
     return (
-      <Host tabIndex='-1' class={`theme-${this.theme}`}>
+      <Host tabIndex='-1'>
         <fw-tooltip placement='right' trigger='hover' content={this.tooltip}>
           <div class={strComponentClassName}>
             <div
-              class={`${strBaseClassName}-draggable-container ${strBaseClassName}--${this.theme}`}
+              class={`${strBaseClassName}-draggable-container`}
               draggable={true}
             >
               <span
