@@ -1634,7 +1634,6 @@ describe('fw-form-builder', () => {
   describe.each(['CUSTOM_OBJECTS', 'CONVERSATION_PROPERTIES'])(
     'test %s fields',
     (productName) => {
-      const theme = 'default';
       let fieldOrder = [...formMapper[productName].fieldOrder];
       if (productName === 'CUSTOM_OBJECTS') {
         fieldOrder = fieldOrder.slice(1);
@@ -1647,7 +1646,7 @@ describe('fw-form-builder', () => {
           const page = await newE2EPage();
 
           await page.setContent(
-            `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
+            `<fw-form-builder product-name="${productName}"></fw-form-builder>`
           );
           const fwComposeNewField = await page.spyOnEvent('fwComposeNewField');
           const leftPanel = await page.find(
@@ -1662,7 +1661,7 @@ describe('fw-form-builder', () => {
           expect(fwComposeNewField).toHaveReceivedEventDetail({
             maximumLimits: formMapper[productName].maximumLimits,
             fieldSchema: {
-              ...presetSchema.fieldTypes[theme][field],
+              ...presetSchema.fieldTypes[field],
               checkboxes:
                 formMapper[productName].fieldProps[field].checkboxes || null,
               type:
@@ -1670,7 +1669,7 @@ describe('fw-form-builder', () => {
                   ? field
                   : formMapper[productName].mappedFieldTypes[field],
             },
-            value: presetSchema.fieldTypes[theme][field],
+            value: presetSchema.fieldTypes[field],
             index: -1,
           });
         }
@@ -1679,7 +1678,7 @@ describe('fw-form-builder', () => {
       it('opens a modal on click of delete button and on confirmation, emits fwDeleteField event with event details', async () => {
         const page = await newE2EPage();
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}"></fw-form-builder>`
         );
         await page.waitForChanges();
 
@@ -1728,7 +1727,7 @@ describe('fw-form-builder', () => {
         const page = await newE2EPage();
 
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}"></fw-form-builder>`
         );
         await page.waitForChanges();
         await page.$eval(
@@ -1776,7 +1775,7 @@ describe('fw-form-builder', () => {
                   formValues[productName].fields[fieldItemIcons].type
                 ];
           expect(fieldItemIcon.getAttribute('name')).toBe(
-            presetSchema.fieldTypes[theme][fieldType].icon.name
+            presetSchema.fieldTypes[fieldType].icon.name
           );
           fieldItemIcons++;
         }
@@ -1788,7 +1787,7 @@ describe('fw-form-builder', () => {
         const page = await newE2EPage();
 
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}"></fw-form-builder>`
         );
         await page.waitForChanges();
         await page.$eval(
@@ -1828,7 +1827,7 @@ describe('fw-form-builder', () => {
       it('triggers fwSaveField event when a field is edited and save is clicked', async () => {
         const page = await newE2EPage();
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}"></fw-form-builder>`
         );
         const fwSaveField = await page.spyOnEvent('fwSaveField');
         const validateIndex = 2;
@@ -1905,7 +1904,7 @@ describe('fw-form-builder', () => {
       it('validates choices and label field in field editor', async () => {
         const page = await newE2EPage();
         await page.setContent(
-          `<fw-form-builder product-name="${productName}" theme="${theme}"></fw-form-builder>`
+          `<fw-form-builder product-name="${productName}"></fw-form-builder>`
         );
         await page.waitForChanges();
 
@@ -2390,12 +2389,11 @@ describe('fw-form-builder', () => {
   );
 
   describe('test maximum fields for conversation properties', () => {
-    const theme = 'default';
     it('should not disable all the field menu items when the total active fields without default tag has not reached the maximum limit and only disable the fields which exceed their max limit', async () => {
       const page = await newE2EPage();
 
       await page.setContent(
-        `<fw-form-builder product-name="CONVERSATION_PROPERTIES" theme="${theme}"></fw-form-builder>`
+        `<fw-form-builder product-name="CONVERSATION_PROPERTIES"></fw-form-builder>`
       );
       await page.waitForChanges();
       await page.$eval(
@@ -2464,7 +2462,7 @@ describe('fw-form-builder', () => {
       const page = await newE2EPage();
 
       await page.setContent(
-        `<fw-form-builder product-name="CONVERSATION_PROPERTIES" theme="${theme}"></fw-form-builder>`
+        `<fw-form-builder product-name="CONVERSATION_PROPERTIES"></fw-form-builder>`
       );
       await page.waitForChanges();
       const additionalFields = (formValues.CONVERSATION_PROPERTIES.fields || [])

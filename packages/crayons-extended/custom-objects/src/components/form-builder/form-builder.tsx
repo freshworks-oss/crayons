@@ -440,7 +440,7 @@ export class FormBuilder {
   private getDefaultFieldTypeSchema = (fieldType) => {
     if (presetSchema) {
       try {
-        const objDefaultField = presetSchema.fieldTypes[this.theme][fieldType];
+        const objDefaultField = presetSchema.fieldTypes[fieldType];
 
         if (objDefaultField) {
           const objNewField = deepCloneObject(objDefaultField);
@@ -512,9 +512,7 @@ export class FormBuilder {
     sectionData?
   ) => {
     const fieldType = strNewFieldType;
-    const objNewField = deepCloneObject(
-      presetSchema.fieldTypes[this.theme][fieldType]
-    );
+    const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
 
     try {
@@ -1130,7 +1128,6 @@ export class FormBuilder {
     return (
       <Fragment>
         <fw-field-type-menu-item
-          theme={this.theme}
           index={intIndex}
           key={strFieldType}
           value={strFieldType}
@@ -1529,7 +1526,7 @@ export class FormBuilder {
   render() {
     const strBaseClassName = 'form-builder';
     const objFormValuesSchema = this.localFormValues;
-    const objFieldTypes = presetSchema.fieldTypes[this.theme];
+    const objFieldTypes = presetSchema.fieldTypes;
     const objProductPreset = formMapper[this.productName];
     const objProductPresetConfig = objProductPreset?.config;
     const objLabelsDb = objProductPreset?.labels;

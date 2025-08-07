@@ -2080,7 +2080,7 @@ export class FieldEditor {
     }
 
     const fieldIcon = this.isDependentField
-      ? presetSchema.fieldTypes[this.theme].DEPENDENT_FIELD.icon
+      ? presetSchema.fieldTypes.DEPENDENT_FIELD.icon
       : objFieldBuilder.icon;
 
     const contentElements = this.isDependentField

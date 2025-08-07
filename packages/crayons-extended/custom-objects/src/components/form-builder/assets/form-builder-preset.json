@@ -1,211 +1,71 @@
 {
   "fieldTypes": {
-    "default": {
-      "PRIMARY": {
-        "type": "TEXT",
-        "icon": { "name": "text-field", "bg_color": "#FEF1E1" }
-      },
-      "RELATIONSHIP": {
-        "type": "RELATIONSHIP",
-        "icon": { "name": "search", "bg_color": "#FEF1E0" }
-      },
-      "TEXT": {
-        "type": "TEXT",
-        "icon": { "name": "text-field", "bg_color": "#FEF1E1" }
-      },
-      "PARAGRAPH": {
-        "type": "PARAGRAPH",
-        "icon": { "name": "paragraph", "bg_color": "#FEF1E0" }
-      },
-      "NUMBER": {
-        "type": "NUMBER",
-        "icon": { "name": "number-field", "bg_color": "#DFF5F1" }
-      },
-      "DECIMAL": {
-        "type": "DECIMAL",
-        "icon": { "name": "decimal-field", "bg_color": "#E5F2FE" }
-      },
-      "DATE": {
-        "type": "DATE",
-        "icon": { "name": "calendar", "bg_color": "#FFECF0" }
-      },
-      "DROPDOWN": {
-        "type": "DROPDOWN",
-        "icon": { "name": "dropdown", "bg_color": "#E5F2FE" },
-        "choices": [{ "value": "" }, { "value": "" }]
-      },
-      "CHECKBOX": {
-        "type": "CHECKBOX",
-        "icon": { "name": "checkbox", "bg_color": "#FFECF0" }
-      },
-      "MULTI_SELECT": {
-        "type": "MULTI_SELECT",
-        "icon": { "name": "multiselect", "bg_color": "#E5F2FE" },
-        "choices": [{ "value": "" }, { "value": "" }]
-      },
-      "DEPENDENT_FIELD": {
-        "type": "DEPENDENT_FIELD",
-        "icon": { "name": "dependent-field", "bg_color": "#FEF1E0" },
-        "fields": [
-          {
-            "type": "DROPDOWN",
-            "field_options": { "level": "1", "dependent": "true" },
-            "choices": [],
-            "fields": [
-              {
-                "type": "DROPDOWN",
-                "field_options": { "level": "2", "dependent": "true" },
-                "choices": [],
-                "fields": [
-                  {
-                    "type": "DROPDOWN",
-                    "field_options": { "level": "3", "dependent": "true" },
-                    "choices": []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+    "PRIMARY": {
+      "type": "TEXT",
+      "icon": { "name": "text-field", "bg_color": "#FEF1E1" }
     },
-    "dew-light-theme": {
-      "PRIMARY": {
-        "type": "TEXT",
-        "icon": { "name": "text-field", "bg_color": "#fff" }
-      },
-      "RELATIONSHIP": {
-        "type": "RELATIONSHIP",
-        "icon": { "name": "search", "bg_color": "#fff" }
-      },
-      "TEXT": {
-        "type": "TEXT",
-        "icon": { "name": "text-field", "bg_color": "#fff" }
-      },
-      "PARAGRAPH": {
-        "type": "PARAGRAPH",
-        "icon": { "name": "paragraph", "bg_color": "#fff" }
-      },
-      "NUMBER": {
-        "type": "NUMBER",
-        "icon": { "name": "number-field", "bg_color": "#fff" }
-      },
-      "DECIMAL": {
-        "type": "DECIMAL",
-        "icon": { "name": "decimal-field", "bg_color": "#fff" }
-      },
-      "DATE": {
-        "type": "DATE",
-        "icon": { "name": "calendar", "bg_color": "#fff" }
-      },
-      "DROPDOWN": {
-        "type": "DROPDOWN",
-        "icon": { "name": "dropdown", "bg_color": "#fff" },
-        "choices": [{ "value": "" }, { "value": "" }]
-      },
-      "CHECKBOX": {
-        "type": "CHECKBOX",
-        "icon": { "name": "checkbox", "bg_color": "#fff" }
-      },
-      "MULTI_SELECT": {
-        "type": "MULTI_SELECT",
-        "icon": { "name": "multiselect", "bg_color": "#fff" },
-        "choices": [{ "value": "" }, { "value": "" }]
-      },
-      "DEPENDENT_FIELD": {
-        "type": "DEPENDENT_FIELD",
-        "icon": { "name": "dependent-field", "bg_color": "#fff" },
-        "fields": [
-          {
-            "type": "DROPDOWN",
-            "field_options": { "level": "1", "dependent": "true" },
-            "choices": [],
-            "fields": [
-              {
-                "type": "DROPDOWN",
-                "field_options": { "level": "2", "dependent": "true" },
-                "choices": [],
-                "fields": [
-                  {
-                    "type": "DROPDOWN",
-                    "field_options": { "level": "3", "dependent": "true" },
-                    "choices": []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+    "RELATIONSHIP": {
+      "type": "RELATIONSHIP",
+      "icon": { "name": "search", "bg_color": "#FEF1E0" }
     },
-    "dew-dark-theme": {
-      "PRIMARY": {
-        "type": "TEXT",
-        "icon": { "name": "text-field", "bg_color": "#000" }
-      },
-      "RELATIONSHIP": {
-        "type": "RELATIONSHIP",
-        "icon": { "name": "search", "bg_color": "#000" }
-      },
-      "TEXT": {
-        "type": "TEXT",
-        "icon": { "name": "text-field", "bg_color": "#000" }
-      },
-      "PARAGRAPH": {
-        "type": "PARAGRAPH",
-        "icon": { "name": "paragraph", "bg_color": "#000" }
-      },
-      "NUMBER": {
-        "type": "NUMBER",
-        "icon": { "name": "number-field", "bg_color": "#000" }
-      },
-      "DECIMAL": {
-        "type": "DECIMAL",
-        "icon": { "name": "decimal-field", "bg_color": "#000" }
-      },
-      "DATE": {
-        "type": "DATE",
-        "icon": { "name": "calendar", "bg_color": "#000" }
-      },
-      "DROPDOWN": {
-        "type": "DROPDOWN",
-        "icon": { "name": "dropdown", "bg_color": "#000" },
-        "choices": [{ "value": "" }, { "value": "" }]
-      },
-      "CHECKBOX": {
-        "type": "CHECKBOX",
-        "icon": { "name": "checkbox", "bg_color": "#000" }
-      },
-      "MULTI_SELECT": {
-        "type": "MULTI_SELECT",
-        "icon": { "name": "multiselect", "bg_color": "#000" },
-        "choices": [{ "value": "" }, { "value": "" }]
-      },
-      "DEPENDENT_FIELD": {
-        "type": "DEPENDENT_FIELD",
-        "icon": { "name": "dependent-field", "bg_color": "#000" },
-        "fields": [
-          {
-            "type": "DROPDOWN",
-            "field_options": { "level": "1", "dependent": "true" },
-            "choices": [],
-            "fields": [
-              {
-                "type": "DROPDOWN",
-                "field_options": { "level": "2", "dependent": "true" },
-                "choices": [],
-                "fields": [
-                  {
-                    "type": "DROPDOWN",
-                    "field_options": { "level": "3", "dependent": "true" },
-                    "choices": []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
+    "TEXT": {
+      "type": "TEXT",
+      "icon": { "name": "text-field", "bg_color": "#FEF1E1" }
+    },
+    "PARAGRAPH": {
+      "type": "PARAGRAPH",
+      "icon": { "name": "paragraph", "bg_color": "#FEF1E0" }
+    },
+    "NUMBER": {
+      "type": "NUMBER",
+      "icon": { "name": "number-field", "bg_color": "#DFF5F1" }
+    },
+    "DECIMAL": {
+      "type": "DECIMAL",
+      "icon": { "name": "decimal-field", "bg_color": "#E5F2FE" }
+    },
+    "DATE": {
+      "type": "DATE",
+      "icon": { "name": "calendar", "bg_color": "#FFECF0" }
+    },
+    "DROPDOWN": {
+      "type": "DROPDOWN",
+      "icon": { "name": "dropdown", "bg_color": "#E5F2FE" },
+      "choices": [{ "value": "" }, { "value": "" }]
+    },
+    "CHECKBOX": {
+      "type": "CHECKBOX",
+      "icon": { "name": "checkbox", "bg_color": "#FFECF0" }
+    },
+    "MULTI_SELECT": {
+      "type": "MULTI_SELECT",
+      "icon": { "name": "multiselect", "bg_color": "#E5F2FE" },
+      "choices": [{ "value": "" }, { "value": "" }]
+    },
+    "DEPENDENT_FIELD": {
+      "type": "DEPENDENT_FIELD",
+      "icon": { "name": "dependent-field", "bg_color": "#FEF1E0" },
+      "fields": [
+        {
+          "type": "DROPDOWN",
+          "field_options": { "level": "1", "dependent": "true" },
+          "choices": [],
+          "fields": [
+            {
+              "type": "DROPDOWN",
+              "field_options": { "level": "2", "dependent": "true" },
+              "choices": [],
+              "fields": [
+                {
+                  "type": "DROPDOWN",
+                  "field_options": { "level": "3", "dependent": "true" },
+                  "choices": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   "relationshipTypes": [
