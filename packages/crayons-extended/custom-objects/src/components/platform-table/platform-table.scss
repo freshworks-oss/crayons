@@ -13,7 +13,8 @@
   padding-inline-end: 16px;
   padding-block-start: 12px;
   background: var(--color-fill-container, #ffffff);
-  border: 1px solid rgba(207, 215, 223, 0.4);
+  border: 1px solid
+    var(--color-boundary-border-mildest, rgba(207, 215, 223, 0.4));
   box-shadow: 0px 1px 4px rgba(18, 52, 77, 0.16);
   box-sizing: border-box;
   border-radius: 4px;
