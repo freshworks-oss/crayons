@@ -137,6 +137,10 @@ export class FormBuilderFieldDragDropItem {
    * Unique key contains field id and index id
    */
   @Prop() keyProp;
+  /**
+   * Theme configuration for the form builder UI
+   */
+  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
   /*
    * Dynamic section expandable state
    */
@@ -227,7 +231,9 @@ export class FormBuilderFieldDragDropItem {
             createDynamicSection={this.createDynamicSection}
             parentIndex={this.parentIndex}
             sectionName={this.sectionName}
+            theme={this.theme}
           ></fw-field-editor>
+
           {showDynamicFieldSections && (
             <div
               class={{

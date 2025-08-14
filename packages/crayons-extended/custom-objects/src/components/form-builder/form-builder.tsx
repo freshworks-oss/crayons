@@ -25,6 +25,7 @@ import {
   getDefaultDependentLevels,
   checkAndAppendLevel3,
   getChoicesWithNoSectionCreated,
+  generateThemeBasedIconBackground,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
@@ -54,6 +55,10 @@ export class FormBuilder {
    */
   @Prop() productName: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES' =
     'CUSTOM_OBJECTS';
+  /**
+   * Theme configuration for the form builder UI
+   */
+  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
   /**
    * Show explore plans button and disable features for free-plan users
    */
@@ -1132,7 +1137,10 @@ export class FormBuilder {
           disabled={boolDisableFieldType}
           label={strDisplayLabel}
           iconName={dataItem.icon.name}
-          iconBackgroundColor={dataItem.icon.bg_color}
+          iconBackgroundColor={generateThemeBasedIconBackground(
+            dataItem.icon.bg_color,
+            this.theme
+          )}
           onFwAddClick={this.addNewFieldTypeHandler}
         ></fw-field-type-menu-item>
         {boolShowDescription && (
@@ -1470,6 +1478,7 @@ export class FormBuilder {
         reorderFieldProgressHandler={this.reorderFieldProgressHandler}
         sectionName={sectionName}
         parentIndex={parentIndex}
+        theme={this.theme}
       >
         <div slot='section'>
           {dataItem?.field_options?.has_sections &&
