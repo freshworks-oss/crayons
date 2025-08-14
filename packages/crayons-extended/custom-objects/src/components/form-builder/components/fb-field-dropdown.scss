@@ -72,11 +72,11 @@ $warning-color: $color-casablanca-300;
   .fb-field-dropdown-label-dependent-field {
     font-size: 14px;
     line-height: 21px;
-    background: $color-smoke-100;
+    background: var(--color-boundary-border-mildest, $color-smoke-100);
     padding-inline-start: 10px;
     border-radius: 4px;
     margin-block-end: 4px;
-    color: $color-elephant-900;
+    color: var(--color-text-secondary, $color-elephant-900);
     width: calc(100% + 24px);
   }
 

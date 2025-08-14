@@ -13,14 +13,17 @@
   padding-inline: 12px;
   border-radius: 4px;
   border: 1px solid var(--color-boundary-border-mildest, $color-smoke-100);
-  background: $color-smoke-25;
+  background: var(--color-fill-surface, $color-smoke-25);
   box-sizing: border-box;
 
   .fb-show-hide-sections-btn {
     --fw-button-label-vertical-padding: 0;
-    --fw-button-hover-background-color: $color-smoke-25;
-    --fw-button-active-box-shadow: $color-smoke-25;
-    --fw-button--lg-focus-border: $color-smoke-25;
+    --fw-button-hover-background-color: var(
+      --color-fill-surface,
+      $color-smoke-25
+    );
+    --fw-button-active-box-shadow: var(--color-fill-surface, $color-smoke-25);
+    --fw-button--lg-focus-border: var(--color-fill-surface, $color-smoke-25);
   }
 
   &.hide {
