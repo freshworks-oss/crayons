@@ -12,7 +12,7 @@
   padding-block: 8px;
   padding-inline: 12px;
   border-radius: 4px;
-  border: 1px solid $color-smoke-100;
+  border: 1px solid var(--color-boundary-border-mildest, $color-smoke-100);
   background: $color-smoke-25;
   box-sizing: border-box;
 

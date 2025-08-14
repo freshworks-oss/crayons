@@ -11,14 +11,14 @@
 .fb-section {
   background-color: var(--color-fill-container, $color-smoke-50);
   border-radius: 8px;
-  border: 1px solid $color-smoke-100;
+  border: 1px solid var(--color-boundary-border-mildest, $color-smoke-100);
   width: 100%;
   margin-block-end: 10px;
 
   .error-message {
     color: var(--color-text-semantic-error, $app-icon-color);
     background-color: var(--color-fill-semantic-error, $color-persimmon-50);
-    border: 1px solid $color-persimmon-100;
+    border: 1px solid var(--color-boundary-border-mildest, $color-persimmon-100);
     margin-block-start: 10px;
     display: flex;
     align-items: center;
@@ -99,7 +99,7 @@
   }
 
   .fb-section-content {
-    background: $color-milk;
+    background: var(--color-text-secondary, $color-milk);
     padding-block: 12px;
     display: flex;
     padding-inline: 16px 8px;
@@ -220,7 +220,7 @@
         pointer-events: none;
         user-select: none;
         text-align: start;
-        color: $color-smoke-700;
+        color: var(--color-boundary-border, $color-smoke-700);
         font-size: $font-size-14;
         font-weight: $font-weight-400;
         line-height: 18px;
@@ -234,7 +234,7 @@
         text-align: start;
         display: inline-block;
         font-size: $font-size-14;
-        color: $color-azure-800;
+        color: var(--color-text-brand, $color-azure-800);
         font-weight: $font-weight-400;
         text-decoration: none;
         word-wrap: break-word;
@@ -303,7 +303,7 @@
         user-select: none;
         text-align: start;
 
-        color: #7b8e9f;
+        color: var(--color-fill-brand, #7b8e9f);
         font-size: $font-size-14;
         font-weight: $font-weight-400;
         line-height: 20px;
@@ -381,7 +381,7 @@
           // border-top: 1px solid $color-smoke-100;
           margin-block-start: 2px;
           border-width: 0;
-          background-color: $color-smoke-100;
+          background-color: var(--color-fill-base, $color-smoke-100);
         }
       }
     }
@@ -452,7 +452,7 @@
             user-select: none;
             text-align: start;
 
-            color: $color-smoke-300;
+            color: var(--color-text-primary, $color-smoke-300);
             font-size: $font-size-14;
             font-weight: $font-weight-400;
             line-height: 20px;
@@ -598,7 +598,7 @@
   .cusomize-widget-description {
     font-size: $font-size-14;
     font-weight: $font-weight-default;
-    color: $color-smoke-700;
+    color: var(--color-boundary-border, $color-smoke-700);
     line-height: 20px;
     padding-inline: 0px;
     padding-block: 6px;
