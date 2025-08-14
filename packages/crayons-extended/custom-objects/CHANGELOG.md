@@ -3,18 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.4.0-dew.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.3...@freshworks/crayons-custom-objects@1.4.0-dew.4) (2025-08-14)
-
+## [1.4.0-dew.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.3...@freshworks/crayons-custom-objects@1.4.0-dew.4) (2025-08-14)
 
 ### Features
 
-* **field-editor:** add theme configuration for form builder UI and update icon background logic ([a3d9d8d](https://github.com/freshworks/crayons/commit/a3d9d8d44c63fcd09a52ee03f066eb1d15e10ab3))
-* **form-builder:** add theme support and update icon background logic ([2f203ea](https://github.com/freshworks/crayons/commit/2f203ea5b441bf7eb4eaf7c70ec9c978b25e5923))
-* **styles:** update background and color properties to use CSS variables for improved theming ([710d6bf](https://github.com/freshworks/crayons/commit/710d6bf6565fa94889bebe01f266b500aefa8f92))
-
-
-
-
+- **field-editor:** add theme configuration for form builder UI and update icon background logic ([a3d9d8d](https://github.com/freshworks/crayons/commit/a3d9d8d44c63fcd09a52ee03f066eb1d15e10ab3))
+- **form-builder:** add theme support and update icon background logic ([2f203ea](https://github.com/freshworks/crayons/commit/2f203ea5b441bf7eb4eaf7c70ec9c978b25e5923))
+- **styles:** update background and color properties to use CSS variables for improved theming ([710d6bf](https://github.com/freshworks/crayons/commit/710d6bf6565fa94889bebe01f266b500aefa8f92))
 
 ## [1.4.0-beta.32](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.31...@freshworks/crayons-custom-objects@1.4.0-beta.32) (2025-04-08)
 
