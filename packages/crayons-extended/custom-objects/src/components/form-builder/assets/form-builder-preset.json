@@ -45,21 +45,27 @@
     "DEPENDENT_FIELD": {
       "type": "DEPENDENT_FIELD",
       "icon": { "name": "dependent-field", "bg_color": "#FEF1E0" },
-      "fields": [{
-        "type": "DROPDOWN",
-        "field_options": { "level": "1", "dependent": "true" },
-        "choices": [],
-        "fields": [{
+      "fields": [
+        {
           "type": "DROPDOWN",
-          "field_options": { "level": "2", "dependent": "true" },
+          "field_options": { "level": "1", "dependent": "true" },
           "choices": [],
-          "fields": [{
-            "type": "DROPDOWN",
-            "field_options": { "level": "3", "dependent": "true" },
-            "choices": []
-          }]
-        }]
-      }]
+          "fields": [
+            {
+              "type": "DROPDOWN",
+              "field_options": { "level": "2", "dependent": "true" },
+              "choices": [],
+              "fields": [
+                {
+                  "type": "DROPDOWN",
+                  "field_options": { "level": "3", "dependent": "true" },
+                  "choices": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   "relationshipTypes": [

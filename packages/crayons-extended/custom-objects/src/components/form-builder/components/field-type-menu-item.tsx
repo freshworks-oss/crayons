@@ -24,6 +24,10 @@ export class FieldTypeMenuItem {
    */
   @Prop({ mutable: true, reflect: true }) disabled = false;
   /**
+   * Theme configuration for styling
+   */
+  @Prop() theme: 'default' | 'dew-light-theme' | 'dew-dark-theme' = 'default';
+  /**
    * index attached inside the parent group component
    */
   @Prop() index = -1;
