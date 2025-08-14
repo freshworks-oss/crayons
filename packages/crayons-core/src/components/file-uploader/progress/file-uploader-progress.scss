@@ -21,10 +21,10 @@
     flex-wrap: wrap;
 
     .progress-content-file-name {
-      font-size: 14px;
-      line-height: 20px;
-      font-weight: 500;
-      color: $color-elephant-900;
+      font-size: var(--font-size-14, 14px);
+      line-height: var(--line-height-20, 20px);
+      font-weight: var(--font-weight-medium, 500);
+      color: var(--color-text-primary, $color-elephant-900);
       width: calc(100% - 50px);
     }
 
@@ -32,9 +32,9 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      font-size: 10px;
-      line-height: 20px;
-      color: $color-smoke-300;
+      font-size: var(--font-size-12, 10px);
+      line-height: var(--line-height-20, 20px);
+      color: var(--color-text-placeholder, $color-smoke-300);
       width: 50px;
       text-align: end;
 
@@ -47,21 +47,21 @@
       position: relative;
       height: 4px;
       width: 100%;
-      background-color: $color-smoke-100;
+      background-color: var(--color-fill-base, $color-smoke-100);
       border-radius: 8px;
       margin-block-start: 4px;
 
       &-fill {
         height: 4px;
         border-radius: 4px;
-        background-color: $color-azure-800;
+        background-color: var(--color-fill-brand, $color-azure-800);
       }
     }
 
     .progress-content-error {
       font-size: 12px;
       padding: 2px;
-      color: $color-persimmon-800;
+      color: var(--color-text-semantic-error, $color-persimmon-800);
     }
   }
 }

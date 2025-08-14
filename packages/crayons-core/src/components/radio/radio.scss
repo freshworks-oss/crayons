@@ -12,15 +12,15 @@
   input[type='radio'] + label {
     &::before {
       border: 1px solid transparent;
-      box-shadow: 0 0 0 2px rgb(44, 92, 197);
-      border-color: darken($app-icon-color, 10%);
+      box-shadow: 0 0 0 2px var(--color-boundary-brand, rgb(44, 92, 197));
+      border-color: var(--color-boundary-brand, darken($app-icon-color, 10%));
     }
   }
 
   input[type='radio'][disabled] + label {
     &::before {
       box-shadow: none;
-      border: 1px solid #dadfe3;
+      border: 1px solid var(--color-boundary-border-mild, #dadfe3);
     }
   }
 }
@@ -29,8 +29,8 @@
 :host(:hover) {
   input[type='radio'] + label {
     &::before {
-      box-shadow: 0 0 0 5px rgb(235, 239, 243);
-      border-color: darken($app-icon-color, 10%);
+      box-shadow: 0 0 0 5px var(--color-fill-container, rgb(235, 239, 243));
+      border-color: var(--color-boundary-border, darken($app-icon-color, 10%));
     }
   }
 
@@ -39,14 +39,20 @@
 
     &::before {
       box-shadow: none;
-      border: 1px solid #dadfe3;
+      border: 1px solid var(--color-boundary-border-mild, #dadfe3);
+    }
+  }
+
+  input[type='radio']:checked:not([disabled]) + label:not(.error) {
+    &::before {
+      border-color: var(--color-boundary-brand, darken($app-icon-color, 10%));
     }
   }
 }
 
 #description {
   font-size: 12px;
-  color: #475867;
+  color: var(--color-text-secondary, #475867);
   letter-spacing: 0;
   line-height: 20px;
   position: relative;
@@ -64,10 +70,10 @@ input[type='radio'] {
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
-    color: $color-elephant-900;
+    color: var(--color-text-primary, $color-elephant-900);
 
     .with-description {
-      font-weight: 600;
+      font-weight: var(--font-weight-medium, 600);
     }
 
     &::before,
@@ -86,12 +92,12 @@ input[type='radio'] {
 
     &::before {
       inset-inline-start: 0;
-      border: 1px solid $app-border-primary;
+      border: 1px solid var(--color-boundary-border, $app-border-primary);
       border-radius: 50px;
       inset-block-start: 4px;
       width: 14px;
       height: 14px;
-      background: $app-action-icon-bg;
+      background: var(--color-fill-surface, $app-action-icon-bg);
       transition: all 0.3s ease;
     }
 
@@ -103,12 +109,12 @@ input[type='radio'] {
       }
       &::before {
         inset-inline-start: 0;
-        border: 1px solid $app-error;
-        border-radius: 50px;
+        border: 1px solid var(--color-boundary-semantic-error, $app-error);
+        border-radius: var(--border-radius-circular, 50px);
         inset-block-start: 4px;
         width: 14px;
         height: 14px;
-        background: $app-action-icon-bg;
+        background: var(--color-fill-surface, $app-action-icon-bg);
         transition: all 0.3s ease;
       }
     }
@@ -131,16 +137,27 @@ input[type='radio'] {
 
   &:checked + label {
     &::before {
-      background: $app-action-icon-bg;
-      border-color: $app-primary;
+      background: var(--color-fill-container, $app-action-icon-bg);
+      border-color: var(--color-fill-brand, $app-primary);
       box-shadow: none;
     }
 
     &::after {
-      border-radius: 50%;
-      background-color: $app-primary;
+      border-radius: var(--border-radius-circular, 50px);
+      background-color: var(--color-fill-brand, $app-primary);
       opacity: 1;
       inset-block-start: 7px;
+    }
+
+    &.error {
+      &::before {
+        background: var(--color-fill-container, $app-action-icon-bg);
+        border-color: var(--color-fill-semantic-error, $app-primary);
+      }
+
+      &::after {
+        background-color: var(--color-fill-semantic-error, $app-primary);
+      }
     }
   }
 
@@ -157,25 +174,25 @@ input[type='radio'] {
 
   &[disabled] {
     & + label {
-      color: #92a2b1;
+      color: var(--color-text-disabled, #92a2b1);
 
       .label-field {
-        color: #92a2b1;
+        color: var(--color-text-disabled, #92a2b1);
       }
 
       &::before {
-        border-color: $disabled-color;
-        background-color: $ticket-tag-background;
+        border-color: var(--color-boundary-border-mild, $disabled-color);
+        background-color: var(--color-fill-container, $ticket-tag-background);
       }
 
       &::after {
-        border-color: $ticket-tag-background;
-        background-color: $disabled-color;
+        border-color: var(--color-boundary-border-mild, $ticket-tag-background);
+        background-color: var(--color-boundary-border-mild, $disabled-color);
       }
     }
 
     &:checked + label {
-      color: #92a2b1;
+      color: var(--color-text-disabled, #92a2b1);
     }
   }
 }

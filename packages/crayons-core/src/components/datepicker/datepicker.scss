@@ -21,7 +21,7 @@
 .mdp-container,
 .mdp-range-container {
   width: 264px;
-  background: $color-milk;
+  background: var(--color-fill-surface, $color-milk);
   box-sizing: border-box;
   padding: 16px;
   overflow: hidden;
@@ -32,7 +32,7 @@
   display: flex;
   box-sizing: border-box;
   justify-content: flex-end;
-  background: $color-smoke-25;
+  background: var(--color-fill-container, $color-smoke-25);
 
   fw-button {
     margin: 4px;
@@ -77,7 +77,7 @@
       position: absolute;
       inset-block-start: 0;
       inset-inline-end: 251px;
-      border-inline-end: 1px solid #ebeff3;
+      border-inline-end: 1px solid var(--color-fill-container, #ebeff3);
       height: 100%;
     }
   }
@@ -106,7 +106,7 @@
 .mdpchb-inner:hover,
 .mdpchb-inner:focus {
   cursor: pointer;
-  background: $color-smoke-50;
+  background: var(--color-fill-container, $color-smoke-50);
 }
 
 .mdpchb-inner {
@@ -133,8 +133,8 @@
   display: block;
   width: 6px;
   height: 6px;
-  border-inline-start: 2px solid $app-primary-black;
-  border-block-end: 2px solid $app-primary-black;
+  border-inline-start: 2px solid var(--color-icon-primary, $app-primary-black);
+  border-block-end: 2px solid var(--color-icon-primary, $app-primary-black);
   position: absolute;
 }
 
@@ -235,10 +235,10 @@
 .cch-name {
   width: 14.285%;
   height: 30px;
-  line-height: 30px;
-  font-weight: 700;
-  color: $color-smoke-700;
-  font-size: 13px;
+  line-height: var(-line-height-20, 30px);
+  font-weight: var(--font-weight-semi-bold, 700);
+  color: var(--color-text-secondary, $color-smoke-700);
+  font-size: var(--font-size-12, 13px);
   text-align: center;
 }
 
@@ -258,14 +258,14 @@
   height: 100%;
   font-size: 12px;
   font-weight: 300;
-  color: $color-smoke-700;
+  color: var(--color-text-primary, $color-smoke-700);
   text-align: center;
 }
 
 .cdc-day span:hover,
 .cdc-day span:focus {
   cursor: pointer;
-  background: $color-smoke-50;
+  background: var(--color-fill-container, $color-smoke-50);
 }
 
 .cdc-day span {
@@ -277,9 +277,9 @@
   inset-inline-start: 50%;
   inset-block-start: 50%;
   font-weight: 400;
-  border-radius: 10%;
+  border-radius: var(--border-radius-medium, 10%);
   line-height: 20px;
-  color: #12344d;
+  color: var(--color-text-primary, #12344d);
 }
 
 .c-day-container.disabled {
@@ -295,6 +295,7 @@
     cursor: pointer;
     margin-block-start: 4px;
     margin-inline-start: 4px;
+    --fw-icon-color: var(--color-icon-semantic-error, #d72d30);
   }
 }
 
@@ -310,6 +311,14 @@
     height: 20px;
     margin-inline: 4px;
     margin-block: 0px;
+    border-inline-start-color: var(
+      --color-boundary-border-milder,
+      $color-smoke-50
+    );
+
+    &.error {
+      border-inline-start-color: var(--color-boundary-semantic-error, #d72d30);
+    }
   }
 }
 
@@ -320,21 +329,26 @@
   border-radius: 4px;
   align-items: center;
   justify-content: center;
-  background-color: $color-smoke-50;
+  background-color: var(--color-fill-surface, $color-smoke-50);
+  --fw-icon-color: var(--color-icon-primary, $color-elephant-900);
+
+  &.error {
+    --fw-icon-color: var(--color-icon-semantic-error, #d72d30);
+  }
 }
 
 .c-day-container.disabled .cdc-day span {
-  color: $color-smoke-300;
-  background: $color-milk !important;
+  color: var(--color-text-disabled, $color-smoke-300);
+  background: var(--color-fill-surface, $color-milk) !important;
 }
 
 .c-day-container.highlight:not(.disabled) .cdc-day span {
-  border: 1px solid $color-smoke-100;
+  border: 1px solid var(--color-boundary-border-mild, $color-smoke-100);
 }
 
 .c-day-container.highlight-blue:not(.disabled) .cdc-day span {
-  background: $color-azure-800;
-  color: $color-smoke-25;
+  background: var(--color-fill-brand, $color-azure-800);
+  color: var(--color-text-inverse, $color-smoke-25);
 }
 
 .c-day-container.start-day {
@@ -358,7 +372,7 @@
 }
 
 .c-day-container.highlight-range:not(.disabled) .cdc-day {
-  background: #e4f2fd;
+  background: var(--color-fill-semantic-info-mildest, #e4f2fd);
 }
 
 .time-container {
@@ -367,8 +381,10 @@
   gap: 8px;
   padding-block: 12px;
   padding-inline: 16px;
-  background: $color-smoke-25;
+  background: var(--color-fill-container, $color-smoke-25);
   box-sizing: border-box;
+  border-block-end: 1px solid
+    var(--color-boundary-border-mildest, --border-none);
 
   fw-input {
     width: 124px;
@@ -382,8 +398,9 @@
 
   span {
     font-size: 12px;
-    font-weight: 500;
+    font-weight: var(--font-weight-regular, 500);
     line-height: 20px;
+    color: var(--color-text-secondary, $color-elephant-900);
   }
 }
 

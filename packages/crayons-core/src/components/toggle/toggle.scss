@@ -37,8 +37,8 @@
     inset-inline-start: 0;
     inset-inline-end: 0;
     inset-block-end: 0;
-    border-radius: 34px;
-    background: $toggle-btn-off-bg;
+    border-radius: var(--border-radius-circular, 34px);
+    background: var(--color-fill-semantic-off, $toggle-btn-off-bg);
   }
   @media screen and (prefers-reduced-motion: reduce) {
     .before {
@@ -51,10 +51,10 @@
     content: '';
     inset-inline-start: 0;
     inset-block-end: -2px;
-    border: solid 1px $toggle-btn-off-bg;
-    border-radius: 50%;
-    box-shadow: 0 1px 1px 0 $toggle-btn-shadow;
-    background-color: $app-secondary-btn;
+    border: solid 1px var(--color-fill-semantic-off, $toggle-btn-off-bg);
+    border-radius: var(--border-radius-circular, 50%);
+    box-shadow: var(--box-shadow-none, 0 1px 1px 0 $toggle-btn-shadow);
+    background-color: var(--color-fill-surface, $app-secondary-btn);
     -webkit-transition-property: transform;
     transition-property: transform;
     -webkit-transition-timing-function: ease;
@@ -67,7 +67,7 @@
 
     &:hover,
     &:focus {
-      box-shadow: 0 0 4px 4px $toggle-btn-off-shadow;
+      box-shadow: var(--shadow-sm, 0 0 4px 4px $toggle-btn-off-shadow);
     }
   }
 
@@ -81,9 +81,11 @@
 
       fw-icon {
         transform: scale(0.375);
+        --fw-icon-color: var(--color-icon-disabled, #647a8e);
 
         &.checked {
           transform: scale(0.5);
+          --fw-icon-color: var(--color-icon-selected, #2c5cc5);
         }
       }
     }
@@ -99,9 +101,11 @@
 
       fw-icon {
         transform: scale(0.5);
+        --fw-icon-color: var(--color-icon-disabled, #647a8e);
 
         &.checked {
           transform: scale(0.66);
+          --fw-icon-color: var(--color-icon-selected, #2c5cc5);
         }
       }
     }
@@ -117,9 +121,11 @@
 
       fw-icon {
         transform: scale(0.66);
+        --fw-icon-color: var(--color-icon-disabled, #647a8e);
 
         &.checked {
           transform: scale(0.83);
+          --fw-icon-color: var(--color-icon-selected, #2c5cc5);
         }
       }
     }
@@ -130,14 +136,14 @@
   }
 
   input:checked + .slider {
-    background-color: $toggle-btn-on-bg;
+    background-color: var(--color-fill-semantic-on, $toggle-btn-on-bg);
 
     .before {
-      border: solid 1px $toggle-btn-on-bg;
+      border: solid 1px var(--color-fill-semantic-on, $toggle-btn-on-bg);
 
       &:hover,
       &:focus {
-        box-shadow: 0 0 4px 4px $toggle-btn-on-shadow;
+        box-shadow: var(--shadow-sm, 0 0 4px 4px $toggle-btn-on-shadow);
       }
     }
   }
@@ -167,7 +173,7 @@
   }
 
   input:disabled + .slider {
-    opacity: 0.4;
+    opacity: var(--opacity-half, 0.4);
     cursor: not-allowed;
   }
 }

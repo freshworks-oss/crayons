@@ -1,120 +1,22 @@
-0 silly argv {
-0 silly argv   _: [ 'version' ],
-0 silly argv   'conventional-commits': true,
-0 silly argv   conventionalCommits: true,
-0 silly argv   'conventional-prerelease': true,
-0 silly argv   conventionalPrerelease: true,
-0 silly argv   preid: 'beta',
-0 silly argv   'create-release': 'github',
-0 silly argv   createRelease: 'github',
-0 silly argv   lernaVersion: '4.0.0',
-0 silly argv   '$0': '/Users/rsiddhi/Desktop/Work/crayons/node_modules/.bin/lerna'
-0 silly argv }
-1 notice cli v4.0.0
-2 verbose rootPath /Users/rsiddhi/Desktop/Work/crayons
-3 silly createGitHubClient
-4 info versioning independent
-5 silly isAnythingCommitted
-6 verbose isAnythingCommitted 1
-7 silly getCurrentBranch
-8 verbose currentBranch next
-9 silly remoteBranchExists
-10 silly isBehindUpstream
-11 silly isBehindUpstream next is behind origin/next by 0 commit(s) and ahead by 0
-12 silly hasTags
-13 verbose hasTags true
-14 silly git-describe.sync "@freshworks/crayons-custom-objects@1.4.0-beta.26-3-gcc8bdc2d" => {"lastTagName":"@freshworks/crayons-custom-objects@1.4.0-beta.26","lastVersion":"1.4.0-beta.26","refCount":"3","sha":"cc8bdc2d","isDirty":false}
-15 info Looking for changed packages since @freshworks/crayons-custom-objects@1.4.0-beta.26
-16 info ignoring diff in paths matching [ '**/*.md', '**/*.mdx' ]
-17 silly checking diff packages/crayons-core
-18 silly found diff in packages/crayons-core/src/components/datepicker/datepicker.e2e.ts
-18 silly found diff in packages/crayons-core/src/utils/draggable.ts
-19 verbose filtered diff [
-19 verbose filtered diff   'packages/crayons-core/src/components/datepicker/datepicker.e2e.ts',
-19 verbose filtered diff   'packages/crayons-core/src/utils/draggable.ts'
-19 verbose filtered diff ]
-20 silly checking diff packages/crayons-i18n
-21 silly no diff found in @freshworks/crayons-i18n
-22 silly checking diff packages/crayons-icon
-23 silly no diff found in @freshworks/crayons-icon
-24 silly checking diff packages/crayons-extended/custom-objects
-25 silly found diff in packages/crayons-extended/custom-objects/CHANGELOG.md
-26 verbose no diff found in @freshworks/crayons-custom-objects (after filtering)
-27 verbose updated @freshworks/crayons
-28 verbose updated @freshworks/crayons-custom-objects
-29 verbose git-describe undefined => "@freshworks/crayons-custom-objects@1.4.0-beta.26-3-gcc8bdc2d"
-30 silly git-describe parsed => {"lastTagName":"@freshworks/crayons-custom-objects@1.4.0-beta.26","lastVersion":"1.4.0-beta.26","refCount":"3","sha":"cc8bdc2d","isDirty":false}
-31 silly independent for @freshworks/crayons at /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-core
-32 verbose getChangelogConfig using preset "conventional-changelog-angular"
-33 silly npa Result {
-33 silly npa   type: 'tag',
-33 silly npa   registry: true,
-33 silly npa   where: undefined,
-33 silly npa   raw: 'conventional-changelog-angular',
-33 silly npa   name: 'conventional-changelog-angular',
-33 silly npa   escapedName: 'conventional-changelog-angular',
-33 silly npa   scope: undefined,
-33 silly npa   rawSpec: '',
-33 silly npa   saveSpec: null,
-33 silly npa   fetchSpec: 'latest',
-33 silly npa   gitRange: undefined,
-33 silly npa   gitCommittish: undefined,
-33 silly npa   hosted: undefined
-33 silly npa }
-34 verbose getChangelogConfig Attempting to resolve preset "conventional-changelog-angular"
-35 info getChangelogConfig Successfully resolved preset "conventional-changelog-angular"
-36 verbose independent increment 4.3.0-beta.21 by prerelease
-37 silly independent for @freshworks/crayons-custom-objects at /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-extended/custom-objects
-38 verbose independent increment 1.4.0-beta.26 by prerelease
-39 info execute Creating releases...
-40 silly lifecycle No script for "preversion" in "crayons", continuing
-41 silly lifecycle No script for "preversion" in "@freshworks/crayons", continuing
-42 silly lifecycle No script for "version" in "@freshworks/crayons", continuing
-43 silly independent for @freshworks/crayons at /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-core
-44 silly independent writing new entry: "# [4.3.0-beta.22](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.21...@freshworks/crayons@4.3.0-beta.22) (2024-12-04)\n\n\n### Bug Fixes\n\n* unable to drag and drop fields on custom objects ([2c4228e](https://github.com/freshworks/crayons/commit/2c4228eeb309b6b6febec6953e89ea5738690ee4))\n\n\n\n"
-45 verbose independent wrote /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-core/CHANGELOG.md
-46 silly lifecycle No script for "preversion" in "@freshworks/crayons-custom-objects", continuing
-47 silly lifecycle No script for "version" in "@freshworks/crayons-custom-objects", continuing
-48 silly independent for @freshworks/crayons-custom-objects at /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-extended/custom-objects
-49 silly independent writing new entry: "# [1.4.0-beta.27](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.26...@freshworks/crayons-custom-objects@1.4.0-beta.27) (2024-12-04)\n\n**Note:** Version bump only for package @freshworks/crayons-custom-objects\n\n\n\n"
-50 verbose independent wrote /Users/rsiddhi/Desktop/Work/crayons/packages/crayons-extended/custom-objects/CHANGELOG.md
-51 silly lifecycle No script for "version" in "crayons", continuing
-52 silly gitAdd [
-52 silly gitAdd   'packages/crayons-core/package.json',
-52 silly gitAdd   'packages/crayons-core/CHANGELOG.md',
-52 silly gitAdd   'packages/crayons-extended/custom-objects/package.json',
-52 silly gitAdd   'packages/crayons-extended/custom-objects/CHANGELOG.md'
-52 silly gitAdd ]
-53 silly gitCommit chore(release): publish
-53 silly gitCommit
-53 silly gitCommit  - @freshworks/crayons@4.3.0-beta.22
-53 silly gitCommit  - @freshworks/crayons-custom-objects@1.4.0-beta.27
-54 verbose git [
-54 verbose git   'commit',
-54 verbose git   '-F',
-54 verbose git   '/private/var/folders/l0/gw853_nd52j3vs4208d7z1040000gq/T/3268ba9b-8ae7-4b60-95c2-794dddd067bd/lerna-commit.txt'
-54 verbose git ]
-55 silly gitTag @freshworks/crayons@4.3.0-beta.22
-56 verbose git [
-56 verbose git   'tag',
-56 verbose git   '@freshworks/crayons@4.3.0-beta.22',
-56 verbose git   '-m',
-56 verbose git   '@freshworks/crayons@4.3.0-beta.22'
-56 verbose git ]
-57 silly gitTag @freshworks/crayons-custom-objects@1.4.0-beta.27
-58 verbose git [
-58 verbose git   'tag',
-58 verbose git   '@freshworks/crayons-custom-objects@1.4.0-beta.27',
-58 verbose git   '-m',
-58 verbose git   '@freshworks/crayons-custom-objects@1.4.0-beta.27'
-58 verbose git ]
-59 silly lifecycle No script for "postversion" in "@freshworks/crayons", continuing
-60 silly lifecycle No script for "postversion" in "@freshworks/crayons-custom-objects", continuing
-61 silly lifecycle No script for "postversion" in "crayons", continuing
-62 info git Pushing tags...
-63 silly gitPush origin next
-64 silly parseGitRepo
-65 verbose git [ 'config', '--get', 'remote.origin.url' ]
-66 error HttpError: Resource protected by organization SAML enforcement. You must grant your Personal Access token access to this organization.
-66 error     at /Users/rsiddhi/Desktop/Work/crayons/node_modules/@octokit/request/dist-node/index.js:86:21
-66 error     at processTicksAndRejections (internal/process/task_queues.js:95:5)
+0 warn deprecated --cd-version has been replaced by positional [bump]
+1 silly argv {
+1 silly argv   _: [ 'version' ],
+1 silly argv   'conventional-commits': true,
+1 silly argv   conventionalCommits: true,
+1 silly argv   'conventional-prerelease': true,
+1 silly argv   conventionalPrerelease: true,
+1 silly argv   preid: 'dew',
+1 silly argv   'create-release': 'github',
+1 silly argv   createRelease: 'github',
+1 silly argv   lernaVersion: '4.0.0',
+1 silly argv   '$0': '/Users/rsiddhi/Desktop/Work/crayons/node_modules/.bin/lerna',
+1 silly argv   bump: 'prerelease'
+1 silly argv }
+2 notice cli v4.0.0
+3 verbose rootPath /Users/rsiddhi/Desktop/Work/crayons
+4 silly createGitHubClient
+5 error Error: A GH_TOKEN environment variable is required.
+5 error     at createGitHubClient (/Users/rsiddhi/Desktop/Work/crayons/node_modules/@lerna/github-client/lib/github-client.js:17:11)
+5 error     at createReleaseClient (/Users/rsiddhi/Desktop/Work/crayons/node_modules/@lerna/version/lib/create-release.js:20:14)
+5 error     at VersionCommand.configureProperties (/Users/rsiddhi/Desktop/Work/crayons/node_modules/@lerna/version/index.js:80:58)
+5 error     at /Users/rsiddhi/Desktop/Work/crayons/node_modules/@lerna/command/index.js:50:37

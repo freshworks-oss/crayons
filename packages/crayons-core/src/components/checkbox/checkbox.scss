@@ -12,7 +12,7 @@
 }
 
 /* Focus event occurs on the root element */
-/* stylelint-disable-next-line a11y/no-outline-none -- currently on focus, 
+/* stylelint-disable-next-line a11y/no-outline-none -- currently on focus,
   outline is on checkbox. if we dont remove outline on host there will be a
   second outline wrapping label and description.
 */
@@ -22,13 +22,13 @@
   input[type='checkbox'] + label {
     &::before {
       border: 1px solid transparent;
-      box-shadow: 0 0 0 2px rgb(44, 92, 197);
+      box-shadow: var(--shadow-focus-checkbox, 0 0 0 2px rgb(44, 92, 197));
     }
   }
   input[type='checkbox'] {
     &:checked + label {
       &::before {
-        border: 1px solid #ffffff;
+        border: 1px solid var(--color-fill-surface, #ffffff);
       }
     }
   }
@@ -45,15 +45,24 @@
 :host(:hover) {
   input[type='checkbox'] + label {
     &::before {
-      border-color: $checkbox-color;
-      box-shadow: 0 0 0 5px rgb(235, 239, 243);
+      border-color: var(--color-boundary-border, $checkbox-color);
+      box-shadow: 0 0 0 var(--border-width-large, 5px)
+        var(--color-boundary-border-milder, rgb(235, 239, 243));
+    }
+
+    &.error::before {
+      border-color: var(--color-boundary-semantic-error, $color-azure-800);
     }
   }
 
   input[type='checkbox'] {
     &:checked + label {
       &::before {
-        border-color: $color-azure-800;
+        border-color: var(--color-fill-brand, $color-azure-800);
+      }
+
+      &.error::before {
+        border-color: var(--color-boundary-semantic-error, $color-azure-800);
       }
     }
   }
@@ -78,7 +87,7 @@
 
 #description {
   font-size: 12px;
-  color: #475867;
+  color: var(--color-text-secondary, #475867);
   letter-spacing: 0;
   line-height: 20px;
   position: relative;
@@ -95,7 +104,7 @@ input[type='checkbox'] {
     margin-block-end: 0;
     vertical-align: middle;
     font-size: 14px;
-    color: #12344d;
+    color: var(--color-text-primary, #12344d);
     line-height: 20px;
     font-weight: 400;
     cursor: inherit;
@@ -133,13 +142,14 @@ input[type='checkbox'] {
       inset-block-start: 4px;
       display: block;
       content: '';
-      border: $checkbox-border-width solid $color-smoke-700;
+      border: $checkbox-border-width solid
+        var(--color-boundary-border, $color-smoke-700);
       height: 14px;
       width: 14px;
       background-color: $input-bg;
       transition: all 0.2s ease;
       box-sizing: border-box;
-      border-radius: 2px;
+      border-radius: var(--border-radius-xsmall, 2px);
     }
 
     &.error {
@@ -154,7 +164,8 @@ input[type='checkbox'] {
         inset-block-start: 4px;
         display: block;
         content: '';
-        border: $checkbox-border-width solid $app-error;
+        border: $checkbox-border-width solid
+          var(--color-boundary-semantic-error, $app-error);
         height: 14px;
         width: 14px;
         background-color: $input-bg;
@@ -188,9 +199,31 @@ input[type='checkbox'] {
 
   &:checked + label {
     &::before {
-      background: $checkbox-checked-color;
-      border-color: $checkbox-checked-color;
+      background: var(--color-fill-brand, $checkbox-checked-color);
+      border-color: var(--color-fill-brand, $checkbox-checked-color);
       box-shadow: none;
+    }
+
+    &.error::before {
+      background: var(--color-fill-semantic-error, $checkbox-checked-color);
+      border-color: var(--color-boundary-semantic-error, $color-azure-800);
+    }
+
+    .after {
+      opacity: 1;
+    }
+  }
+
+  &:indeterminate + label {
+    &::before {
+      background: var(--color-fill-neutral, $checkbox-checked-color);
+      border-color: var(--color-fill-neutral, $checkbox-checked-color);
+      box-shadow: none;
+    }
+
+    &.error::before {
+      background: var(--color-fill-semantic-error, $checkbox-checked-color);
+      border-color: var(--color-boundary-semantic-error, $color-azure-800);
     }
 
     .after {
@@ -200,7 +233,7 @@ input[type='checkbox'] {
 
   &:checked:hover + label {
     &::before {
-      border-color: $color-azure-800;
+      border-color: var(--color-fill-brand, $color-azure-800);
       box-shadow: 0 0 0 5px rgb(235, 239, 243);
     }
 
@@ -223,24 +256,24 @@ input[type='checkbox'] {
 
   &[disabled] {
     & + label {
-      color: $color-smoke-300;
+      color: var(--color-text-primary, $color-smoke-300);
 
       .label-field {
-        color: $color-smoke-300;
+        color: var(--color-text-primary, $color-smoke-300);
       }
 
       &::before {
-        border-color: $disabled-color;
-        background-color: $ticket-tag-background;
+        border-color: var(--color-boundary-border-mild, $disabled-color);
+        background-color: var(--color-fill-base, $ticket-tag-background);
       }
     }
 
     &:checked + label {
-      color: $color-smoke-300;
+      color: var(--color-text-primary, $color-smoke-300);
 
       &::before {
-        background-color: $ticket-tag-background;
-        border-color: $disabled-color;
+        background-color: var(--color-fill-base, $ticket-tag-background);
+        border-color: var(--color-boundary-border-mild, $disabled-color);
       }
     }
   }

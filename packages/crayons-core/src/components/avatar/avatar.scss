@@ -11,15 +11,15 @@
   box-sizing: border-box;
 
   font-size: calc(var(--size) * 0.5);
-  font-weight: $font-weight-400;
+  font-weight: var(--font-weight-regular, $font-weight-400);
   overflow: hidden;
   user-select: none;
   vertical-align: middle;
 
   &__initials {
     line-height: 1;
-    font-weight: 600;
-    font-size: 32px;
+    font-weight: var(--font-weight-semi-bold, 600);
+    font-size: var(--font-size-32, 32px);
     text-align: center;
     text-transform: uppercase;
   }
@@ -33,33 +33,42 @@
   }
 
   &--dark {
-    background-color: $avatar-background-dark;
-    color: $color-milk;
+    background-color: var(
+      --color-fill-semantic-info-mildest,
+      $avatar-background-dark
+    );
+    color: var(--color-text-secondary, $color-milk);
 
     &--initials {
-      border: $avatar-border-dark;
+      border: var(--color-boundary-semantic-info-mild, $avatar-border-dark);
     }
 
     &--default {
-      background-color: $avatar-background-default;
+      background-color: var(
+        --color-fill-semantic-info-mildest,
+        $avatar-background-default
+      );
     }
   }
 
   &--light {
-    background-color: $avatar-background-light;
-    color: $color-elephant-900;
+    background-color: var(--color-fill-base, $avatar-background-light);
+    color: var(--color-text-secondary, $color-elephant-900);
 
     &--initials {
-      border: $avatar-border-light;
+      border: var(--color-boundary-border-mild, $avatar-border-light);
     }
   }
 
   &--error {
-    background-color: $avatar-background-error;
-    color: $color-elephant-900;
+    background-color: var(
+      --color-fill-semantic-error-mildest,
+      $avatar-background-error
+    );
+    color: var(--color-text-secondary, $color-elephant-900);
 
     &--initials {
-      border: $avatar-border-error;
+      border: var(--color-boundary-semantic-error-mild, $avatar-border-error);
     }
   }
 
@@ -77,49 +86,49 @@
     width: 96px;
     height: 96px;
     .avatar__initials {
-      font-size: 32px;
+      font-size: var(--font-size-32, 32px);
     }
   }
   &--xlarge {
     width: 72px;
     height: 72px;
     .avatar__initials {
-      font-size: 24px;
+      font-size: var(--font-size-24, 24px);
     }
   }
   &--large {
     width: 56px;
     height: 56px;
     .avatar__initials {
-      font-size: 20px;
+      font-size: var(--font-size-20, 20px);
     }
   }
   &--medium {
     width: 40px;
     height: 40px;
     .avatar__initials {
-      font-size: 16px;
+      font-size: var(--font-size-16, 16px);
     }
   }
   &--small {
     width: 32px;
     height: 32px;
     .avatar__initials {
-      font-size: 14px;
+      font-size: var(--font-size-16, 14px);
     }
   }
   &--xsmall {
     width: 24px;
     height: 24px;
     .avatar__initials {
-      font-size: 12px;
+      font-size: var(--font-size-12, 12px);
     }
   }
   &--xxsmall {
     width: 20px;
     height: 20px;
     .avatar__initials {
-      font-size: 10px;
+      font-size: var(--font-size-12, 10px);
     }
   }
 }

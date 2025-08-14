@@ -1,8 +1,8 @@
-$primary-color: $color-elephant-900;
+$primary-color: var(--color-text-primary, $color-elephant-900);
 $selected-color: $color-azure-800;
 $disabled-color: $color-smoke-300;
 $bg-color: $color-azure-50;
-$bg-color-hover: $color-smoke-50;
+$bg-color-hover: var(--color-fill-container, $color-smoke-50);
 $bg-color-disabled: $color-smoke-25;
 
 .select-center {
@@ -16,7 +16,7 @@ $bg-color-disabled: $color-smoke-25;
   align-items: center;
   color: $primary-color;
   font-size: $font-size-14;
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium, 4px);
   list-style: none;
   line-height: $line-height-label;
   word-break: break-word;
@@ -50,11 +50,17 @@ $bg-color-disabled: $color-smoke-25;
   }
 
   &.selected {
-    font-weight: $font-weight-600;
-    background-color: $dropdown-selected;
+    font-weight: var(--font-weight-regular, $font-weight-600);
+    background-color: var(
+      --color-fill-semantic-info-mildest,
+      $dropdown-selected
+    );
     &:hover,
     &:focus {
-      background-color: $dropdown-selected;
+      background-color: var(
+        --color-fill-semantic-info-mildest,
+        $dropdown-selected
+      );
     }
   }
 
@@ -68,10 +74,13 @@ $bg-color-disabled: $color-smoke-25;
   }
   /* stylelint-enable */
   &.disabled {
-    color: $disabled-color;
+    color: var(--color-text-primary, $disabled-color);
     position: relative;
     cursor: not-allowed;
-    background-color: $bg-color-disabled;
+    background-color: var(
+      --color-fill-semantic-info-mildest,
+      $bg-color-disabled
+    );
   }
 
   .description {
@@ -79,12 +88,12 @@ $bg-color-disabled: $color-smoke-25;
     flex-direction: column;
 
     &-text {
-      font-weight: $font-weight-600;
+      font-weight: var(--font-weight-medium, $font-weight-600);
     }
     &-subText {
       font-weight: $font-weight-400;
       font-size: $font-size-12;
-      color: $color-smoke-700;
+      color: var(--color-text-secondary, $color-smoke-700);
     }
 
     &-subText-conversation {
@@ -115,6 +124,7 @@ $bg-color-disabled: $color-smoke-25;
     display: flex;
     justify-content: center;
     align-items: center;
+    --fw-icon-color: var(--color-icon-selected, #2c5cc5);
   }
 
   .checkbox-wrapper {

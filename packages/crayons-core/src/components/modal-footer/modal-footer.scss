@@ -3,9 +3,9 @@
   padding-block: 12px;
   box-sizing: border-box;
   height: 56px;
-  background-color: $color-smoke-25;
-  border-end-start-radius: 4px;
-  border-end-end-radius: 4px;
+  background-color: var(--color-fill-container, $color-smoke-25);
+  border-end-start-radius: var(--border-radius-large, 4px);
+  border-end-end-radius: var(--border-radius-large, 4px);
   border-start-end-radius: 0;
   border-start-start-radius: 0;
   display: flex;

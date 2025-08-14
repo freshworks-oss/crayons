@@ -10,16 +10,16 @@
 @import '../../function-components/field-control.scss';
 
 $label-font: $font-stack;
-$input-bg: $color-milk;
+$input-bg: var(--color-fill-surface, $color-milk);
 $help-color: $muted-secondary;
-$error-color: $color-persimmon-800;
-$input-color: $color-elephant-900;
-$input-disabled-bg: $color-smoke-25;
-$input-hover-color: $color-smoke-700;
-$input-focus-color: $color-azure-800;
-$input-border: $color-smoke-100;
+$error-color: var(--color-boundary-semantic-error, $color-persimmon-800);
+$input-color: var(--color-text-primary, $color-elephant-900);
+$input-disabled-bg: var(--color-fill-container, $color-smoke-25);
+$input-hover-color: var(--color-boundary-border, $color-smoke-700);
+$input-focus-color: var(--color-boundary-brand, $color-azure-800);
+$input-border: var(--color-boundary-border-milder, $color-smoke-100);
 $warning-color: $color-casablanca-300;
-$placeholder-color: $color-smoke-300;
+$placeholder-color: var(--color-text-placeholder, $color-smoke-300);
 $disabled-color: $input-disabled-color;
 
 // stylelint-disable a11y/media-prefers-reduced-motion
@@ -66,7 +66,10 @@ $disabled-color: $input-disabled-color;
 .input-container {
   width: calc(100% - 12px);
   border: var(--fw-select-border, 1px solid $input-border);
-  border-radius: var(--fw-select-border-radius, 4px);
+  border-radius: var(
+    --fw-select-border-radius,
+    var(--border-radius-medium, 4px)
+  );
   padding-inline-start: 10px;
   background-color: $input-bg;
   box-shadow: none;
@@ -116,7 +119,7 @@ $disabled-color: $input-disabled-color;
       border: none;
       font-family: inherit;
       font-size: $font-size-14;
-      font-weight: $font-weight-500;
+      font-weight: var(--font-weight-regular, $font-weight-500);
       letter-spacing: 0;
       line-height: 1.4;
       background-color: $input-bg;
@@ -126,6 +129,7 @@ $disabled-color: $input-disabled-color;
       overflow: hidden;
       margin-inline: 0px;
       margin-block: 4px;
+      color: $input-color;
 
       &:focus {
         border: none;
@@ -164,14 +168,17 @@ $disabled-color: $input-disabled-color;
 
   &.select-disabled {
     color: $disabled-color;
-    border: var(--fw-select-border, 1px solid $color-smoke-50);
+    border: var(
+      --fw-select-border,
+      1px solid var(--color-boundary-border-mild, $color-smoke-50)
+    );
     background-color: $input-disabled-bg !important;
     border-style: solid;
     cursor: not-allowed;
 
     &:hover,
     &:focus {
-      border: 1px solid $color-smoke-50;
+      border: 1px solid var(--color-boundary-border-mild, $color-smoke-50);
     }
   }
 }
@@ -239,7 +246,7 @@ $disabled-color: $input-disabled-color;
     min-width: 20px;
     min-height: 20px;
     transition: all 0.15s;
-    --icon-color: $color-elephant-800;
+    --fw-icon-color: var(--color-icon-primary, $color-elephant-800);
   }
 
   //Help Block

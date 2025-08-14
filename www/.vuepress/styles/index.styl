@@ -1,5 +1,5 @@
 body {
-  font-family: 'System stack', sans-serif;
+  font-family: var(--base-font-family, 'System stack', sans-serif);
 }
 
 h1, h2 {
@@ -59,5 +59,125 @@ h3 {
       height: 300px;
       overflow: auto;
     }
+  }
+}
+
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.theme-switcher-container {
+  display: flex;
+  align-items: center;
+}
+
+.theme-switcher-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary, #12344d);
+  margin-right: 6px;
+}
+
+.theme-switcher-btns {
+  display: flex;
+  background: var(--color-fill-container, #f5f7f9);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.theme-switcher-btn {
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--color-text-primary, #12344d);
+
+  &:hover {
+    background: var(--color-overlay-neutral);
+  }
+}
+
+.theme-switcher-btn.active {
+  background: var(--color-fill-brand, #12344d);
+  color: var(--color-text-inverse, #ffffff);
+}
+
+// Apply theme variables to VuePress elements
+.dew-light-theme,
+.dew-dark-theme {
+  h1, h2, h3, h4, p, table, li {
+    color: var(--color-text-primary);
+  }
+
+  h2 {
+    border-bottom: 1px solid var(--color-boundary-border-mildest);
+  }
+
+  tr {
+    background-color: var(--color-fill-surface);
+  }
+
+  table, th, td, hr, .page-nav .inner {
+    border-color: var(--color-boundary-border-mildest);
+  }
+
+  .navbar {
+    background-color: var(--color-fill-surface);
+    border-bottom-color: var(--color-boundary-border-mildest);
+
+    .links {
+      background-color: var(--color-fill-surface);
+    }
+
+    .site-name, .nav-links a {
+      color: var(--color-text-primary);
+    }
+  }
+
+  .page {
+    background-color: var(--color-fill-surface);
+  }
+
+  .sidebar {
+    background-color: var(--color-fill-surface);
+    border-right-color: var(--color-boundary-border-mildest);
+  }
+  
+  .content {
+    background-color: var(--color-fill-surface);
+    color: var(--color-text-primary);
+  }
+  
+  .search-box input {
+    background-color: var(--color-fill-container);
+    border-color: var(--color-boundary-border-mildest);
+    color: var(--color-text-primary);
+  }
+  
+  code {
+    background-color: var(--color-fill-container);
+    color: var(--color-text-primary);
+  }
+  
+  pre {
+    background-color: var(--color-fill-container); 
+    border-color: var(--color-boundary-border-mildest);
+  }
+
+  span, a.sidebar-link, {
+    color: var(--color-text-primary);
+
+    &.active, &:hover {
+      color: var(--color-text-brand);
+    }
+  }
+
+  .prev, .next, .next a, li a {
+    color: var(--color-text-brand);
   }
 }

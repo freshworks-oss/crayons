@@ -11,32 +11,41 @@
   padding-inline: 8px;
   padding-block: 6px;
   margin-block-end: 4px;
-  line-height: 1.45;
+  line-height: var(--line-height-20, 1.45);
   align-items: center;
-  background: var(--fw-menu-item-background, #ffffff);
-  border: var(--fw-menu-item-border);
-  box-shadow: var(--fw-menu-item-box-shadow);
-  border-radius: var(--fw-menu-item-border-radius);
-  font-size: $font-size-14;
+  background: var(
+    --fw-menu-item-background,
+    var(--color-fill-surface, #ffffff)
+  );
+  border: var(--fw-menu-item-border, --color-boundary-border-milder);
+  box-shadow: var(--fw-menu-item-box-shadow, --box-shadow-none);
+  border-radius: var(
+    --fw-menu-item-border-radius,
+    var(--border-radius-medium, 4px)
+  );
+  font-size: var(--font-size-12, $font-size-14);
+  font-weight: var(--font-weight-regular, $font-weight-400);
   word-break: break-word;
   word-wrap: break-word;
 
   &:hover {
-    background-color: $color-smoke-50;
+    background-color: var(--color-fill-container, $color-smoke-50);
   }
   &:focus {
-    background-color: $color-smoke-50;
-    outline: $color-azure-800 auto 1px;
+    background-color: var(--color-fill-container, $color-smoke-50);
+    outline: var(--color-boundary-brand, $color-azure-800) auto 1px;
   }
 
   .menu-item__label {
     flex: 1 1 auto;
+    color: var(--color-text-primary, $app-text-dark);
   }
 
   .menu-item__prefix {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
+    --fw-icon-color: var(--color-icon-primary, $app-icon-color);
 
     ::slotted(*) {
       margin-inline-end: 8px;
@@ -62,11 +71,17 @@
   }
 
   &.selected {
-    font-weight: $font-weight-600;
-    background-color: $dropdown-selected;
+    font-weight: var(--font-weight-semi-bold, $font-weight-600);
+    background-color: var(
+      --color-fill-semantic-info-mildest,
+      $dropdown-selected
+    );
     &:hover,
     &:focus {
-      background-color: $dropdown-selected;
+      background-color: var(
+        --color-fill-semantic-info-mildest,
+        $dropdown-selected
+      );
     }
 
     .menu-item__check {

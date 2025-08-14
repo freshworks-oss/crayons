@@ -476,7 +476,12 @@ export class Modal {
           ref={(el) => (this.modalContainer = el)}
         >
           {this.hasCloseIconButton && (
-            <button class='close-btn' onClick={() => this.close()}>
+            <button
+              class={`close-btn ${
+                this.slider === true ? ' slider-mode' : 'modal-mode'
+              }`}
+              onClick={() => this.close()}
+            >
               <fw-icon
                 name={
                   this.slider
@@ -484,11 +489,6 @@ export class Modal {
                     : variation.closeName.modal
                 }
                 library='system'
-                color={
-                  this.slider
-                    ? variation.closeColor.slider
-                    : variation.closeColor.modal
-                }
                 size={
                   this.slider
                     ? variation.closeSize.slider

@@ -55,6 +55,7 @@ for (const wwwBuild of wwwBuilds) {
     'script',
     { type: 'module', src: `/scripts/${wwwBuild}/build/${wwwBuild}.esm.js` },
   ]);
+
   headScripts.push([
     'script',
     { nomodule: '', src: `/scripts/${wwwBuild}/build/${wwwBuild}.js` },
@@ -63,6 +64,8 @@ for (const wwwBuild of wwwBuilds) {
 
 headScripts.push(['script', { type: 'module', src: `/global/header.esm.js` }]);
 headScripts.push(['link', { rel: 'stylesheet', href: `/css/crayons-min.css` }]);
+headScripts.push(['link', { rel: 'stylesheet', href: `/css/dew-min.css` }]);
+headScripts.push(['script', { src: `/theme-switcher.js` }]);
 
 const getUtils = () =>
   [

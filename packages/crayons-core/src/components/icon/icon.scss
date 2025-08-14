@@ -9,7 +9,7 @@
 
 .icon {
   display: block;
-  color: var(--fw-icon-color, $color-elephant-900);
+  color: var(--fw-icon-color, var(--color-icon-primary, $color-elephant-900));
 
   height: var(--fw-icon-size, 12px);
   width: var(--fw-icon-size, 12px);

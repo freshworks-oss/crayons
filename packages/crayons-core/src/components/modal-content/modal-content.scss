@@ -2,8 +2,8 @@
   flex: 1;
   overflow-y: auto;
   font-size: $font-size-14;
-  font-weight: $font-weight-default;
-  color: $color-elephant-900;
+  font-weight: var(--font-weight-regular, $font-weight-default);
+  color: var(--color-text-primary, $color-elephant-900);
   line-height: 20px;
 }
 

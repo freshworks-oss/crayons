@@ -43,6 +43,12 @@ export const config: Config = {
     },
     {
       type: 'www',
+      copy: [
+        { dest: 'dew/colors.css', src: '../../../styles/dew/colors.css' },
+        { dest: 'dew/numbers.css', src: '../../../styles/dew/numbers.css' },
+        { dest: 'dew/fonts.css', src: '../../../styles/dew/fonts.css' },
+        { dest: 'dew/overrides.css', src: '../../../styles/dew/overrides.css' },
+      ],
     },
     {
       type: 'www',
@@ -52,9 +58,9 @@ export const config: Config = {
       type: 'docs-json',
       file: 'dist/docs.json',
     },
-    {
-      type: 'dist-hydrate-script',
-    },
+    // {
+    //   type: 'dist-hydrate-script',
+    // },
     reactOutputTarget({
       componentCorePackage: `@freshworks/${packageName}`, // name in the package.json should be used
       proxiesFile: './crayons-react/components.ts',
@@ -97,7 +103,7 @@ export const config: Config = {
     ],
     coverageReporters: ['json', 'lcov', 'text', 'clover', 'text-summary'],
   },
-  buildEs5: 'prod',
+  buildEs5: false,
   extras: {
     appendChildSlotFix: true,
     cssVarsShim: true,

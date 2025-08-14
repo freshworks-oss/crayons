@@ -2,7 +2,7 @@
 @import 'theme';
 
 :host {
-  font-family: var(--fw-font-family, $font-stack);
+  font-family: var(--fw-font-family, var(--base-font-family, $font-stack));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;

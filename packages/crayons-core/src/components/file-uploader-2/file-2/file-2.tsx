@@ -207,15 +207,16 @@ export class File2 {
         <div class={strBaseClassName}>
           <div class={`${strClassName}-content`}>
             <div class={`${strClassName}-content-left-panel`}>
-              <span class={`${strClassName}-content-icon`}>
+              <span
+                class={`${strClassName}-content-icon${
+                  boolErrorState || boolFailedState ? ' error' : ''
+                }`}
+              >
                 <fw-icon
                   dataSvg={
                     this.type?.startsWith('image/') === true
                       ? iconImageType
                       : iconFileType
-                  }
-                  color={
-                    boolErrorState || boolFailedState ? '#d72d30' : '#264966'
                   }
                 ></fw-icon>
               </span>
@@ -305,7 +306,7 @@ export class File2 {
           {(boolErrorState || boolFailedState) && (
             <div class={`${strClassName}-content-error`}>
               <span class={`${strClassName}-content-error-icon`}>
-                <fw-icon name='error' size={12} color='#d72d30'></fw-icon>
+                <fw-icon name='error' size={12}></fw-icon>
               </span>
               <span class={`${strClassName}-content-error-message`}>
                 {this.errorMessage}

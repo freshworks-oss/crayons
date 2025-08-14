@@ -4,10 +4,10 @@
 
 .drag-item {
   display: flex;
-  background: #ffffff;
-  border: 1px solid #ebeff3;
-  box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
-  border-radius: 4px;
+  background: var(--color-fill-surface, #ffffff);
+  border: 1px solid var(--color-boundary-border-mildest, #ebeff3);
+  box-shadow: var(--box-shadow-none, 0px 2px 4px rgba(18, 52, 77, 0.06));
+  border-radius: var(--border-radius-medium, 4px);
   padding-inline: 12px;
   padding-block: 8px;
   align-items: center;
@@ -16,12 +16,17 @@
 
   .drag-item__label {
     flex: 1 1 auto;
+    color: var(--color-text-primary, $app-primary-black);
   }
 
   .drag-item__prefix {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
+
+    &.pinned {
+      --fw-icon-color: var(--color-icon-semantic-warning, #12344d);
+    }
   }
 
   .drag-item__suffix {

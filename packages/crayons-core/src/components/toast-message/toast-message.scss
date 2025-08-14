@@ -20,9 +20,9 @@
   padding-block-end: 16px;
   padding-inline-end: 0px;
   padding-block-start: 0px;
-  border: 1px solid $color-smoke-50;
+  border: 1px solid var(--color-boundary-border-mildest, $color-smoke-50);
   border-radius: 4px;
-  background-color: $color-milk;
+  background-color: var(--color-fill-surface, $color-milk);
   margin-block-end: 16px;
   box-sizing: border-box;
   box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06),
@@ -33,19 +33,26 @@
   white-space: normal;
 
   &.success {
-    border-block-start: 5px solid $color-jungle-500;
+    border-block-start: 5px solid
+      var(--color-fill-semantic-success, $color-jungle-500);
+    --fw-icon-color: var(--color-fill-semantic-success, $color-jungle-500);
   }
 
   &.error {
-    border-block-start: 5px solid $color-persimmon-700;
+    border-block-start: 5px solid
+      var(--color-fill-semantic-error, $color-persimmon-700);
+    --fw-icon-color: var(--color-fill-semantic-error, $color-persimmon-700);
   }
 
   &.warning {
-    border-block-start: 5px solid $color-casablanca-500;
+    border-block-start: 5px solid
+      var(--color-fill-semantic-warning, $color-casablanca-500);
+    --fw-icon-color: var(--color-fill-semantic-warning, $color-casablanca-500);
   }
 
   &.inprogress {
-    border-block-start: 5px solid $color-azure-800;
+    border-block-start: 5px solid var(--color-fill-brand, $color-azure-800);
+    --fw-icon-color: var(--color-fill-brand, $color-azure-800);
   }
 }
 
@@ -56,7 +63,7 @@
   place-content: center;
 
   .content {
-    color: $color-elephant-900;
+    color: var(--color-text-primary, $color-elephant-900);
     line-height: 20px;
     flex: 1 1 auto;
     font-size: $font-size-14;
@@ -80,6 +87,7 @@
     box-sizing: border-box;
     margin-inline: 12px;
     margin-block: 0;
+    --fw-icon-color: var(--color-icon-primary, #183247);
   }
 }
 

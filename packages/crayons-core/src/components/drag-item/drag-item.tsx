@@ -56,7 +56,11 @@ export class DragItem {
           draggable={this.draggable}
         >
           {this.showDragIcon && (
-            <span class='drag-item__prefix'>
+            <span
+              class={
+                !this.pinned ? 'drag-item__prefix' : 'drag-item__prefix pinned'
+              }
+            >
               <fw-icon
                 class={{ 'drag-icon': true, 'drag': !this.pinned }}
                 name={!this.pinned ? 'drag' : 'lock'}

@@ -3,13 +3,13 @@
 }
 
 div.fw-data-table-container {
-  $grid-header-bg: $color-smoke-25;
-  $grid-body-bg: $color-milk;
-  $grid-row-active: $color-azure-50;
-  $grid-row-border: $color-smoke-50;
+  $grid-header-bg: var(--color-fill-container, $color-smoke-25);
+  $grid-body-bg: var(--color-fill-surface, $color-milk);
+  $grid-row-active: var(--color-overlay-semantic-info, $color-azure-50);
+  $grid-row-border: var(--color-boundary-border-mildest, $color-smoke-50);
 
-  $grid-header-txt-color: $color-smoke-700;
-  $grid-row-txt-color: $color-elephant-900;
+  $grid-header-txt-color: var(--color-text-primary, $color-smoke-700);
+  $grid-row-txt-color: var(--color-text-primary, $color-elephant-900);
 
   $grid-header-txt-size: $font-size-12;
   $grid-row-txt-size: $font-size-14;
@@ -50,7 +50,7 @@ div.fw-data-table-container {
             font-size: $grid-header-txt-size;
             line-height: $grid-line-height;
             padding: $grid-density-md;
-            font-weight: 600;
+            font-weight: var(--font-weight-semi-bold, 600);
             letter-spacing: 0.2px;
             text-overflow: ellipsis;
             text-align: start;
@@ -254,17 +254,19 @@ div.fw-data-table-container {
       .table-settings-button {
         width: 40px;
         min-height: 44px;
-        background: $color-milk;
+        background: var(--color-fill-surface, $color-milk);
         display: flex;
         justify-content: center;
         align-items: center;
         box-sizing: border-box;
-        border: 1px solid $color-smoke-50;
+        border: var(--border-none, 1px solid $color-smoke-50);
         border-end-start-radius: 0px;
         border-end-end-radius: 0px;
         border-start-end-radius: 4px;
         border-start-start-radius: 0px;
         margin: 0px;
+        box-shadow: var(--shadow-md, none);
+        --fw-icon-color: var(--color-icon-primary, $app-icon-color);
 
         &:focus,
         &:hover {
@@ -281,8 +283,8 @@ div.fw-data-table-container {
         z-index: 99;
         width: 500px;
         box-sizing: border-box;
-        background: $color-milk;
-        border: 1px solid $color-smoke-50;
+        background: var(--color-fill-surface, $color-milk);
+        border: 1px solid var(--color-boundary-border-mildest, $color-smoke-50);
         border-radius: 4px;
         box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.04);
         padding-inline-start: 0px;
@@ -314,14 +316,14 @@ div.fw-data-table-container {
 
           button.reset {
             flex-grow: 0;
-            color: $color-azure-800;
+            color: var(--color-text-brand, $color-azure-800);
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
             line-height: 17px;
             padding-inline-end: 4px;
             margin: 0px;
-            background: $color-milk;
+            background: var(--color-fill-surface, $color-milk);
             border: 0px;
 
             &:focus,
@@ -391,7 +393,7 @@ div.fw-data-table-container {
             flex-direction: column;
             width: 220px;
             box-sizing: border-box;
-            background: $color-smoke-50;
+            background: var(--color-fill-container, $color-smoke-50);
             border-end-start-radius: 0px;
             border-end-end-radius: 0px;
             border-start-end-radius: 4px;
@@ -485,7 +487,7 @@ div.fw-data-table-container {
           display: flex;
           width: 100%;
           box-sizing: border-box;
-          background: $color-smoke-25;
+          background: var(--color-fill-base, $color-smoke-25);
           padding-inline: 16px;
           padding-block: 12px;
           gap: 12px;

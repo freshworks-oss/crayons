@@ -1,15 +1,61 @@
-// Color/Theme related config variables
-
+// Core Theme Colors
 $app-primary: $color-azure-800;
 $app-primary-black: #183247;
 $app-icon-color: #12344d;
 $app-icon-color-hover: darken($app-icon-color, 10%);
 $app-icon-color-hover-bg: #ebedf0;
-$app-icon-fillcolor-active: #fff;
-$app-icon-color-active: #12344d;
-$app-icon-color-disabled: #d3dbda;
+$app-action-icon-bg: #fff;
 
-//Gradient colors
+// Background Colors
+$app-light-bg: #fff;
+$app-header-bg-secondary: #f5f7f9;
+
+// Text Colors
+$app-text-light: #fff;
+$app-text-dark: #000;
+$text-error: #ff5959;
+$app-muted-grey: #475867;
+$app-info-color: #6f7c87;
+$muted-secondary: #acb6be;
+$muted-tertiary: #dadfe3;
+
+// Border Colors
+$app-border-primary: #cfd7df;
+$app-border-secondary: #ebeff3;
+$app-border-tertiary: #ebeef0;
+
+// Button Colors
+$btn-secondary-top: #fff;
+$btn-secondary-bottom: #f3f5f7;
+$btn-delete-top: #d72d30;
+$btn-delete-bottom: #c82124;
+$btn-delete-hover: #c82124;
+
+// Form Input Colors
+$input-bg: $app-light-bg;
+$input-color: $app-primary-black;
+$input-focus-color: $app-primary;
+$input-hover-color: $app-icon-color;
+$input-disabled-bg: #f7f9fa;
+$input-disabled-color: #92a2b1;
+$input-border: #cfd7df;
+
+// Checkbox & Radio Colors
+$checkbox-color: $app-border-primary;
+$checkbox-checked-color: $app-primary;
+$radio-color: $app-border-primary;
+$radio-checked-color: $app-primary;
+
+// Disabled States
+$disabled-color: $muted-tertiary;
+
+// Notification Colors
+$app-notification-border: #fddbb5;
+
+// Error States
+$app-error: #d72d30;
+
+// Gradient colors
 
 //Bulk Action Buttons
 $btn-lg-top: #fff;
@@ -33,9 +79,6 @@ $btn-lg-primary-disabled-bottom: #8899a6;
 $btn-lg-primary-disabled-border: #8899a6;
 $btn-secondary-top: #fff;
 $btn-secondary-bottom: #f3f5f7;
-$btn-delete-top: #d72d30;
-$btn-delete-bottom: #c82124;
-$btn-delete-hover: #c82124;
 $btn-delete-selected: #d72d30;
 $btn-delete-disabled-top: #eb9697;
 $btn-delete-disabled-bottom: #e39091;
@@ -43,13 +86,10 @@ $btn-delete-disabled-border: #e39091;
 
 // Background colors
 $app-bg: #ebeff3;
-$app-light-bg: #fff;
 $app-header-bg-primary: #fff;
-$app-header-bg-secondary: #f5f7f9;
 $app-header-bg-tertiary: #ebeef0;
 $app-action-icon-bg: #fff;
 $unseen: #ff5959;
-$app-error: #d72d30;
 $app-error-bg: #ffd2d3;
 $side-nav-bg: #284255;
 $app-grey-bg: #f8f9fa;
@@ -69,16 +109,12 @@ $calendar-container-bg: rgba(172, 211, 255, 0.3);
 $tab-header-bg: #f7f9fa;
 
 // Border color
-$app-border-primary: #cfd7df;
-$app-border-secondary: #ebeff3;
-$app-border-tertiary: #ebeef0;
 $app-border-black: #707070;
 $card-border: #ebedf0;
 $dark-border-grey: #dbdfe3;
 $app-border-grey: #979797;
 $account-card-border: #ebeff3;
 $meta-hover-border: #b1bdc8;
-$input-border: #cfd7df;
 $modal-footer-border: #e5e5e5;
 
 //tree-structure-border
@@ -88,8 +124,6 @@ $parent-child-border: #979797;
 $app-link: #2c5cc5;
 $app-link-hover: #1971e3;
 $app-link-light: #acd3ff;
-$app-text-light: #fff;
-$app-text-dark: #000;
 
 // Icon colors
 $app-logo-color: #fff;
@@ -100,16 +134,11 @@ $app-icon-actions--active: darken($app-icon-actions, 10%);
 $app-icon-collab-color: #6f7c87;
 
 //text colors
-$app-info-color: #6f7c87;
 $app-muted-color: #6f7c87;
-$app-muted-grey: #475867;
 $meta-info: #6f7c87;
 $muted-primary: #777c80;
-$muted-secondary: #acb6be;
-$muted-tertiary: #dadfe3;
 $orange-secondary: #ff9d00;
 $label-default: $app-muted-grey;
-$text-error: #ff5959;
 $account-card-color: #dc949c;
 $account-card-title: #12344d;
 $secondary-heading-text: $app-muted-grey;
@@ -174,14 +203,12 @@ $ticket-tags-hover: #cfd7df;
 $tags-valid-border: #cfd7df;
 
 //Btn-text-color
-$app-btn-text-light: #fff;
 $app-btn-text-dark: #183247;
 
 //Notifications
 $app-notification-primary: #f7f5e9;
 $app-notification-bg: #fef1e1;
 $app-notification-light: #fffef7;
-$app-notification-border: #fddbb5;
 $app-notification-divider: #a8a6a6;
 
 $traffic-cop-border: #ffd0d6;
@@ -384,8 +411,16 @@ $mostlydissatisfied: #d7461f;
 $extremelydissatisfied: #d72d30;
 
 // Font stack
-$font-stack-sans: -apple-system, blinkmacsystemfont, 'Segoe UI', 'Roboto',
-  'Helvetica Neue', arial, sans-serif !default;
+$font-stack-sans: var(
+  --base-font-family,
+  -apple-system,
+  blinkmacsystemfont,
+  'Segoe UI',
+  'Roboto',
+  'Helvetica Neue',
+  arial,
+  sans-serif
+) !default;
 
 //Mailchimp colors
 $text-blue-color: #4da1ff;
@@ -482,8 +517,6 @@ $amber-color: #ffad1e;
 $danger-color: #ff5959;
 $no-change-color: #acb6be;
 
-$text-error: #ff5959;
-$app-primary-black: #183247;
 $app-box-shadow: #dadfe3;
 
 $label-color: #000;
@@ -492,15 +525,9 @@ $calendar-nav-hover-bg: #eee;
 $selected-day-radius: 2px;
 
 // Checkbox inputs
-$checkbox-color: $app-border-primary;
-$checkbox-checked-color: $app-primary;
 $checkbox-border-width: 1px;
 $checkbox-mark-width: 2px;
-$input-bg: $app-action-icon-bg;
-$input-color: $app-primary-black;
-$input-focus-color: $app-primary;
-$input-hover-color: $app-icon-color;
-$disabled-color: #dadfe3;
+$disabled-color: $muted-tertiary;
 
 $max-card-count: 3;
 $gap-size: 0;
@@ -523,17 +550,10 @@ $placeholder-grey: $app-border-primary;
 // bot conversations
 $text-muted-light: #9aa1a6;
 
-$radio-color: $app-border-primary;
-$radio-checked-color: $app-primary;
 $radio-border-width: 1px;
 $radio-mark-width: 2px;
-$input-bg: $app-action-icon-bg;
-$input-color: $app-primary-black;
-$input-focus-color: $app-primary;
-$input-hover-color: $app-icon-color;
 $unchecked-color: $muted-secondary;
 $checked-color: $app-selected-color;
-$disabled-color: $muted-tertiary;
 $hover-color: $app-header-bg-secondary;
 
 $label-color: #000;
@@ -544,8 +564,6 @@ $selected-day-radius: 2px;
 $hover-transition: background-color 0.5s ease;
 $day-color: $app-primary-black;
 $disabled-day-color: $muted-secondary;
-
-$hover-transition: background-color 0.5s ease;
 
 $keyboard-color: #ebeef0;
 
@@ -566,9 +584,6 @@ $critical-color: #d0021b;
 
 $fill-filter: #ff9e35;
 $fill-spam: #ff5959;
-
-$checkbox-color: $app-border-primary;
-$checkbox-checked-color: $app-primary;
 
 $toggle-btn-shadow: rgba(0, 0, 0, 0.23);
 $toggle-btn-on-bg: #2c5cc5;
@@ -610,9 +625,6 @@ $symbol-yesterday: #dadfe3;
 $input-bottom-border: #eaf0ef;
 $input-disabled-bg: #f7f9fa;
 $input-disabled-color: #92a2b1;
-
-$amber-color: #ffad1e;
-$danger-color: #ff5959;
 
 $active-board: $app-primary;
 $tab-link: $app-info-color;

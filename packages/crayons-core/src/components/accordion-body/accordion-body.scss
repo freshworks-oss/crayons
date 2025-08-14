@@ -1,4 +1,7 @@
-$accordion-border-radius: var(--fw-accordion-border-radius, 8px);
+$accordion-border-radius: var(
+  --fw-accordion-border-radius,
+  var(--border-radius-small, 8px)
+);
 
 /**
   @prop --fw-accordion-body-font-size: Accordion body font size
@@ -7,9 +10,15 @@ $accordion-border-radius: var(--fw-accordion-border-radius, 8px);
   @prop --fw-accordion-body-padding: Accordion body padding
 */
 .accordion-body {
-  font-size: var(--fw-accordion-body-font-size, 14px);
-  line-height: var(--fw-accordion-body-line-height, 18px);
-  background-color: var(--fw-accordion-body-background-color, #f5f7f9);
+  font-size: var(--fw-accordion-body-font-size, var(--font-size-14, 14px));
+  line-height: var(
+    --fw-accordion-body-line-height,
+    var(--line-height-20, 18px)
+  );
+  background-color: var(
+    --fw-accordion-body-background-color,
+    var(--color-fill-surface, #f5f7f9)
+  );
   // stylelint-disable
   padding: var(--fw-accordion-body-padding, 20px);
   // stylelint-enable
@@ -17,6 +26,7 @@ $accordion-border-radius: var(--fw-accordion-border-radius, 8px);
   border-end-end-radius: $accordion-border-radius;
   border-start-end-radius: 0;
   border-start-start-radius: 0;
+  color: var(--color-text-primary, $app-text-dark);
 
   &.collapsed {
     display: none;

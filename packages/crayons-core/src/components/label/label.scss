@@ -1,7 +1,7 @@
 /**
   @prop --fw-label-padding-vertical: Top - bottom padding for label
   @prop --fw-label-padding-horizontal: Left - Right padding if direction is left-to-right, and Right - Left padding if direction is right-to-left for label
-  
+
 */
 
 :host {
@@ -10,9 +10,9 @@
 }
 
 .label {
-  color: #6f7c87;
-  border: 1px solid #dadfe3;
-  background-color: $color-milk;
+  color: var(--color-text-primary, #6f7c87);
+  border: 1px solid var(--color-boundary-border-mildest, #dadfe3);
+  background-color: var(--color-fill-surface, $color-milk);
   font-weight: 600;
   line-height: $line-height-label;
   font-size: $font-size-12;
@@ -22,32 +22,41 @@
   border-radius: 4px;
 
   &--blue {
-    background-color: $color-azure-50;
-    color: $color-azure-800;
-    border: 1px solid $color-azure-100;
+    background-color: var(--color-fill-semantic-info-mildest, $color-azure-50);
+    color: var(--color-text-semantic-info, $color-azure-800);
+    border: var(--border-none, 1px solid $color-azure-100);
   }
 
   &--red {
-    background-color: $color-persimmon-50;
-    color: $color-persimmon-800;
-    border: 1px solid $color-persimmon-100;
+    background-color: var(
+      --color-fill-semantic-error-mildest,
+      $color-persimmon-50
+    );
+    color: var(--color-text-semantic-error, $color-persimmon-800);
+    border: var(--border-none, 1px solid $color-persimmon-100);
   }
 
   &--green {
-    background-color: $color-jungle-50;
-    color: $color-jungle-800;
-    border: 1px solid $color-jungle-100;
+    background-color: var(
+      --color-fill-semantic-success-mildest,
+      $color-jungle-50
+    );
+    color: var(--color-text-semantic-success, $color-jungle-800);
+    border: var(--border-none, 1px solid $color-jungle-100);
   }
 
   &--yellow {
-    background-color: $color-casablanca-50;
-    color: $color-casablanca-700;
-    border: 1px solid $color-casablanca-100;
+    background-color: var(
+      --color-fill-semantic-warning-mildest,
+      $color-casablanca-50
+    );
+    color: var(--color-text-semantic-warning, $color-casablanca-700);
+    border: var(--border-none, 1px solid $color-casablanca-100);
   }
 
   &--grey {
-    background-color: $color-smoke-50;
-    color: $color-smoke-700;
+    background-color: var(--color-fill-base, $color-smoke-50);
+    color: var(--color-text-secondary, $color-smoke-700);
     border: none;
   }
 }
