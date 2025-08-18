@@ -157,14 +157,21 @@
 
 // Styles for icon toggle button
 @mixin mixin-fw-toggle-icon-button-selected-style {
-  background: linear-gradient(180deg, #ffffff 2.56%, #f5f7f9 95.75%);
-  border: 2px solid #2c5cc5;
-  box-shadow: 0px 1px 4px #ebeff3;
+  background: linear-gradient(
+    180deg,
+    var(--color-icon-inverse, #ffffff),
+    2.56%,
+    var(--color-fill-surface, #f5f7f9),
+    95.75%
+  );
+  border: 2px solid var(--color-icon-selected, #2c5cc5);
+  box-shadow: 0px 1px 4px var(--color-fill-container, #ebeff3);
 }
 
 .fw-toggle-icon-button {
   width: var(--fw-toggle-group-button-icon-button-width, 42px);
   height: var(--fw-toggle-group-button-icon-button-height, 36px);
+  color: var(--color-text-primary, #12344d);
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -172,8 +179,14 @@
   cursor: pointer;
   outline: 0;
   padding: 0;
-  background: linear-gradient(180deg, #ffffff 2.56%, #f5f7f9 95.75%);
-  border: 1px solid #cfd7df;
+  background: linear-gradient(
+    180deg,
+    var(--color-icon-inverse, #ffffff),
+    2.56%,
+    var(--color-fill-surface, #f5f7f9),
+    95.75%
+  );
+  border: 1px solid var(--color-boundary-border-milder, #cfd7df);
   border-radius: 4px;
   transition: background-color 0.3s;
 
