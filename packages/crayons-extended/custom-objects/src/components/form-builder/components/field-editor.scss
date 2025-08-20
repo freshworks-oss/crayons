@@ -94,7 +94,7 @@
         user-select: none;
         text-align: start;
 
-        color: $color-elephant-900;
+        color: var(--color-text-primary, $color-elephant-900);
         font-size: $font-size-14;
         font-weight: $font-weight-600;
 
@@ -321,7 +321,7 @@
       align-items: center;
       justify-content: flex-end;
       box-sizing: border-box;
-      background-color: $color-milk;
+      background-color: var(--color-fill-surface, $color-milk);
       border-radius: $form-builder-field-editor-border-radius;
 
       .fw-field-editor-footer-field-error-container {

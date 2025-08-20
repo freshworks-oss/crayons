@@ -21,7 +21,7 @@
     width: 100%;
     font-size: $font-size-16;
     font-weight: $font-weight-600;
-    color: $color-smoke-700;
+    color: var(--color-text-primary, $color-smoke-700);
     display: block;
     pointer-events: none;
     user-select: none;
@@ -31,7 +31,7 @@
     width: 100%;
     margin-block-start: 4px;
     font-size: $font-size-12;
-    color: $app-primary-black;
+    color: var(--color-text-primary, $app-primary-black);
     display: block;
     pointer-events: none;
     user-select: none;
