@@ -395,7 +395,10 @@
 
   &--primary {
     .fw-field-editor-header {
-      background: var(--color-fill-surface, rgba(254, 241, 225, 0.4));
+      background: var(
+        --color-fill-semantic-warning-mildest,
+        rgba(254, 241, 225, 0.4)
+      );
     }
     .fw-field-editor-drag-container {
       opacity: 0 !important;

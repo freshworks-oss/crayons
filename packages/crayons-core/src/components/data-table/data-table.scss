@@ -416,10 +416,10 @@ div.fw-data-table-container {
 
               .table-settings-drag-item {
                 display: flex;
-                background: $color-milk;
+                background: var(--color-fill-surface, $color-milk);
                 border-radius: 4px;
                 box-shadow: 0px 2px 4px rgba(18, 52, 77, 0.06);
-                border: 1px solid $color-smoke-50;
+                border: 1px solid var(--color-fill-base, $color-smoke-50);
                 padding-inline-start: 14px;
                 padding-block-end: 7px;
                 padding-inline-end: 8px;
@@ -450,7 +450,7 @@ div.fw-data-table-container {
                 }
 
                 .table-settings-drag-item-close {
-                  background: $color-milk;
+                  background: var(--color-fill-surface, $color-milk);
                   border: 0px;
                   padding: 0px;
                   margin: 0px;
@@ -458,7 +458,7 @@ div.fw-data-table-container {
 
                 .table-settings-drag-item-text {
                   flex-grow: 1;
-                  color: $color-elephant-900;
+                  color: var(--color-text-secondary, $color-elephant-900);
                   padding-inline: 11px;
                   padding-block: 0px;
                   box-sizing: border-box;
