@@ -8,13 +8,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #ffffff;
+    background: var(--color-fill-surface, #ffffff);
     border-radius: 4px;
     min-width: 50px;
     min-height: 32px;
     font-size: 14px;
     font-weight: 400;
-    color: $color-azure-800;
+    color: var(--color-text-brand, $color-azure-800);
     border: 2px solid transparent;
     box-sizing: border-box;
 

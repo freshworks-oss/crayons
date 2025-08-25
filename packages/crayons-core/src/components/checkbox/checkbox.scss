@@ -22,7 +22,10 @@
   input[type='checkbox'] + label {
     &::before {
       border: 1px solid transparent;
-      box-shadow: var(--shadow-focus-checkbox, 0 0 0 2px rgb(44, 92, 197));
+      box-shadow: var(
+        --shadow-focus-checkbox,
+        0 0 0 2px var(--color-boundary-brand, rgb(44, 92, 197))
+      );
     }
   }
   input[type='checkbox'] {
@@ -146,7 +149,7 @@ input[type='checkbox'] {
         var(--color-boundary-border, $color-smoke-700);
       height: 14px;
       width: 14px;
-      background-color: $input-bg;
+      background-color: var(--color-fill-surface, $input-bg);
       transition: all 0.2s ease;
       box-sizing: border-box;
       border-radius: var(--border-radius-xsmall, 2px);
@@ -168,7 +171,7 @@ input[type='checkbox'] {
           var(--color-boundary-semantic-error, $app-error);
         height: 14px;
         width: 14px;
-        background-color: $input-bg;
+        background-color: var(--color-fill-surface, $input-bg);
         box-sizing: border-box;
         border-radius: 2px;
         transition: all 0.2s ease;
@@ -244,9 +247,9 @@ input[type='checkbox'] {
 
   &:checked:focus + label {
     &::before {
-      background: $checkbox-checked-color;
+      background: var(--color-fill-brand, $checkbox-checked-color);
       border-color: $app-light-bg;
-      box-shadow: 0 0 0 1px rgb(44, 92, 197);
+      box-shadow: 0 0 0 1px var(--color-boundary-brand, rgb(44, 92, 197));
     }
 
     .after {
