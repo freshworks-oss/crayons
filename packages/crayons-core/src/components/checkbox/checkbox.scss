@@ -146,7 +146,7 @@ input[type='checkbox'] {
         var(--color-boundary-border, $color-smoke-700);
       height: 14px;
       width: 14px;
-      background-color: var(--color-fill-base, $input-bg);
+      background-color: var(--color-fill-surface, $input-bg);
       transition: all 0.2s ease;
       box-sizing: border-box;
       border-radius: var(--border-radius-xsmall, 2px);
@@ -168,7 +168,7 @@ input[type='checkbox'] {
           var(--color-boundary-semantic-error, $app-error);
         height: 14px;
         width: 14px;
-        background-color: var(--color-fill-base, $input-bg);
+        background-color: var(--color-fill-surface, $input-bg);
         box-sizing: border-box;
         border-radius: 2px;
         transition: all 0.2s ease;
