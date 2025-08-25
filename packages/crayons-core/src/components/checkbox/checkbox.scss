@@ -22,7 +22,10 @@
   input[type='checkbox'] + label {
     &::before {
       border: 1px solid transparent;
-      box-shadow: var(--shadow-focus-checkbox, 0 0 0 2px rgb(44, 92, 197));
+      box-shadow: var(
+        --shadow-focus-checkbox,
+        0 0 0 2px var(--color-boundary-brand, rgb(44, 92, 197))
+      );
     }
   }
   input[type='checkbox'] {
@@ -244,9 +247,9 @@ input[type='checkbox'] {
 
   &:checked:focus + label {
     &::before {
-      background: var(--color-fill-surface, $checkbox-checked-color);
+      background: var(--color-fill-brand, $checkbox-checked-color);
       border-color: $app-light-bg;
-      box-shadow: 0 0 0 1px rgb(44, 92, 197);
+      box-shadow: 0 0 0 1px var(--color-boundary-brand, rgb(44, 92, 197));
     }
 
     .after {
