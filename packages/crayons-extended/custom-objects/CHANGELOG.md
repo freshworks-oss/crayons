@@ -3,23 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.4.0-dew.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.4...@freshworks/crayons-custom-objects@1.4.0-dew.5) (2025-08-28)
-
+## [1.4.0-dew.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.4...@freshworks/crayons-custom-objects@1.4.0-dew.5) (2025-08-28)
 
 ### Bug Fixes
 
-* **styles:** correct background color syntax to use CSS variable for consistency ([1b05731](https://github.com/freshworks/crayons/commit/1b05731fafa4332934dfeed5448741bf1c8d086a))
-* **styles:** update background and border colors to use CSS variables for consistency ([27182b0](https://github.com/freshworks/crayons/commit/27182b09c4becaf3648e20c0e9148997247ac4ca))
-* **styles:** update background color to use CSS variable for consistency ([92dcb13](https://github.com/freshworks/crayons/commit/92dcb134b15c767bf5c32064bc60e0440b5dfded))
-
+- **styles:** correct background color syntax to use CSS variable for consistency ([1b05731](https://github.com/freshworks/crayons/commit/1b05731fafa4332934dfeed5448741bf1c8d086a))
+- **styles:** update background and border colors to use CSS variables for consistency ([27182b0](https://github.com/freshworks/crayons/commit/27182b09c4becaf3648e20c0e9148997247ac4ca))
+- **styles:** update background color to use CSS variable for consistency ([92dcb13](https://github.com/freshworks/crayons/commit/92dcb134b15c767bf5c32064bc60e0440b5dfded))
 
 ### Features
 
-* **styles:** update color properties to use CSS variables for improved theming consistency ([c83f5ff](https://github.com/freshworks/crayons/commit/c83f5ffdd3d71442c3247400712a26e557451b15))
-
-
-
-
+- **styles:** update color properties to use CSS variables for improved theming consistency ([c83f5ff](https://github.com/freshworks/crayons/commit/c83f5ffdd3d71442c3247400712a26e557451b15))
 
 ## [1.4.0-dew.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.3...@freshworks/crayons-custom-objects@1.4.0-dew.4) (2025-08-14)
 

@@ -3,26 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.4...@freshworks/crayons@4.3.0-dew.5) (2025-08-28)
-
+## [4.3.0-dew.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.4...@freshworks/crayons@4.3.0-dew.5) (2025-08-28)
 
 ### Bug Fixes
 
-* **styles:** update background and border colors to use CSS variables for consistency ([27182b0](https://github.com/freshworks/crayons/commit/27182b09c4becaf3648e20c0e9148997247ac4ca))
-* **styles:** update checkbox background color to use CSS variable for consistency ([7861478](https://github.com/freshworks/crayons/commit/7861478c4ef6aaf43d5fb39572807aa35cd93eaf))
-* **styles:** update checkbox background color to use CSS variable for surface consistency ([a89c17b](https://github.com/freshworks/crayons/commit/a89c17ba2528ddecac244c8489b1c62a375a1273))
-* **styles:** update checkbox checked focus background color to use CSS variable ([44f7f57](https://github.com/freshworks/crayons/commit/44f7f572a0cc24c06d0d6be816f781e00667e1ce))
-* **styles:** update checkbox focus box-shadow and background color to use variables ([4a37c7a](https://github.com/freshworks/crayons/commit/4a37c7aa17eceea825209df6a7ffa45cdc685bfd))
-* **styles:** update icon button color variable for consistency ([9e350ff](https://github.com/freshworks/crayons/commit/9e350ffc5623cdbd5ef31ba888d1796a05cbf028))
-
+- **styles:** update background and border colors to use CSS variables for consistency ([27182b0](https://github.com/freshworks/crayons/commit/27182b09c4becaf3648e20c0e9148997247ac4ca))
+- **styles:** update checkbox background color to use CSS variable for consistency ([7861478](https://github.com/freshworks/crayons/commit/7861478c4ef6aaf43d5fb39572807aa35cd93eaf))
+- **styles:** update checkbox background color to use CSS variable for surface consistency ([a89c17b](https://github.com/freshworks/crayons/commit/a89c17ba2528ddecac244c8489b1c62a375a1273))
+- **styles:** update checkbox checked focus background color to use CSS variable ([44f7f57](https://github.com/freshworks/crayons/commit/44f7f572a0cc24c06d0d6be816f781e00667e1ce))
+- **styles:** update checkbox focus box-shadow and background color to use variables ([4a37c7a](https://github.com/freshworks/crayons/commit/4a37c7aa17eceea825209df6a7ffa45cdc685bfd))
+- **styles:** update icon button color variable for consistency ([9e350ff](https://github.com/freshworks/crayons/commit/9e350ffc5623cdbd5ef31ba888d1796a05cbf028))
 
 ### Features
 
-* **styles:** update color properties to use CSS variables for improved theming consistency ([c83f5ff](https://github.com/freshworks/crayons/commit/c83f5ffdd3d71442c3247400712a26e557451b15))
-
-
-
-
+- **styles:** update color properties to use CSS variables for improved theming consistency ([c83f5ff](https://github.com/freshworks/crayons/commit/c83f5ffdd3d71442c3247400712a26e557451b15))
 
 ## [4.3.0-dew.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.27...@freshworks/crayons@4.3.0-dew.0) (2025-06-25)
 
