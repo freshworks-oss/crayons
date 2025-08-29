@@ -17,13 +17,13 @@ Button groups can be used to group related buttons into sections.
 <section>
   <fw-button-group label="Test">
     <fw-button id="b1" size="icon" color="secondary"
-      ><fw-icon name="reply" color="black"></fw-icon>
+      ><fw-icon name="reply"></fw-icon>
     </fw-button>
     <fw-button id="b2" size="icon" color="secondary"
-      ><fw-icon name="chat-online" color="black"></fw-icon>
+      ><fw-icon name="chat-online"></fw-icon>
     </fw-button>
     <fw-button id="b3" size="icon" color="secondary"
-      ><fw-icon name="more-horizontal" color="black"></fw-icon>
+      ><fw-icon name="more-horizontal"></fw-icon>
     </fw-button>
   </fw-button-group>
 </section>

@@ -125,7 +125,7 @@ h3 {
 // Apply theme variables to VuePress elements
 .dew-light-theme,
 .dew-dark-theme {
-  h1, h2, h3, h4, p, table, li {
+  h1, h2, h3, h4, p, table, li, .last-updated .time {
     color: var(--color-text-primary);
   }
 
@@ -133,11 +133,11 @@ h3 {
     border-bottom: 1px solid var(--color-boundary-border-mildest);
   }
 
-  tr {
+  .dropdown-wrapper .nav-dropdown, tr {
     background-color: var(--color-fill-surface);
   }
 
-  table, th, td, hr, .page-nav .inner {
+  table, th, td, hr, .page-nav .inner, .dropdown-wrapper .nav-dropdown {
     border-color: var(--color-boundary-border-mildest);
   }
 
@@ -149,7 +149,7 @@ h3 {
       background-color: var(--color-fill-surface);
     }
 
-    .site-name, .nav-links a {
+    .site-name, .nav-links a, span {
       color: var(--color-text-primary);
     }
   }
@@ -184,7 +184,7 @@ h3 {
     border-color: var(--color-boundary-border-mildest);
   }
 
-  span, a.sidebar-link, {
+  a.sidebar-link, {
     color: var(--color-text-primary);
 
     &.active, &:hover {

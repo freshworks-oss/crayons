@@ -26,7 +26,7 @@ fw-button displays a button on the user interface and enables performing specifi
 <section>
   <fw-label value="Try icon buttons"></fw-label>
   <fw-button size="icon"
-    ><fw-icon name="agent" size="20" color="white"></fw-icon>
+    ><fw-icon name="agent" size="20"></fw-icon>
   </fw-button>
   <fw-button size="icon" color="secondary"
     ><fw-icon name="phone" size="20"></fw-icon>

@@ -18,11 +18,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-secondary, --fw-pill-color);
-  background-color: var(--color-fill-base, --fw-pill-background-color);
+  color: var(--fw-pill-color, --color-text-secondary);
+  background-color: var(--fw-pill-background-color, --color-fill-base);
   padding: var(--fw-pill-padding);
   border: var(--fw-pill-border);
-  border-radius: var(--border-radius-circular, --fw-pill-border-radius);
+  border-radius: var(--fw-pill-border-radius, --border-radius-circular);
   font-weight: var(--font-weight-medium, 600);
   font-size: var(--font-size-12, $font-size-12);
   line-height: var(--line-height-20, $line-height-label);
