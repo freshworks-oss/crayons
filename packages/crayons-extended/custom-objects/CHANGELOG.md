@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-dew.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.5...@freshworks/crayons-custom-objects@1.4.0-dew.6) (2025-09-01)
+
+**Note:** Version bump only for package @freshworks/crayons-custom-objects
+
+
+
+
+
 ## [1.4.0-dew.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.4...@freshworks/crayons-custom-objects@1.4.0-dew.5) (2025-08-28)
 
 ### Bug Fixes
