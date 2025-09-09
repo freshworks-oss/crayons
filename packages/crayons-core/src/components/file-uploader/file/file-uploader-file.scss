@@ -13,7 +13,7 @@
     height: 14px;
     margin-inline: 0px;
     margin-block: 3px;
-    --fw-icon-color: var(--color-icon-semantic-success, $color-jungle-500);
+    --fw-icon-color: var(--color-icon-semantic-success, #{$color-jungle-500});
   }
 
   &-file {

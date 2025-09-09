@@ -330,7 +330,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-fill-surface, $color-smoke-50);
-  --fw-icon-color: var(--color-icon-primary, $color-elephant-900);
+  --fw-icon-color: var(--color-icon-primary, #{$color-elephant-900});
 
   &.error {
     --fw-icon-color: var(--color-icon-semantic-error, #d72d30);

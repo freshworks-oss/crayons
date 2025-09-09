@@ -37,7 +37,7 @@ $accordion-title-icon-color: #475867;
     .accordion-icon {
       --fw-icon-color: var(
         --fw-accordion-title-collapsed-icon-color,
-        var(--color-icon-primary, $accordion-title-icon-color)
+        var(--color-icon-primary, #{$accordion-title-icon-color})
       );
     }
   }
@@ -69,7 +69,7 @@ $accordion-title-icon-color: #475867;
     flex-grow: 0;
     --fw-icon-color: var(
       --fw-accordion-title-expanded-icon-color,
-      var(--color-icon-primary, $accordion-title-icon-color)
+      var(--color-icon-primary, #{$accordion-title-icon-color})
     );
   }
 }

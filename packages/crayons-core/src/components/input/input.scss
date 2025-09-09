@@ -135,7 +135,7 @@ $warning-color: var(--color-boundary-semantic-warning, $color-casablanca-300);
       align-items: center;
       flex: 0 1 auto;
       margin-inline-start: 4px;
-      --fw-icon-color: var(--color-icon-primary, $app-icon-color);
+      --fw-icon-color: var(--color-icon-primary, #{$app-icon-color});
 
       &.hasContent {
         margin-inline-start: 8px;
@@ -180,7 +180,7 @@ $warning-color: var(--color-boundary-semantic-warning, $color-casablanca-300);
     justify-content: center;
     height: 16px;
     width: 16px;
-    --fw-icon-color: var(--color-icon-primary, $app-icon-color);
+    --fw-icon-color: var(--color-icon-primary, #{$app-icon-color});
 
     &:hover,
     &:focus {

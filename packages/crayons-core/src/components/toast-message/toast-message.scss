@@ -35,24 +35,27 @@
   &.success {
     border-block-start: 5px solid
       var(--color-fill-semantic-success, $color-jungle-500);
-    --fw-icon-color: var(--color-fill-semantic-success, $color-jungle-500);
+    --fw-icon-color: var(--color-fill-semantic-success, #{$color-jungle-500});
   }
 
   &.error {
     border-block-start: 5px solid
       var(--color-fill-semantic-error, $color-persimmon-700);
-    --fw-icon-color: var(--color-fill-semantic-error, $color-persimmon-700);
+    --fw-icon-color: var(--color-fill-semantic-error, #{$color-persimmon-700});
   }
 
   &.warning {
     border-block-start: 5px solid
       var(--color-fill-semantic-warning, $color-casablanca-500);
-    --fw-icon-color: var(--color-fill-semantic-warning, $color-casablanca-500);
+    --fw-icon-color: var(
+      --color-fill-semantic-warning,
+      #{$color-casablanca-500}
+    );
   }
 
   &.inprogress {
     border-block-start: 5px solid var(--color-fill-brand, $color-azure-800);
-    --fw-icon-color: var(--color-fill-brand, $color-azure-800);
+    --fw-icon-color: var(--color-fill-brand, #{$color-azure-800});
   }
 }
 
