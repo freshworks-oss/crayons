@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dew.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.6...@freshworks/crayons@4.3.0-dew.7) (2025-09-09)
+
+
+### Bug Fixes
+
+* **icon:** update icon fallback value ([e34b835](https://github.com/freshworks/crayons/commit/e34b83541f18e75a27babac73dfa49f86ffc7817))
+
+
+
+
+
 ## [4.3.0-dew.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.4...@freshworks/crayons@4.3.0-dew.5) (2025-08-28)
 
 ### Bug Fixes
