@@ -2009,7 +2009,7 @@ describe('fw-form-builder', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-form-builder role="trial" product-name="CONVERSATION_PROPERTIES"></fw-form-builder>'
+      '<fw-form-builder user-role="trial" product-name="CONVERSATION_PROPERTIES"></fw-form-builder>'
     );
     const fwExplorePlan = await page.spyOnEvent('fwExplorePlan');
     const disabledPanel = await page.find(
