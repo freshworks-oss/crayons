@@ -100,7 +100,7 @@ export class FormBuilderFieldDragDropItem {
   /**
    * Disable features for the users with free trial plan
    */
-  @Prop() role: 'trial' | 'admin' = 'admin';
+  @Prop() userRole: 'trial' | 'admin' = 'admin';
   /**
    * Permission object to restrict features based on permissions
    * "view" needs to be set to true for the rest of the permissions to be applicable
@@ -208,7 +208,7 @@ export class FormBuilderFieldDragDropItem {
             disabled={this.disabled}
             disabledSort={this.disabledSort}
             permission={this.permission}
-            role={this.role}
+            role={this.userRole}
             enableUnique={this.enableUnique}
             enableFilterable={this.enableFilterable}
             defaultFieldTypeSchema={this.defaultFieldTypeSchema}

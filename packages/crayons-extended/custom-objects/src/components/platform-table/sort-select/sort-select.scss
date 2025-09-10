@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     margin-inline-start: 2px;
-    background-color: var(--color-fill-container, #ffffff);
+    background-color: var(--color-fill-surface, #ffffff);
     color: var(--color-text-primary, #12344d);
     border-radius: 4px;
     padding-inline: 4px;
@@ -31,6 +31,7 @@
     min-height: 36px;
     border: 2px solid transparent;
     box-sizing: border-box;
+    font-weight: 600;
 
     &:focus {
       border: 2px solid #2c5cc5;

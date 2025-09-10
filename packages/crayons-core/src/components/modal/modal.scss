@@ -88,7 +88,6 @@
   .modal {
     height: 100vh;
     max-height: 100vh;
-    border-radius: 0px;
     width: 600px;
     animation: 'modal-entry-right' 0.5s 1;
 
@@ -96,13 +95,13 @@
       height: 24px;
       width: 24px;
       box-sizing: border-box;
-      inset-block-start: 0px;
+      inset-block-start: 36px;
       inset-inline-end: 600px;
       background-color: var(--color-fill-neutral-bold, $color-elephant-900);
-      border-end-start-radius: 2px;
+      border-end-start-radius: 12px;
       border-end-end-radius: 0px;
       border-start-end-radius: 0px;
-      border-start-start-radius: 2px;
+      border-start-start-radius: 12px;
       padding: 0px;
       margin: 0px;
       line-height: 24px;
@@ -112,10 +111,10 @@
       &:focus,
       &:focus-visible {
         background-color: var(--color-fill-neutral-bold, $color-elephant-900);
-        border-end-start-radius: 2px;
+        border-end-start-radius: 12px;
         border-end-end-radius: 0px;
         border-start-end-radius: 0px;
-        border-start-start-radius: 2px;
+        border-start-start-radius: 12px;
         border-color: var(--color-fill-neutral-bold, $color-elephant-900);
         outline: 0px;
       }

@@ -25,7 +25,6 @@ import {
   getDefaultDependentLevels,
   checkAndAppendLevel3,
   getChoicesWithNoSectionCreated,
-  generateThemeBasedIconBackground,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
@@ -62,7 +61,7 @@ export class FormBuilder {
   /**
    * Show explore plans button and disable features for free-plan users
    */
-  @Prop() role: 'trial' | 'admin' = 'admin';
+  @Prop() userRole: 'trial' | 'admin' = 'admin';
   /**
    * Permission object to restrict features based on permissions
    * "view" needs to be set to true for the rest of the permissions to be applicable
@@ -668,7 +667,7 @@ export class FormBuilder {
       !(isSectionOutside || isSectionInside || isRepositionSection)
     ) {
       const boolCreationAllowed = hasPermission(
-        this.role,
+        this.userRole,
         this.permission,
         'CREATE'
       );
@@ -710,7 +709,7 @@ export class FormBuilder {
     event.stopImmediatePropagation();
     event.stopPropagation();
     const boolCreationAllowed = hasPermission(
-      this.role,
+      this.userRole,
       this.permission,
       'CREATE'
     );
@@ -1009,7 +1008,7 @@ export class FormBuilder {
     objProductPresetConfig,
     strBaseClassName
   ) {
-    if (this.role === 'trial') {
+    if (this.userRole === 'trial') {
       return (
         <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
           <fw-icon name='lock' size='30'></fw-icon>
@@ -1036,11 +1035,11 @@ export class FormBuilder {
     strBaseClassName
   ) {
     const boolCreationAllowed = hasPermission(
-      this.role,
+      this.userRole,
       this.permission,
       'CREATE'
     );
-    if (!boolCreationAllowed && this.role !== 'trial') {
+    if (!boolCreationAllowed && this.userRole !== 'trial') {
       return (
         <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
           <fw-icon name='lock' size='30'></fw-icon>
@@ -1137,10 +1136,8 @@ export class FormBuilder {
           disabled={boolDisableFieldType}
           label={strDisplayLabel}
           iconName={dataItem.icon.name}
-          iconBackgroundColor={generateThemeBasedIconBackground(
-            dataItem.icon.bg_color,
-            this.theme
-          )}
+          iconBackgroundColor={dataItem.icon.bg_color}
+          theme={this.theme}
           onFwAddClick={this.addNewFieldTypeHandler}
         ></fw-field-type-menu-item>
         {boolShowDescription && (
@@ -1186,9 +1183,13 @@ export class FormBuilder {
     strEntityName,
     parentIndex
   ) {
-    const boolEditAllowed = hasPermission(this.role, this.permission, 'EDIT');
+    const boolEditAllowed = hasPermission(
+      this.userRole,
+      this.permission,
+      'EDIT'
+    );
     const boolDeleteAllowed = hasPermission(
-      this.role,
+      this.userRole,
       this.permission,
       'DELETE'
     );
@@ -1462,7 +1463,7 @@ export class FormBuilder {
         disabled={boolFieldEditingState}
         disabledSort={this.searching}
         permission={this.permission}
-        role={this.role}
+        userRole={this.userRole}
         enableUnique={this.enableUnique}
         enableFilterable={this.enableFilterable}
         defaultFieldTypeSchema={objDefaultFieldTypeSchema}

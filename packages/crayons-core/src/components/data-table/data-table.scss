@@ -113,7 +113,10 @@ div.fw-data-table-container {
 
           &:hover,
           &:focus {
-            background: $grid-header-bg;
+            background: var(
+              --color-fill-semantic-highlight-mildest,
+              $grid-header-bg
+            );
           }
 
           &.active {
@@ -478,7 +481,7 @@ div.fw-data-table-container {
           .table-settings-content-title {
             font-size: 14px;
             line-height: 20px;
-            color: $color-smoke-700;
+            color: var(--color-text-secondary, $color-smoke-700);
             font-weight: 600;
           }
         }
