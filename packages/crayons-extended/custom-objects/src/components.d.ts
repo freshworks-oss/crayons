@@ -93,6 +93,10 @@ export namespace Components {
          */
         "productName": string;
         "reorderFieldProgressHandler": any;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role": 'trial' | 'admin';
         "saveFieldHandler": any;
         /**
           * Name of the section, where field is part of.
@@ -110,10 +114,6 @@ export namespace Components {
           * Theme configuration for the form builder UI
          */
         "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
-        /**
-          * Disable features for the users with free trial plan
-         */
-        "userRole": 'trial' | 'admin';
     }
     interface FbSectionCreate {
         /**
@@ -388,6 +388,10 @@ export namespace Components {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName": string;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role": 'trial' | 'admin';
         "sectionCreatedForAllChoices": boolean;
         /**
           * stores the section name for this field
@@ -409,10 +413,6 @@ export namespace Components {
           * Theme configuration for the form builder UI
          */
         "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
-        /**
-          * Disable features for the users with free trial plan
-         */
-        "userRole": 'trial' | 'admin';
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -574,6 +574,10 @@ export namespace Components {
          */
         "productName": 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
         /**
+          * Show explore plans button and disable features for free-plan users
+         */
+        "role": 'trial' | 'admin';
+        /**
           * flag to show dependentField for CONVERSATION_PROPERTIES or not
          */
         "showDependentField": boolean;
@@ -601,10 +605,6 @@ export namespace Components {
           * Show explore plans and disable features for user having free-plan
          */
         "userPlan": 'trial' | 'admin';
-        /**
-          * Show explore plans button and disable features for free-plan users
-         */
-        "userRole": 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**
@@ -1072,6 +1072,10 @@ declare namespace LocalJSX {
          */
         "productName"?: string;
         "reorderFieldProgressHandler"?: any;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role"?: 'trial' | 'admin';
         "saveFieldHandler"?: any;
         /**
           * Name of the section, where field is part of.
@@ -1089,10 +1093,6 @@ declare namespace LocalJSX {
           * Theme configuration for the form builder UI
          */
         "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
-        /**
-          * Disable features for the users with free trial plan
-         */
-        "userRole"?: 'trial' | 'admin';
     }
     interface FbSectionCreate {
         /**
@@ -1421,6 +1421,10 @@ declare namespace LocalJSX {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName"?: string;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role"?: 'trial' | 'admin';
         "sectionCreatedForAllChoices"?: boolean;
         /**
           * stores the section name for this field
@@ -1442,10 +1446,6 @@ declare namespace LocalJSX {
           * Theme configuration for the form builder UI
          */
         "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
-        /**
-          * Disable features for the users with free trial plan
-         */
-        "userRole"?: 'trial' | 'admin';
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1643,6 +1643,10 @@ declare namespace LocalJSX {
          */
         "productName"?: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
         /**
+          * Show explore plans button and disable features for free-plan users
+         */
+        "role"?: 'trial' | 'admin';
+        /**
           * flag to show dependentField for CONVERSATION_PROPERTIES or not
          */
         "showDependentField"?: boolean;
@@ -1670,10 +1674,6 @@ declare namespace LocalJSX {
           * Show explore plans and disable features for user having free-plan
          */
         "userPlan"?: 'trial' | 'admin';
-        /**
-          * Show explore plans button and disable features for free-plan users
-         */
-        "userRole"?: 'trial' | 'admin';
     }
     interface FwInputCondition {
         /**

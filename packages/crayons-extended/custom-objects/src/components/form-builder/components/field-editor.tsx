@@ -156,7 +156,7 @@ export class FieldEditor {
   /**
    * Disable features for the users with free trial plan
    */
-  @Prop() userRole: 'trial' | 'admin' = 'admin';
+  @Prop() role: 'trial' | 'admin' = 'admin';
   /**
    * Permission object to restrict features based on permissions
    * "view" needs to be set to true for the rest of the permissions to be applicable
@@ -965,7 +965,7 @@ export class FieldEditor {
     event.stopImmediatePropagation();
     event.stopPropagation();
     const boolDeleteAllowed = hasPermission(
-      this.userRole,
+      this.role,
       this.permission,
       'DELETE'
     );
@@ -1325,7 +1325,7 @@ export class FieldEditor {
     const boolEditCheckboxAllowed =
       this.isNewField ||
       this.isSectionField ||
-      hasPermission(this.userRole, this.permission, 'EDIT', true);
+      hasPermission(this.role, this.permission, 'EDIT', true);
     const sectionEditMode = this.isSectionField
       ? this.isSectionField
       : this.editSectionField ?? false; //When it is inside section required field should be disabled.
@@ -1942,17 +1942,13 @@ export class FieldEditor {
         : false;
 
     const boolEditAllowed =
-      this.isNewField || hasPermission(this.userRole, this.permission, 'EDIT');
+      this.isNewField || hasPermission(this.role, this.permission, 'EDIT');
     const boolDeleteAllowed = hasPermission(
-        this.userRole,
+        this.role,
         this.permission,
         'DELETE'
       ),
-      boolCreateAllowed = hasPermission(
-        this.userRole,
-        this.permission,
-        'CREATE'
-      );
+      boolCreateAllowed = hasPermission(this.role, this.permission, 'CREATE');
     const boolDisableDelete = !boolDeleteAllowed;
 
     const boolShowDeleteModalInlineMsg =

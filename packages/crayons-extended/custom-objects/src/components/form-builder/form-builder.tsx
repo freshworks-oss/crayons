@@ -61,7 +61,7 @@ export class FormBuilder {
   /**
    * Show explore plans button and disable features for free-plan users
    */
-  @Prop() userRole: 'trial' | 'admin' = 'admin';
+  @Prop() role: 'trial' | 'admin' = 'admin';
   /**
    * Permission object to restrict features based on permissions
    * "view" needs to be set to true for the rest of the permissions to be applicable
@@ -667,7 +667,7 @@ export class FormBuilder {
       !(isSectionOutside || isSectionInside || isRepositionSection)
     ) {
       const boolCreationAllowed = hasPermission(
-        this.userRole,
+        this.role,
         this.permission,
         'CREATE'
       );
@@ -709,7 +709,7 @@ export class FormBuilder {
     event.stopImmediatePropagation();
     event.stopPropagation();
     const boolCreationAllowed = hasPermission(
-      this.userRole,
+      this.role,
       this.permission,
       'CREATE'
     );
@@ -1008,7 +1008,7 @@ export class FormBuilder {
     objProductPresetConfig,
     strBaseClassName
   ) {
-    if (this.userRole === 'trial') {
+    if (this.role === 'trial') {
       return (
         <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
           <fw-icon name='lock' size='30'></fw-icon>
@@ -1035,11 +1035,11 @@ export class FormBuilder {
     strBaseClassName
   ) {
     const boolCreationAllowed = hasPermission(
-      this.userRole,
+      this.role,
       this.permission,
       'CREATE'
     );
-    if (!boolCreationAllowed && this.userRole !== 'trial') {
+    if (!boolCreationAllowed && this.role !== 'trial') {
       return (
         <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
           <fw-icon name='lock' size='30'></fw-icon>
@@ -1183,13 +1183,9 @@ export class FormBuilder {
     strEntityName,
     parentIndex
   ) {
-    const boolEditAllowed = hasPermission(
-      this.userRole,
-      this.permission,
-      'EDIT'
-    );
+    const boolEditAllowed = hasPermission(this.role, this.permission, 'EDIT');
     const boolDeleteAllowed = hasPermission(
-      this.userRole,
+      this.role,
       this.permission,
       'DELETE'
     );
@@ -1463,7 +1459,7 @@ export class FormBuilder {
         disabled={boolFieldEditingState}
         disabledSort={this.searching}
         permission={this.permission}
-        userRole={this.userRole}
+        role={this.role}
         enableUnique={this.enableUnique}
         enableFilterable={this.enableFilterable}
         defaultFieldTypeSchema={objDefaultFieldTypeSchema}
@@ -1528,6 +1524,10 @@ export class FormBuilder {
       ></fw-widget-customize-field-item>
     );
   }
+
+  private handleExplorePlanClick = () => {
+    this.fwExplorePlan.emit();
+  };
 
   render() {
     const strBaseClassName = 'form-builder';
