@@ -1483,7 +1483,7 @@ export class DataTable {
                                   library: action.iconLibrary
                                     ? action.iconLibrary
                                     : 'crayons',
-                                  size: 10,
+                                  size: 12,
                                 }
                               : null;
                             const buttonSize: 'icon-small' | 'small' = iconProps

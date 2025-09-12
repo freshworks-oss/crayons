@@ -399,6 +399,7 @@
         --color-fill-semantic-warning-mildest,
         rgba(254, 241, 225, 0.4)
       );
+      border: 1px solid var(--color-boundary-semantic-warning-mild, #fff);
     }
     .fw-field-editor-drag-container {
       opacity: 0 !important;

@@ -133,7 +133,7 @@
   height: 100%;
   padding: 0;
   box-sizing: border-box;
-  background-color: var(--color-fill-container, $color-milk);
+  background-color: var(--color-fill-surface, $color-milk);
   display: flex;
   overflow: hidden;
   position: relative;
@@ -152,7 +152,7 @@
     overflow-y: auto;
     background: var(--color-fill-surface, $color-smoke-25);
     color: var(--color-text-primary, $color-elephant-900);
-    border-inline-end: 1px solid $color-smoke-50;
+    border-inline-end: 1px solid var(--color-boundary-divider, $color-smoke-50);
 
     .form-builder-left-panel-header {
       width: 100%;
