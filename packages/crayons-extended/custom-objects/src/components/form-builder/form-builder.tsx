@@ -1525,10 +1525,6 @@ export class FormBuilder {
     );
   }
 
-  private handleExplorePlanClick = () => {
-    this.fwExplorePlan.emit();
-  };
-
   render() {
     const strBaseClassName = 'form-builder';
     const objFormValuesSchema = this.localFormValues;
