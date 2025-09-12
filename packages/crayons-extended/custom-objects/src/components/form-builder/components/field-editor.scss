@@ -443,13 +443,13 @@
         opacity: 0;
       }
     }
-    .fw-field-editor-footer {
-      border-radius: 0px;
-    }
 
     .fw-field-editor-body {
       display: flex;
       flex-direction: column;
+      .fw-field-editor-footer {
+        border-radius: 0px;
+      }
     }
   }
 
