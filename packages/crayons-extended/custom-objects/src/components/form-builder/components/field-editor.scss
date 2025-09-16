@@ -153,7 +153,7 @@
     width: 100%;
     height: auto;
     box-sizing: border-box;
-    background-color: var(--color-fill-surface, $color-milk);
+    background-color: var(--color-fill-container, $color-milk);
     border-radius: $form-builder-field-editor-border-radius;
     display: none;
 
@@ -165,7 +165,7 @@
       padding-block: 20px;
       display: flex;
       box-sizing: border-box;
-      background-color: var(--color-fill-surface, $color-smoke-25);
+      background-color: var(--color-fill-container, $color-smoke-25);
       border-block-start: 1px solid
         var(--color-boundary-border-mildest, #eceff2);
       border-block-end: 1px solid var(--color-boundary-border-mildest, #eceff2);
@@ -177,7 +177,7 @@
         flex-direction: column;
         gap: 25px;
 
-        #{--fw-hint-color}: $color-smoke-700;
+        #{--fw-hint-color}: var(--color-text-secondary, $color-smoke-700);
         .fw-field-editor-content-required-input {
           max-width: $form-builder-field-editor-element-max-width;
           width: $form-builder-field-editor-element-max-width;
@@ -359,7 +359,7 @@
 
   &:hover {
     box-shadow: 0px 0px 1px rgba(24, 50, 71, 0.3),
-      0px 2px 8px rgba(22, 29, 37, 0.15);
+      0px 2px 8px var(--color-boundary-border-mildest, rgba(22, 29, 37, 0.15));
     .fw-field-editor-delete-button {
       opacity: 1;
     }
@@ -399,6 +399,7 @@
         --color-fill-semantic-warning-mildest,
         rgba(254, 241, 225, 0.4)
       );
+      border: 1px solid var(--color-boundary-semantic-warning-mild, #fff);
     }
     .fw-field-editor-drag-container {
       opacity: 0 !important;
@@ -418,10 +419,11 @@
   &--expanded {
     border: none;
     box-shadow: 0px 0px 1px rgba(24, 50, 71, 0.3),
-      0px 2px 8px rgba(22, 29, 37, 0.15);
+      0px 2px 8px var(--color-boundary-border-mildest, rgba(22, 29, 37, 0.15));
 
     .fw-field-editor-header {
       cursor: unset;
+      border-radius: 0px;
 
       .fw-field-editor-label:after {
         content: '';
@@ -445,6 +447,9 @@
     .fw-field-editor-body {
       display: flex;
       flex-direction: column;
+      .fw-field-editor-footer {
+        border-radius: 0px;
+      }
     }
   }
 

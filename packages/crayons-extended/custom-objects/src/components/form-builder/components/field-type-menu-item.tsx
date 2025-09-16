@@ -9,7 +9,10 @@ import {
   h,
   Host,
 } from '@stencil/core';
-import { i18nText } from '../utils/form-builder-utils';
+import {
+  generateThemeBasedIconBackground,
+  i18nText,
+} from '../utils/form-builder-utils';
 
 @Component({
   tag: 'fw-field-type-menu-item',
@@ -89,7 +92,12 @@ export class FieldTypeMenuItem {
             >
               <span
                 class={`${strBaseClassName}-icon-container`}
-                style={{ backgroundColor: this.iconBackgroundColor }}
+                style={{
+                  backgroundColor: generateThemeBasedIconBackground(
+                    this.iconBackgroundColor,
+                    this.theme
+                  ),
+                }}
               >
                 <fw-icon size={14} name={this.iconName} color='#475867' />
               </span>

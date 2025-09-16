@@ -22,7 +22,6 @@ import {
   deepCloneObject,
   deleteChoicesInFields,
   deriveInternalNameFromLabel,
-  generateThemeBasedIconBackground,
   getChildChoices,
   getDependentLevels,
   getFieldBasedOnLevel,
@@ -2100,6 +2099,8 @@ export class FieldEditor {
       !this.isDeleting &&
       !this.isDefaultNonCustomField &&
       !this.editSectionField;
+    const iconStyle =
+      this.theme === 'default' ? { backgroundColor: fieldIcon.bg_color } : {};
 
     return (
       <Host tabIndex='-1'>
@@ -2123,12 +2124,7 @@ export class FieldEditor {
             >
               <span
                 class={`${strBaseClassName}-icon-container`}
-                style={{
-                  backgroundColor: generateThemeBasedIconBackground(
-                    fieldIcon.bg_color,
-                    this.theme
-                  ),
-                }}
+                style={iconStyle}
               >
                 <fw-icon size={14} name={fieldIcon.name} color='#475867' />
               </span>

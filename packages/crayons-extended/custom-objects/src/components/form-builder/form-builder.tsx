@@ -25,7 +25,6 @@ import {
   getDefaultDependentLevels,
   checkAndAppendLevel3,
   getChoicesWithNoSectionCreated,
-  generateThemeBasedIconBackground,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
@@ -1137,10 +1136,8 @@ export class FormBuilder {
           disabled={boolDisableFieldType}
           label={strDisplayLabel}
           iconName={dataItem.icon.name}
-          iconBackgroundColor={generateThemeBasedIconBackground(
-            dataItem.icon.bg_color,
-            this.theme
-          )}
+          iconBackgroundColor={dataItem.icon.bg_color}
+          theme={this.theme}
           onFwAddClick={this.addNewFieldTypeHandler}
         ></fw-field-type-menu-item>
         {boolShowDescription && (

@@ -133,7 +133,7 @@
   height: 100%;
   padding: 0;
   box-sizing: border-box;
-  background-color: var(--color-fill-container, $color-milk);
+  background-color: var(--color-fill-surface, $color-milk);
   display: flex;
   overflow: hidden;
   position: relative;
@@ -152,7 +152,7 @@
     overflow-y: auto;
     background: var(--color-fill-surface, $color-smoke-25);
     color: var(--color-text-primary, $color-elephant-900);
-    border-inline-end: 1px solid $color-smoke-50;
+    border-inline-end: 1px solid var(--color-boundary-divider, $color-smoke-50);
 
     .form-builder-left-panel-header {
       width: 100%;
@@ -364,7 +364,7 @@
             word-wrap: break-word;
             word-break: break-word;
             white-space: normal;
-            background-color: var(--color-fill-container, #ffffff);
+            background-color: var(--color-fill-surface, #ffffff);
             color: var(--color-text-primary, $color-azure-800);
           }
 
@@ -597,7 +597,7 @@
   .cusomize-widget-description {
     font-size: $font-size-14;
     font-weight: $font-weight-default;
-    color: var(--color-boundary-border, $color-smoke-700);
+    color: var(--color-text-secondary, $color-smoke-700);
     line-height: 20px;
     padding-inline: 0px;
     padding-block: 6px;
