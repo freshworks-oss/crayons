@@ -15,7 +15,7 @@
     "typescript"
   ],
   "author": "Freshworks Inc",
-  "version": "4.3.0-dew.7",
+  "version": "4.3.0-dew.8",
   "description": "Crayons Web Components library",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
