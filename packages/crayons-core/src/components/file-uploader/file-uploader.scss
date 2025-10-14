@@ -50,6 +50,10 @@ div.file-uploader-container {
         transform: translateY(-5px);
 
         .drop-clickable-text {
+          .icon {
+            margin-block: 0;
+            margin-inline: 5px;
+          }
           line-height: 20px;
           font-size: 14px;
           font-weight: var(--font-weight-semi-bold, 500);

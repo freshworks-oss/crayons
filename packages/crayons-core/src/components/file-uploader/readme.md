@@ -594,6 +594,7 @@ Modify the header using the 'modifyHeader' prop. We will receive the XHR request
 | `fileUploadError`    | `file-upload-error`     | fileUploadError - Error message when a file upload fails.                                | `any`               | `undefined`    |
 | `filesLimit`         | `files-limit`           | Max files allowed to upload.                                                             | `number`            | `10`           |
 | `hint`               | `hint`                  | hint - file uploader hint text.                                                          | `string`            | `''`           |
+| `icon`               | `icon`                  | The icon to be displayed for FileUploader                                                | `any`               | `undefined`    |
 | `maxFileSize`        | `max-file-size`         | maxFileSize - maximum file size the file uploader must accept.                           | `number`            | `0`            |
 | `maxFileSizeError`   | `max-file-size-error`   | maxFileSizeError - Error message to display when file size exceeds limit                 | `any`               | `undefined`    |
 | `maxFilesLimitError` | `max-files-limit-error` | maxFilesLimitError - Error message when going beyond files limit.                        | `any`               | `undefined`    |
@@ -601,6 +602,7 @@ Modify the header using the 'modifyHeader' prop. We will receive the XHR request
 | `multiple`           | `multiple`              | multiple - upload multiple files.                                                        | `boolean`           | `false`        |
 | `name`               | `name`                  | name - field name                                                                        | `string`            | `''`           |
 | `text`               | `text`                  | text - file uploader text.                                                               | `any`               | `undefined`    |
+| `titleIcon`          | `title-icon`            | The icon to be displayed with the title                                                  | `string`            | `''`           |
 
 
 ## Events
@@ -656,12 +658,14 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [fw-icon](../icon)
 - [fw-file-uploader-progress](progress)
 - [fw-file-uploader-file](file)
 
 ### Graph
 ```mermaid
 graph TD;
+  fw-file-uploader --> fw-icon
   fw-file-uploader --> fw-file-uploader-progress
   fw-file-uploader --> fw-file-uploader-file
   fw-file-uploader-progress --> fw-icon
