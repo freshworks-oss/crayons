@@ -160,12 +160,18 @@ describe('fw-file-uploader', () => {
     expect(updatedIconName).toBe('files');
   });
 
-  it('maintains title icon visibility across different uploader stages', async () => {
+  it('maintains title icon visibility in dropzone stage', async () => {
     const page = await newE2EPage();
     await page.setContent(
       '<fw-file-uploader title-icon="cloud-upload"></fw-file-uploader>'
     );
 
+    // Verify title icon is present in dropzone
+    const titleIcon = await page.find('fw-file-uploader >>> .icon fw-icon');
+    expect(titleIcon).toBeTruthy();
+    expect(await titleIcon.getProperty('name')).toBe('cloud-upload');
+
+    // When files are uploaded, dropzone disappears (title icon is dropzone-specific)
     const futureFileChooser = page.waitForFileChooser();
     const dropzone = await page.find('fw-file-uploader >>> .dropzone');
     dropzone.click();
@@ -173,55 +179,74 @@ describe('fw-file-uploader', () => {
     await fileChooser.accept([`${__dirname}/test.csv`]);
     await page.waitForChanges();
 
-    const persistentIcon = await page.find(
-      'fw-file-uploader >>> .icon fw-icon'
+    // Dropzone and title icon should not be present after files are uploaded
+    const dropzoneAfterUpload = await page.find(
+      'fw-file-uploader >>> .dropzone'
     );
-    expect(persistentIcon).toBeTruthy();
-    expect(await persistentIcon.getProperty('name')).toBe('cloud-upload');
+    expect(dropzoneAfterUpload).toBeFalsy();
   });
 
   // Test cases for file uploader icon in dropzone
   it('shows file uploader icon in the dropzone area', async () => {
     const page = await newE2EPage();
-    await page.setContent('<fw-file-uploader></fw-file-uploader>');
+    await page.setContent(
+      '<fw-file-uploader icon="test-icon.png"></fw-file-uploader>'
+    );
 
     const uploaderIcon = await page.find(
-      'fw-file-uploader >>> .dropzone fw-icon'
+      'fw-file-uploader >>> .drop-clickable-icon img'
     );
     expect(uploaderIcon).toBeTruthy();
   });
 
-  it('validates file uploader icon has correct name', async () => {
+  it('validates file uploader icon has correct source', async () => {
     const page = await newE2EPage();
-    await page.setContent('<fw-file-uploader></fw-file-uploader>');
+    await page.setContent(
+      '<fw-file-uploader icon="test-icon.png"></fw-file-uploader>'
+    );
 
     const uploaderIconElement = await page.find(
-      'fw-file-uploader >>> .dropzone fw-icon'
+      'fw-file-uploader >>> .drop-clickable-icon img'
     );
-    const iconName = await uploaderIconElement.getProperty('name');
-    expect(iconName).toBe('upload-cloud');
+    const iconSrc = await uploaderIconElement.getProperty('src');
+    expect(iconSrc).toContain('test-icon.png');
   });
 
   it('validates file uploader icon size is set correctly', async () => {
     const page = await newE2EPage();
-    await page.setContent('<fw-file-uploader></fw-file-uploader>');
+    await page.setContent(
+      '<fw-file-uploader icon="test-icon.png"></fw-file-uploader>'
+    );
 
     const uploaderIconElement = await page.find(
-      'fw-file-uploader >>> .dropzone fw-icon'
+      'fw-file-uploader >>> .drop-clickable-icon img'
     );
-    const iconSize = await uploaderIconElement.getProperty('size');
-    expect(iconSize).toBe(24);
+    const iconHeight = await uploaderIconElement.getProperty('height');
+    const iconWidth = await uploaderIconElement.getProperty('width');
+    expect(iconHeight).toBe(50);
+    expect(iconWidth).toBe(48);
+  });
+
+  it('shows default file uploader icon when no icon prop is provided', async () => {
+    const page = await newE2EPage();
+    await page.setContent('<fw-file-uploader></fw-file-uploader>');
+
+    const defaultIcon = await page.find(
+      'fw-file-uploader >>> .drop-clickable-icon svg'
+    );
+    expect(defaultIcon).toBeTruthy();
   });
 
   it('verifies file uploader icon styling classes are applied', async () => {
     const page = await newE2EPage();
-    await page.setContent('<fw-file-uploader></fw-file-uploader>');
-
-    const uploaderIconElement = await page.find(
-      'fw-file-uploader >>> .dropzone fw-icon'
+    await page.setContent(
+      '<fw-file-uploader icon="test-icon.png"></fw-file-uploader>'
     );
-    const iconClass = await uploaderIconElement.getProperty('class');
-    expect(iconClass).toContain('file-uploader-icon');
+
+    const iconContainer = await page.find(
+      'fw-file-uploader >>> .drop-clickable-icon'
+    );
+    expect(iconContainer).toBeTruthy();
   });
 
   it('ensures file uploader icon disappears when files are uploaded', async () => {
@@ -262,10 +287,10 @@ describe('fw-file-uploader', () => {
     remove.click();
     await page.waitForChanges();
 
-    // Check if dropzone and its icon are back
+    // Check if dropzone and its default icon are back
     dropzone = await page.find('fw-file-uploader >>> .dropzone');
     const uploaderIcon = await page.find(
-      'fw-file-uploader >>> .dropzone fw-icon'
+      'fw-file-uploader >>> .drop-clickable-icon svg'
     );
     expect(dropzone).toBeTruthy();
     expect(uploaderIcon).toBeTruthy();

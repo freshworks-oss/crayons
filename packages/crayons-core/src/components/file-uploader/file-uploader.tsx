@@ -146,7 +146,7 @@ export class FileUploader {
   @Prop() modifyRequest: (xhr: any) => any = (xhr) => xhr;
 
   /**
-   * The icon to be displayed with the title
+   * The icon to be displayed with the title of the fileUploader
    */
   @Prop() titleIcon = '';
 
