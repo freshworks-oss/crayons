@@ -481,10 +481,10 @@ export class FileUploader {
   }
 
   /**
-   * renders Icon in Modal header.
+   * renders Icon in the left side of the file uploader title
    * @returns {JSX.Element}
    */
-  renderIcon(): JSX.Element {
+  renderTitleIcon(): JSX.Element {
     return (
       <span class={'icon'}>
         <fw-icon
@@ -554,7 +554,7 @@ export class FileUploader {
                 : fileUploaderDefaultImage}
             </div>
             <div class='drop-clickable-text'>
-              {this.titleIcon ? this.renderIcon() : null}
+              {this.titleIcon ? this.renderTitleIcon() : null}
               {this.text || TranslationController.t('fileUploader.text')}
             </div>
             <div class='drop-clickable-hint'>
