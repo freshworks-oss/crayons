@@ -430,16 +430,16 @@ div.fw-data-table-container {
 
                 .table-settings-drag-item-icon,
                 .table-settings-drag-item-close {
-                  width: 24px;
-                  height: 24px;
+                  width: 16px;
+                  height: 16px;
                   flex-grow: 0;
                   text-align: center;
 
                   &:focus,
                   &:hover {
                     cursor: pointer;
-                    width: 24px;
-                    height: 24px;
+                    width: 16px;
+                    height: 16px;
                     background-color: var(--color-fill-container);
                     border-radius: var(--border-radius-medium, 4px);
                   }
