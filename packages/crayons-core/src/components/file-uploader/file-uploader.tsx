@@ -151,7 +151,7 @@ export class FileUploader {
   @Prop() titleIcon = '';
 
   /**
-   * The icon to be displayed for FileUploader.  The attribute’s value must be a valid svg file in the repo of icons (assets/icons)
+   * The icon to be displayed for FileUploader.
    */
   @Prop() icon: any;
 
