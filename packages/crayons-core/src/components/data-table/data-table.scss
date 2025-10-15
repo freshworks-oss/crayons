@@ -113,10 +113,7 @@ div.fw-data-table-container {
 
           &:hover,
           &:focus {
-            background: var(
-              --color-fill-semantic-highlight-mildest,
-              $grid-header-bg
-            );
+            background: var(--color-fill-container, $grid-header-bg);
           }
 
           &.active {
