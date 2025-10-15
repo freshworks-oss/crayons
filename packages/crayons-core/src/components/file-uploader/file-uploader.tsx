@@ -146,12 +146,12 @@ export class FileUploader {
   @Prop() modifyRequest: (xhr: any) => any = (xhr) => xhr;
 
   /**
-   * The icon to be displayed with the title of the fileUploader
+   * The icon to be displayed with the title of the fileUploader.  The attribute’s value must be a valid svg file in the repo of icons (assets/icons)
    */
   @Prop() titleIcon = '';
 
   /**
-   * The icon to be displayed for FileUploader
+   * The icon to be displayed for FileUploader.  The attribute’s value must be a valid svg file in the repo of icons (assets/icons)
    */
   @Prop() icon: any;
 
@@ -554,7 +554,7 @@ export class FileUploader {
                 : fileUploaderDefaultImage}
             </div>
             <div class='drop-clickable-text'>
-              {this.titleIcon ? this.renderTitleIcon() : null}
+              {this.titleIcon && this.renderTitleIcon()}
               {this.text || TranslationController.t('fileUploader.text')}
             </div>
             <div class='drop-clickable-hint'>

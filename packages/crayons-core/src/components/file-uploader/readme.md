@@ -584,25 +584,25 @@ Modify the header using the 'modifyHeader' prop. We will receive the XHR request
 
 ## Properties
 
-| Property             | Attribute               | Description                                                                              | Type                | Default        |
-| -------------------- | ----------------------- | ---------------------------------------------------------------------------------------- | ------------------- | -------------- |
-| `accept`             | `accept`                | accept - comma separated string. tells us what file formats file uploader should accept. | `string`            | `''`           |
-| `acceptError`        | `accept-error`          | acceptError - Error message to display when format is invalid.                           | `any`               | `undefined`    |
-| `actionParams`       | `action-params`         | actionParams - additional information to send to server other than the file.             | `any`               | `{}`           |
-| `actionURL`          | `action-u-r-l`          | actionURL - URL to make server call.                                                     | `string`            | `''`           |
-| `description`        | `description`           | description - file uploader description.                                                 | `any`               | `undefined`    |
-| `fileUploadError`    | `file-upload-error`     | fileUploadError - Error message when a file upload fails.                                | `any`               | `undefined`    |
-| `filesLimit`         | `files-limit`           | Max files allowed to upload.                                                             | `number`            | `10`           |
-| `hint`               | `hint`                  | hint - file uploader hint text.                                                          | `string`            | `''`           |
-| `icon`               | `icon`                  | The icon to be displayed for FileUploader                                                | `any`               | `undefined`    |
-| `maxFileSize`        | `max-file-size`         | maxFileSize - maximum file size the file uploader must accept.                           | `number`            | `0`            |
-| `maxFileSizeError`   | `max-file-size-error`   | maxFileSizeError - Error message to display when file size exceeds limit                 | `any`               | `undefined`    |
-| `maxFilesLimitError` | `max-files-limit-error` | maxFilesLimitError - Error message when going beyond files limit.                        | `any`               | `undefined`    |
-| `modifyRequest`      | --                      | modify request                                                                           | `(xhr: any) => any` | `(xhr) => xhr` |
-| `multiple`           | `multiple`              | multiple - upload multiple files.                                                        | `boolean`           | `false`        |
-| `name`               | `name`                  | name - field name                                                                        | `string`            | `''`           |
-| `text`               | `text`                  | text - file uploader text.                                                               | `any`               | `undefined`    |
-| `titleIcon`          | `title-icon`            | The icon to be displayed with the title                                                  | `string`            | `''`           |
+| Property             | Attribute               | Description                                                                                                                                      | Type                | Default        |
+| -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | -------------- |
+| `accept`             | `accept`                | accept - comma separated string. tells us what file formats file uploader should accept.                                                         | `string`            | `''`           |
+| `acceptError`        | `accept-error`          | acceptError - Error message to display when format is invalid.                                                                                   | `any`               | `undefined`    |
+| `actionParams`       | `action-params`         | actionParams - additional information to send to server other than the file.                                                                     | `any`               | `{}`           |
+| `actionURL`          | `action-u-r-l`          | actionURL - URL to make server call.                                                                                                             | `string`            | `''`           |
+| `description`        | `description`           | description - file uploader description.                                                                                                         | `any`               | `undefined`    |
+| `fileUploadError`    | `file-upload-error`     | fileUploadError - Error message when a file upload fails.                                                                                        | `any`               | `undefined`    |
+| `filesLimit`         | `files-limit`           | Max files allowed to upload.                                                                                                                     | `number`            | `10`           |
+| `hint`               | `hint`                  | hint - file uploader hint text.                                                                                                                  | `string`            | `''`           |
+| `icon`               | `icon`                  | The icon to be displayed for FileUploader.  The attribute’s value must be a valid svg file in the repo of icons (assets/icons)                   | `any`               | `undefined`    |
+| `maxFileSize`        | `max-file-size`         | maxFileSize - maximum file size the file uploader must accept.                                                                                   | `number`            | `0`            |
+| `maxFileSizeError`   | `max-file-size-error`   | maxFileSizeError - Error message to display when file size exceeds limit                                                                         | `any`               | `undefined`    |
+| `maxFilesLimitError` | `max-files-limit-error` | maxFilesLimitError - Error message when going beyond files limit.                                                                                | `any`               | `undefined`    |
+| `modifyRequest`      | --                      | modify request                                                                                                                                   | `(xhr: any) => any` | `(xhr) => xhr` |
+| `multiple`           | `multiple`              | multiple - upload multiple files.                                                                                                                | `boolean`           | `false`        |
+| `name`               | `name`                  | name - field name                                                                                                                                | `string`            | `''`           |
+| `text`               | `text`                  | text - file uploader text.                                                                                                                       | `any`               | `undefined`    |
+| `titleIcon`          | `title-icon`            | The icon to be displayed with the title of the fileUploader.  The attribute’s value must be a valid svg file in the repo of icons (assets/icons) | `string`            | `''`           |
 
 
 ## Events
