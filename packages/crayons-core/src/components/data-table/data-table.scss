@@ -437,6 +437,10 @@ div.fw-data-table-container {
                   &:focus,
                   &:hover {
                     cursor: pointer;
+                    width: 24px;
+                    height: 24px;
+                    background-color: var(--color-fill-container);
+                    border-radius: var(--border-radius-medium, 4px);
                   }
                 }
 
