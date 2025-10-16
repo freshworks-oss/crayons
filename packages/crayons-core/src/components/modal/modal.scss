@@ -96,13 +96,13 @@
       height: 24px;
       width: 24px;
       box-sizing: border-box;
-      inset-block-start: 0px;
+      inset-block-start: var(--dew-inset-block-start, 0px);
       inset-inline-end: 600px;
       background-color: var(--color-fill-neutral-bold, $color-elephant-900);
-      border-end-start-radius: 2px;
+      border-end-start-radius: var(--border-radius-medium, 2px);
       border-end-end-radius: 0px;
       border-start-end-radius: 0px;
-      border-start-start-radius: 2px;
+      border-start-start-radius: var(--border-radius-medium, 2px);
       padding: 0px;
       margin: 0px;
       line-height: 24px;
