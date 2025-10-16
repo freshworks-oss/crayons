@@ -28,7 +28,7 @@
   --box-shadow-none: none;
   --font-italic: italic;
   --bg-none: none;
-  --dew-inset-block-start: 32px;
+  --slider-dew-inset-block-start: 32px;
   color-scheme: light;
 }
 
@@ -61,7 +61,7 @@
     --box-shadow-none: none;
     --bg-none: none;
     --font-italic: italic;
-    --dew-inset-block-start: 32px;
+    --slider-dew-inset-block-start: 32px;
     color-scheme: light;
   }
 }
@@ -94,7 +94,7 @@
   --box-shadow-none: none;
   --bg-none: none;
   --font-italic: italic;
-  --dew-inset-block-start: 32px;
+  --slider-dew-inset-block-start: 32px;
   color-scheme: dark;
 }
 
@@ -127,7 +127,7 @@
     --box-shadow-none: none;
     --bg-none: none;
     --font-italic: italic;
-    --dew-inset-block-start: 32px;
+    --slider-dew-inset-block-start: 32px;
     color-scheme: dark;
   }
 }
