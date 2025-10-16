@@ -20,7 +20,7 @@ $input-focus-color: var(--color-boundary-brand, $color-azure-800);
 $input-border: var(--color-boundary-border-milder, $color-smoke-100);
 $warning-color: $color-casablanca-300;
 $placeholder-color: var(--color-text-placeholder, $color-smoke-300);
-$disabled-color: $input-disabled-color;
+$disabled-color: var(--color-text-disabled, $input-disabled-color);
 
 // stylelint-disable a11y/media-prefers-reduced-motion
 @media screen and (prefers-reduced-motion: reduce) {
@@ -141,7 +141,7 @@ $disabled-color: $input-disabled-color;
       }
 
       &:disabled {
-        color: $disabled-color;
+        color: var(--color-text-disabled, $disabled-color);
         background-color: $input-disabled-bg !important;
         border-color: transparent;
         pointer-events: none;
@@ -167,7 +167,7 @@ $disabled-color: $input-disabled-color;
   }
 
   &.select-disabled {
-    color: $disabled-color;
+    color: var(--color-text-disabled, $disabled-color);
     border: var(
       --fw-select-border,
       1px solid var(--color-boundary-border-mild, $color-smoke-50)

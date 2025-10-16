@@ -11,7 +11,7 @@
 $label-font: var(--base-font-family, $font-stack-sans) !default;
 $placeholder-color: var(--color-text-placeholder, $color-smoke-300);
 $help-color: $muted-secondary;
-$disabled-color: var(--color-text-primary, $input-disabled-color);
+$disabled-color: var(--color-text-disabled, $input-disabled-color);
 $error-color: var(--color-boundary-semantic-error, $app-error);
 $input-border: var(--color-boundary-border-milder, #cfd7df);
 $input-hover-color: var(--color-boundary-border, #475867);
@@ -119,7 +119,7 @@ $warning-color: var(--color-boundary-semantic-warning, $color-casablanca-300);
 
         &[disabled] {
           font-weight: var(--font-weight-medium, $font-weight-default);
-          color: $disabled-color;
+          color: var(--color-text-disabled, $disabled-color);
           background-color: var(--color-fill-container, $input-disabled-bg);
           pointer-events: none;
         }
@@ -166,7 +166,7 @@ $warning-color: var(--color-boundary-semantic-warning, $color-casablanca-300);
 
   &.disabled {
     font-weight: var(--font-weight-medium, $font-weight-default);
-    color: $disabled-color;
+    color: var(--color-text-disabled, $disabled-color);
     border: 1px solid var(--color-boundary-border-mild, $color-smoke-50);
     background-color: var(--color-fill-container, $input-disabled-bg);
     border-style: solid;
