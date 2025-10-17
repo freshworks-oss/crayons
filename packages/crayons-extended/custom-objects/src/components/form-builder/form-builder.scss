@@ -365,7 +365,7 @@
             word-break: break-word;
             white-space: normal;
             background-color: var(--color-fill-surface, #ffffff);
-            color: var(--color-text-primary, $color-azure-800);
+            color: $color-azure-800;
           }
 
           .field-type-menu-help-fw-icon {
