@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.4.0-dew.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.8...@freshworks/crayons-custom-objects@1.4.0-dew.9) (2025-10-21)
-
+## [1.4.0-dew.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.8...@freshworks/crayons-custom-objects@1.4.0-dew.9) (2025-10-21)
 
 ### Bug Fixes
 
-* **form-builder:** replace CSS variable with hardcoded color for consistency ([c734773](https://github.com/freshworks/crayons/commit/c7347737800338258a2f908fffc586e5c74775b0))
-
-
-
-
+- **form-builder:** replace CSS variable with hardcoded color for consistency ([c734773](https://github.com/freshworks/crayons/commit/c7347737800338258a2f908fffc586e5c74775b0))
 
 ## [1.4.0-dew.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.4...@freshworks/crayons-custom-objects@1.4.0-dew.5) (2025-08-28)
 

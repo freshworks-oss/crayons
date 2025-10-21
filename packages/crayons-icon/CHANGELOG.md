@@ -3,19 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-dew.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0-beta.0...@freshworks/crayons-icon@4.2.0-dew.0) (2025-10-21)
-
+## [4.2.0-dew.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0-beta.0...@freshworks/crayons-icon@4.2.0-dew.0) (2025-10-21)
 
 ### Features
 
-* **company-icon:** update SVG dimensions and paths for improved design ([74c80e5](https://github.com/freshworks/crayons/commit/74c80e5a1ea0ae80f9151d32e971a92faba425c5))
-* **file-uploader:** add icon and titleIcon props to enhance customization ([6f7172f](https://github.com/freshworks/crayons/commit/6f7172f98a2bfb65f39fbfffe1f6db448e1c3a8d))
-* **icons:** add custom export and import SVG icons ([d98a0f2](https://github.com/freshworks/crayons/commit/d98a0f2d5705758946cfd5965840830c0c2284c0))
-* **icons:** refactor SVG icons for improved clarity and consistency for dew reskinning ([88d5964](https://github.com/freshworks/crayons/commit/88d5964d44abe079298e8bed7900932add3b7751))
-
-
-
-
+- **company-icon:** update SVG dimensions and paths for improved design ([74c80e5](https://github.com/freshworks/crayons/commit/74c80e5a1ea0ae80f9151d32e971a92faba425c5))
+- **file-uploader:** add icon and titleIcon props to enhance customization ([6f7172f](https://github.com/freshworks/crayons/commit/6f7172f98a2bfb65f39fbfffe1f6db448e1c3a8d))
+- **icons:** add custom export and import SVG icons ([d98a0f2](https://github.com/freshworks/crayons/commit/d98a0f2d5705758946cfd5965840830c0c2284c0))
+- **icons:** refactor SVG icons for improved clarity and consistency for dew reskinning ([88d5964](https://github.com/freshworks/crayons/commit/88d5964d44abe079298e8bed7900932add3b7751))
 
 ## [4.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.1.1...@freshworks/crayons-icon@4.2.0-beta.0) (2024-09-17)
 

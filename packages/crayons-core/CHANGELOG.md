@@ -3,28 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.8...@freshworks/crayons@4.3.0-dew.9) (2025-10-21)
-
+## [4.3.0-dew.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.8...@freshworks/crayons@4.3.0-dew.9) (2025-10-21)
 
 ### Bug Fixes
 
-* **data-table:** adjust border-radius for table settings icon and set width for better layout ([0ac0f4d](https://github.com/freshworks/crayons/commit/0ac0f4d329e7d054c4d724b799e59ef0544fedd5))
-* **data-table:** reduce size of table settings drag item icon for better alignment ([3539a5e](https://github.com/freshworks/crayons/commit/3539a5eb021522222817d32dea0074a8230ba9f0))
-* **data-table:** simplify hover background color for better consistency ([c8cbe4c](https://github.com/freshworks/crayons/commit/c8cbe4c1fcb9390cd6052a68eccffddfafa10d84))
-* **input:** fix disbaled text color ([b2a0df7](https://github.com/freshworks/crayons/commit/b2a0df797ef464bc264d1bbcc17512f5a1f5da2f))
-* **modal:** replace hardcoded inset values with CSS variables for better theming support ([d01e6fe](https://github.com/freshworks/crayons/commit/d01e6fe5bac1f818f5ab1c4cab495ed4789860b0))
-* **overrides:** rename CSS variable for inset block start to improve clarity ([15a440b](https://github.com/freshworks/crayons/commit/15a440b556ab1fe05b40c40428848ec46fdd3a46))
-
+- **data-table:** adjust border-radius for table settings icon and set width for better layout ([0ac0f4d](https://github.com/freshworks/crayons/commit/0ac0f4d329e7d054c4d724b799e59ef0544fedd5))
+- **data-table:** reduce size of table settings drag item icon for better alignment ([3539a5e](https://github.com/freshworks/crayons/commit/3539a5eb021522222817d32dea0074a8230ba9f0))
+- **data-table:** simplify hover background color for better consistency ([c8cbe4c](https://github.com/freshworks/crayons/commit/c8cbe4c1fcb9390cd6052a68eccffddfafa10d84))
+- **input:** fix disbaled text color ([b2a0df7](https://github.com/freshworks/crayons/commit/b2a0df797ef464bc264d1bbcc17512f5a1f5da2f))
+- **modal:** replace hardcoded inset values with CSS variables for better theming support ([d01e6fe](https://github.com/freshworks/crayons/commit/d01e6fe5bac1f818f5ab1c4cab495ed4789860b0))
+- **overrides:** rename CSS variable for inset block start to improve clarity ([15a440b](https://github.com/freshworks/crayons/commit/15a440b556ab1fe05b40c40428848ec46fdd3a46))
 
 ### Features
 
-* **data-table:** enhance hover effect with background color and dimensions ([b8b26d2](https://github.com/freshworks/crayons/commit/b8b26d23de83fd134ab0ad704af0811d959e08ca))
-* **data-table:** increase size of table settings drag item icon for better visibility ([aa3bdfc](https://github.com/freshworks/crayons/commit/aa3bdfcafa1dd2511bbc09a79000945c5472813d))
-* **file-uploader:** add icon and titleIcon props to enhance customization ([6f7172f](https://github.com/freshworks/crayons/commit/6f7172f98a2bfb65f39fbfffe1f6db448e1c3a8d))
-
-
-
-
+- **data-table:** enhance hover effect with background color and dimensions ([b8b26d2](https://github.com/freshworks/crayons/commit/b8b26d23de83fd134ab0ad704af0811d959e08ca))
+- **data-table:** increase size of table settings drag item icon for better visibility ([aa3bdfc](https://github.com/freshworks/crayons/commit/aa3bdfcafa1dd2511bbc09a79000945c5472813d))
+- **file-uploader:** add icon and titleIcon props to enhance customization ([6f7172f](https://github.com/freshworks/crayons/commit/6f7172f98a2bfb65f39fbfffe1f6db448e1c3a8d))
 
 ## [4.3.0-dew.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.6...@freshworks/crayons@4.3.0-dew.7) (2025-09-09)
 
