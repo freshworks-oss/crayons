@@ -613,6 +613,10 @@ export namespace Components {
          */
         "hint": string;
         /**
+          * The icon to be displayed for FileUploader.
+         */
+        "icon": any;
+        /**
           * maxFileSize - maximum file size the file uploader must accept.
          */
         "maxFileSize": number;
@@ -646,6 +650,10 @@ export namespace Components {
           * text - file uploader text.
          */
         "text": any;
+        /**
+          * The icon to be displayed with the title of the fileUploader.  The attribute’s value must be a valid svg file in the repo of icons (assets/icons)
+         */
+        "titleIcon": string;
         /**
           * uploadFiles - uploads the files to the server. emits an after file is uploaded.
          */
@@ -3750,6 +3758,10 @@ declare namespace LocalJSX {
          */
         "hint"?: string;
         /**
+          * The icon to be displayed for FileUploader.
+         */
+        "icon"?: any;
+        /**
           * maxFileSize - maximum file size the file uploader must accept.
          */
         "maxFileSize"?: number;
@@ -3791,6 +3803,10 @@ declare namespace LocalJSX {
           * text - file uploader text.
          */
         "text"?: any;
+        /**
+          * The icon to be displayed with the title of the fileUploader.  The attribute’s value must be a valid svg file in the repo of icons (assets/icons)
+         */
+        "titleIcon"?: string;
     }
     interface FwFileUploader2 {
         /**
