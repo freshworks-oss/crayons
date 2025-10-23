@@ -112,10 +112,10 @@
       &:focus,
       &:focus-visible {
         background-color: var(--color-fill-neutral-bold, $color-elephant-900);
-        border-end-start-radius: 2px;
+        border-end-start-radius: var(--border-radius-medium, 2px);
         border-end-end-radius: 0px;
         border-start-end-radius: 0px;
-        border-start-start-radius: 2px;
+        border-start-start-radius: var(--border-radius-medium, 2px);
         border-color: var(--color-fill-neutral-bold, $color-elephant-900);
         outline: 0px;
       }
