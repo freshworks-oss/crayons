@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dew.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.9...@freshworks/crayons@4.3.0-dew.10) (2025-10-27)
+
+
+### Bug Fixes
+
+* **dew-overides:** dew overrides separate file added ([409c55a](https://github.com/freshworks/crayons/commit/409c55a38434fb49acc3300642091636669707cc))
+
+
+
+
+
 ## [4.3.0-dew.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.8...@freshworks/crayons@4.3.0-dew.9) (2025-10-21)
 
 ### Bug Fixes
