@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dew.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.9...@freshworks/crayons@4.3.0-dew.10) (2025-10-27)
+
+
+### Bug Fixes
+
+* **data-table:** increase icon size from 10 to 12 for better visibility ([95ac128](https://github.com/freshworks/crayons/commit/95ac12847accfdb9de3d0a0850b21fc55b3e4675))
+* **dew-overides:** dew overrides separate file added ([409c55a](https://github.com/freshworks/crayons/commit/409c55a38434fb49acc3300642091636669707cc))
+* **modal:** replace hardcoded border radius with CSS variable for consistency ([2c166c6](https://github.com/freshworks/crayons/commit/2c166c65601e1b5d26f9905dc69386ea43ab785d))
+
+
+
+
+
 ## [4.3.0-dew.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.8...@freshworks/crayons@4.3.0-dew.9) (2025-10-21)
 
 ### Bug Fixes
