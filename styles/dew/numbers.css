@@ -22,7 +22,10 @@
   --border-radius-small: 6px;
   --border-radius-medium: 8px;
   --border-radius-large: 12px;
+  --border-radius-very-large: 24px;
   --border-radius-circular: 99px;
+  --border-radius-xsmall-2: 8px;
+  --border-radius-modal: 12px;
   --opacity-half: 0.5;
   --opacity-quarter: 0.25;
   --opacity-minimal: 0.15;
@@ -41,4 +44,13 @@
   --shadow-3xl: 0px 0px 64px 4px var(--color-shadow-20);
   --shadow-dropdown-list: 15px 20px 40px 0px var(--color-shadow-5);
   --shadow-clicked-button: 0px 0px 4px 1px var(--color-shadow-25) inset;
+  --shadow-hover: 0px 0px 0px 2px var(--color-boundary-border-milder);
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --height-medium: 16px;
+  --height-huge: 24px;
+  --height-sm: 10px;
+  --top-slider-9: 9;
+  --width-medium: 16px;
+  --width-sm: 10px;
 }
