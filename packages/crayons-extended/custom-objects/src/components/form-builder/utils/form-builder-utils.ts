@@ -305,10 +305,6 @@ export function getFieldBasedOnLevel(data, level) {
   return traverseFields(data.fields, 1);
 }
 
-const validateChoices = (choices, value) => {
-  return choices.find((choice) => choice.value === value);
-};
-
 /** Returns filtered choices by ids */
 const getChoicesById = (choices = [], ids = []) => {
   return choices.filter((choice) => ids.includes(choice.id));
@@ -373,75 +369,128 @@ export function updateFieldAttributes(
   return { ...data, fields: data.fields };
 }
 
-// NOTE: Need to optimize this better
-export function buildChoicesFromText(text, dataProvider) {
+/**
+ * Generates a hierarchical field mapping from a structured text input.
+ * The input text is expected to have a specific format with hierarchical levels
+ * represented by indentation using tabs.
+ *
+ * @param text - The structured text input where each line represents a category,
+ *               sub-category, or item based on its indentation level.
+ * @returns A Map representing the hierarchical structure:
+ *          - Top-level keys are categories (Map).
+ *          - Second-level keys are sub-categories (Map).
+ *          - Third-level values are items (Set).
+ */
+
+function generateFieldMapping(text) {
   const lines = text.split('\n');
-  const hierarchyChoices = dataProvider.fields[0];
-  let currentCategory = null;
-  let currentSubcategory = null;
+  const mapping = new Map();
+  let subCategories = null;
+  let items = null;
 
-  lines.forEach((line) => {
-    const value = line.trim().replace(/\t/g, '');
+  try {
+    lines.forEach((line) => {
+      const value = line.trim().replace(/\t/g, '');
 
-    if (value && value.length) {
-      if (!line.startsWith('\t')) {
-        if (!validateChoices(hierarchyChoices.choices, value)) {
-          const field = hierarchyChoices;
-          if (!field.id) {
-            field.id = createUUID();
+      if (value && value.length) {
+        if (!line.startsWith('\t')) {
+          if (!mapping.get(value)) {
+            mapping.set(value, new Map());
           }
-          currentCategory = {
-            id: createUUID(),
-            value: value,
-            dependent_ids: { field: [], choice: [] },
-          };
-          hierarchyChoices.choices.push(currentCategory);
-        }
-      } else if (line.startsWith('\t') && !line.startsWith('\t\t')) {
-        if (
-          currentCategory &&
-          !validateChoices(hierarchyChoices.fields[0].choices, value)
-        ) {
-          const field = hierarchyChoices.fields[0];
-          if (!field.id) {
-            field.id = createUUID();
+          subCategories = mapping.get(value);
+        } else if (line.startsWith('\t') && !line.startsWith('\t\t')) {
+          if (subCategories instanceof Map && !subCategories.get(value)) {
+            subCategories.set(value, new Set());
           }
-          currentSubcategory = {
-            id: createUUID(),
-            value: value,
-            dependent_ids: { field: [], choice: [] },
-          };
-          currentCategory.dependent_ids.choice.push(currentSubcategory.id);
-          if (!currentCategory.dependent_ids.field.length) {
-            currentCategory.dependent_ids.field.push(field.id);
+          items = subCategories.get(value);
+        } else if (line.startsWith('\t\t')) {
+          if (items instanceof Set) {
+            items.add(value);
           }
-          field.choices.push(currentSubcategory);
-        }
-      } else {
-        if (
-          currentSubcategory &&
-          !validateChoices(hierarchyChoices.fields[0].fields[0].choices, value)
-        ) {
-          const field = hierarchyChoices.fields[0].fields[0];
-          if (!field.id) {
-            field.id = createUUID();
-          }
-          const item = {
-            id: createUUID(),
-            value: value,
-            dependent_ids: { choice: [], field: [] },
-          };
-          currentSubcategory.dependent_ids.choice.push(item.id);
-          if (!currentSubcategory.dependent_ids.field.length) {
-            currentSubcategory.dependent_ids.field.push(field.id);
-          }
-          hierarchyChoices.fields[0].fields[0].choices.push(item);
         }
       }
+    });
+  } catch (error) {
+    console.error(
+      'Encountered an error while generating field mapping: ',
+      error
+    );
+    return new Map();
+  }
+
+  return mapping;
+}
+
+export function buildChoicesFromText(text, dataProvider) {
+  const fieldMapping = generateFieldMapping(text);
+  const dependentField = dataProvider.fields[0];
+
+  const dependentFieldLevels = [
+    dependentField,
+    dependentField.fields[0],
+    dependentField.fields[0].fields[0],
+  ];
+
+  // Generate unique Ids for each of the field levels
+  dependentFieldLevels.forEach((level) => {
+    if (!level.id) {
+      level.id = createUUID();
     }
   });
 
-  return { ...dataProvider, fields: [hierarchyChoices] };
+  // Iterating through the following structure
+  // { category: { subcategory: items(Array) } }
+  fieldMapping.forEach((subCategories, category) => {
+    const newCategoryValue = {
+      id: createUUID(),
+      value: category,
+      dependent_ids: { field: [], choice: [] },
+    };
+
+    // Add category as a choice in the dependent field's first level.
+    dependentFieldLevels[0].choices.push(newCategoryValue);
+
+    // Process subcategories and add their ids to the newCategory's choice value.
+    if (subCategories?.size) {
+      subCategories.forEach((items, subCategory) => {
+        const newSubCategory = {
+          id: createUUID(),
+          value: subCategory,
+          dependent_ids: { field: [], choice: [] },
+        };
+
+        newCategoryValue.dependent_ids.choice.push(newSubCategory.id);
+
+        // Update the category's field value with the second level field's id.
+        if (!newCategoryValue.dependent_ids.field.length) {
+          newCategoryValue.dependent_ids.field.push(dependentFieldLevels[1].id);
+        }
+
+        // Add Subcategory as a choice in the dependent field's second level.
+        dependentFieldLevels[1].choices.push(newSubCategory);
+
+        items.forEach((item) => {
+          const newItem = {
+            id: createUUID(),
+            value: item,
+            dependent_ids: { field: [], choice: [] },
+          };
+
+          newSubCategory.dependent_ids.choice.push(newItem.id);
+
+          // Update the sub category's field value with the third level field's id.
+          if (!newSubCategory.dependent_ids.field.length) {
+            newSubCategory.dependent_ids.field.push(dependentFieldLevels[2].id);
+          }
+
+          // Add new item as a choice in the dependent field's third level.
+          dependentFieldLevels[2].choices.push(newItem);
+        });
+      });
+    }
+  });
+
+  return { ...dataProvider, fields: [dependentField] };
 }
 
 export function hasStringDuplicates(stringObj, i18nText) {
