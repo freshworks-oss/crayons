@@ -88,7 +88,8 @@
   .modal {
     height: 100vh;
     max-height: 100vh;
-    border-radius: 0px;
+    border-radius: var(--border-radius-medium, 0px) 0px 0px
+      var(--border-radius-medium, 0px);
     width: 600px;
     animation: 'modal-entry-right' 0.5s 1;
 
