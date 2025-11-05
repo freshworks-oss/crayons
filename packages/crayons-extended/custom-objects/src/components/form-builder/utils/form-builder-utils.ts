@@ -425,14 +425,12 @@ export function buildChoicesFromText(text, dataProvider) {
   const fieldMapping = generateFieldMapping(text);
   const dependentField = dataProvider.fields[0];
 
-  const dependentFieldLevels = [
-    dependentField,
-    dependentField.fields[0],
-    dependentField.fields[0].fields[0],
-  ];
+  const level1 = dependentField;
+  const level2 = dependentField.fields[0];
+  const level3 = dependentField.fields[0].fields[0];
 
   // Generate unique Ids for each of the field levels
-  dependentFieldLevels.forEach((level) => {
+  [level1, level2, level3].forEach((level) => {
     if (!level.id) {
       level.id = createUUID();
     }
@@ -448,7 +446,7 @@ export function buildChoicesFromText(text, dataProvider) {
     };
 
     // Add category as a choice in the dependent field's first level.
-    dependentFieldLevels[0].choices.push(newCategoryValue);
+    level1.choices.push(newCategoryValue);
 
     // Process subcategories and add their ids to the newCategory's choice value.
     if (subCategories?.size) {
@@ -463,11 +461,11 @@ export function buildChoicesFromText(text, dataProvider) {
 
         // Update the category's field value with the second level field's id.
         if (!newCategoryValue.dependent_ids.field.length) {
-          newCategoryValue.dependent_ids.field.push(dependentFieldLevels[1].id);
+          newCategoryValue.dependent_ids.field.push(level2.id);
         }
 
         // Add Subcategory as a choice in the dependent field's second level.
-        dependentFieldLevels[1].choices.push(newSubCategory);
+        level2.choices.push(newSubCategory);
 
         items.forEach((item) => {
           const newItem = {
@@ -480,11 +478,11 @@ export function buildChoicesFromText(text, dataProvider) {
 
           // Update the sub category's field value with the third level field's id.
           if (!newSubCategory.dependent_ids.field.length) {
-            newSubCategory.dependent_ids.field.push(dependentFieldLevels[2].id);
+            newSubCategory.dependent_ids.field.push(level3.id);
           }
 
           // Add new item as a choice in the dependent field's third level.
-          dependentFieldLevels[2].choices.push(newItem);
+          level3.choices.push(newItem);
         });
       });
     }
