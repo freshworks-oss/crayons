@@ -86,8 +86,9 @@
   justify-content: flex-end;
 
   .modal {
-    height: 100vh;
-    max-height: 100vh;
+    height: var(--slider-dew-modal-height, 100vh);
+    margin-inline: var(--slider-dew-modal-margin, 0px);
+    max-height: var(--slider-dew-modal-height, 100vh);
     border-radius: var(--border-radius-medium, 0px) 0px 0px
       var(--border-radius-medium, 0px);
     width: 600px;
