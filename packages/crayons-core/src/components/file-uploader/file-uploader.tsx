@@ -488,6 +488,9 @@ export class FileUploader {
     return (
       <span class={'icon'}>
         <fw-icon
+          src={
+            'https://cdn.jsdelivr.net/npm/@freshworks/crayons-icon@4.2.0-dew.0/dist/icons'
+          }
           name={this.titleIcon}
           size={12}
           color='var(--color-text-brand, #2c5cc5)'
