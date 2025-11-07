@@ -3,17 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.11](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.10...@freshworks/crayons@4.3.0-dew.11) (2025-11-07)
-
+## [4.3.0-dew.11](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.10...@freshworks/crayons@4.3.0-dew.11) (2025-11-07)
 
 ### Bug Fixes
 
-* **icon:** add a fallback version for icon path ([3de1087](https://github.com/freshworks/crayons/commit/3de10870856201d78d9c51476b0f90a6cba74f7e))
-* **icon:** replace static icon path with pkg version ([c9998cb](https://github.com/freshworks/crayons/commit/c9998cbdffecdb446b8b4b7c93461e19c62ef540))
-
-
-
-
+- **icon:** add a fallback version for icon path ([3de1087](https://github.com/freshworks/crayons/commit/3de10870856201d78d9c51476b0f90a6cba74f7e))
+- **icon:** replace static icon path with pkg version ([c9998cb](https://github.com/freshworks/crayons/commit/c9998cbdffecdb446b8b4b7c93461e19c62ef540))
 
 ## [4.3.0-dew.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.9...@freshworks/crayons@4.3.0-dew.10) (2025-10-27)
 
