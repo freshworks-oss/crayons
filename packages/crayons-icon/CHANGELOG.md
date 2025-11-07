@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0-dew.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0-dew.0...@freshworks/crayons-icon@4.2.0-dew.1) (2025-11-07)
+
+
+### Bug Fixes
+
+* **icon:** replace static icon path with pkg version ([c9998cb](https://github.com/freshworks/crayons/commit/c9998cbdffecdb446b8b4b7c93461e19c62ef540))
+
+
+
+
+
 ## [4.2.0-dew.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0-beta.0...@freshworks/crayons-icon@4.2.0-dew.0) (2025-10-21)
 
 ### Features
