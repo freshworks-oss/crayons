@@ -29,7 +29,7 @@ export class ModalTitle {
   @Prop() icon = '';
 
   /**
-   * The size of the icon to be displayed
+   * The size of the icon to be displayed with the title
    */
   @Prop() iconSize = 16;
 

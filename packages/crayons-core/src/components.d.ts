@@ -1395,6 +1395,10 @@ export namespace Components {
          */
         "icon": string;
         /**
+          * The size of the icon to be displayed with the title
+         */
+        "iconSize": number;
+        /**
           * Toggle the visibility of the modal
          */
         "isOpen": boolean;
@@ -1465,6 +1469,10 @@ export namespace Components {
           * The icon to be displayed with the title
          */
         "icon": string;
+        /**
+          * The size of the icon to be displayed
+         */
+        "iconSize": number;
         /**
           * The title text to be displayed on the modal
          */
@@ -4533,6 +4541,10 @@ declare namespace LocalJSX {
          */
         "icon"?: string;
         /**
+          * The size of the icon to be displayed with the title
+         */
+        "iconSize"?: number;
+        /**
           * Toggle the visibility of the modal
          */
         "isOpen"?: boolean;
@@ -4610,6 +4622,10 @@ declare namespace LocalJSX {
           * The icon to be displayed with the title
          */
         "icon"?: string;
+        /**
+          * The size of the icon to be displayed
+         */
+        "iconSize"?: number;
         /**
           * The title text to be displayed on the modal
          */
