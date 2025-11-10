@@ -60,6 +60,11 @@ export class Modal {
   @Prop() icon = '';
 
   /**
+   * The size of the icon to be displayed with the title
+   */
+  @Prop() iconSize = 16;
+
+  /**
    * Size of the modal
    */
   @Prop() size: 'standard' | 'small' | 'large' = 'standard';
@@ -419,6 +424,7 @@ export class Modal {
     return (
       <fw-modal-title
         icon={this.icon}
+        icon-size={this.iconSize}
         titleText={this.titleText}
         description={this.description}
       ></fw-modal-title>

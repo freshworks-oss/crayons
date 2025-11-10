@@ -29,6 +29,11 @@ export class ModalTitle {
   @Prop() icon = '';
 
   /**
+   * The size of the icon to be displayed
+   */
+  @Prop() iconSize = 16;
+
+  /**
    * Set to true if we want to render slot instead of default footer
    */
   custom = null;
@@ -51,7 +56,7 @@ export class ModalTitle {
       <span class={'modal-title-icon'}>
         <fw-icon
           name={this.icon}
-          size={16}
+          size={this.iconSize}
           src={
             'https://cdn.jsdelivr.net/npm/@freshworks/crayons-icon@4.2.0-dew.0/dist/icons'
           }
