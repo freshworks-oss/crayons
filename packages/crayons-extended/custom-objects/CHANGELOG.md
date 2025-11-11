@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-beta.34](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.33...@freshworks/crayons-custom-objects@1.4.0-beta.34) (2025-11-11)
+
+
+### Bug Fixes
+
+* **form-builder-utils.ts:** refactor logic to allow same values in different levels ([acb7cb0](https://github.com/freshworks/crayons/commit/acb7cb01b8bf257560e71123be77577fdbd42fe9))
+
+
+
+
+
 ## [1.4.0-beta.32](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.31...@freshworks/crayons-custom-objects@1.4.0-beta.32) (2025-04-08)
 
 ### Bug Fixes
