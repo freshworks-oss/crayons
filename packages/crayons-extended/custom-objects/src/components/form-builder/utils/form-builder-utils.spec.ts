@@ -463,24 +463,25 @@ describe('updateChoicesInFields', () => {
 });
 
 describe('buildChoicesFromText', () => {
-  const mockDataProvider = {
-    fields: [
-      {
-        choices: [],
-        fields: [
-          {
-            choices: [],
-            fields: [{ choices: [] }],
-          },
-        ],
-      },
-    ],
-  };
+  let mockDataProvider = null;
   const mockCreateUUID = jest.fn();
   let uuidCounter = 0;
   mockCreateUUID.mockImplementation(() => `uuid-${++uuidCounter}`);
 
   beforeEach(() => {
+    mockDataProvider = {
+      fields: [
+        {
+          choices: [],
+          fields: [
+            {
+              choices: [],
+              fields: [{ choices: [] }],
+            },
+          ],
+        },
+      ],
+    };
     uuidCounter = 0; // Reset UUID counter before each test
   });
 
@@ -515,6 +516,32 @@ describe('buildChoicesFromText', () => {
     expect(
       result.fields[0].fields[0].fields[0].choices.map((choice) => choice.value)
     ).toEqual(['item 1', 'item 2', 'item 3', 'item 4', 'item 5']);
+  });
+
+  it('check if no options are processed when the text is malformed', () => {
+    const result = buildChoicesFromText('\t\t\t\tCategory', mockDataProvider);
+    expect(result.fields[0].choices).toHaveLength(0);
+    expect(result.fields[0].fields[0].choices).toHaveLength(0);
+    expect(result.fields[0].fields[0].fields[0].choices).toHaveLength(0);
+  });
+
+  it('check if same subcategories are allowed in different categories', () => {
+    const exampleText =
+      'category 1\n\tsubcategory 1\n\t\titem 1\n\t\titem 2\ncategory 2\n\tsubcategory 1\n\t\titem 1\n\t\titem 2\n\t\titem 3\n';
+    const result = buildChoicesFromText(exampleText, mockDataProvider);
+    expect(result.fields[0].choices).toHaveLength(2);
+    expect(result.fields[0].choices.map((choice) => choice.value)).toEqual([
+      'category 1',
+      'category 2',
+    ]);
+    expect(result.fields[0].fields[0].choices).toHaveLength(2);
+    expect(
+      result.fields[0].fields[0].choices.map((choice) => choice.value)
+    ).toEqual(['subcategory 1', 'subcategory 1']);
+    expect(result.fields[0].fields[0].fields[0].choices).toHaveLength(5);
+    expect(
+      result.fields[0].fields[0].fields[0].choices.map((choice) => choice.value)
+    ).toEqual(['item 1', 'item 2', 'item 1', 'item 2', 'item 3']);
   });
 });
 
