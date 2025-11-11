@@ -5,12 +5,12 @@
 
 ## Properties
 
-| Property      | Attribute     | Description                                 | Type     | Default     |
-| ------------- | ------------- | ------------------------------------------- | -------- | ----------- |
-| `description` | `description` | The title text to be displayed on the modal | `string` | `undefined` |
-| `icon`        | `icon`        | The icon to be displayed with the title     | `string` | `''`        |
-| `iconSize`    | `icon-size`   | The size of the icon to be displayed        | `number` | `16`        |
-| `titleText`   | `title-text`  | The title text to be displayed on the modal | `string` | `undefined` |
+| Property      | Attribute     | Description                                         | Type     | Default     |
+| ------------- | ------------- | --------------------------------------------------- | -------- | ----------- |
+| `description` | `description` | The title text to be displayed on the modal         | `string` | `undefined` |
+| `icon`        | `icon`        | The icon to be displayed with the title             | `string` | `''`        |
+| `iconSize`    | `icon-size`   | The size of the icon to be displayed with the title | `number` | `16`        |
+| `titleText`   | `title-text`  | The title text to be displayed on the modal         | `string` | `undefined` |
 
 
 ## Dependencies
