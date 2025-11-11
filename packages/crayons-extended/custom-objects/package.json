@@ -1,7 +1,7 @@
 {
   "name": "@freshworks/crayons-custom-objects",
   "author": "Freshworks Inc",
-  "version": "1.4.0-beta.34",
+  "version": "1.4.0-beta.35",
   "description": "Custom Objects with Crayons",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
