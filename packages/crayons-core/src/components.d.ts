@@ -1470,7 +1470,7 @@ export namespace Components {
          */
         "icon": string;
         /**
-          * The size of the icon to be displayed
+          * The size of the icon to be displayed with the title
          */
         "iconSize": number;
         /**
@@ -4623,7 +4623,7 @@ declare namespace LocalJSX {
          */
         "icon"?: string;
         /**
-          * The size of the icon to be displayed
+          * The size of the icon to be displayed with the title
          */
         "iconSize"?: number;
         /**
