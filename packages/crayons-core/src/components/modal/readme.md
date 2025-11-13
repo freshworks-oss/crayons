@@ -363,6 +363,7 @@ function App() {
 | `hasCloseIconButton` | `has-close-icon-button` | Property to add or remove the top right close icon button | `boolean`                                                  | `true`       |
 | `hideFooter`         | `hide-footer`           | Hide footer for the modal                                 | `boolean`                                                  | `false`      |
 | `icon`               | `icon`                  | The icon to be displayed with the title                   | `string`                                                   | `''`         |
+| `iconSize`           | `icon-size`             | The size of the icon to be displayed with the title       | `number`                                                   | `16`         |
 | `isOpen`             | `is-open`               | Toggle the visibility of the modal                        | `boolean`                                                  | `false`      |
 | `size`               | `size`                  | Size of the modal                                         | `"large" \| "small" \| "standard"`                         | `'standard'` |
 | `slider`             | `slider`                | Convert modal to slider                                   | `boolean`                                                  | `false`      |

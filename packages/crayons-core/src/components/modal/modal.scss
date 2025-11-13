@@ -86,9 +86,10 @@
   justify-content: flex-end;
 
   .modal {
-    height: 100vh;
-    max-height: 100vh;
-    border-radius: 0px;
+    height: var(--slider-dew-modal-height, 100vh);
+    margin-inline: var(--slider-dew-modal-margin, 0px);
+    max-height: var(--slider-dew-modal-height, 100vh);
+    border-radius: var(--border-radius-large, 0px);
     width: 600px;
     animation: 'modal-entry-right' 0.5s 1;
 

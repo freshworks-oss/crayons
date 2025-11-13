@@ -5,8 +5,8 @@
   padding-block-start: 32px;
   position: relative;
   background: var(--color-fill-surface, #fff);
-  border-end-start-radius: 0;
-  border-end-end-radius: 0;
+  border-end-start-radius: var(--border-radius-large, 0);
+  border-end-end-radius: var(--border-radius-large, 0);
   border-start-end-radius: var(--border-radius-large, 4px);
   border-start-start-radius: var(--border-radius-large, 4px);
   transition: all 0.1s linear;

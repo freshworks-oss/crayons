@@ -29,6 +29,11 @@ export class ModalTitle {
   @Prop() icon = '';
 
   /**
+   * The size of the icon to be displayed with the title
+   */
+  @Prop() iconSize = 16;
+
+  /**
    * Set to true if we want to render slot instead of default footer
    */
   custom = null;
@@ -49,7 +54,7 @@ export class ModalTitle {
   renderIcon(): JSX.Element {
     return (
       <span class={'modal-title-icon'}>
-        <fw-icon name={this.icon} size={16}></fw-icon>
+        <fw-icon name={this.icon} size={this.iconSize}></fw-icon>
       </span>
     );
   }

@@ -16,7 +16,13 @@
   border: 1px solid
     var(--color-boundary-border-mildest, rgba(207, 215, 223, 0.4));
   box-sizing: border-box;
-  border-radius: 4px;
+  border-start-start-radius: var(
+    --platform-table-toolbar-border-top-radius,
+    4px
+  );
+  border-start-end-radius: var(--platform-table-toolbar-border-top-radius, 4px);
+  border-end-end-radius: var(--border-radius-xsmall, 4px);
+  border-end-start-radius: var(--border-radius-xsmall, 4px);
 
   .action-items {
     margin-inline-start: 12px;

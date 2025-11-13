@@ -29,6 +29,9 @@
   --font-italic: italic;
   --bg-none: none;
   --slider-dew-inset-block-start: 32px;
+  --slider-dew-modal-height: calc(100vh - 16px);
+  --slider-dew-modal-margin: 8px;
+  --platform-table-toolbar-border-top-radius: 0px;
   color-scheme: light;
 }
 
@@ -62,6 +65,9 @@
     --bg-none: none;
     --font-italic: italic;
     --slider-dew-inset-block-start: 32px;
+    --slider-dew-modal-height: calc(100vh - 16px);
+    --slider-dew-modal-margin: 8px;
+    --platform-table-toolbar-border-top-radius: 0px;
     color-scheme: light;
   }
 }
@@ -95,6 +101,9 @@
   --bg-none: none;
   --font-italic: italic;
   --slider-dew-inset-block-start: 32px;
+  --slider-dew-modal-height: calc(100vh - 16px);
+  --slider-dew-modal-margin: 8px;
+  --platform-table-toolbar-border-top-radius: 0px;
   color-scheme: dark;
 }
 
@@ -128,6 +137,9 @@
     --bg-none: none;
     --font-italic: italic;
     --slider-dew-inset-block-start: 32px;
+    --slider-dew-modal-height: calc(100vh - 16px);
+    --slider-dew-modal-margin: 8px;
+    --platform-table-toolbar-border-top-radius: 0px;
     color-scheme: dark;
   }
 }
