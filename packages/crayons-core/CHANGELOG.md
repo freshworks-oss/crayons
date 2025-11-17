@@ -3,31 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.11...@freshworks/crayons@4.3.0-dew.12) (2025-11-17)
-
+## [4.3.0-dew.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.11...@freshworks/crayons@4.3.0-dew.12) (2025-11-17)
 
 ### Bug Fixes
 
-* **data-table:** update background color of table settings button for consistency ([0c0a0be](https://github.com/freshworks/crayons/commit/0c0a0bec101f61b66478e36265b817651c91124c))
-* **file-uploader:** remove hardcoded icon source URL from FileUploader component ([3828bc8](https://github.com/freshworks/crayons/commit/3828bc8ba4e75aa802fe46b28c68c1f311a74758))
-* **file-uploader:** update icon source URL for consistency ([5c1e1f1](https://github.com/freshworks/crayons/commit/5c1e1f1c55fc465be105d8884dc88c0ac7c95d38))
-* **icon:** clarify iconSize prop description in documentation ([3855a0b](https://github.com/freshworks/crayons/commit/3855a0befc429ef0ec3046d991908ae38a72385b))
-* **modal-title:** add src attribute to fw-icon for consistent icon rendering ([e1c3828](https://github.com/freshworks/crayons/commit/e1c382859b697078ee5e58112e5a9aed81cf8df1))
-* **modal-title:** correct border-radius variable usage for consistency ([1151658](https://github.com/freshworks/crayons/commit/1151658a1300cc4191ade40a1ac28594f31692c7))
-* **modal-title:** remove hardcoded icon source URL from fw-icon component ([d5397f7](https://github.com/freshworks/crayons/commit/d5397f7b647d431663d20760690d217dbe1be92d))
-* **modal-title:** update iconSize prop documentation for clarity ([9ce6cd7](https://github.com/freshworks/crayons/commit/9ce6cd75ba7625658258da54fcf3338d60ea2c70))
-* **modal-title:** update iconSize prop documentation for clarity ([b5a3dac](https://github.com/freshworks/crayons/commit/b5a3dac62336c0c2245d559afdae88c3fcc9ddef))
-* **modal:** correct border-radius declaration and update iconSize property in documentation ([f2a7cbe](https://github.com/freshworks/crayons/commit/f2a7cbe47e8e50cc5ac9944abfde3aca1674b938))
-* **modal:** remove border-radius from slider modal for consistency ([0f0e6b9](https://github.com/freshworks/crayons/commit/0f0e6b9a2f2f7daa2b003f36cc3ba237d4333cb2))
-* **modal:** remove border-radius from slider modal for consistency ([0af090e](https://github.com/freshworks/crayons/commit/0af090eddb1002377e6f598b47bd19d602f89828))
-* **modal:** simplify border-radius declaration for slider modal ([0b10994](https://github.com/freshworks/crayons/commit/0b109942c0b8d7247fefaaea5ba03143cdb490c2))
-* **modal:** update border radius for slider modal to use large variable ([942bb37](https://github.com/freshworks/crayons/commit/942bb373cfaace95af43a551eafaa60527b94168))
-* **modal:** update height and margin variables for slider modal ([ad042fa](https://github.com/freshworks/crayons/commit/ad042fab98410c2d4ca33526711a59f23f0e591c))
-* **platform-table:** update border-radius for consistency with design ([dbe85b6](https://github.com/freshworks/crayons/commit/dbe85b61211c58554f87191be6f388be1a2d7c3b))
-
-
-
-
+- **data-table:** update background color of table settings button for consistency ([0c0a0be](https://github.com/freshworks/crayons/commit/0c0a0bec101f61b66478e36265b817651c91124c))
+- **file-uploader:** remove hardcoded icon source URL from FileUploader component ([3828bc8](https://github.com/freshworks/crayons/commit/3828bc8ba4e75aa802fe46b28c68c1f311a74758))
+- **file-uploader:** update icon source URL for consistency ([5c1e1f1](https://github.com/freshworks/crayons/commit/5c1e1f1c55fc465be105d8884dc88c0ac7c95d38))
+- **icon:** clarify iconSize prop description in documentation ([3855a0b](https://github.com/freshworks/crayons/commit/3855a0befc429ef0ec3046d991908ae38a72385b))
+- **modal-title:** add src attribute to fw-icon for consistent icon rendering ([e1c3828](https://github.com/freshworks/crayons/commit/e1c382859b697078ee5e58112e5a9aed81cf8df1))
+- **modal-title:** correct border-radius variable usage for consistency ([1151658](https://github.com/freshworks/crayons/commit/1151658a1300cc4191ade40a1ac28594f31692c7))
+- **modal-title:** remove hardcoded icon source URL from fw-icon component ([d5397f7](https://github.com/freshworks/crayons/commit/d5397f7b647d431663d20760690d217dbe1be92d))
+- **modal-title:** update iconSize prop documentation for clarity ([9ce6cd7](https://github.com/freshworks/crayons/commit/9ce6cd75ba7625658258da54fcf3338d60ea2c70))
+- **modal-title:** update iconSize prop documentation for clarity ([b5a3dac](https://github.com/freshworks/crayons/commit/b5a3dac62336c0c2245d559afdae88c3fcc9ddef))
+- **modal:** correct border-radius declaration and update iconSize property in documentation ([f2a7cbe](https://github.com/freshworks/crayons/commit/f2a7cbe47e8e50cc5ac9944abfde3aca1674b938))
+- **modal:** remove border-radius from slider modal for consistency ([0f0e6b9](https://github.com/freshworks/crayons/commit/0f0e6b9a2f2f7daa2b003f36cc3ba237d4333cb2))
+- **modal:** remove border-radius from slider modal for consistency ([0af090e](https://github.com/freshworks/crayons/commit/0af090eddb1002377e6f598b47bd19d602f89828))
+- **modal:** simplify border-radius declaration for slider modal ([0b10994](https://github.com/freshworks/crayons/commit/0b109942c0b8d7247fefaaea5ba03143cdb490c2))
+- **modal:** update border radius for slider modal to use large variable ([942bb37](https://github.com/freshworks/crayons/commit/942bb373cfaace95af43a551eafaa60527b94168))
+- **modal:** update height and margin variables for slider modal ([ad042fa](https://github.com/freshworks/crayons/commit/ad042fab98410c2d4ca33526711a59f23f0e591c))
+- **platform-table:** update border-radius for consistency with design ([dbe85b6](https://github.com/freshworks/crayons/commit/dbe85b61211c58554f87191be6f388be1a2d7c3b))
 
 ## [4.3.0-dew.11](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.10...@freshworks/crayons@4.3.0-dew.11) (2025-11-07)
 
