@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-dew.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.11...@freshworks/crayons-custom-objects@1.4.0-dew.12) (2025-11-17)
+
+
+### Bug Fixes
+
+* changes on the border ([f42fc0a](https://github.com/freshworks/crayons/commit/f42fc0aba4fb91804f7a36bb780fadf1cd501f72))
+* **icon:** clarify iconSize prop description in documentation ([3855a0b](https://github.com/freshworks/crayons/commit/3855a0befc429ef0ec3046d991908ae38a72385b))
+* **platform-table:** update border radius variables for toolbar styling ([6e7dbb1](https://github.com/freshworks/crayons/commit/6e7dbb1b2eaa4861b0a6a24996579724e1ac32aa))
+* **platform-table:** update border radius variables for toolbar styling ([d08f507](https://github.com/freshworks/crayons/commit/d08f5074052546307bc9d1da80e0efb0e59dc822))
+
+
+
+
+
 ## [1.4.0-dew.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.8...@freshworks/crayons-custom-objects@1.4.0-dew.9) (2025-10-21)
 
 ### Bug Fixes
