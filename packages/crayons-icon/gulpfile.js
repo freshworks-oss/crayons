@@ -1,6 +1,5 @@
 const fs = require('fs').promises;
 const path = require('path');
-const pkg = require('./package.json');
 
 const generateIconsExportData = async () => {
   const icons_out_dir = './dist/icons';
@@ -28,7 +27,7 @@ const generateIconsExportData = async () => {
     }
   };
   try {
-    let indexData = `export const __CRAYONS_ICON_VERSION__ = "${pkg.version}";\n`;
+    let indexData = '';
     const allSvgFiles = await fs.readdir(path.join(icons_out_dir, ''));
     for (const svgFile of allSvgFiles) {
       indexData = indexData + (await getIconsSVGData(svgFile)) + '\n';
