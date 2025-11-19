@@ -54,7 +54,11 @@ export class ModalTitle {
   renderIcon(): JSX.Element {
     return (
       <span class={'modal-title-icon'}>
-        <fw-icon name={this.icon} size={this.iconSize}></fw-icon>
+        <fw-icon
+          name={this.icon}
+          size={this.iconSize}
+          src='https://cdn.jsdelivr.net/npm/@freshworks/crayons-icon@4.2.0-dew.0/dist/icons'
+        ></fw-icon>
       </span>
     );
   }
