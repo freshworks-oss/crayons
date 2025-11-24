@@ -3,18 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-dew.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0-dew.1...@freshworks/crayons-icon@4.2.0-dew.2) (2025-11-24)
-
+## [4.2.0-dew.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0-dew.1...@freshworks/crayons-icon@4.2.0-dew.2) (2025-11-24)
 
 ### Bug Fixes
 
-* **icon:** replace static colors with currentColor for theme support ([abcf3e7](https://github.com/freshworks/crayons/commit/abcf3e7c662ea08155b77fc8b3ac6520cf196040))
-* **icon:** restore crayons icon asset path ([7c87d1b](https://github.com/freshworks/crayons/commit/7c87d1b6a9a605ae2c48aaec0580b30b9c2de796))
-* **icons:** update fill color to currentColor in file-export and file-import SVGs ([c984475](https://github.com/freshworks/crayons/commit/c984475aa44cee3ae684716bdf9a50181942b098))
-
-
-
-
+- **icon:** replace static colors with currentColor for theme support ([abcf3e7](https://github.com/freshworks/crayons/commit/abcf3e7c662ea08155b77fc8b3ac6520cf196040))
+- **icon:** restore crayons icon asset path ([7c87d1b](https://github.com/freshworks/crayons/commit/7c87d1b6a9a605ae2c48aaec0580b30b9c2de796))
+- **icons:** update fill color to currentColor in file-export and file-import SVGs ([c984475](https://github.com/freshworks/crayons/commit/c984475aa44cee3ae684716bdf9a50181942b098))
 
 ## [4.2.0-dew.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0-dew.0...@freshworks/crayons-icon@4.2.0-dew.1) (2025-11-07)
 

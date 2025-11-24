@@ -3,17 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.12...@freshworks/crayons@4.3.0-dew.13) (2025-11-24)
-
+## [4.3.0-dew.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.12...@freshworks/crayons@4.3.0-dew.13) (2025-11-24)
 
 ### Bug Fixes
 
-* **icon:** restore crayons icon asset path ([7c87d1b](https://github.com/freshworks/crayons/commit/7c87d1b6a9a605ae2c48aaec0580b30b9c2de796))
-* **modal-title:** add src attribute to fw-icon for proper icon rendering ([021c0ee](https://github.com/freshworks/crayons/commit/021c0ee41dd954708146c6990916e3484230d082))
-
-
-
-
+- **icon:** restore crayons icon asset path ([7c87d1b](https://github.com/freshworks/crayons/commit/7c87d1b6a9a605ae2c48aaec0580b30b9c2de796))
+- **modal-title:** add src attribute to fw-icon for proper icon rendering ([021c0ee](https://github.com/freshworks/crayons/commit/021c0ee41dd954708146c6990916e3484230d082))
 
 ## [4.3.0-dew.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.11...@freshworks/crayons@4.3.0-dew.12) (2025-11-17)
 
