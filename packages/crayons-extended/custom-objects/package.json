@@ -1,7 +1,7 @@
 {
   "name": "@freshworks/crayons-custom-objects",
   "author": "Freshworks Inc",
-  "version": "1.4.0-dew.12",
+  "version": "1.4.0-dew.13",
   "description": "Custom Objects with Crayons",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -39,7 +39,7 @@
     "test": "stencil test --spec --e2e --max-workers=1"
   },
   "dependencies": {
-    "@freshworks/crayons": "^4.3.0-dew.12",
+    "@freshworks/crayons": "^4.3.0-dew.13",
     "@freshworks/crayons-i18n": "^4.3.0-beta.4",
     "@stencil/core": "2.17.4",
     "stencil": "^0.0.5",
