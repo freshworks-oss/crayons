@@ -14,8 +14,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-block-start: 20px;
-  gap: 24px;
+  gap: 8px;
 
   .clearExportFilter {
     font-weight: $font-weight-700;
@@ -85,18 +84,14 @@
       width: 100%;
       height: auto;
       padding-inline: 0;
-      padding-block: 24px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      border-radius: 4px;
-      border: 1px solid $color-smoke-100;
+      gap: 8px;
 
       .co-export-field-content-header {
         width: 100%;
         height: 32px;
-        padding-inline: 24px;
         padding-block: 0;
         box-sizing: border-box;
         display: flex;
@@ -110,14 +105,19 @@
         }
 
         .co-export-field-search {
-          width: 50%;
+          width: 100%;
         }
       }
 
+      .co-export-field-select-all-container {
+        width: 100%;
+        height: 32px;
+        padding-block: 0;
+        box-sizing: border-box;
+      }
       .co-export-field-content-fields {
         width: 100%;
         height: auto;
-        padding-inline: 24px;
         padding-block: 0;
         box-sizing: border-box;
         display: flex;
