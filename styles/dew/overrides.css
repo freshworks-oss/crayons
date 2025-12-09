@@ -32,4 +32,114 @@
   --slider-dew-modal-height: calc(100vh - 16px);
   --slider-dew-modal-margin: 8px;
   --platform-table-toolbar-border-top-radius: 0px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: light) {
+  :root.dew-system-theme {
+    --border-width-large: 2px;
+    --border-width-small: 1px;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semi-bold: 600;
+    --font-size-12: 12px;
+    --font-size-14: 14px;
+    --font-size-16: 16px;
+    --font-size-18: 18px;
+    --font-size-24: 24px;
+    --font-size-32: 32px;
+    --font-size-44: 44px;
+    --line-height-16: 16px;
+    --line-height-20: 20px;
+    --line-height-24: 24px;
+    --line-height-28: 28px;
+    --line-height-36: 36px;
+    --line-height-48: 48px;
+    --line-height-64: 64px;
+    --gradient-fill: none;
+    --border-none: none;
+    --border-transparent: transparent;
+    --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
+    --stroke-width: 4;
+    --box-shadow-none: none;
+    --bg-none: none;
+    --font-italic: italic;
+    --slider-dew-inset-block-start: 32px;
+    --slider-dew-modal-height: calc(100vh - 16px);
+    --slider-dew-modal-margin: 8px;
+    --platform-table-toolbar-border-top-radius: 0px;
+    color-scheme: light;
+  }
+}
+
+:root.dew-dark-theme {
+  --border-width-large: 2px;
+  --border-width-small: 1px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-size-12: 12px;
+  --font-size-14: 14px;
+  --font-size-16: 16px;
+  --font-size-18: 18px;
+  --font-size-24: 24px;
+  --font-size-32: 32px;
+  --font-size-44: 44px;
+  --line-height-16: 16px;
+  --line-height-20: 20px;
+  --line-height-24: 24px;
+  --line-height-28: 28px;
+  --line-height-36: 36px;
+  --line-height-48: 48px;
+  --line-height-64: 64px;
+  --gradient-fill: none;
+  --border-none: none;
+  --border-transparent: transparent;
+  --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
+  --stroke-width: 4;
+  --box-shadow-none: none;
+  --bg-none: none;
+  --font-italic: italic;
+  --slider-dew-inset-block-start: 32px;
+  --slider-dew-modal-height: calc(100vh - 16px);
+  --slider-dew-modal-margin: 8px;
+  --platform-table-toolbar-border-top-radius: 0px;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root.dew-system-theme {
+    --border-width-large: 2px;
+    --border-width-small: 1px;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semi-bold: 600;
+    --font-size-12: 12px;
+    --font-size-14: 14px;
+    --font-size-16: 16px;
+    --font-size-18: 18px;
+    --font-size-24: 24px;
+    --font-size-32: 32px;
+    --font-size-44: 44px;
+    --line-height-16: 16px;
+    --line-height-20: 20px;
+    --line-height-24: 24px;
+    --line-height-28: 28px;
+    --line-height-36: 36px;
+    --line-height-48: 48px;
+    --line-height-64: 64px;
+    --gradient-fill: none;
+    --border-none: none;
+    --border-transparent: transparent;
+    --shadow-focus-checkbox: 0 0 0 1px var(--color-boundary-brand);
+    --stroke-width: 4;
+    --box-shadow-none: none;
+    --bg-none: none;
+    --font-italic: italic;
+    --slider-dew-inset-block-start: 32px;
+    --slider-dew-modal-height: calc(100vh - 16px);
+    --slider-dew-modal-margin: 8px;
+    --platform-table-toolbar-border-top-radius: 0px;
+    color-scheme: dark;
+  }
 }
