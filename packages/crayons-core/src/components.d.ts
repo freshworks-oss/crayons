@@ -61,7 +61,7 @@ export namespace Components {
     }
     interface FwButton {
         /**
-          * Identifier of  the theme based on which the button is styled.
+          * Identifier of  the theme based on which the buttons are styled.
          */
         "color": 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**
@@ -3196,7 +3196,7 @@ declare namespace LocalJSX {
     }
     interface FwButton {
         /**
-          * Identifier of  the theme based on which the button is styled.
+          * Identifier of  the theme based on which the buttons are styled.
          */
         "color"?: 'primary' | 'secondary' | 'danger' | 'link' | 'text';
         /**

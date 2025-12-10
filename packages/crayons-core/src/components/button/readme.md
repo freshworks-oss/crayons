@@ -252,7 +252,7 @@ function App() {
 
 | Property         | Attribute          | Description                                                                  | Type                                                       | Default     |
 | ---------------- | ------------------ | ---------------------------------------------------------------------------- | ---------------------------------------------------------- | ----------- |
-| `color`          | `color`            | Identifier of  the theme based on which the button is styled.                | `"danger" \| "link" \| "primary" \| "secondary" \| "text"` | `'primary'` |
+| `color`          | `color`            | Identifier of  the theme based on which the buttons are styled.              | `"danger" \| "link" \| "primary" \| "secondary" \| "text"` | `'primary'` |
 | `disabled`       | `disabled`         | Disables the button on the interface. Default value is false.                | `boolean`                                                  | `false`     |
 | `fileUploaderId` | `file-uploader-id` | Accepts the id of the fw-file-uploader component to upload the file.         | `string`                                                   | `''`        |
 | `loading`        | `loading`          | Loading state for the button, Default value is false.                        | `boolean`                                                  | `false`     |
