@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.13...@freshworks/crayons@4.3.0-dew.14) (2025-12-10)
-
+## [4.3.0-dew.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.13...@freshworks/crayons@4.3.0-dew.14) (2025-12-10)
 
 ### Reverts
 
-* Revert "chore(theme): update crayons dew overrides" ([5326ae0](https://github.com/freshworks/crayons/commit/5326ae05e0214b42cc9a2d32001f1ba6b1c545af))
-
-
-
-
+- Revert "chore(theme): update crayons dew overrides" ([5326ae0](https://github.com/freshworks/crayons/commit/5326ae05e0214b42cc9a2d32001f1ba6b1c545af))
 
 ## [4.3.0-dew.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.12...@freshworks/crayons@4.3.0-dew.13) (2025-11-24)
 
