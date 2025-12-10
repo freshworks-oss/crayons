@@ -1,5 +1,5 @@
 {
-  "packages": ["packages/*", "packages/crayons-extended/*", "styles/dew/*"],
+  "packages": ["packages/*", "packages/crayons-extended/*"],
   "npmClient": "npm",
   "version": "independent",
   "command": {

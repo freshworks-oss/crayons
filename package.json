@@ -132,10 +132,10 @@
   },
   "lint-staged": {
     "**/*.{css,scss}": [
-      "stylelint --allow-empty-input"
+      "stylelint"
     ],
     "**/.vuepress/**/*.vue": [
-      "stylelint --allow-empty-input"
+      "stylelint"
     ],
     "*.{js,ts,tsx,jsx}": [
       "eslint --fix"
