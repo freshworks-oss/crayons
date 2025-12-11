@@ -20,20 +20,14 @@ import { deepCloneObject } from '../form-builder/utils/form-builder-utils';
 export class CoExport {
   @Element() host!: HTMLElement;
 
-  private SEARCH_COUNT = 10;
-  private debouncedHandleInput: any;
+  private debouncedHandleInput: (event: CustomEvent) => void | null = null;
   private boolAddedClearFilterEvent = false;
 
   @State() allFieldsSelected = false;
-
   @State() arrSearchedFields = null;
-
   @State() searching = false;
-
   @State() searchText = '';
-
   @State() clearFilter = false;
-
   @State() selectedFieldCount = 0;
 
   /**
@@ -54,14 +48,14 @@ export class CoExport {
   @Event() fwCloseExport: EventEmitter;
 
   @Method()
-  async close() {
+  async close(): Promise<boolean> {
     this.resetStates();
     this.isOpen = false;
     return true;
   }
 
   @Method()
-  async open() {
+  async open(): Promise<boolean> {
     this.initializeSearchDebounce();
     this.isOpen = true;
     return true;
@@ -74,7 +68,7 @@ export class CoExport {
     this.initializeSearchDebounce();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     this.addClearFilterEvent();
   }
 
@@ -102,7 +96,7 @@ export class CoExport {
   private addClearFilterEvent = () => {
     if (!this.boolAddedClearFilterEvent) {
       const linkClearFilter =
-        this.host.shadowRoot.querySelector('.clearExportFilter');
+        this.host.shadowRoot?.querySelector('.clearExportFilter');
 
       if (linkClearFilter) {
         this.boolAddedClearFilterEvent = true;
@@ -112,24 +106,21 @@ export class CoExport {
   };
 
   private updateSelectedCount() {
-    if (this.value?.fields?.length > 0) {
-      const arrFields = this.value.fields;
-      const arrSelectedFields = arrFields.filter(
-        (dataItem) =>
-          Object.prototype.hasOwnProperty.call(dataItem, 'selected') &&
-          dataItem.selected === true
-      );
-      const numSelectedCount = arrSelectedFields?.length || 0;
-      this.selectedFieldCount = numSelectedCount;
-      this.allFieldsSelected =
-        numSelectedCount === arrFields.length ? true : false;
-    } else {
+    if (!this.value?.fields?.length) {
       this.selectedFieldCount = 0;
       this.allFieldsSelected = false;
+      return;
     }
+
+    const selectedFields = this.value.fields.filter(
+      (field) => field.selected === true
+    );
+    this.selectedFieldCount = selectedFields.length;
+    this.allFieldsSelected =
+      this.selectedFieldCount === this.value.fields.length;
   }
 
-  private clearFiltersHandler = (event) => {
+  private clearFiltersHandler = (event: Event) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
 
@@ -142,22 +133,21 @@ export class CoExport {
   private searchChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
-    const strInputText = event?.detail?.value?.trim() || '';
-    this.searchText = strInputText;
 
-    if (strInputText) {
-      if (this.value?.fields?.length > 0) {
-        const strSearchableText = strInputText.toLowerCase();
-        const arrResults = this.value.fields.filter(function (dataItem) {
-          return dataItem.label.toLowerCase().indexOf(strSearchableText) !== -1;
-        });
-        this.searching = true;
-        this.arrSearchedFields = deepCloneObject(arrResults);
-        return;
-      }
+    const searchText = event?.detail?.value?.trim() || '';
+    this.searchText = searchText;
+
+    if (searchText && this.value?.fields?.length) {
+      const searchableText = searchText.toLowerCase();
+      const results = this.value.fields.filter((field) =>
+        field.label.toLowerCase().includes(searchableText)
+      );
+      this.searching = true;
+      this.arrSearchedFields = deepCloneObject(results);
+    } else {
+      this.searching = false;
+      this.arrSearchedFields = null;
     }
-    this.searching = false;
-    this.arrSearchedFields = null;
   };
 
   private clearSearchHandler = (event: CustomEvent) => {
@@ -171,34 +161,22 @@ export class CoExport {
   private selectAllFieldsChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+
     const boolSelected = event.detail.meta.checked;
     this.allFieldsSelected = boolSelected;
 
+    // Update search results if searching
     if (this.searching && this.arrSearchedFields) {
-      const intSearchLength = this.arrSearchedFields.length;
-      for (let i1 = 0; i1 < intSearchLength; i1++) {
-        const objField = this.arrSearchedFields[i1];
-        if (
-          !Object.prototype.hasOwnProperty.call(objField, 'disabled') ||
-          !objField.disabled
-        ) {
-          this.arrSearchedFields[i1] = { ...objField, selected: boolSelected };
-        }
-      }
+      this.arrSearchedFields = this.arrSearchedFields.map((field) =>
+        field.disabled ? field : { ...field, selected: boolSelected }
+      );
     }
 
-    if (this.value?.fields?.length > 0) {
-      const arrFields = this.value.fields;
-      const intLength = arrFields.length;
-      for (let i1 = 0; i1 < intLength; i1++) {
-        const objField = arrFields[i1];
-        if (
-          !Object.prototype.hasOwnProperty.call(objField, 'disabled') ||
-          !objField.disabled
-        ) {
-          arrFields[i1] = { ...objField, selected: boolSelected };
-        }
-      }
+    // Update main fields
+    if (this.value?.fields?.length) {
+      this.value.fields = this.value.fields.map((field) =>
+        field.disabled ? field : { ...field, selected: boolSelected }
+      );
       this.updateSelectedCount();
     }
   };
@@ -207,19 +185,15 @@ export class CoExport {
     event.stopImmediatePropagation();
     event.stopPropagation();
 
-    if (this.value?.fields?.length > 0) {
-      const boolSelected = event.detail.checked;
-      const strSelectedValue = event.detail.value;
-      const arrSelectedField = this.value.fields.filter(
-        (dataItem) =>
-          Object.prototype.hasOwnProperty.call(dataItem, 'id') &&
-          dataItem.id === strSelectedValue
-      );
+    if (!this.value?.fields?.length) return;
 
-      if (arrSelectedField && arrSelectedField.length > 0) {
-        arrSelectedField[0].selected = boolSelected;
-        this.updateSelectedCount();
-      }
+    const isSelected = event.detail.checked;
+    const fieldId = event.detail.value;
+
+    const field = this.value.fields.find((field) => field.id === fieldId);
+    if (field) {
+      field.selected = isSelected;
+      this.updateSelectedCount();
     }
   };
 
@@ -232,34 +206,34 @@ export class CoExport {
   private exportHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+
+    if (!this.value) {
+      console.warn('No export data available');
+      return;
+    }
+
     this.fwExport.emit({ value: deepCloneObject(this.value) });
   };
 
-  private exportFormatChangeHandler = (event: CustomEvent) => {
-    event.stopImmediatePropagation();
-    event.stopPropagation();
-    const strSelectedFormat = event?.detail?.value;
-    if (strSelectedFormat && strSelectedFormat !== '' && this.value?.formats) {
-      this.value.formats.selectedValue = strSelectedFormat;
-    }
-  };
+  private getFieldKey(field): string {
+    return this.searching && this.searchText
+      ? `search_${this.searchText}_${field.id}`
+      : field.id;
+  }
 
   private renderCheckboxField(dataField) {
-    const strKey =
-      this.searching && this.searchText && this.searchText !== ''
-        ? `search_${this.searchText}_${dataField.id}`
-        : `${dataField.id}`;
+    const key = this.getFieldKey(dataField);
 
     return (
       <fw-co-export-field
-        key={strKey}
+        key={key}
         value={dataField}
         onFwChange={this.fieldSelectionChangeHandler}
       ></fw-co-export-field>
     );
   }
 
-  render() {
+  render(): Element {
     const boolOpen = this.isOpen;
     const objFilter = boolOpen ? this.value?.filter : null;
     const boolShowFilteredRecords =
@@ -271,24 +245,15 @@ export class CoExport {
         })
       : '';
 
-    const objExportFormat = this.value?.formats || null;
-    const strSelectedFormatValue = objExportFormat
-      ? objExportFormat.selectedValue
-      : '';
-    const arrExportFormat = objExportFormat
-      ? objExportFormat?.options || null
-      : null;
-
     const arrFields = this.searching
       ? this.arrSearchedFields
       : this.value?.fields || null;
     const numTotalFieldCount = arrFields ? arrFields.length : 0;
-    const boolShowSearch =
-      this.searching || numTotalFieldCount > this.SEARCH_COUNT;
+    const boolShowSearch = this.searching || numTotalFieldCount > 0;
     const boolShowEmptySearch =
       boolShowSearch && this.searching && numTotalFieldCount <= 0;
     const numFirstColumnCount =
-      numTotalFieldCount <= this.SEARCH_COUNT
+      numTotalFieldCount <= 0
         ? numTotalFieldCount
         : Math.ceil(numTotalFieldCount / 2);
     const numSecondColumnCount = boolShowSearch
@@ -309,22 +274,27 @@ export class CoExport {
           .map((dataItem) => this.renderCheckboxField(dataItem))
       : null;
 
-    let strBaseClassName = 'co-export-content';
-    if (!boolShowFilteredRecords) {
-      strBaseClassName += ' co-export-content--without-filter';
-    }
+    const strBaseClassName = [
+      'co-export-content',
+      !boolShowFilteredRecords && 'co-export-content--without-filter',
+    ]
+      .filter(Boolean)
+      .join(' ');
 
-    let strFirstColumnClassName = 'co-export-field-content-fields-column1';
-    if (!boolShowSecondColumn) {
-      strFirstColumnClassName +=
-        ' co-export-field-content-fields-column1--full-width';
-    }
+    const strFirstColumnClassName = [
+      'co-export-field-content-fields-column1',
+      !boolShowSecondColumn &&
+        'co-export-field-content-fields-column1--full-width',
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <fw-modal
         isOpen={this.isOpen}
         slider={true}
-        icon='download'
+        icon='file-export'
+        icon-size={'24'}
         titleText={TranslationController.t('export.modalTitle')}
         onFwClose={this.closeModalHandler}
       >
@@ -335,39 +305,32 @@ export class CoExport {
                 <span innerHTML={strFilteredData} />
               </fw-inline-message>
             )}
-            <div class='co-export-format'>
-              <span class='co-export-format-label'>
-                {TranslationController.t('export.exportFormat')}
-              </span>
-              {arrExportFormat && arrExportFormat.length > 0 && (
-                <fw-radio-group
-                  orientation='row'
-                  value={strSelectedFormatValue}
-                  onFwChange={this.exportFormatChangeHandler}
-                >
-                  {arrExportFormat.map((dataItem) => {
-                    return (
-                      <fw-radio value={dataItem.value}>
-                        {dataItem.label}
-                      </fw-radio>
-                    );
-                  })}
-                </fw-radio-group>
-              )}
-            </div>
+
             <div class='co-export-field-selection'>
               <div class='co-export-field-header'>
-                <span class='co-export-field-header-label'>
-                  {TranslationController.t('export.fields')}
+                <span class='co-export-field-header-selected-count-label'>
+                  {TranslationController.t('export.fieldInformationMessage')}
                 </span>
                 <span class='co-export-field-header-selected-count-label'>
                   {TranslationController.t('export.selectedFields', {
-                    count: this.selectedFieldCount,
+                    count: `${this.selectedFieldCount}/${numTotalFieldCount}`,
                   })}
                 </span>
               </div>
               <div class='co-export-field-content'>
                 <div class='co-export-field-content-header'>
+                  <fw-input
+                    clear-input
+                    icon-left='search'
+                    placeholder={TranslationController.t(
+                      'export.searchFieldsPrompt'
+                    )}
+                    onFwInput={this.debouncedHandleInput}
+                    onFwInputClear={this.clearSearchHandler}
+                    class='co-export-field-search'
+                  ></fw-input>
+                </div>
+                <div class='co-export-field-select-all-container'>
                   <fw-checkbox
                     class='co-export-field-select-all'
                     checked={this.allFieldsSelected}
@@ -377,18 +340,6 @@ export class CoExport {
                       {TranslationController.t('export.selectAllFields')}
                     </span>
                   </fw-checkbox>
-                  {boolShowSearch && (
-                    <fw-input
-                      clear-input
-                      icon-left='search'
-                      placeholder={TranslationController.t(
-                        'export.searchFieldsPrompt'
-                      )}
-                      onFwInput={this.debouncedHandleInput}
-                      onFwInputClear={this.clearSearchHandler}
-                      class='co-export-field-search'
-                    ></fw-input>
-                  )}
                 </div>
                 <div class='co-export-field-content-fields'>
                   {!boolShowEmptySearch && (

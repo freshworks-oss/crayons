@@ -272,6 +272,7 @@
     "modalTitle": "Export Records",
     "exportFormat": "Export as:",
     "fields": "Fields",
+    "fieldInformationMessage": "Select the fields you want to export",
     "selectAllFields": "Select All Fields",
     "searchFieldsPrompt": "Search fields",
     "selectedFields": "{{count}} selected",
