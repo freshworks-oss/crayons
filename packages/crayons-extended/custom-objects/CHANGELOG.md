@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.4.0-dew.15](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.14...@freshworks/crayons-custom-objects@1.4.0-dew.15) (2025-12-11)
-
+## [1.4.0-dew.15](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.14...@freshworks/crayons-custom-objects@1.4.0-dew.15) (2025-12-11)
 
 ### Features
 
-* **export:** add end-to-end tests for fw-co-export component and improve styling ([4f04c39](https://github.com/freshworks/crayons/commit/4f04c39c9b7f695733cc359ab2515c2a7a5fb247))
-
-
-
-
+- **export:** add end-to-end tests for fw-co-export component and improve styling ([4f04c39](https://github.com/freshworks/crayons/commit/4f04c39c9b7f695733cc359ab2515c2a7a5fb247))
 
 ## [1.4.0-dew.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.11...@freshworks/crayons-custom-objects@1.4.0-dew.12) (2025-11-17)
 
