@@ -126,5 +126,6 @@
     "url": "https://github.com/freshworks/crayons/issues"
   },
   "homepage": "https://github.com/freshworks/crayons#readme",
-  "sideEffects": false
+  "sideEffects": false,
+  "gitHead": "67504142fb4408e6b950436cfa0f9880cec5009c"
 }

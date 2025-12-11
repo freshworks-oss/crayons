@@ -52,5 +52,6 @@
     "@stencil/store": "^1.5.0",
     "date-fns": "^2.28.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "gitHead": "67504142fb4408e6b950436cfa0f9880cec5009c"
 }
