@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dew.15](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.14...@freshworks/crayons@4.3.0-dew.15) (2025-12-11)
+
+**Note:** Version bump only for package @freshworks/crayons
+
+
+
+
+
 ## [4.3.0-dew.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.13...@freshworks/crayons@4.3.0-dew.14) (2025-12-10)
 
 ### Reverts

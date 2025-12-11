@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dew.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.3.0-beta.4...@freshworks/crayons-i18n@4.3.0-dew.0) (2025-12-11)
+
+
+### Features
+
+* **export:** add end-to-end tests for fw-co-export component and improve styling ([4f04c39](https://github.com/freshworks/crayons/commit/4f04c39c9b7f695733cc359ab2515c2a7a5fb247))
+
+
+
+
+
 ## [4.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.3.0-beta.3...@freshworks/crayons-i18n@4.3.0-beta.4) (2025-01-29)
 
 ### Bug Fixes
