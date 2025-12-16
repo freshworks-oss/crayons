@@ -28,6 +28,10 @@
       "type": "DATE",
       "icon": { "name": "calendar", "bg_color": "#FFECF0" }
     },
+    "DATE_TIME": {
+      "type": "DATE_TIME",
+      "icon": { "name": "calendar", "bg_color": "#FFECF0" }
+    },
     "DROPDOWN": {
       "type": "DROPDOWN",
       "icon": { "name": "dropdown", "bg_color": "#E5F2FE" },

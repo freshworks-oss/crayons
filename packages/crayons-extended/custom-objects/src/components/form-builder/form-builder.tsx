@@ -266,6 +266,7 @@ export class FormBuilder {
       'DEPENDENT_FIELD',
       'RELATIONSHIP',
       'MULTI_SELECT',
+      'DATE_TIME',
     ];
   }
 
