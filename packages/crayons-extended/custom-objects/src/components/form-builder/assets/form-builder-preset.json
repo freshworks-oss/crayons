@@ -30,7 +30,7 @@
     },
     "DATE_TIME": {
       "type": "DATE_TIME",
-      "icon": { "name": "calendar", "bg_color": "#FFECF0" }
+      "icon": { "name": "calendar-time", "bg_color": "#FFECF0" }
     },
     "DROPDOWN": {
       "type": "DROPDOWN",
