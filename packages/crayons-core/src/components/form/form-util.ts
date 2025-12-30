@@ -169,6 +169,7 @@ function createYupSchema(schema: any, config: any) {
     case 'TEXT':
     case 'PARAGRAPH':
     case 'DATE':
+    case 'DATE_TIME':
     case 'TIME':
     case 'RADIO':
     case 'EMAIL':
@@ -326,6 +327,7 @@ export const serializeForm = (
         const parsed = parseFloat(val);
         return { ...acc, [key]: isNaN(parsed) ? undefined : parsed };
       case 'DATE':
+      case 'DATE_TIME':
         if (!val) return { ...acc, [key]: undefined };
         // if the value is of the ISO UTC time format, timezone offset need not be calculated
         // when datepicker is used in form component, the value will be passed to form in UTC ISO format, hence skipping.
