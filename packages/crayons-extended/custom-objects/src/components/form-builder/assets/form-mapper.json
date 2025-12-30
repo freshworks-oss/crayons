@@ -8,6 +8,7 @@
       "NUMBER": "NUMBER",
       "DECIMAL": "DECIMAL",
       "DATE": "DATE",
+      "DATE_TIME": "DATE_TIME",
       "DROPDOWN": "DROPDOWN",
       "CHECKBOX": "CHECKBOX",
       "MULTI_SELECT": "MULTI_SELECT"
@@ -20,6 +21,7 @@
       "NUMBER",
       "DECIMAL",
       "DATE",
+      "DATE_TIME",
       "DROPDOWN",
       "CHECKBOX",
       "MULTI_SELECT"
@@ -163,6 +165,26 @@
           }
         ]
       },
+      "DATE_TIME": {
+        "display_label": "fieldTypeDateTime",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequired",
+            "enabled": true,
+            "selected": false
+          },
+          {
+            "key": "filterable",
+            "tag": "fieldFilterTag",
+            "display_label": "fieldFilter",
+            "info": "fieldFilterHoverText",
+            "enabled": true,
+            "selected": true
+          }
+        ]
+      },
       "DROPDOWN": {
         "display_label": "fieldTypeDropdown",
         "checkboxes": [
@@ -264,6 +286,7 @@
       "DECIMAL": { "count": 20, "message": "maximumLimits.fields" },
       "MULTI_SELECT": { "count": 20, "message": "maximumLimits.fields" },
       "DATE": { "count": 30, "message": "maximumLimits.fields" },
+      "DATE_TIME": { "count": 30, "message": "maximumLimits.fields" },
       "TEXT": { "count": 80, "message": "maximumLimits.fields" },
       "PARAGRAPH": { "count": 10, "message": "maximumLimits.fields" },
       "DROPDOWN": { "count": 30, "message": "maximumLimits.fields" },
