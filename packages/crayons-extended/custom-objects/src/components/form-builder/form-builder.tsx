@@ -262,7 +262,6 @@ export class FormBuilder {
       'NUMBER',
       'DECIMAL',
       'DATE',
-      'DATE_TIME',
       'DROPDOWN',
       'DEPENDENT_FIELD',
       'RELATIONSHIP',
