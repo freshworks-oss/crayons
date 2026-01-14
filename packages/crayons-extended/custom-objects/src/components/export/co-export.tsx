@@ -270,7 +270,7 @@ export class CoExport {
 
     const fieldColumn2Elements = boolShowSecondColumn
       ? arrFields
-          .slice(numFirstColumnCount + 1)
+          .slice(numFirstColumnCount)
           .map((dataItem) => this.renderCheckboxField(dataItem))
       : null;
 

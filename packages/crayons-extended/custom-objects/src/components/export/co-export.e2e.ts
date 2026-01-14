@@ -14,7 +14,7 @@ describe('fw-co-export', () => {
 
     await page.setContent('<fw-co-export is-open="false"></fw-co-export>');
     const modal = await page.find('fw-co-export >>> fw-modal');
-    expect(modal.getAttribute('isOpen')).toBe('false');
+    expect(await modal.getProperty('isOpen')).toBe(false);
   });
 
   it('should render modal when isOpen is true', async () => {
@@ -22,7 +22,7 @@ describe('fw-co-export', () => {
 
     await page.setContent('<fw-co-export is-open="true"></fw-co-export>');
     const modal = await page.find('fw-co-export >>> fw-modal');
-    expect(modal.getAttribute('isOpen')).toBe('true');
+    expect(await modal.getProperty('isOpen')).toBe(true);
   });
 
   it('should emit fwExport event when export button is clicked', async () => {
@@ -69,7 +69,7 @@ describe('fw-co-export', () => {
     await element.callMethod('close');
     await page.waitForChanges();
 
-    expect(element.getAttribute('is-open')).toBe('false');
+    expect(await element.getProperty('isOpen')).toBe(false);
   });
 
   it('should open modal when open method is called', async () => {
@@ -81,7 +81,7 @@ describe('fw-co-export', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    expect(element.getAttribute('is-open')).toBe('true');
+    expect(await element.getProperty('isOpen')).toBe(true);
   });
 
   it('should render fields when value is provided', async () => {
@@ -120,10 +120,14 @@ describe('fw-co-export', () => {
     element.setProperty('value', testValue);
     await page.waitForChanges();
 
+    // Wait a bit more for the value watcher to process the update
+    await page.waitForTimeout(100);
+    await page.waitForChanges();
+
     const selectedCount = await page.find(
       'fw-co-export >>> .co-export-field-header-selected-count-label:last-child'
     );
-    expect(selectedCount.textContent).toContain('1/2');
+    expect(selectedCount.textContent).toContain('1/2 selected');
   });
 
   it('should filter fields when search is performed', async () => {
@@ -147,8 +151,8 @@ describe('fw-co-export', () => {
     await searchInput.triggerEvent('fwInput', { detail: { value: 'Name' } });
     await page.waitForChanges();
 
-    // Wait for debounced search to complete
-    await page.waitForTimeout(350);
+    // Wait for debounced search to complete (debounce timeout is 1000ms)
+    await page.waitForTimeout(1100);
     await page.waitForChanges();
 
     const fieldElements = await page.findAll(
@@ -183,6 +187,6 @@ describe('fw-co-export', () => {
     const selectedCount = await page.find(
       'fw-co-export >>> .co-export-field-header-selected-count-label:last-child'
     );
-    expect(selectedCount.textContent).toContain('2/2');
+    expect(selectedCount.textContent).toContain('2/2 selected');
   });
 });
