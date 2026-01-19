@@ -169,6 +169,7 @@ function createYupSchema(schema: any, config: any) {
     case 'TEXT':
     case 'PARAGRAPH':
     case 'DATE':
+    case 'DATE_TIME':
     case 'TIME':
     case 'RADIO':
     case 'EMAIL':
