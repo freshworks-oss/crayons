@@ -121,7 +121,7 @@ export class CoExportField {
           {!this.addTooltip && this.renderLabel()}
         </fw-checkbox>
         {boolShowInfo && (
-          <fw-tooltip trigger='hover' content={strInfo}>
+          <fw-tooltip trigger='hover' content={strInfo} hoist>
             <fw-icon
               class={`${strBaseClassName}-fw-icon`}
               size={12}
