@@ -88,6 +88,11 @@ export class Tooltip {
    * @returns {JSX.Element}
    */
   render(): JSX.Element {
+    // Auto-detect if tooltip is inside a modal and force hoist
+    const isInsideModal =
+      this.host.closest('fw-modal, .modal-overlay') !== null;
+    const shouldHoist = this.hoist || isInsideModal;
+
     return (
       <fw-popover
         trigger={this.trigger}
@@ -97,7 +102,7 @@ export class Tooltip {
         distance={this.distance}
         disable-transition='true'
         has-border='false'
-        hoist={this.hoist}
+        hoist={shouldHoist}
         ref={(popoverRef) => (this.popoverRef = popoverRef)}
       >
         <slot slot='popover-trigger'></slot>
