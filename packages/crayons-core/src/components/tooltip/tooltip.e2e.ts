@@ -69,4 +69,59 @@ describe('fw-tooltip', () => {
       'This tooltip has <b>HTML</b> content.'
     );
   });
+
+  it('should have tooltip content hidden by default', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-tooltip content="Tooltip text"><fw-button>Trigger</fw-button></fw-tooltip>'
+    );
+    await page.waitForChanges();
+    const popover: any = await page.find('fw-tooltip >>> :first-child');
+    const popoverContent = popover.shadowRoot.querySelector('.popper-content');
+    expect(popoverContent.hasAttribute('data-show')).toBeFalsy();
+  });
+
+  it('should show and hide tooltip when inside .modal-overlay', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`
+      <div class="modal-overlay">
+        <fw-tooltip content="Tooltip in modal">
+          <fw-button>Trigger</fw-button>
+        </fw-tooltip>
+      </div>
+    `);
+    await page.waitForChanges();
+    const tooltip: any = await page.find('fw-tooltip');
+    await tooltip.callMethod('show');
+    await page.waitForChanges();
+    const popover: any = await page.find('fw-tooltip >>> :first-child');
+    let popoverContent = popover.shadowRoot.querySelector('.popper-content');
+    expect(popoverContent.hasAttribute('data-show')).toBeTruthy();
+
+    await tooltip.callMethod('hide');
+    await page.waitForChanges();
+    popoverContent = popover.shadowRoot.querySelector('.popper-content');
+    expect(popoverContent.hasAttribute('data-show')).toBeFalsy();
+  });
+
+  it('should show tooltip when inside fw-modal', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`
+      <fw-modal is-open>
+        <fw-tooltip content="Tooltip in fw-modal">
+          <fw-button>Trigger</fw-button>
+        </fw-tooltip>
+      </fw-modal>
+    `);
+    await page.waitForChanges();
+    const tooltip: any = await page.find('fw-tooltip');
+    await tooltip.callMethod('show');
+    await page.waitForChanges();
+    const popover: any = await page.find('fw-tooltip >>> :first-child');
+    const popoverContent = popover.shadowRoot.querySelector('.popper-content');
+    expect(popoverContent.hasAttribute('data-show')).toBeTruthy();
+  });
 });
