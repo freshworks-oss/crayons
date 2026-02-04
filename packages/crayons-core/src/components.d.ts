@@ -824,7 +824,7 @@ export namespace Components {
         /**
           * Id to uniquely identify the Form. If not set, a random Id will be generated.
          */
-        "formId": any;
+        "formId": string;
         /**
           * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
          */
@@ -3984,7 +3984,7 @@ declare namespace LocalJSX {
         /**
           * Id to uniquely identify the Form. If not set, a random Id will be generated.
          */
-        "formId"?: any;
+        "formId"?: string;
         /**
           * Schema to render Dynamic Form. Contains an array of fields pointing to each form control. Please see the usage reference for examples.
          */
