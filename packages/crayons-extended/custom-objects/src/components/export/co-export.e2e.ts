@@ -189,4 +189,120 @@ describe('fw-co-export', () => {
     );
     expect(selectedCount.textContent).toContain('2/2 selected');
   });
+
+  it('should render field with info and show info icon with tooltip', async () => {
+    const page = await newE2EPage();
+    const testValue = {
+      fields: [
+        {
+          id: 'record-id',
+          label: 'Record id',
+          selected: true,
+          info: 'It is an internal id used in the backend to distinguish the records',
+        },
+        { id: '2', label: 'Field 2', selected: false },
+      ],
+    };
+
+    await page.setContent(`<fw-co-export is-open="true"></fw-co-export>`);
+    const element = await page.find('fw-co-export');
+
+    element.setProperty('value', testValue);
+    await page.waitForChanges();
+    await page.waitForTimeout(100);
+    await page.waitForChanges();
+
+    const fields = await page.findAll('fw-co-export >>> fw-co-export-field');
+    let infoTooltip = null;
+    let fieldWithInfo = null;
+    for (const field of fields) {
+      const t = await field.find('>>> fw-tooltip');
+      if (t) {
+        infoTooltip = t;
+        fieldWithInfo = field;
+        break;
+      }
+    }
+    expect(infoTooltip).toBeTruthy();
+    const infoIcon = await fieldWithInfo.find('>>> fw-tooltip fw-icon');
+    expect(infoIcon).toBeTruthy();
+  });
+
+  it('should have tooltip hidden by default for field info in export modal', async () => {
+    const page = await newE2EPage();
+    const testValue = {
+      fields: [
+        {
+          id: 'record-id',
+          label: 'Record id',
+          selected: true,
+          info: 'Internal id for records',
+        },
+      ],
+    };
+
+    await page.setContent(`<fw-co-export is-open="true"></fw-co-export>`);
+    const element = await page.find('fw-co-export');
+
+    element.setProperty('value', testValue);
+    await page.waitForChanges();
+    await page.waitForTimeout(100);
+    await page.waitForChanges();
+
+    const fields = await page.findAll('fw-co-export >>> fw-co-export-field');
+    let infoTooltip = null;
+    for (const field of fields) {
+      const t = await field.find('>>> fw-tooltip');
+      if (t) {
+        infoTooltip = t;
+        break;
+      }
+    }
+    expect(infoTooltip).toBeTruthy();
+    const popover = await infoTooltip.find('>>> :first-child');
+    const popoverContent = popover.shadowRoot.querySelector('.popper-content');
+    expect(popoverContent.hasAttribute('data-show')).toBeFalsy();
+  });
+
+  it('should show correct info content when field info tooltip is opened', async () => {
+    const page = await newE2EPage();
+    const infoText =
+      'It is an internal id used in the backend to distinguish the records';
+    const testValue = {
+      fields: [
+        {
+          id: 'record-id',
+          label: 'Record id',
+          selected: true,
+          info: infoText,
+        },
+      ],
+    };
+
+    await page.setContent(`<fw-co-export is-open="true"></fw-co-export>`);
+    const element = await page.find('fw-co-export');
+
+    element.setProperty('value', testValue);
+    await page.waitForChanges();
+    await page.waitForTimeout(100);
+    await page.waitForChanges();
+
+    const fields = await page.findAll('fw-co-export >>> fw-co-export-field');
+    let infoTooltip = null;
+    for (const field of fields) {
+      const t = await field.find('>>> fw-tooltip');
+      if (t) {
+        infoTooltip = t;
+        break;
+      }
+    }
+    expect(infoTooltip).toBeTruthy();
+    expect(await infoTooltip.getProperty('content')).toBe(infoText);
+
+    await (infoTooltip as any).callMethod('show');
+    await page.waitForChanges();
+    const popover = await infoTooltip.find('>>> :first-child');
+    const popoverContent = popover.shadowRoot.querySelector('.popper-content');
+    expect(popoverContent.hasAttribute('data-show')).toBeTruthy();
+  });
 });

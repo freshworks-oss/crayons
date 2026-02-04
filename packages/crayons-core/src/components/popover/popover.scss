@@ -48,6 +48,27 @@
 
 .popper-content[data-show] {
   display: block;
+  transform: scale(1);
+  z-index: 10000;
+}
+
+/* Fix positioning for popovers inside modals - force viewport positioning */
+fw-modal .popper-content[data-show],
+.modal-overlay .popper-content[data-show],
+fw-modal fw-tooltip .popper-content[data-show],
+.modal-overlay fw-tooltip .popper-content[data-show] {
+  position: fixed;
+  z-index: 10000;
+  transform: scale(1);
+}
+
+/* Ensure modal popovers and tooltips are hoisted to body level */
+fw-modal .popper-content,
+.modal-overlay .popper-content,
+fw-modal fw-tooltip .popper-content,
+.modal-overlay fw-tooltip .popper-content {
+  /* These will be moved to body by Popper when strategy is fixed */
+  contain: none;
 }
 
 .overlay {

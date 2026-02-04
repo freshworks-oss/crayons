@@ -196,9 +196,14 @@ export class Popover {
   }
 
   setPopperOptions() {
+    // Auto-detect if popover is inside a modal and force fixed strategy
+    const isInsideModal =
+      this.host.closest('fw-modal, .modal-overlay') !== null;
+    const useFixedStrategy = this.hoist || isInsideModal;
+
     this.popperOptions = {
       placement: this.placement,
-      strategy: this.hoist ? 'fixed' : 'absolute',
+      strategy: useFixedStrategy ? 'fixed' : 'absolute',
       modifiers: [
         {
           name: 'flip',
@@ -209,7 +214,9 @@ export class Popover {
         {
           name: 'preventOverflow',
           options: {
-            boundary: this.boundary || 'clippingParents',
+            boundary: isInsideModal
+              ? 'viewport'
+              : this.boundary || 'clippingParents',
           },
         },
         {
@@ -276,7 +283,7 @@ export class Popover {
   updatePopper() {
     if (this.isOpen) {
       !this.popperInstance && this.createPopperInstance();
-      // recompute posiiton of popper
+      // recompute position of popper
       this.popperInstance?.update();
     }
   }
