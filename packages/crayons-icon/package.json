@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/freshworks/crayons.git"
   },
-  "version": "4.2.0",
+  "version": "4.2.0-dew.4",
   "description": "Freshworks `Crayons Icon` is an Icon library of SVGs. It also provides a NodeJS CLI to optimize SVGs.",
   "main": "dist/index.js",
   "bin": {
