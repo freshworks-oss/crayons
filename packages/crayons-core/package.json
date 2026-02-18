@@ -15,7 +15,7 @@
     "typescript"
   ],
   "author": "Freshworks Inc",
-  "version": "4.3.0-dew.17",
+  "version": "4.3.0-dew.18",
   "description": "Crayons Web Components library",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -108,7 +108,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@freshworks/crayons-i18n": "^4.3.0-dew.2",
+    "@freshworks/crayons-i18n": "^4.3.0-dew.3",
     "@popperjs/core": "^2.10.2",
     "@stencil/core": "2.17.4",
     "@tanstack/virtual-core": "^3.0.0-beta.68",
