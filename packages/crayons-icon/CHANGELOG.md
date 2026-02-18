@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-dew.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0...@freshworks/crayons-icon@4.2.0-dew.5) (2026-02-18)
-
+## [4.2.0-dew.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0...@freshworks/crayons-icon@4.2.0-dew.5) (2026-02-18)
 
 ### Reverts
 
-* Revert "chore(release): publish" ([a6e5b35](https://github.com/freshworks/crayons/commit/a6e5b359e451b83e92c63205e8e70ed33ffc3c53))
-
-
-
-
+- Revert "chore(release): publish" ([a6e5b35](https://github.com/freshworks/crayons/commit/a6e5b359e451b83e92c63205e8e70ed33ffc3c53))
 
 ## [4.2.0-dew.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.2.0-dew.1...@freshworks/crayons-icon@4.2.0-dew.2) (2025-11-24)
 

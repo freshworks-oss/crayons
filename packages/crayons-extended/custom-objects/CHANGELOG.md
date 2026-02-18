@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.4.0-dew.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0...@freshworks/crayons-custom-objects@1.4.0-dew.18) (2026-02-18)
-
+## [1.4.0-dew.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0...@freshworks/crayons-custom-objects@1.4.0-dew.18) (2026-02-18)
 
 ### Reverts
 
-* Revert "chore(release): publish" ([a6e5b35](https://github.com/freshworks/crayons/commit/a6e5b359e451b83e92c63205e8e70ed33ffc3c53))
-
-
-
-
+- Revert "chore(release): publish" ([a6e5b35](https://github.com/freshworks/crayons/commit/a6e5b359e451b83e92c63205e8e70ed33ffc3c53))
 
 ## [1.4.0-dew.15](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.14...@freshworks/crayons-custom-objects@1.4.0-dew.15) (2025-12-11)
 
