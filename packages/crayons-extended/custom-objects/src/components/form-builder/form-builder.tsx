@@ -1185,24 +1185,24 @@ export class FormBuilder {
       'DELETE'
     );
 
-    let modalConfirmDelete: any = null;
-
-    const confirmDeleteSectionHandler = (objDetail) => {
-      this.fwDeleteField.emit({ sectionDeletion: true, ...objDetail });
-      modalConfirmDelete?.close();
-    };
-
-    const deleteSectionClickHandler = (event: CustomEvent) => {
-      event.stopImmediatePropagation();
-      event.stopPropagation();
-      if (boolDeleteAllowed) {
-        modalConfirmDelete?.open();
-      }
-    };
-
     return (
       <div>
         {dataItem.choices?.map((choice) => {
+          let modalConfirmDelete: any = null;
+
+          const confirmDeleteSectionHandler = (objDetail) => {
+            this.fwDeleteField.emit({ sectionDeletion: true, ...objDetail });
+            modalConfirmDelete?.close();
+          };
+
+          const deleteSectionClickHandler = (event: CustomEvent) => {
+            event.stopImmediatePropagation();
+            event.stopPropagation();
+            if (boolDeleteAllowed) {
+              modalConfirmDelete?.open();
+            }
+          };
+
           const acceptFromSections = dataItem.choices
             .filter((c) => c.choice_options?.section_name) // Ensure section_name is defined
             .map((c) => `sectionIdentifier-${c.choice_options.section_name}`)
