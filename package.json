@@ -38,7 +38,7 @@
     "storybook:dev": "lerna run build --stream && start-storybook -p 9001 -c docs/.storybook",
     "test": "lerna run test --stream",
     "test:ci": "lerna run test:ci --stream",
-    "update-next": "npm run get-translations && npm run build && HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --cd-version prerelease --conventional-prerelease --preid beta --create-release github  && npm run clean-changelog && npm run update-tag:next",
+    "update-next": "npm run get-translations && npm run build:packages && HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --cd-version prerelease --conventional-prerelease --preid beta --create-release github  && npm run clean-changelog && npm run update-tag:next",
     "update-next:ci": "npm run get-translations && npm run build && HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-prerelease --preid beta --create-release github --yes && npm run clean-changelog && npm run update-tag:next",
     "update-lock:latest": "sh ./scripts/update_lock_latest.sh",
     "update-lock:next": "sh ./scripts/update_lock_next.sh",
