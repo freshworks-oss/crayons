@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-beta.36](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.35...@freshworks/crayons-custom-objects@1.4.0-beta.36) (2026-04-06)
+
+
+### Bug Fixes
+
+* fixes the section modal render issue on id ([0a4bf44](https://github.com/freshworks/crayons/commit/0a4bf44d7a7cb431b8afaaf3f48ef50c0e159e94))
+
+
+
+
+
 # [1.4.0-beta.35](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.33...@freshworks/crayons-custom-objects@1.4.0-beta.35) (2025-11-11)
 
 
