@@ -336,13 +336,15 @@ export class FormControl {
             componentProps['optionLabelPath'] = fieldOptions.option_label_path;
 
           if (this.type === 'DEPENDENT_FIELD') {
-            componentProps.selectProps = this.controlProps.selectProps;
-            cmp = (
-              <fw-nested-select
-                {...componentProps}
-                ref={(el) => (this.crayonsControlRef = el)}
-              ></fw-nested-select>
-            );
+            componentProps.selectProps = this.controlProps?.selectProps;
+            const nestedSelectTag =
+              fieldOptions?.dependent_select_tag === 'fw-co-nested-select'
+                ? 'fw-co-nested-select'
+                : 'fw-nested-select';
+            cmp = h(nestedSelectTag, {
+              ...componentProps,
+              ref: (el) => (this.crayonsControlRef = el),
+            });
           } else {
             cmp = (
               <fw-select

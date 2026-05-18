@@ -152,6 +152,44 @@ export namespace Components {
          */
         "value": any;
     }
+    interface FwCoNestedNode {
+        "errorText": string;
+        "hintText": string;
+        "label": string;
+        "level": number;
+        "name": string;
+        "optionLabelPath": string;
+        "optionValuePath": string;
+        "options": any[];
+        "placeholder"?: string | null;
+        "required": boolean;
+        /**
+          * When set (host passes the id of the external field label), the root `fw-select` uses `labelledBy` and omits its own `label` text to avoid duplicate visible labels.
+         */
+        "rootLabelledBy": string;
+        "selectProps"?: any;
+        "state": 'normal' | 'warning' | 'error';
+        "value": string;
+        "warningText": string;
+    }
+    interface FwCoNestedSelect {
+        "errorText": string;
+        "hintText": string;
+        "label": string;
+        "name": string;
+        "optionLabelPath": string;
+        "optionValuePath": string;
+        "options": any[];
+        "placeholder"?: string | null;
+        "required": boolean;
+        /**
+          * Initial values helper from `fw-form` / `controlProps.selectProps`.
+         */
+        "selectProps"?: any;
+        "state": 'normal' | 'warning' | 'error';
+        "value": string;
+        "warningText": string;
+    }
     interface FwDateCondition {
         /**
           * The props to be passed to the crayons component.
@@ -781,6 +819,14 @@ export interface FwCoExportFieldCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwCoExportFieldElement;
 }
+export interface FwCoNestedNodeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwCoNestedNodeElement;
+}
+export interface FwCoNestedSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwCoNestedSelectElement;
+}
 export interface FwFbFieldDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwFbFieldDropdownElement;
@@ -857,6 +903,18 @@ declare global {
     var HTMLFwCoExportFieldElement: {
         prototype: HTMLFwCoExportFieldElement;
         new (): HTMLFwCoExportFieldElement;
+    };
+    interface HTMLFwCoNestedNodeElement extends Components.FwCoNestedNode, HTMLStencilElement {
+    }
+    var HTMLFwCoNestedNodeElement: {
+        prototype: HTMLFwCoNestedNodeElement;
+        new (): HTMLFwCoNestedNodeElement;
+    };
+    interface HTMLFwCoNestedSelectElement extends Components.FwCoNestedSelect, HTMLStencilElement {
+    }
+    var HTMLFwCoNestedSelectElement: {
+        prototype: HTMLFwCoNestedSelectElement;
+        new (): HTMLFwCoNestedSelectElement;
     };
     interface HTMLFwDateConditionElement extends Components.FwDateCondition, HTMLStencilElement {
     }
@@ -965,6 +1023,8 @@ declare global {
         "fb-section-create": HTMLFbSectionCreateElement;
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
+        "fw-co-nested-node": HTMLFwCoNestedNodeElement;
+        "fw-co-nested-select": HTMLFwCoNestedSelectElement;
         "fw-date-condition": HTMLFwDateConditionElement;
         "fw-fb-field-dropdown": HTMLFwFbFieldDropdownElement;
         "fw-fb-field-dropdown-item": HTMLFwFbFieldDropdownItemElement;
@@ -1148,6 +1208,46 @@ declare namespace LocalJSX {
           * The value to populate the details of the checkbox field
          */
         "value"?: any;
+    }
+    interface FwCoNestedNode {
+        "errorText"?: string;
+        "hintText"?: string;
+        "label"?: string;
+        "level"?: number;
+        "name"?: string;
+        "onFwPropertyChange"?: (event: FwCoNestedNodeCustomEvent<any>) => void;
+        "optionLabelPath"?: string;
+        "optionValuePath"?: string;
+        "options"?: any[];
+        "placeholder"?: string | null;
+        "required"?: boolean;
+        /**
+          * When set (host passes the id of the external field label), the root `fw-select` uses `labelledBy` and omits its own `label` text to avoid duplicate visible labels.
+         */
+        "rootLabelledBy"?: string;
+        "selectProps"?: any;
+        "state"?: 'normal' | 'warning' | 'error';
+        "value"?: string;
+        "warningText"?: string;
+    }
+    interface FwCoNestedSelect {
+        "errorText"?: string;
+        "hintText"?: string;
+        "label"?: string;
+        "name"?: string;
+        "onFwChange"?: (event: FwCoNestedSelectCustomEvent<any>) => void;
+        "optionLabelPath"?: string;
+        "optionValuePath"?: string;
+        "options"?: any[];
+        "placeholder"?: string | null;
+        "required"?: boolean;
+        /**
+          * Initial values helper from `fw-form` / `controlProps.selectProps`.
+         */
+        "selectProps"?: any;
+        "state"?: 'normal' | 'warning' | 'error';
+        "value"?: string;
+        "warningText"?: string;
     }
     interface FwDateCondition {
         /**
@@ -1855,6 +1955,8 @@ declare namespace LocalJSX {
         "fb-section-create": FbSectionCreate;
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
+        "fw-co-nested-node": FwCoNestedNode;
+        "fw-co-nested-select": FwCoNestedSelect;
         "fw-date-condition": FwDateCondition;
         "fw-fb-field-dropdown": FwFbFieldDropdown;
         "fw-fb-field-dropdown-item": FwFbFieldDropdownItem;
@@ -1882,6 +1984,8 @@ declare module "@stencil/core" {
             "fb-section-create": LocalJSX.FbSectionCreate & JSXBase.HTMLAttributes<HTMLFbSectionCreateElement>;
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
+            "fw-co-nested-node": LocalJSX.FwCoNestedNode & JSXBase.HTMLAttributes<HTMLFwCoNestedNodeElement>;
+            "fw-co-nested-select": LocalJSX.FwCoNestedSelect & JSXBase.HTMLAttributes<HTMLFwCoNestedSelectElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;
             "fw-fb-field-dropdown": LocalJSX.FwFbFieldDropdown & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownElement>;
             "fw-fb-field-dropdown-item": LocalJSX.FwFbFieldDropdownItem & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownItemElement>;
