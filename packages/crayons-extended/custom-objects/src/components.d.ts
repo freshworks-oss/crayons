@@ -5,8 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ChoiceDataSourceOption, ChoiceSourceDataResponse } from "./components/form-builder/components/fb-field-choice-source";
 export namespace Components {
     interface FbFieldDragDropItem {
+        /**
+          * Data sources and field options for choice-source dropdown fields
+         */
+        "choiceDataSources": any;
         /**
           * data source used to set and edit the field values
          */
@@ -114,6 +119,10 @@ export namespace Components {
           * Theme configuration for the form builder UI
          */
         "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use the DEPENDENT_FIELD editor (composed as DEPENDENT_FIELD on drag)
+         */
+        "useChoiceSourceDropdown": boolean;
     }
     interface FbSectionCreate {
         /**
@@ -172,6 +181,24 @@ export namespace Components {
           * The value of the input
          */
         "value": any;
+    }
+    interface FwFbFieldChoiceSource {
+        /**
+          * Data sources and their field options (provided by fw-form-builder)
+         */
+        "choiceDataSources": ChoiceDataSourceOption[];
+        /**
+          * Selected data source and dropdown field values (controlled input from parent)
+         */
+        "dataResponse": ChoiceSourceDataResponse;
+        /**
+          * Disables both dropdowns when set to true
+         */
+        "disabled": boolean;
+        /**
+          * property to show the errors on click of the save/add button from the parent
+         */
+        "showErrors": boolean;
     }
     interface FwFbFieldDropdown {
         /**
@@ -301,6 +328,10 @@ export namespace Components {
         "targetObjects": any;
     }
     interface FwFieldEditor {
+        /**
+          * Data sources and field options for choice-source dropdown fields
+         */
+        "choiceDataSources": any;
         "createDynamicSection": boolean;
         /**
           * data source used to set and edit the field values
@@ -413,6 +444,10 @@ export namespace Components {
           * Theme configuration for the form builder UI
          */
         "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+         */
+        "useChoiceSourceDropdown": boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -524,6 +559,10 @@ export namespace Components {
     }
     interface FwFormBuilder {
         /**
+          * Data sources and field options for choice-source dropdown fields. Each item: { value, text, fields: [{ value, text, column_name?, option_value_path?, option_label_path? }] }
+         */
+        "choiceDataSources": any;
+        /**
           * Prop to store the expanded field index
          */
         "currentFieldIndex": {};
@@ -601,6 +640,10 @@ export namespace Components {
           * Theme configuration for the form builder UI
          */
         "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+         */
+        "useChoiceSourceDropdown": boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */
@@ -781,6 +824,10 @@ export interface FwCoExportFieldCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwCoExportFieldElement;
 }
+export interface FwFbFieldChoiceSourceCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFbFieldChoiceSourceElement;
+}
 export interface FwFbFieldDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwFbFieldDropdownElement;
@@ -863,6 +910,12 @@ declare global {
     var HTMLFwDateConditionElement: {
         prototype: HTMLFwDateConditionElement;
         new (): HTMLFwDateConditionElement;
+    };
+    interface HTMLFwFbFieldChoiceSourceElement extends Components.FwFbFieldChoiceSource, HTMLStencilElement {
+    }
+    var HTMLFwFbFieldChoiceSourceElement: {
+        prototype: HTMLFwFbFieldChoiceSourceElement;
+        new (): HTMLFwFbFieldChoiceSourceElement;
     };
     interface HTMLFwFbFieldDropdownElement extends Components.FwFbFieldDropdown, HTMLStencilElement {
     }
@@ -966,6 +1019,7 @@ declare global {
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
+        "fw-fb-field-choice-source": HTMLFwFbFieldChoiceSourceElement;
         "fw-fb-field-dropdown": HTMLFwFbFieldDropdownElement;
         "fw-fb-field-dropdown-item": HTMLFwFbFieldDropdownItemElement;
         "fw-fb-field-lookup": HTMLFwFbFieldLookupElement;
@@ -986,6 +1040,10 @@ declare global {
 }
 declare namespace LocalJSX {
     interface FbFieldDragDropItem {
+        /**
+          * Data sources and field options for choice-source dropdown fields
+         */
+        "choiceDataSources"?: any;
         /**
           * data source used to set and edit the field values
          */
@@ -1093,6 +1151,10 @@ declare namespace LocalJSX {
           * Theme configuration for the form builder UI
          */
         "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use the DEPENDENT_FIELD editor (composed as DEPENDENT_FIELD on drag)
+         */
+        "useChoiceSourceDropdown"?: boolean;
     }
     interface FbSectionCreate {
         /**
@@ -1166,6 +1228,28 @@ declare namespace LocalJSX {
           * The value of the input
          */
         "value"?: any;
+    }
+    interface FwFbFieldChoiceSource {
+        /**
+          * Data sources and their field options (provided by fw-form-builder)
+         */
+        "choiceDataSources"?: ChoiceDataSourceOption[];
+        /**
+          * Selected data source and dropdown field values (controlled input from parent)
+         */
+        "dataResponse"?: ChoiceSourceDataResponse;
+        /**
+          * Disables both dropdowns when set to true
+         */
+        "disabled"?: boolean;
+        /**
+          * Triggered on data change for error handling on parent
+         */
+        "onFwChange"?: (event: FwFbFieldChoiceSourceCustomEvent<any>) => void;
+        /**
+          * property to show the errors on click of the save/add button from the parent
+         */
+        "showErrors"?: boolean;
     }
     interface FwFbFieldDropdown {
         /**
@@ -1318,6 +1402,10 @@ declare namespace LocalJSX {
         "targetObjects"?: any;
     }
     interface FwFieldEditor {
+        /**
+          * Data sources and field options for choice-source dropdown fields
+         */
+        "choiceDataSources"?: any;
         "createDynamicSection"?: boolean;
         /**
           * data source used to set and edit the field values
@@ -1446,6 +1534,10 @@ declare namespace LocalJSX {
           * Theme configuration for the form builder UI
          */
         "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+         */
+        "useChoiceSourceDropdown"?: boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1565,6 +1657,10 @@ declare namespace LocalJSX {
     }
     interface FwFormBuilder {
         /**
+          * Data sources and field options for choice-source dropdown fields. Each item: { value, text, fields: [{ value, text, column_name?, option_value_path?, option_label_path? }] }
+         */
+        "choiceDataSources"?: any;
+        /**
           * Prop to store the expanded field index
          */
         "currentFieldIndex"?: {};
@@ -1670,6 +1766,10 @@ declare namespace LocalJSX {
           * Theme configuration for the form builder UI
          */
         "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+         */
+        "useChoiceSourceDropdown"?: boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */
@@ -1856,6 +1956,7 @@ declare namespace LocalJSX {
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
+        "fw-fb-field-choice-source": FwFbFieldChoiceSource;
         "fw-fb-field-dropdown": FwFbFieldDropdown;
         "fw-fb-field-dropdown-item": FwFbFieldDropdownItem;
         "fw-fb-field-lookup": FwFbFieldLookup;
@@ -1883,6 +1984,7 @@ declare module "@stencil/core" {
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;
+            "fw-fb-field-choice-source": LocalJSX.FwFbFieldChoiceSource & JSXBase.HTMLAttributes<HTMLFwFbFieldChoiceSourceElement>;
             "fw-fb-field-dropdown": LocalJSX.FwFbFieldDropdown & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownElement>;
             "fw-fb-field-dropdown-item": LocalJSX.FwFbFieldDropdownItem & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownItemElement>;
             "fw-fb-field-lookup": LocalJSX.FwFbFieldLookup & JSXBase.HTMLAttributes<HTMLFwFbFieldLookupElement>;

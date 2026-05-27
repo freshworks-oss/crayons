@@ -74,6 +74,10 @@ export class FieldEditor {
    */
   @Prop() productName = 'CUSTOM_OBJECTS';
   /**
+   * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+   */
+  @Prop() useChoiceSourceDropdown = false;
+  /**
    * Pinned position of the drag item, other drag item cannot be placed above or below it.
    */
   @Prop() pinned: 'top' | 'bottom' | '';
@@ -105,6 +109,10 @@ export class FieldEditor {
    * object to store the lookup target entities
    */
   @Prop({ mutable: true }) lookupTargetObjects = false;
+  /**
+   * Data sources and field options for choice-source dropdown fields
+   */
+  @Prop({ mutable: true }) choiceDataSources = null;
   /**
    * flag to show dependentField resolve checkbox
    */
@@ -262,6 +270,17 @@ export class FieldEditor {
    */
   @State() showDependentFieldTextbox = false;
   /**
+   * Local state for data source / dropdown field selection (avoids reset on parent re-render)
+   */
+  @State() choiceSourceResponse: {
+    dataSource: string;
+    dropdownField: string;
+    column_name?: string;
+    option_value_path?: string;
+    option_label_path?: string;
+    has_dependents?: boolean;
+  } = null;
+  /**
    * Triggered when the field is expanded or collapsed
    */
   @Event() fwExpand!: EventEmitter;
@@ -286,6 +305,21 @@ export class FieldEditor {
   @Watch('enableFilterable')
   watchEnableFilterableChangeHandler(): void {
     this.setCheckboxesAvailability(this.fieldBuilderOptions);
+  }
+
+  @Watch('expanded')
+  watchExpandedChangeHandler(isExpanded: boolean): void {
+    if (isExpanded && this.dataProvider) {
+      this.syncChoiceSourceResponse();
+    }
+  }
+
+  private syncChoiceSourceResponse(): void {
+    if (this.dataProvider) {
+      this.choiceSourceResponse = this.usesChoiceSourceDropdown()
+        ? deepCloneObject(this.getChoiceSourceDataResponse())
+        : null;
+    }
   }
 
   @Watch('dataProvider')
@@ -347,9 +381,12 @@ export class FieldEditor {
 
         this.setCheckboxesAvailability(objDefaultFieldTypeSchema);
       }
+
+      this.syncChoiceSourceResponse();
     } else {
       this.isNewField = false;
       this.fieldBuilderOptions = null;
+      this.choiceSourceResponse = null;
     }
   }
 
@@ -709,6 +746,51 @@ export class FieldEditor {
     return false;
   };
 
+  private validateChoiceSourceErrors = (objChoiceSourceValues) => {
+    if (
+      objChoiceSourceValues &&
+      objChoiceSourceValues.dataSource &&
+      objChoiceSourceValues.dataSource !== '' &&
+      objChoiceSourceValues.dropdownField &&
+      objChoiceSourceValues.dropdownField !== ''
+    ) {
+      return true;
+    }
+    this.formErrorMessage = '';
+    return false;
+  };
+
+  private usesChoiceSourceDropdown = (): boolean => {
+    if (this.useChoiceSourceDropdown !== true) {
+      return false;
+    }
+    const strFieldType = hasCustomProperty(this.fieldBuilderOptions, 'type')
+      ? this.fieldBuilderOptions.type
+      : '';
+    return strFieldType === 'DROPDOWN';
+  };
+
+  private getChoiceSourceDataResponse = () => {
+    const fieldOptions = this.dataProvider?.field_options || {};
+    const strDataSource = fieldOptions.data_source
+      ? String(fieldOptions.data_source)
+      : '';
+    const strReferenceField = this.dataProvider?.referenceField
+      ? String(this.dataProvider.referenceField)
+      : '';
+    const strColumnName = this.dataProvider?.column_name
+      ? String(this.dataProvider.column_name)
+      : '';
+
+    return {
+      dataSource: strDataSource,
+      dropdownField: strReferenceField,
+      column_name: strColumnName,
+      option_value_path: fieldOptions.option_value_path || 'id',
+      option_label_path: fieldOptions.option_label_path || 'value',
+    };
+  };
+
   private addFieldHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
@@ -864,6 +946,36 @@ export class FieldEditor {
           if (boolValidForm) {
             this.showErrors = false;
             objValues[key] = objLookupValues;
+          } else {
+            this.showErrors = true;
+            return;
+          }
+          break;
+        }
+        case 'fw-fb-field-choice-source': {
+          const objChoiceSourceValues = deepCloneObject(
+            this.choiceSourceResponse
+          );
+          boolValidForm = this.validateChoiceSourceErrors(
+            objChoiceSourceValues
+          );
+          if (boolValidForm) {
+            this.showErrors = false;
+            objValues['field_options'] = {
+              ...(this.dataProvider?.field_options || {}),
+              reference: 'true',
+              data_source: objChoiceSourceValues.dataSource,
+              option_value_path:
+                objChoiceSourceValues.option_value_path || 'id',
+              option_label_path:
+                objChoiceSourceValues.option_label_path || 'value',
+            };
+            objValues['column_name'] =
+              objChoiceSourceValues.column_name ||
+              objChoiceSourceValues.dropdownField;
+            objValues['referenceField'] = objChoiceSourceValues.dropdownField;
+            objValues['has_dependents'] =
+              !!objChoiceSourceValues.has_dependents;
           } else {
             this.showErrors = true;
             return;
@@ -1053,6 +1165,14 @@ export class FieldEditor {
     event.stopPropagation();
     this.isValuesChanged = true;
     this.validateLookupErrors(event.detail.value);
+  };
+
+  private choiceSourceChangeHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    this.isValuesChanged = true;
+    this.choiceSourceResponse = deepCloneObject(event.detail.value);
+    this.validateChoiceSourceErrors(this.choiceSourceResponse);
   };
 
   private checkboxSelectionChangeHandler = (event: CustomEvent) => {
@@ -1382,12 +1502,34 @@ export class FieldEditor {
     );
   }
 
+  private renderChoiceSource(boolDisableDropdowns) {
+    return (
+      <fw-fb-field-choice-source
+        ref={(el) => (this.dictInteractiveElements['choiceSource'] = el)}
+        showErrors={this.showErrors}
+        disabled={boolDisableDropdowns}
+        choiceDataSources={this.choiceDataSources}
+        dataResponse={
+          this.choiceSourceResponse ?? {
+            dataSource: '',
+            dropdownField: '',
+          }
+        }
+        onFwChange={this.choiceSourceChangeHandler}
+      ></fw-fb-field-choice-source>
+    );
+  }
+
   private renderDropdown(
     boolDisableDropdowns,
     fieldBuilderOptions = null,
     choiceIds = [],
     parentId = null
   ) {
+    if (!this.isDependentField && this.usesChoiceSourceDropdown()) {
+      return this.renderChoiceSource(boolDisableDropdowns);
+    }
+
     // Dependent Level checks
     const level = fieldBuilderOptions?.field_options?.level;
     const dictElName = this.isDependentField
@@ -1909,6 +2051,11 @@ export class FieldEditor {
           {elementStatusToggle}
           {isDropdownType && (
             <div class={`${strBaseClassName}-content-dropdown`}>
+              {!this.usesChoiceSourceDropdown() && (
+                <label class={`${strBaseClassName}-content-label`}>
+                  {i18nText('dropdownChoices')}
+                </label>
+              )}
               {elementDropdown}
             </div>
           )}

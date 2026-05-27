@@ -135,6 +135,15 @@ export class FormBuilder {
    */
   @Prop() dynamicSectionsBetaEnabled = false;
   /**
+   * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+   */
+  @Prop() useChoiceSourceDropdown = false;
+  /**
+   * Data sources and field options for choice-source dropdown fields.
+   * Each item: { value, text, fields: [{ value, text, column_name?, option_value_path?, option_label_path? }] }
+   */
+  @Prop({ mutable: true }) choiceDataSources = null;
+  /**
    * State to store the formValues as a state to transfer the field types
    */
   @State() localFormValues = null;
@@ -1452,6 +1461,7 @@ export class FormBuilder {
         keyProp={strKey}
         productName={this.productName}
         showRelationshipTypeSelect={this.showRelationshipTypeSelect}
+        useChoiceSourceDropdown={this.useChoiceSourceDropdown}
         dataProvider={dataItem}
         entityName={strEntityName}
         expanded={boolItemExpanded}
@@ -1465,6 +1475,7 @@ export class FormBuilder {
         enableFilterable={this.enableFilterable}
         defaultFieldTypeSchema={objDefaultFieldTypeSchema}
         lookupTargetObjects={this.lookupTargetObjects}
+        choiceDataSources={this.choiceDataSources}
         formValues={this.localFormValues}
         isLoading={this.isLoading}
         showDependentFieldResolveProp={this.showDependentFieldResolveProp}

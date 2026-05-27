@@ -18,6 +18,10 @@ export class FormBuilderFieldDragDropItem {
    */
   @Prop() productName = 'CUSTOM_OBJECTS';
   /**
+   * When true, DROPDOWN fields use the DEPENDENT_FIELD editor (composed as DEPENDENT_FIELD on drag)
+   */
+  @Prop() useChoiceSourceDropdown = false;
+  /**
    * Pinned position of the drag item, other drag item cannot be placed above or below it.
    */
   @Prop() pinned: 'top' | 'bottom' | '';
@@ -49,6 +53,10 @@ export class FormBuilderFieldDragDropItem {
    * object to store the lookup target entities
    */
   @Prop({ mutable: true }) lookupTargetObjects = false;
+  /**
+   * Data sources and field options for choice-source dropdown fields
+   */
+  @Prop({ mutable: true }) choiceDataSources = null;
   /**
    * flag to show dependentField resolve checkbox
    */
@@ -213,6 +221,7 @@ export class FormBuilderFieldDragDropItem {
             enableFilterable={this.enableFilterable}
             defaultFieldTypeSchema={this.defaultFieldTypeSchema}
             lookupTargetObjects={this.lookupTargetObjects}
+            choiceDataSources={this.choiceDataSources}
             formValues={this.formValues}
             isLoading={this.isLoading}
             sectionsExpanded={this.sectionsExpanded}
@@ -232,6 +241,7 @@ export class FormBuilderFieldDragDropItem {
             parentIndex={this.parentIndex}
             sectionName={this.sectionName}
             theme={this.theme}
+            useChoiceSourceDropdown={this.useChoiceSourceDropdown}
           ></fw-field-editor>
 
           {showDynamicFieldSections && (
