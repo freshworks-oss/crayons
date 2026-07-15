@@ -12,6 +12,8 @@ export namespace Components {
           * Data sources and field options for choice-source dropdown fields
          */
         "choiceDataSources": any;
+        "choiceSourceDataSourceChangeHandler": any;
+        "choiceSourceSubItemChangeHandler": any;
         /**
           * data source used to set and edit the field values
          */
@@ -188,6 +190,19 @@ export namespace Components {
          */
         "choiceDataSources": ChoiceDataSourceOption[];
         /**
+          * Callback invoked when the data source dropdown selection changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the sub-item dropdown selection changes
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
+        /**
           * Selected data source and dropdown field values (controlled input from parent)
          */
         "dataResponse": ChoiceSourceDataResponse;
@@ -332,6 +347,19 @@ export namespace Components {
           * Data sources and field options for choice-source dropdown fields
          */
         "choiceDataSources": any;
+        /**
+          * Callback invoked when the choice source data source dropdown changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the choice source sub-item dropdown changes
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
         "createDynamicSection": boolean;
         /**
           * data source used to set and edit the field values
@@ -562,6 +590,19 @@ export namespace Components {
           * Data sources and field options for choice-source dropdown fields. Each item: { value, text, fields: [{ value, text, column_name?, option_value_path?, option_label_path? }] }
          */
         "choiceDataSources": any;
+        /**
+          * Callback invoked when the choice source data source dropdown changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the choice source sub-item dropdown changes
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
         /**
           * Prop to store the expanded field index
          */
@@ -1044,6 +1085,8 @@ declare namespace LocalJSX {
           * Data sources and field options for choice-source dropdown fields
          */
         "choiceDataSources"?: any;
+        "choiceSourceDataSourceChangeHandler"?: any;
+        "choiceSourceSubItemChangeHandler"?: any;
         /**
           * data source used to set and edit the field values
          */
@@ -1235,6 +1278,19 @@ declare namespace LocalJSX {
          */
         "choiceDataSources"?: ChoiceDataSourceOption[];
         /**
+          * Callback invoked when the data source dropdown selection changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the sub-item dropdown selection changes
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
+        /**
           * Selected data source and dropdown field values (controlled input from parent)
          */
         "dataResponse"?: ChoiceSourceDataResponse;
@@ -1406,6 +1462,19 @@ declare namespace LocalJSX {
           * Data sources and field options for choice-source dropdown fields
          */
         "choiceDataSources"?: any;
+        /**
+          * Callback invoked when the choice source data source dropdown changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the choice source sub-item dropdown changes
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
         "createDynamicSection"?: boolean;
         /**
           * data source used to set and edit the field values
@@ -1660,6 +1729,19 @@ declare namespace LocalJSX {
           * Data sources and field options for choice-source dropdown fields. Each item: { value, text, fields: [{ value, text, column_name?, option_value_path?, option_label_path? }] }
          */
         "choiceDataSources"?: any;
+        /**
+          * Callback invoked when the choice source data source dropdown changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the choice source sub-item dropdown changes
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
         /**
           * Prop to store the expanded field index
          */
