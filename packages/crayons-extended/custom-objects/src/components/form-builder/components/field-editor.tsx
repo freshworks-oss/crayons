@@ -114,6 +114,19 @@ export class FieldEditor {
    */
   @Prop({ mutable: true }) choiceDataSources = null;
   /**
+   * Callback invoked when the choice source data source dropdown changes
+   */
+  @Prop() choiceSourceDataSourceChangeHandler?: (
+    sourceId: string
+  ) => void | Promise<void>;
+  /**
+   * Callback invoked when the choice source sub-item dropdown changes
+   */
+  @Prop() choiceSourceSubItemChangeHandler?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
+  /**
    * flag to show dependentField resolve checkbox
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = false;
@@ -274,6 +287,7 @@ export class FieldEditor {
    */
   @State() choiceSourceResponse: {
     dataSource: string;
+    subItem?: string;
     dropdownField: string;
     column_name?: string;
     option_value_path?: string;
@@ -316,9 +330,15 @@ export class FieldEditor {
 
   private syncChoiceSourceResponse(): void {
     if (this.dataProvider) {
-      this.choiceSourceResponse = this.usesChoiceSourceDropdown()
-        ? deepCloneObject(this.getChoiceSourceDataResponse())
-        : null;
+      if (this.usesChoiceSourceDropdown()) {
+        const response = deepCloneObject(this.getChoiceSourceDataResponse());
+        if (this.isNewField && !response.dataSource) {
+          response.dataSource = '0';
+        }
+        this.choiceSourceResponse = response;
+      } else {
+        this.choiceSourceResponse = null;
+      }
     }
   }
 
@@ -748,16 +768,31 @@ export class FieldEditor {
 
   private validateChoiceSourceErrors = (objChoiceSourceValues) => {
     if (
-      objChoiceSourceValues &&
-      objChoiceSourceValues.dataSource &&
-      objChoiceSourceValues.dataSource !== '' &&
-      objChoiceSourceValues.dropdownField &&
-      objChoiceSourceValues.dropdownField !== ''
+      !objChoiceSourceValues ||
+      !objChoiceSourceValues.dataSource ||
+      objChoiceSourceValues.dataSource === '' ||
+      !objChoiceSourceValues.dropdownField ||
+      objChoiceSourceValues.dropdownField === ''
     ) {
-      return true;
+      this.formErrorMessage = '';
+      return false;
     }
-    this.formErrorMessage = '';
-    return false;
+
+    const source = Array.isArray(this.choiceDataSources)
+      ? this.choiceDataSources.find(
+          (item) => String(item.value) === String(objChoiceSourceValues.dataSource)
+        )
+      : null;
+
+    if (
+      source?.has_sub_items &&
+      (!objChoiceSourceValues.subItem || objChoiceSourceValues.subItem === '')
+    ) {
+      this.formErrorMessage = '';
+      return false;
+    }
+
+    return true;
   };
 
   private usesChoiceSourceDropdown = (): boolean => {
@@ -784,6 +819,7 @@ export class FieldEditor {
 
     return {
       dataSource: strDataSource,
+      subItem: fieldOptions.sub_item_id ? String(fieldOptions.sub_item_id) : '',
       dropdownField: strReferenceField,
       column_name: strColumnName,
       option_value_path: fieldOptions.option_value_path || 'id',
@@ -965,6 +1001,7 @@ export class FieldEditor {
               ...(this.dataProvider?.field_options || {}),
               reference: 'true',
               data_source: objChoiceSourceValues.dataSource,
+              sub_item_id: objChoiceSourceValues.subItem || undefined,
               option_value_path:
                 objChoiceSourceValues.option_value_path || 'id',
               option_label_path:
@@ -1509,9 +1546,16 @@ export class FieldEditor {
         showErrors={this.showErrors}
         disabled={boolDisableDropdowns}
         choiceDataSources={this.choiceDataSources}
+        choiceSourceDataSourceChangeHandler={
+          this.choiceSourceDataSourceChangeHandler
+        }
+        choiceSourceSubItemChangeHandler={
+          this.choiceSourceSubItemChangeHandler
+        }
         dataResponse={
           this.choiceSourceResponse ?? {
             dataSource: '',
+            subItem: '',
             dropdownField: '',
           }
         }

@@ -23,11 +23,14 @@ export interface ChoiceSourceFieldOption {
 export interface ChoiceDataSourceOption {
   value: string;
   text: string;
+  has_sub_items?: boolean;
   fields: ChoiceSourceFieldOption[];
+  subItems?: { value: string; text: string }[];
 }
 
 export interface ChoiceSourceDataResponse {
   dataSource: string;
+  subItem?: string;
   dropdownField: string;
   column_name?: string;
   option_value_path?: string;
@@ -50,6 +53,7 @@ export class FbFieldChoiceSource {
    */
   @Prop() dataResponse: ChoiceSourceDataResponse = {
     dataSource: '',
+    subItem: '',
     dropdownField: '',
   };
   /**
@@ -65,12 +69,27 @@ export class FbFieldChoiceSource {
    */
   @Prop() choiceDataSources: ChoiceDataSourceOption[] = [];
   /**
+   * Callback invoked when the data source dropdown selection changes
+   */
+  @Prop() choiceSourceDataSourceChangeHandler?: (
+    sourceId: string
+  ) => void | Promise<void>;
+  /**
+   * Callback invoked when the sub-item dropdown selection changes
+   */
+  @Prop() choiceSourceSubItemChangeHandler?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
+  /**
    * Triggered on data change for error handling on parent
    */
   @Event() fwChange!: EventEmitter;
 
   @State() selectedDataSource = '';
+  @State() selectedSubItem = '';
   @State() selectedDropdownField = '';
+  @State() subItemOptions: { value: string; text: string }[] = [];
   @State() dropdownFieldOptions: { value: string; text: string }[] = [];
 
   @Watch('dataResponse')
@@ -106,13 +125,42 @@ export class FbFieldChoiceSource {
     }));
   }
 
+  private getSourceConfig(
+    dataSourceValue: string
+  ): ChoiceDataSourceOption | undefined {
+    const normalizedValue = String(dataSourceValue ?? '');
+    return this.getChoiceDataSources().find(
+      (item) => String(item.value) === normalizedValue
+    );
+  }
+
+  private sourceHasSubItems(dataSourceValue: string): boolean {
+    return !!this.getSourceConfig(dataSourceValue)?.has_sub_items;
+  }
+
+  private getSubItemsForDataSource(
+    dataSourceValue: string
+  ): { value: string; text: string }[] {
+    return this.getSourceConfig(dataSourceValue)?.subItems || [];
+  }
+
+  private getLocalizedSubItemOptions(
+    subItems: { value: string; text: string }[]
+  ): { value: string; text: string }[] {
+    return subItems.map((item) => ({
+      value: String(item.value),
+      text:
+        item.text && item.text.startsWith('choice')
+          ? i18nText(item.text)
+          : item.text,
+    }));
+  }
+
   private getFieldsForDataSource(
     dataSourceValue: string
   ): ChoiceSourceFieldOption[] {
     const normalizedValue = String(dataSourceValue ?? '');
-    const source = this.getChoiceDataSources().find(
-      (item) => String(item.value) === normalizedValue
-    );
+    const source = this.getSourceConfig(normalizedValue);
     return source?.fields || [];
   }
 
@@ -195,10 +243,23 @@ export class FbFieldChoiceSource {
     );
   }
 
+  private isSubItemSelectionValid(
+    dataSource: string,
+    subItem: string
+  ): boolean {
+    if (!dataSource || !subItem) {
+      return false;
+    }
+    return this.getSubItemsForDataSource(dataSource).some(
+      (item) => String(item.value) === String(subItem)
+    );
+  }
+
   private getDataResponse(): ChoiceSourceDataResponse {
     return (
       this.dataResponse ?? {
         dataSource: '',
+        subItem: '',
         dropdownField: '',
       }
     );
@@ -208,6 +269,7 @@ export class FbFieldChoiceSource {
     const response = this.getDataResponse();
     let dataSource = String(response.dataSource ?? '');
     const columnName = String(response.column_name ?? '');
+    let subItem = String(response.subItem ?? '');
     let dropdownField = String(response.dropdownField ?? '');
 
     if (!dataSource && dropdownField) {
@@ -216,6 +278,13 @@ export class FbFieldChoiceSource {
     if (!dataSource && columnName) {
       dataSource = this.findDataSourceForColumnName(columnName);
     }
+
+    const boolHasSubItems = this.sourceHasSubItems(dataSource);
+    const subItemOptions = boolHasSubItems
+      ? this.getLocalizedSubItemOptions(
+          this.getSubItemsForDataSource(dataSource)
+        )
+      : [];
 
     dropdownField = this.resolveDropdownFieldValue(
       dropdownField,
@@ -230,18 +299,25 @@ export class FbFieldChoiceSource {
       dataSource,
       dropdownField
     );
+    const boolSubItemValid = !boolHasSubItems
+      ? true
+      : this.isSubItemSelectionValid(dataSource, subItem);
 
     if (
       dataSource === this.selectedDataSource &&
+      subItem === this.selectedSubItem &&
       dropdownField === this.selectedDropdownField &&
       dropdownFieldOptions.length > 0 &&
-      boolSelectionValid
+      boolSelectionValid &&
+      boolSubItemValid
     ) {
       return;
     }
 
     this.selectedDataSource = dataSource;
+    this.selectedSubItem = boolHasSubItems ? subItem : '';
     this.selectedDropdownField = dropdownField;
+    this.subItemOptions = subItemOptions;
     this.dropdownFieldOptions = dropdownFieldOptions;
   }
 
@@ -250,9 +326,11 @@ export class FbFieldChoiceSource {
     const selectedField = fields.find(
       (field) => field.value === this.selectedDropdownField
     );
+    const boolHasSubItems = this.sourceHasSubItems(this.selectedDataSource);
 
     return {
       dataSource: String(this.selectedDataSource),
+      subItem: boolHasSubItems ? String(this.selectedSubItem) : '',
       dropdownField: String(this.selectedDropdownField),
       column_name: selectedField?.column_name || this.selectedDropdownField,
       option_value_path: selectedField?.option_value_path || 'id',
@@ -273,10 +351,43 @@ export class FbFieldChoiceSource {
     }
 
     const nextDataSource = String(event.detail?.value ?? '');
+    const boolHasSubItems = this.sourceHasSubItems(nextDataSource);
+
     this.selectedDataSource = nextDataSource;
+    this.selectedSubItem = '';
     this.selectedDropdownField = '';
-    this.dropdownFieldOptions = this.getLocalizedFieldOptions(
-      this.getFieldsForDataSource(nextDataSource)
+
+    if (boolHasSubItems) {
+      this.subItemOptions = this.getLocalizedSubItemOptions(
+        this.getSubItemsForDataSource(nextDataSource)
+      );
+      this.dropdownFieldOptions = [];
+    } else {
+      this.subItemOptions = [];
+      this.dropdownFieldOptions = this.getLocalizedFieldOptions(
+        this.getFieldsForDataSource(nextDataSource)
+      );
+    }
+
+    void this.choiceSourceDataSourceChangeHandler?.(nextDataSource);
+    this.emitChange();
+  };
+
+  private subItemChangeHandler = (event: CustomEvent): void => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    if (this.disabled) {
+      return;
+    }
+
+    const nextSubItem = String(event.detail?.value ?? '');
+    this.selectedSubItem = nextSubItem;
+    this.selectedDropdownField = '';
+    this.dropdownFieldOptions = [];
+
+    void this.choiceSourceSubItemChangeHandler?.(
+      this.selectedDataSource,
+      nextSubItem
     );
     this.emitChange();
   };
@@ -296,11 +407,19 @@ export class FbFieldChoiceSource {
     const strBaseClassName = 'fb-field-choice-source';
     const strDataSourceState =
       this.showErrors && !this.selectedDataSource ? 'error' : 'normal';
+    const boolHasSubItems = this.sourceHasSubItems(this.selectedDataSource);
+    const strSubItemState =
+      this.showErrors && boolHasSubItems && !this.selectedSubItem
+        ? 'error'
+        : 'normal';
     const strDropdownFieldState =
       this.showErrors && !this.selectedDropdownField ? 'error' : 'normal';
+    const boolSubItemDisabled =
+      this.disabled || !this.selectedDataSource || !this.subItemOptions.length;
     const boolDropdownDisabled =
       this.disabled ||
       !this.selectedDataSource ||
+      (boolHasSubItems && !this.selectedSubItem) ||
       !this.dropdownFieldOptions.length;
 
     return (
@@ -321,6 +440,22 @@ export class FbFieldChoiceSource {
                 onFwChange={this.dataSourceChangeHandler}
               ></fw-select>
             </div>
+            {boolHasSubItems && (
+              <div class={`${strBaseClassName}-sub-item-select-container`}>
+                <fw-select
+                  required={true}
+                  state={strSubItemState}
+                  class={`${strBaseClassName}-sub-item-select`}
+                  placeholder={i18nText('choiceSourcePlaceholder')}
+                  label={i18nText('choiceSourceSubItemLabel')}
+                  errorText={i18nText('errors.emptySubItem')}
+                  disabled={boolSubItemDisabled}
+                  value={this.selectedSubItem}
+                  options={this.subItemOptions}
+                  onFwChange={this.subItemChangeHandler}
+                ></fw-select>
+              </div>
+            )}
             <div class={`${strBaseClassName}-dropdown-field-select-container`}>
               <fw-select
                 required={true}

@@ -138,6 +138,14 @@ export class FormBuilderFieldDragDropItem {
    */
   @Prop() expandFieldHandler;
   /*
+   * Handler function for choice source data source change
+   */
+  @Prop() choiceSourceDataSourceChangeHandler;
+  /*
+   * Handler function for choice source sub-item change
+   */
+  @Prop() choiceSourceSubItemChangeHandler;
+  /*
    * Handler function for field drag and drop
    */
   @Prop() reorderFieldProgressHandler;
@@ -237,6 +245,12 @@ export class FormBuilderFieldDragDropItem {
             onFwDelete={this.deleteFieldHandler}
             onFwExpand={this.expandFieldHandler}
             onFwReorder={this.reorderFieldProgressHandler}
+            choiceSourceDataSourceChangeHandler={
+              this.choiceSourceDataSourceChangeHandler
+            }
+            choiceSourceSubItemChangeHandler={
+              this.choiceSourceSubItemChangeHandler
+            }
             createDynamicSection={this.createDynamicSection}
             parentIndex={this.parentIndex}
             sectionName={this.sectionName}

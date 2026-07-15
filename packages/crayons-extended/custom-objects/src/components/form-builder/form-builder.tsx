@@ -144,6 +144,19 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) choiceDataSources = null;
   /**
+   * Callback invoked when the choice source data source dropdown changes
+   */
+  @Prop() choiceSourceDataSourceChangeHandler?: (
+    sourceId: string
+  ) => void | Promise<void>;
+  /**
+   * Callback invoked when the choice source sub-item dropdown changes
+   */
+  @Prop() choiceSourceSubItemChangeHandler?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
+  /**
    * State to store the formValues as a state to transfer the field types
    */
   @State() localFormValues = null;
@@ -1484,6 +1497,12 @@ export class FormBuilder {
         saveFieldHandler={this.saveFieldHandler}
         deleteFieldHandler={this.deleteFieldHandler}
         expandFieldHandler={this.expandFieldHandler}
+        choiceSourceDataSourceChangeHandler={
+          this.choiceSourceDataSourceChangeHandler
+        }
+        choiceSourceSubItemChangeHandler={
+          this.choiceSourceSubItemChangeHandler
+        }
         reorderFieldProgressHandler={this.reorderFieldProgressHandler}
         sectionName={sectionName}
         parentIndex={parentIndex}

@@ -23,6 +23,7 @@
   gap: 12px;
 
   .fb-field-choice-source-data-source-select-container,
+  .fb-field-choice-source-sub-item-select-container,
   .fb-field-choice-source-dropdown-field-select-container {
     height: auto;
     box-sizing: border-box;
@@ -30,7 +31,14 @@
     max-width: 100%;
   }
 
+  .fb-field-choice-source-sub-item-select-container {
+    margin-left: 24px;
+    padding-left: 16px;
+    border-left: 1px dotted var(--color-border-secondary, #cfd7df);
+  }
+
   .fb-field-choice-source-data-source-select,
+  .fb-field-choice-source-sub-item-select,
   .fb-field-choice-source-dropdown-field-select {
     width: 100%;
 
