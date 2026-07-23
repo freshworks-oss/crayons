@@ -39,6 +39,8 @@ export class FormControl {
     | 'RELATIONSHIP'
     | 'AUTO_COMPLETE'
     | 'DEPENDENT_FIELD'
+    | 'DROPDOWN_LOOKUP'
+    | 'DROPDOWN_LOOKUP_SECTION'
     | 'FILES' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
@@ -295,6 +297,8 @@ export class FormControl {
       case 'DROPDOWN':
       case 'MULTI_SELECT':
       case 'DEPENDENT_FIELD':
+      case 'DROPDOWN_LOOKUP':
+      case 'DROPDOWN_LOOKUP_SECTION':
         {
           const controlProps = this.controlProps?.selectProps(
             this.name,
@@ -335,7 +339,15 @@ export class FormControl {
           if (fieldOptions?.option_label_path)
             componentProps['optionLabelPath'] = fieldOptions.option_label_path;
 
-          if (this.type === 'DEPENDENT_FIELD') {
+          if (this.type === 'DROPDOWN_LOOKUP_SECTION') {
+            // Cascading lookup-backed dropdowns (custom-objects dependent lookups) always render via the
+            // dedicated custom-objects nested select, which understands the lookup choice tree directly.
+            componentProps.selectProps = this.controlProps?.selectProps;
+            cmp = h('fw-co-nested-select', {
+              ...componentProps,
+              ref: (el) => (this.crayonsControlRef = el),
+            });
+          } else if (this.type === 'DEPENDENT_FIELD') {
             componentProps.selectProps = this.controlProps.selectProps;
             cmp = (
               <fw-nested-select

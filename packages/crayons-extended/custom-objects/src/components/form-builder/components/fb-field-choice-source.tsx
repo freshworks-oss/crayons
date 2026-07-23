@@ -269,7 +269,7 @@ export class FbFieldChoiceSource {
     const response = this.getDataResponse();
     let dataSource = String(response.dataSource ?? '');
     const columnName = String(response.column_name ?? '');
-    let subItem = String(response.subItem ?? '');
+    const subItem = String(response.subItem ?? '');
     let dropdownField = String(response.dropdownField ?? '');
 
     if (!dataSource && dropdownField) {
@@ -307,7 +307,7 @@ export class FbFieldChoiceSource {
       dataSource === this.selectedDataSource &&
       subItem === this.selectedSubItem &&
       dropdownField === this.selectedDropdownField &&
-      dropdownFieldOptions.length > 0 &&
+      this.dropdownFieldOptions.length > 0 &&
       boolSelectionValid &&
       boolSubItemValid
     ) {
