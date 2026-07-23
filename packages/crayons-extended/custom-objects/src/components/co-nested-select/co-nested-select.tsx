@@ -30,6 +30,12 @@ export class CoNestedSelect {
   @Prop() name = '';
   @Prop() label = '';
   @Prop() value = '';
+  /**
+   * Root-to-leaf display value at every cascade depth for a previously saved selection - only the leaf
+   * value is persisted on the record, so restoring the full cascade on edit needs each level's own value,
+   * not just the leaf's.
+   */
+  @Prop() valuePath?: string[];
   @Prop() placeholder?: string | null;
   @Prop() optionValuePath = 'id';
   @Prop() optionLabelPath = 'value';
@@ -45,7 +51,7 @@ export class CoNestedSelect {
   @Event() fwChange: EventEmitter;
 
   componentWillLoad(): void {
-    this.seedValue = this.value;
+    this.seedValue = this.valuePath?.[0] ?? this.value;
   }
 
   @Listen('fwChange')
@@ -118,6 +124,7 @@ export class CoNestedSelect {
               options={this.options}
               name={this.name}
               value={this.seedValue}
+              valuePath={this.valuePath}
               label={this.label}
               rootLabelledBy={rootLabelledBy}
               placeholder={this.placeholder}

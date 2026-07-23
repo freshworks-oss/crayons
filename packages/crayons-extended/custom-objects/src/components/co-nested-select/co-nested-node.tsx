@@ -30,6 +30,8 @@ export class CoNestedNode {
   @Prop() level = 0;
   @Prop() name = '';
   @Prop() value = '';
+  /** Root-to-leaf display value at every cascade depth, see `fw-co-nested-select`. */
+  @Prop() valuePath?: string[];
   @Prop() label = '';
   /**
    * When set (host passes the id of the external field label), the root `fw-select`
@@ -76,7 +78,7 @@ export class CoNestedNode {
       );
 
       if (this.selectedOption) {
-        this.childSeedValue = this.selectProps(this.name)?.value ?? '';
+        this.childSeedValue = this.valuePath?.[this.level + 1] ?? '';
         this.fwPropertyChange.emit({
           level: this.level,
           selectedOption: this.selectedOption,
@@ -103,6 +105,7 @@ export class CoNestedNode {
           label={this.selectedOption.label}
           placeholder={this.placeholder}
           value={this.childSeedValue}
+          valuePath={this.valuePath}
           level={this.level + 1}
           optionValuePath={this.optionValuePath}
           optionLabelPath={this.optionLabelPath}
@@ -129,6 +132,7 @@ export class CoNestedNode {
         label={this.selectedOption.label}
         placeholder={this.placeholder}
         value={this.childSeedValue}
+        valuePath={this.valuePath}
         level={this.level + 1}
         optionValuePath={this.optionValuePath}
         optionLabelPath={this.optionLabelPath}
