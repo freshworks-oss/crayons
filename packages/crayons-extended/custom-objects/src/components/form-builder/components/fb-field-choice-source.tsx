@@ -47,6 +47,18 @@ export class FbFieldChoiceSource {
   @Element() host!: HTMLElement;
 
   private dataSourceOptions: { value: string; text: string }[] = [];
+  // fw-select has no @Watch('value') - it only re-validates the current selection against its options
+  // when the OPTIONS prop itself changes (see matchValueWithOptions). The data source list never changes
+  // once loaded, so re-syncing selectedDataSource alone (e.g. once the lookup's referenceField resolves
+  // asynchronously after the panel is already open) would leave this select showing blank until the field
+  // is collapsed and reopened. Refs let syncFromDataResponse force a re-sync imperatively instead.
+  // HTMLFwSelectElement (crayons-core) isn't visible from this package's own generated type scope.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private dataSourceSelectRef?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private subItemSelectRef?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private dropdownFieldSelectRef?: any;
 
   /**
    * Selected data source and dropdown field values (controlled input from parent)
@@ -104,6 +116,16 @@ export class FbFieldChoiceSource {
   }
 
   componentWillLoad(): void {
+    this.dataSourceOptions = this.getLocalizedDataSources();
+    this.syncFromDataResponse();
+  }
+
+  // @Watch('dataResponse')/@Watch('choiceDataSources') above don't reliably fire when this component's
+  // props are updated as part of a parent-driven cascade spanning multiple component levels in one patch
+  // (confirmed via instrumentation: the new prop value lands on the instance and triggers a render, but the
+  // @Watch callback itself never runs). componentDidUpdate is called on every such render regardless, so it's
+  // used here as the reliable re-sync point; syncFromDataResponse's own no-op guard keeps this from looping.
+  componentDidUpdate(): void {
     this.dataSourceOptions = this.getLocalizedDataSources();
     this.syncFromDataResponse();
   }
@@ -319,6 +341,13 @@ export class FbFieldChoiceSource {
     this.selectedDropdownField = dropdownField;
     this.subItemOptions = subItemOptions;
     this.dropdownFieldOptions = dropdownFieldOptions;
+
+    // fw-select only re-validates its current value against options when the OPTIONS prop itself changes
+    // (see the comment on the ref fields above) - force it here so a re-sync after the panel is already
+    // open (e.g. once an async lookup resolution completes) doesn't leave the select showing blank.
+    this.dataSourceSelectRef?.setSelectedValues(this.selectedDataSource);
+    this.subItemSelectRef?.setSelectedValues(this.selectedSubItem);
+    this.dropdownFieldSelectRef?.setSelectedValues(this.selectedDropdownField);
   }
 
   private buildDataResponse(): ChoiceSourceDataResponse {
@@ -428,6 +457,8 @@ export class FbFieldChoiceSource {
           <div class={strBaseClassName}>
             <div class={`${strBaseClassName}-data-source-select-container`}>
               <fw-select
+                key='choice-source-data-source-select'
+                ref={(el) => (this.dataSourceSelectRef = el)}
                 required={true}
                 state={strDataSourceState}
                 class={`${strBaseClassName}-data-source-select`}
@@ -443,6 +474,8 @@ export class FbFieldChoiceSource {
             {boolHasSubItems && (
               <div class={`${strBaseClassName}-sub-item-select-container`}>
                 <fw-select
+                  key='choice-source-sub-item-select'
+                  ref={(el) => (this.subItemSelectRef = el)}
                   required={true}
                   state={strSubItemState}
                   class={`${strBaseClassName}-sub-item-select`}
@@ -458,6 +491,8 @@ export class FbFieldChoiceSource {
             )}
             <div class={`${strBaseClassName}-dropdown-field-select-container`}>
               <fw-select
+                key='choice-source-dropdown-field-select'
+                ref={(el) => (this.dropdownFieldSelectRef = el)}
                 required={true}
                 state={strDropdownFieldState}
                 class={`${strBaseClassName}-dropdown-field-select`}

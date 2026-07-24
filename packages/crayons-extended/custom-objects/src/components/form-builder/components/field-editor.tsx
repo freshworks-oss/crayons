@@ -780,7 +780,8 @@ export class FieldEditor {
 
     const source = Array.isArray(this.choiceDataSources)
       ? this.choiceDataSources.find(
-          (item) => String(item.value) === String(objChoiceSourceValues.dataSource)
+          (item) =>
+            String(item.value) === String(objChoiceSourceValues.dataSource)
         )
       : null;
 
@@ -1540,8 +1541,19 @@ export class FieldEditor {
   }
 
   private renderChoiceSource(boolDisableDropdowns) {
+    // A lookup-backed field's referenceField/data_source resolves asynchronously (see
+    // resolveDropdownLookupFieldMetadata in EntityBuilder.jsx) after this panel is already expanded and this
+    // component already mounted with a blank dataResponse. Re-syncing that resolved value into an already-
+    // mounted fw-fb-field-choice-source relies on Stencil prop-change reactivity that doesn't reliably fire
+    // across this particular multi-level parent cascade. Keying on whether referenceField has resolved forces
+    // a clean remount exactly once resolution completes, reusing the mount-time init path (componentWillLoad)
+    // that's already correct - the same thing collapsing/re-expanding the field does manually today.
+    const strChoiceSourceKey = `choice-source-${this.dataProvider?.id}-${
+      this.dataProvider?.referenceField ? 'resolved' : 'pending'
+    }`;
     return (
       <fw-fb-field-choice-source
+        key={strChoiceSourceKey}
         ref={(el) => (this.dictInteractiveElements['choiceSource'] = el)}
         showErrors={this.showErrors}
         disabled={boolDisableDropdowns}
@@ -1549,9 +1561,7 @@ export class FieldEditor {
         choiceSourceDataSourceChangeHandler={
           this.choiceSourceDataSourceChangeHandler
         }
-        choiceSourceSubItemChangeHandler={
-          this.choiceSourceSubItemChangeHandler
-        }
+        choiceSourceSubItemChangeHandler={this.choiceSourceSubItemChangeHandler}
         dataResponse={
           this.choiceSourceResponse ?? {
             dataSource: '',
