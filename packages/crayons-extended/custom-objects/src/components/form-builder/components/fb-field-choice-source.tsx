@@ -120,16 +120,6 @@ export class FbFieldChoiceSource {
     this.syncFromDataResponse();
   }
 
-  // @Watch('dataResponse')/@Watch('choiceDataSources') above don't reliably fire when this component's
-  // props are updated as part of a parent-driven cascade spanning multiple component levels in one patch
-  // (confirmed via instrumentation: the new prop value lands on the instance and triggers a render, but the
-  // @Watch callback itself never runs). componentDidUpdate is called on every such render regardless, so it's
-  // used here as the reliable re-sync point; syncFromDataResponse's own no-op guard keeps this from looping.
-  componentDidUpdate(): void {
-    this.dataSourceOptions = this.getLocalizedDataSources();
-    this.syncFromDataResponse();
-  }
-
   private getChoiceDataSources(): ChoiceDataSourceOption[] {
     if (!Array.isArray(this.choiceDataSources)) {
       return [];
