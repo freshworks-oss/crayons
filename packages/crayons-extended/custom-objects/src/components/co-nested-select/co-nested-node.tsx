@@ -89,7 +89,7 @@ export class CoNestedNode {
     }
   }
 
-  private getFirstlevelNestedSelect() {
+  private getNestedSelect() {
     if (!this.selectedOption?.choices?.length) {
       return null;
     }
@@ -97,35 +97,7 @@ export class CoNestedNode {
     // Every level shares the outer field's own name (not the per-level metadata name stamped by the
     // lookup choice tree), so each level's fwChange bubbles up under a name fw-form actually knows
     // about instead of polluting its values map with a key with no matching schema field.
-    return (
-      <div class='nest_indent'>
-        <fw-co-nested-node
-          options={this.selectedOption.choices}
-          name={this.name}
-          label={this.selectedOption.label}
-          placeholder={this.placeholder}
-          value={this.childSeedValue}
-          valuePath={this.valuePath}
-          level={this.level + 1}
-          optionValuePath={this.optionValuePath}
-          optionLabelPath={this.optionLabelPath}
-          selectProps={this.selectProps}
-          state={this.state}
-          hintText={this.hintText}
-          warningText={this.warningText}
-          errorText={this.errorText}
-          required={this.required}
-        ></fw-co-nested-node>
-      </div>
-    );
-  }
-
-  private getNestedSelect() {
-    if (!this.selectedOption?.choices?.length) {
-      return null;
-    }
-
-    return (
+    const nestedNode = (
       <fw-co-nested-node
         options={this.selectedOption.choices}
         name={this.name}
@@ -143,6 +115,13 @@ export class CoNestedNode {
         errorText={this.errorText}
         required={this.required}
       ></fw-co-nested-node>
+    );
+
+    // The first level gets an extra indent wrapper; deeper levels nest without it.
+    return this.level === 0 ? (
+      <div class='nest_indent'>{nestedNode}</div>
+    ) : (
+      nestedNode
     );
   }
 
@@ -171,9 +150,7 @@ export class CoNestedNode {
           errorText={this.errorText}
           required={this.required}
         ></fw-select>
-        {this.level === 0
-          ? this.getFirstlevelNestedSelect()
-          : this.getNestedSelect()}
+        {this.getNestedSelect()}
       </div>
     );
   }
