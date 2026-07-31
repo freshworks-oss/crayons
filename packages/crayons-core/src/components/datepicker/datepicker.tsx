@@ -82,6 +82,16 @@ const getWeekDays = (lang): any => {
   );
 };
 
+const toWideMonthFormat = (displayFormat) =>
+  displayFormat.replace(/MMM(?!M)/g, 'MMMM');
+
+const parseSwedishDate = (value, displayFormat, date, langModule) => {
+  // date-fns parse with MMM fails for Swedish months whose abbreviated name
+  // matches the wide name (e.g. mars, juni, juli). Parse with MMMM instead.
+  if (!value) return value;
+  return parseDate(value, toWideMonthFormat(displayFormat), date, langModule);
+};
+
 const parseIcelandicDate = (value, langModule) => {
   // For Icelandic language, the date format is different. There is a discrepency which is handled in this PR https://github.com/date-fns/date-fns/pull/3934
   if (!value) return value;
@@ -117,14 +127,20 @@ const parse = (value, displayFormat, date, langModule) => {
   if (langModule?.locale?.code === 'is' && displayFormat === 'dd MMM yyyy') {
     return parseIcelandicDate(value, langModule);
   }
+  if (langModule?.locale?.code === 'sv' && /MMM(?!M)/.test(displayFormat)) {
+    return parseSwedishDate(value, displayFormat, date, langModule);
+  }
   return parseDate(value, displayFormat, date, langModule);
 };
 
 const isMatch = (value, displayFormat, langModule) => {
-  if (langModule?.locale?.code !== 'is') {
-    return parseIsMatch(value, displayFormat, langModule);
+  if (langModule?.locale?.code === 'is') {
+    return true;
   }
-  return true;
+  if (langModule?.locale?.code === 'sv' && /MMM(?!M)/.test(displayFormat)) {
+    return parseIsMatch(value, toWideMonthFormat(displayFormat), langModule);
+  }
+  return parseIsMatch(value, displayFormat, langModule);
 };
 
 @Component({ tag: 'fw-datepicker', styleUrl: 'datepicker.scss', shadow: true })
