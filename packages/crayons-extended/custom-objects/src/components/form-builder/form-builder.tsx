@@ -99,6 +99,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showDependentField = true;
   /**
+   * flag to show multi select field type or not
+   */
+  @Prop({ mutable: true }) showMultiSelectField = true;
+  /**
    * flag to show dependentField resolve checkbox
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = true;
@@ -266,7 +270,7 @@ export class FormBuilder {
       'DROPDOWN',
       'DEPENDENT_FIELD',
       'RELATIONSHIP',
-      'MULTI_SELECT',
+      ...(this.showMultiSelectField ? ['MULTI_SELECT'] : []),
     ];
   }
 
@@ -512,6 +516,9 @@ export class FormBuilder {
     intIndex = -1,
     sectionData?
   ) => {
+    if (strNewFieldType === 'MULTI_SELECT' && !this.showMultiSelectField) {
+      return;
+    }
     const fieldType = strNewFieldType;
     const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
@@ -1429,6 +1436,9 @@ export class FormBuilder {
       return null;
     }
     const strFieldType = dataItem.type;
+    if (strFieldType === 'MULTI_SELECT' && !this.showMultiSelectField) {
+      return null;
+    }
     const objDefaultFieldTypeSchema =
       this.getDefaultFieldTypeSchema(strFieldType);
     if (!objDefaultFieldTypeSchema) {
@@ -1544,6 +1554,12 @@ export class FormBuilder {
       const dependentIndex = arrFieldOrder.indexOf('DEPENDENT_FIELD');
       if (dependentIndex > -1) {
         arrFieldOrder.splice(dependentIndex, 1);
+      }
+    }
+    if (!this.showMultiSelectField) {
+      const multiSelectIndex = arrFieldOrder.indexOf('MULTI_SELECT');
+      if (multiSelectIndex > -1) {
+        arrFieldOrder.splice(multiSelectIndex, 1);
       }
     }
     const boolFieldEditingState = !!Object.keys(this.currentFieldIndex).length;

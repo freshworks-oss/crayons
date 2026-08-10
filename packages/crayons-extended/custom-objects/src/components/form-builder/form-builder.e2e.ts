@@ -2005,6 +2005,55 @@ describe('fw-form-builder', () => {
     );
   });
 
+  it('MULTI_SELECT field should not be shown in left nav when showMultiSelectField is false', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder show-multi-select-field=false product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+
+    const leftPanel = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel'
+    );
+    const fieldItems = await leftPanel.findAll(
+      '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+    );
+    expect(fieldItems.length).toEqual(
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 2
+    );
+
+    for (const fieldItem of fieldItems) {
+      expect(await fieldItem.getProperty('value')).not.toEqual('MULTI_SELECT');
+    }
+  });
+
+  it('MULTI_SELECT field editor should not be shown when showMultiSelectField is false', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder show-multi-select-field=false product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+    await page.waitForChanges();
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { formValues }: any) => {
+        elm.formValues = formValues;
+      },
+      { formValues: formValues.CUSTOM_OBJECTS }
+    );
+    await page.waitForChanges();
+
+    const rightPanel = await page.find(
+      'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
+    );
+    const fieldDragDropItems = await rightPanel.findAll(
+      'fb-field-drag-drop-item'
+    );
+    expect(fieldDragDropItems.length).toEqual(
+      formValues.CUSTOM_OBJECTS.fields.length - 1
+    );
+  });
+
   it('disables left panel and displays message and button when role is trial, clicking on Explore plan button triggers fwExplorePlan event', async () => {
     const page = await newE2EPage();
 

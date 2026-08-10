@@ -590,6 +590,10 @@ export namespace Components {
          */
         "showLookupField": boolean;
         /**
+          * flag to show multi select field type or not
+         */
+        "showMultiSelectField": boolean;
+        /**
           * flag to show relationshipTypeSelect dropdown or not
          */
         "showRelationshipTypeSelect": boolean;
@@ -1658,6 +1662,10 @@ declare namespace LocalJSX {
           * flag to show lookupField for CONVERSATION_PROPERTIES or not
          */
         "showLookupField"?: boolean;
+        /**
+          * flag to show multi select field type or not
+         */
+        "showMultiSelectField"?: boolean;
         /**
           * flag to show relationshipTypeSelect dropdown or not
          */
