@@ -926,6 +926,9 @@ export namespace Components {
          */
         "shouldRender": boolean;
         "touched": boolean;
+        /**
+          * Type of form control.  `DROPDOWN_LOOKUP` renders as `fw-select`. `DROPDOWN_LOOKUP_SECTION` renders as `fw-co-nested-select` from `@freshworks/crayons-custom-objects` — that package must be loaded whenever this type is used, otherwise the custom element is undefined.
+         */
         "type": | 'TEXT'
     | 'NUMBER'
     | 'DECIMAL'
@@ -943,6 +946,8 @@ export namespace Components {
     | 'RELATIONSHIP'
     | 'AUTO_COMPLETE'
     | 'DEPENDENT_FIELD'
+    | 'DROPDOWN_LOOKUP'
+    | 'DROPDOWN_LOOKUP_SECTION'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -4052,6 +4057,9 @@ declare namespace LocalJSX {
          */
         "shouldRender"?: boolean;
         "touched"?: boolean;
+        /**
+          * Type of form control.  `DROPDOWN_LOOKUP` renders as `fw-select`. `DROPDOWN_LOOKUP_SECTION` renders as `fw-co-nested-select` from `@freshworks/crayons-custom-objects` — that package must be loaded whenever this type is used, otherwise the custom element is undefined.
+         */
         "type"?: | 'TEXT'
     | 'NUMBER'
     | 'DECIMAL'
@@ -4069,6 +4077,8 @@ declare namespace LocalJSX {
     | 'RELATIONSHIP'
     | 'AUTO_COMPLETE'
     | 'DEPENDENT_FIELD'
+    | 'DROPDOWN_LOOKUP'
+    | 'DROPDOWN_LOOKUP_SECTION'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control

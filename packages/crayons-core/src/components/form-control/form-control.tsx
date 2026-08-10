@@ -20,6 +20,14 @@ const NATIVE_CONTROLS = ['input', 'select', 'textarea'];
 export class FormControl {
   @Element() el;
 
+  /**
+   * Type of form control.
+   *
+   * `DROPDOWN_LOOKUP` renders as `fw-select`.
+   * `DROPDOWN_LOOKUP_SECTION` renders as `fw-co-nested-select` from
+   * `@freshworks/crayons-custom-objects` — that package must be loaded whenever
+   * this type is used, otherwise the custom element is undefined.
+   */
   @Prop()
   type:
     | 'TEXT'

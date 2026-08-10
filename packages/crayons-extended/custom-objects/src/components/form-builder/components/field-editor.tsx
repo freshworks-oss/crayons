@@ -120,7 +120,8 @@ export class FieldEditor {
     sourceId: string
   ) => void | Promise<void>;
   /**
-   * Callback invoked when the choice source sub-item dropdown changes
+   * Callback invoked when the choice source sub-item dropdown changes.
+   * Host must refresh `choiceDataSources` fields for the selected sub-item.
    */
   @Prop() choiceSourceSubItemChangeHandler?: (
     sourceId: string,

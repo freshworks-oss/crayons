@@ -140,7 +140,10 @@ export class FormBuilder {
   @Prop() useChoiceSourceDropdown = false;
   /**
    * Data sources and field options for choice-source dropdown fields.
-   * Each item: { value, text, fields: [{ value, text, column_name?, option_value_path?, option_label_path? }] }
+   * Shape: `{ value, text, has_sub_items?, fields: [{ value, text, column_name?, option_value_path?, option_label_path?, has_dependents? }], subItems? }`.
+   *
+   * When `has_sub_items` is true, `fields` are typically empty until the host
+   * refreshes them from `choiceSourceSubItemChangeHandler` after a sub-item is chosen.
    */
   @Prop({ mutable: true }) choiceDataSources = null;
   /**
@@ -150,7 +153,9 @@ export class FormBuilder {
     sourceId: string
   ) => void | Promise<void>;
   /**
-   * Callback invoked when the choice source sub-item dropdown changes
+   * Callback invoked when the choice source sub-item dropdown changes.
+   * Host must update `choiceDataSources` so the selected source’s `fields`
+   * match the chosen sub-item before the dropdown-field select can be used.
    */
   @Prop() choiceSourceSubItemChangeHandler?: (
     sourceId: string,
@@ -1500,9 +1505,7 @@ export class FormBuilder {
         choiceSourceDataSourceChangeHandler={
           this.choiceSourceDataSourceChangeHandler
         }
-        choiceSourceSubItemChangeHandler={
-          this.choiceSourceSubItemChangeHandler
-        }
+        choiceSourceSubItemChangeHandler={this.choiceSourceSubItemChangeHandler}
         reorderFieldProgressHandler={this.reorderFieldProgressHandler}
         sectionName={sectionName}
         parentIndex={parentIndex}

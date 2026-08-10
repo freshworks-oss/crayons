@@ -38,6 +38,15 @@ export interface ChoiceSourceDataResponse {
   has_dependents?: boolean;
 }
 
+/**
+ * Choice-source picker for DROPDOWN fields when `useChoiceSourceDropdown` is enabled.
+ *
+ * Host contract: when a data source has `has_sub_items: true` and the user selects a
+ * sub-item, `choiceSourceSubItemChangeHandler` fires. The host must update
+ * `choiceDataSources` so that source’s `fields` list matches the selected sub-item
+ * before the dropdown-field select is usable. Save payloads include `sub_item_id`
+ * when a sub-item was selected.
+ */
 @Component({
   tag: 'fw-fb-field-choice-source',
   styleUrl: 'fb-field-choice-source.scss',
@@ -87,7 +96,9 @@ export class FbFieldChoiceSource {
     sourceId: string
   ) => void | Promise<void>;
   /**
-   * Callback invoked when the sub-item dropdown selection changes
+   * Callback invoked when the sub-item dropdown selection changes.
+   * Host must refresh `choiceDataSources` so the selected source’s `fields`
+   * match the chosen sub-item before the dropdown-field select is usable.
    */
   @Prop() choiceSourceSubItemChangeHandler?: (
     sourceId: string,
