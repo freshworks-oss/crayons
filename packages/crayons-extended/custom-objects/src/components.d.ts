@@ -204,7 +204,7 @@ export namespace Components {
         "state": 'normal' | 'warning' | 'error';
         "value": string;
         /**
-          * Root-to-leaf display value at every cascade depth for a previously saved selection - only the leaf value is persisted on the record, so restoring the full cascade on edit needs each level's own value, not just the leaf's.
+          * Root-to-leaf display value at every cascade depth for a previously saved selection - only the leaf value is persisted on the record, so restoring the full cascade on edit needs each level's own value, not just the leaf's. Example: `['hardware', 'computer', 'mac']`.
          */
         "valuePath"?: string[];
         "warningText": string;
@@ -1352,6 +1352,9 @@ declare namespace LocalJSX {
         "hintText"?: string;
         "label"?: string;
         "name"?: string;
+        /**
+          * Emitted when cascade selection changes. Detail: `{ name: string, value: string }` — leaf option id for this field.
+         */
         "onFwChange"?: (event: FwCoNestedSelectCustomEvent<any>) => void;
         "optionLabelPath"?: string;
         "optionValuePath"?: string;
@@ -1365,7 +1368,7 @@ declare namespace LocalJSX {
         "state"?: 'normal' | 'warning' | 'error';
         "value"?: string;
         /**
-          * Root-to-leaf display value at every cascade depth for a previously saved selection - only the leaf value is persisted on the record, so restoring the full cascade on edit needs each level's own value, not just the leaf's.
+          * Root-to-leaf display value at every cascade depth for a previously saved selection - only the leaf value is persisted on the record, so restoring the full cascade on edit needs each level's own value, not just the leaf's. Example: `['hardware', 'computer', 'mac']`.
          */
         "valuePath"?: string[];
         "warningText"?: string;

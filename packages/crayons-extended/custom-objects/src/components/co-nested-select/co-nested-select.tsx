@@ -6,12 +6,16 @@ import {
   Event,
   EventEmitter,
   Listen,
+  Watch,
+  State,
 } from '@stencil/core';
 
 /**
  * Custom Objects nested dependent field: forked tree (`fw-co-nested-node`) plus
  * panel layout when `label` is set (`field_options.dependent_select_tag` with `fw-form` /
  * `fw-form-control`). Selection / emit logic matches core `fw-nested-select`.
+ *
+ * `fwChange` detail: `{ name: string, value: string }` — leaf option id for this field.
  */
 @Component({
   tag: 'fw-co-nested-select',
@@ -21,10 +25,14 @@ import {
 export class CoNestedSelect {
   private selections = [];
   private selectedItems = {};
-  // Captured once at mount (edit-mode seeding) rather than read live from `this.value` on every render -
-  // every level shares the field's own name, so `value` keeps changing as deeper levels are selected, and
-  // re-feeding that into the root level on every render would reset its own, already-made selection.
+  // Captured for the root level rather than reading live `this.value` on every render —
+  // every level shares the field's own name, so `value` keeps changing as deeper levels
+  // are selected, and re-feeding that into the root on every render would reset it.
   private seedValue = '';
+  // True after the user changes a cascade level; used to ignore form echo of the leaf value.
+  private userCascadeStarted = false;
+
+  @State() seedVersion = 0;
 
   @Prop() options = [];
   @Prop() name = '';
@@ -33,7 +41,7 @@ export class CoNestedSelect {
   /**
    * Root-to-leaf display value at every cascade depth for a previously saved selection - only the leaf
    * value is persisted on the record, so restoring the full cascade on edit needs each level's own value,
-   * not just the leaf's.
+   * not just the leaf's. Example: `['hardware', 'computer', 'mac']`.
    */
   @Prop() valuePath?: string[];
   @Prop() placeholder?: string | null;
@@ -48,20 +56,57 @@ export class CoNestedSelect {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mirrors `fw-nested-select`
   @Prop() selectProps?: any;
 
-  @Event() fwChange: EventEmitter;
+  /**
+   * Emitted when cascade selection changes.
+   * Detail: `{ name: string, value: string }` — leaf option id for this field.
+   */
+  @Event({ bubbles: true, composed: true }) fwChange: EventEmitter;
 
   componentWillLoad(): void {
-    this.seedValue = this.valuePath?.[0] ?? this.value;
+    this.seedValue = this.valuePath?.[0] ?? this.value ?? '';
+  }
+
+  @Watch('valuePath')
+  watchValuePathHandler(
+    newPath: string[] | undefined,
+    oldPath: string[] | undefined
+  ): void {
+    if (this.arePathsEqual(newPath, oldPath)) {
+      return;
+    }
+    this.applyExternalSeed();
+  }
+
+  @Watch('value')
+  watchValueHandler(newValue: string, oldValue: string): void {
+    // Prefer valuePath when present — `value` is the persisted leaf, not the root seed.
+    if (this.valuePath?.length) {
+      return;
+    }
+    if (newValue === oldValue) {
+      return;
+    }
+    // Form echoes the leaf back after fwChange; do not remount mid-cascade.
+    if (this.userCascadeStarted && newValue === this.getLeafValue()) {
+      return;
+    }
+    this.applyExternalSeed();
   }
 
   @Listen('fwChange')
   changed(event) {
     const { meta, level, name } = event.detail;
 
+    // Own leaf emits have no `meta` — ignore so we do not recurse.
     if (!meta) {
       return;
     }
 
+    // Cascade level events share this field's name but omit `value`. If they reach
+    // `fw-form`, it overwrites the leaf we emit below with `undefined`.
+    event.stopPropagation();
+
+    this.userCascadeStarted = true;
     this.selections[level] = meta.selectedOptions[0];
     this.selectedItems[name] = level;
 
@@ -70,7 +115,7 @@ export class CoNestedSelect {
       this.selections = this.selections.slice(0, level + 1);
     }
 
-    this.triggerValueChange(name);
+    this.emitLeafValueChange();
   }
 
   @Listen('fwPropertyChange')
@@ -85,19 +130,39 @@ export class CoNestedSelect {
     return `fw-co-nested-select-label-${this.name || 'field'}`;
   }
 
-  private triggerValueChange(nameToExclude) {
-    const keys = Object.keys(this.selectedItems);
+  private getLeafValue(): string {
+    const leaf = [...this.selections].reverse().find(Boolean);
+    return leaf?.[this.optionValuePath] ?? '';
+  }
 
-    keys.forEach((key) => {
-      if (nameToExclude !== key) {
-        const level = this.selectedItems[key];
-        const value = this?.selections[level]?.[this.optionValuePath] || '';
+  private arePathsEqual(
+    a: string[] | undefined,
+    b: string[] | undefined
+  ): boolean {
+    const left = a ?? [];
+    const right = b ?? [];
+    if (left.length !== right.length) {
+      return false;
+    }
+    return left.every((item, index) => item === right[index]);
+  }
 
-        this.fwChange.emit({
-          name: key,
-          value,
-        });
-      }
+  private applyExternalSeed(): void {
+    this.seedValue = this.valuePath?.[0] ?? this.value ?? '';
+    this.selections = [];
+    this.selectedItems = {};
+    this.userCascadeStarted = false;
+    this.seedVersion += 1;
+  }
+
+  /**
+   * All cascade levels share `this.name`, so the core-style nameToExclude emit would
+   * never fire. Always emit the current leaf for the outer field name.
+   */
+  private emitLeafValueChange(): void {
+    this.fwChange.emit({
+      name: this.name,
+      value: this.getLeafValue(),
     });
   }
 
@@ -121,6 +186,7 @@ export class CoNestedSelect {
           ) : null}
           <div class='field-control-panel'>
             <fw-co-nested-node
+              key={`co-nested-seed-${this.seedVersion}`}
               options={this.options}
               name={this.name}
               value={this.seedValue}
