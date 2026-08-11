@@ -65,6 +65,7 @@ nestedSelect.valuePath = ['hardware', 'computer', 'mac'];
 
 | Property          | Attribute           | Description                                                                                                                                                                                                                                                               | Type                               | Default     |
 | ----------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `disabled`        | `disabled`          | Disables all cascade level selects                                                                                                                                                                                                                                        | `boolean`                          | `false`     |
 | `errorText`       | `error-text`        |                                                                                                                                                                                                                                                                           | `string`                           | `''`        |
 | `hintText`        | `hint-text`         |                                                                                                                                                                                                                                                                           | `string`                           | `''`        |
 | `label`           | `label`             |                                                                                                                                                                                                                                                                           | `string`                           | `''`        |
@@ -100,6 +101,7 @@ outer field `name` so `fw-form` receives updates under a known schema key.
 
 | Property | Attribute | Description | Type | Default |
 | --- | --- | --- | --- | --- |
+| `disabled` | `disabled` | Disables this level's `fw-select` | `boolean` | `false` |
 | `errorText` | `error-text` | | `string` | `''` |
 | `hintText` | `hint-text` | | `string` | `''` |
 | `label` | `label` | | `string` | `''` |

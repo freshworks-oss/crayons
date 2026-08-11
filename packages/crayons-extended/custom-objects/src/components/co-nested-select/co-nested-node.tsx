@@ -47,6 +47,7 @@ export class CoNestedNode {
   @Prop() optionValuePath = 'id';
   @Prop() optionLabelPath = 'value';
   @Prop() required = false;
+  @Prop() disabled = false;
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   @Prop() hintText = '';
   @Prop() warningText = '';
@@ -119,6 +120,7 @@ export class CoNestedNode {
         warningText={this.warningText}
         errorText={this.errorText}
         required={this.required}
+        disabled={this.disabled}
       ></fw-co-nested-node>
     );
 
@@ -157,6 +159,7 @@ export class CoNestedNode {
           warningText={this.warningText}
           errorText={this.errorText}
           required={this.required}
+          disabled={this.disabled}
         ></fw-select>
         {this.getNestedSelect()}
       </div>

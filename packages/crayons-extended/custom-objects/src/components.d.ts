@@ -165,6 +165,7 @@ export namespace Components {
         "value": any;
     }
     interface FwCoNestedNode {
+        "disabled": boolean;
         "errorText": string;
         "hintText": string;
         "label": string;
@@ -189,6 +190,7 @@ export namespace Components {
         "warningText": string;
     }
     interface FwCoNestedSelect {
+        "disabled": boolean;
         "errorText": string;
         "hintText": string;
         "label": string;
@@ -1324,6 +1326,7 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface FwCoNestedNode {
+        "disabled"?: boolean;
         "errorText"?: string;
         "hintText"?: string;
         "label"?: string;
@@ -1349,6 +1352,7 @@ declare namespace LocalJSX {
         "warningText"?: string;
     }
     interface FwCoNestedSelect {
+        "disabled"?: boolean;
         "errorText"?: string;
         "hintText"?: string;
         "label"?: string;

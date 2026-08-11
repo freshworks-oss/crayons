@@ -3323,6 +3323,48 @@ describe('fw-form-builder', () => {
       expect(saveDetail.value.referenceField).toBe('booking_id');
     });
 
+    it('preserves has_dependents on edit-save without reselection', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      const fwSaveField = await page.spyOnEvent('fwSaveField');
+      await page.waitForChanges();
+
+      const formValuesWithDependents = JSON.parse(
+        JSON.stringify(formValues.CUSTOM_OBJECTS)
+      );
+      formValuesWithDependents.fields[DROPDOWN_FIELD_INDEX] = {
+        ...formValuesWithDependents.fields[DROPDOWN_FIELD_INDEX],
+        has_dependents: true,
+        field_options: {
+          reference: 'true',
+          data_source: '4853',
+          option_value_path: 'id',
+          option_label_path: 'value',
+        },
+        column_name: 'booking_id',
+        referenceField: 'booking_id',
+      };
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX,
+        { formValues: formValuesWithDependents }
+      );
+      const labelInput = await fieldEditor.find(
+        '.fw-field-editor-content-required-input'
+      );
+      await labelInput.click();
+      await labelInput.press('a');
+      await page.waitForChanges();
+
+      const saveBtn = await fieldEditor.find('#submitFieldBtn');
+      await saveBtn.click();
+      await page.waitForChanges();
+
+      expect(fwSaveField).toHaveReceivedEvent();
+      expect(fwSaveField.events[0].detail.value.has_dependents).toBe(true);
+    });
+
     it('pre-populates choice source selects from existing field data', async () => {
       const page = await newE2EPage();
       await page.setContent('<fw-form-builder></fw-form-builder>');

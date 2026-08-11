@@ -17,6 +17,7 @@ import type { CoNestedSelectPropsFn } from './co-nested-select-types';
  * `fw-form-control`). Selection / emit logic matches core `fw-nested-select`.
  *
  * `fwChange` detail: `{ name: string, value: string }` — leaf option id for this field.
+ * Emits an empty `value` while the cascade is incomplete (selected node still has children).
  */
 @Component({
   tag: 'fw-co-nested-select',
@@ -49,6 +50,7 @@ export class CoNestedSelect {
   @Prop() optionValuePath = 'id';
   @Prop() optionLabelPath = 'value';
   @Prop() required = false;
+  @Prop() disabled = false;
   @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
   @Prop() hintText = '';
   @Prop() warningText = '';
@@ -132,7 +134,14 @@ export class CoNestedSelect {
 
   private getLeafValue(): string {
     const leaf = [...this.selections].reverse().find(Boolean);
-    return leaf?.[this.optionValuePath] ?? '';
+    if (!leaf) {
+      return '';
+    }
+    // Incomplete cascade: parent still has children — do not persist as the field value.
+    if (Array.isArray(leaf.choices) && leaf.choices.length > 0) {
+      return '';
+    }
+    return leaf[this.optionValuePath] ?? '';
   }
 
   private arePathsEqual(
@@ -202,6 +211,7 @@ export class CoNestedSelect {
               warningText={this.warningText}
               errorText={this.errorText}
               required={this.required}
+              disabled={this.disabled}
             />
           </div>
         </div>

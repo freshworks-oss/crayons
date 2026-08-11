@@ -78,3 +78,34 @@ export function isChoiceSourceSubItemValid(
     (item) => String(item.value) === String(subItemId)
   );
 }
+
+/**
+ * Resolve `has_dependents` for save/edit.
+ * Prefer the selected field’s metadata when present; otherwise keep the response
+ * or existing field value so edit-save without reselection does not wipe it.
+ */
+export function resolveChoiceSourceHasDependents(
+  sources: ChoiceDataSourceOption[] | null | undefined,
+  response:
+    | Pick<
+        ChoiceSourceDataResponse,
+        'dataSource' | 'dropdownField' | 'has_dependents'
+      >
+    | null
+    | undefined,
+  fallbackHasDependents?: boolean
+): boolean {
+  if (response?.dataSource && response?.dropdownField) {
+    const source = findChoiceDataSource(sources, response.dataSource);
+    const field = source?.fields?.find(
+      (item) => item.value === response.dropdownField
+    );
+    if (field && typeof field.has_dependents === 'boolean') {
+      return field.has_dependents;
+    }
+  }
+  if (typeof response?.has_dependents === 'boolean') {
+    return response.has_dependents;
+  }
+  return !!fallbackHasDependents;
+}

@@ -24,6 +24,7 @@ import {
   isChoiceSourceDropdownFieldValid,
   isChoiceSourceSubItemValid,
   findChoiceDataSource,
+  resolveChoiceSourceHasDependents,
 } from '../choice-source-types';
 import {
   buildChoicesFromText,
@@ -836,6 +837,8 @@ export class FieldEditor {
       column_name: strColumnName,
       option_value_path: fieldOptions.option_value_path || 'id',
       option_label_path: fieldOptions.option_label_path || 'value',
+      // Preserve on edit so save without reselection does not wipe dependents.
+      has_dependents: !!this.dataProvider?.has_dependents,
     };
   };
 
@@ -1023,8 +1026,11 @@ export class FieldEditor {
               objChoiceSourceValues.column_name ||
               objChoiceSourceValues.dropdownField;
             objValues['referenceField'] = objChoiceSourceValues.dropdownField;
-            objValues['has_dependents'] =
-              !!objChoiceSourceValues.has_dependents;
+            objValues['has_dependents'] = resolveChoiceSourceHasDependents(
+              this.choiceDataSources,
+              objChoiceSourceValues,
+              this.dataProvider?.has_dependents
+            );
           } else {
             this.showErrors = true;
             return;

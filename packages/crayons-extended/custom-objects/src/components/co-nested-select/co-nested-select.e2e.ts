@@ -160,6 +160,56 @@ describe('fw-co-nested-select', () => {
     });
   });
 
+  it('should emit empty value for incomplete cascade (parent still has choices)', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent('<fw-co-nested-select></fw-co-nested-select>');
+    const element = await page.find('fw-co-nested-select');
+
+    element.setProperty('options', sampleOptions);
+    element.setProperty('name', 'category_co');
+    await page.waitForChanges();
+
+    const fwChange = await page.spyOnEvent('fwChange');
+    await element.triggerEvent('fwChange', {
+      detail: {
+        meta: { selectedOptions: [sampleOptions[0]] },
+        level: 0,
+        name: 'category_co',
+      },
+    });
+    await page.waitForChanges();
+
+    const leafEmits = fwChange.events.filter(
+      (event) =>
+        event.detail &&
+        event.detail.meta === undefined &&
+        event.detail.name === 'category_co'
+    );
+    expect(leafEmits.length).toBeGreaterThanOrEqual(1);
+    expect(leafEmits[leafEmits.length - 1].detail).toEqual({
+      name: 'category_co',
+      value: '',
+    });
+  });
+
+  it('should forward disabled to nested fw-selects', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-co-nested-select disabled="true"></fw-co-nested-select>'
+    );
+    const element = await page.find('fw-co-nested-select');
+    element.setProperty('options', sampleOptions);
+    element.setProperty('name', 'category_co');
+    await page.waitForChanges();
+
+    const select = await page.find(
+      'fw-co-nested-select >>> fw-co-nested-node >>> fw-select'
+    );
+    expect(await select.getProperty('disabled')).toBe(true);
+  });
+
   it('should update fw-form values when cascade leaf is selected', async () => {
     const page = await newE2EPage();
 
