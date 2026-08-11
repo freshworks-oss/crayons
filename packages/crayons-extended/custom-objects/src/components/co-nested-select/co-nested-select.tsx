@@ -9,6 +9,7 @@ import {
   Watch,
   State,
 } from '@stencil/core';
+import type { CoNestedSelectPropsFn } from './co-nested-select-types';
 
 /**
  * Custom Objects nested dependent field: forked tree (`fw-co-nested-node`) plus
@@ -53,8 +54,7 @@ export class CoNestedSelect {
   @Prop() warningText = '';
   @Prop() errorText = '';
   /** Initial values helper from `fw-form` / `controlProps.selectProps`. */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mirrors `fw-nested-select`
-  @Prop() selectProps?: any;
+  @Prop() selectProps?: CoNestedSelectPropsFn;
 
   /**
    * Emitted when cascade selection changes.

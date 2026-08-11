@@ -8,6 +8,10 @@ import {
   Event,
   EventEmitter,
 } from '@stencil/core';
+import type {
+  CoNestedFwSelectRef,
+  CoNestedSelectPropsFn,
+} from './co-nested-select-types';
 
 /**
  * Custom Objects fork of `fw-nested-node` — lives alongside `fw-co-nested-select`;
@@ -25,8 +29,7 @@ export class CoNestedNode {
   // latest (possibly deeper-level) value, and re-deriving it here on every render would keep re-feeding
   // that value into an already-mounted child level, resetting whatever it had selected.
   private childSeedValue = '';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- HTMLFwSelectElement is from crayons-core
-  private selectRef?: any;
+  private selectRef?: CoNestedFwSelectRef;
 
   @Prop() options = [];
   @Prop() level = 0;
@@ -48,8 +51,7 @@ export class CoNestedNode {
   @Prop() hintText = '';
   @Prop() warningText = '';
   @Prop() errorText = '';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- mirrors core nested-node
-  @Prop() selectProps?: any;
+  @Prop() selectProps?: CoNestedSelectPropsFn;
 
   @Event() fwPropertyChange: EventEmitter;
 
@@ -139,7 +141,9 @@ export class CoNestedNode {
     return (
       <div class='nest'>
         <fw-select
-          ref={(select) => (this.selectRef = select)}
+          ref={(select) => {
+            this.selectRef = select as CoNestedFwSelectRef | undefined;
+          }}
           label={selectLabel}
           labelledBy={selectLabelledBy}
           placeholder={this.placeholder}

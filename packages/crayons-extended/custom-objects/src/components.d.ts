@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ChoiceDataSourceOption, ChoiceSourceDataResponse } from "./components/form-builder/choice-source-types";
+import { CoNestedSelectPropsFn } from "./components/co-nested-select/co-nested-select-types";
 export namespace Components {
     interface FbFieldDragDropItem {
         /**
@@ -178,7 +179,7 @@ export namespace Components {
           * When set (host passes the id of the external field label), the root `fw-select` uses `labelledBy` and omits its own `label` text to avoid duplicate visible labels.
          */
         "rootLabelledBy": string;
-        "selectProps"?: any;
+        "selectProps"?: CoNestedSelectPropsFn;
         "state": 'normal' | 'warning' | 'error';
         "value": string;
         /**
@@ -200,7 +201,7 @@ export namespace Components {
         /**
           * Initial values helper from `fw-form` / `controlProps.selectProps`.
          */
-        "selectProps"?: any;
+        "selectProps"?: CoNestedSelectPropsFn;
         "state": 'normal' | 'warning' | 'error';
         "value": string;
         /**
@@ -1338,7 +1339,7 @@ declare namespace LocalJSX {
           * When set (host passes the id of the external field label), the root `fw-select` uses `labelledBy` and omits its own `label` text to avoid duplicate visible labels.
          */
         "rootLabelledBy"?: string;
-        "selectProps"?: any;
+        "selectProps"?: CoNestedSelectPropsFn;
         "state"?: 'normal' | 'warning' | 'error';
         "value"?: string;
         /**
@@ -1364,7 +1365,7 @@ declare namespace LocalJSX {
         /**
           * Initial values helper from `fw-form` / `controlProps.selectProps`.
          */
-        "selectProps"?: any;
+        "selectProps"?: CoNestedSelectPropsFn;
         "state"?: 'normal' | 'warning' | 'error';
         "value"?: string;
         /**
