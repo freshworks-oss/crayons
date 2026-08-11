@@ -25,6 +25,8 @@ export class CoNestedNode {
   // latest (possibly deeper-level) value, and re-deriving it here on every render would keep re-feeding
   // that value into an already-mounted child level, resetting whatever it had selected.
   private childSeedValue = '';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- HTMLFwSelectElement is from crayons-core
+  private selectRef?: any;
 
   @Prop() options = [];
   @Prop() level = 0;
@@ -54,6 +56,7 @@ export class CoNestedNode {
   @Watch('options')
   optionsChanged() {
     this.selectedOption = null;
+    this.selectRef?.setSelectedValues('');
   }
 
   @Listen('fwChange')
@@ -83,7 +86,7 @@ export class CoNestedNode {
           level: this.level,
           selectedOption: this.selectedOption,
           name: this.name,
-          value: this.selectProps(this.selectedOption?.name),
+          value: this.selectProps?.(this.selectedOption?.name),
         });
       }
     }
@@ -136,6 +139,7 @@ export class CoNestedNode {
     return (
       <div class='nest'>
         <fw-select
+          ref={(select) => (this.selectRef = select)}
           label={selectLabel}
           labelledBy={selectLabelledBy}
           placeholder={this.placeholder}

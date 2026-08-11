@@ -1,6 +1,7 @@
 import { Component, Prop, h, Host, State } from '@stencil/core';
 import { TranslationController } from '../../../global/Translation';
 import formMapper from '../assets/form-mapper.json';
+import { ChoiceDataSourceOption } from '../choice-source-types';
 import {
   hasCustomProperty,
   isDropdownField,
@@ -56,7 +57,8 @@ export class FormBuilderFieldDragDropItem {
   /**
    * Data sources and field options for choice-source dropdown fields
    */
-  @Prop({ mutable: true }) choiceDataSources = null;
+  @Prop({ mutable: true }) choiceDataSources: ChoiceDataSourceOption[] | null =
+    null;
   /**
    * flag to show dependentField resolve checkbox
    */

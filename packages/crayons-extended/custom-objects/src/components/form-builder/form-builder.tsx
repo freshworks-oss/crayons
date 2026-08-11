@@ -28,6 +28,7 @@ import {
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
+import { ChoiceDataSourceOption } from './choice-source-types';
 import { debounce } from '../../utils/utils';
 import { TranslationController } from '../../global/Translation';
 import { parseBoolean } from '../../utils/utils';
@@ -145,7 +146,8 @@ export class FormBuilder {
    * When `has_sub_items` is true, `fields` are typically empty until the host
    * refreshes them from `choiceSourceSubItemChangeHandler` after a sub-item is chosen.
    */
-  @Prop({ mutable: true }) choiceDataSources = null;
+  @Prop({ mutable: true }) choiceDataSources: ChoiceDataSourceOption[] | null =
+    null;
   /**
    * Callback invoked when the choice source data source dropdown changes
    */

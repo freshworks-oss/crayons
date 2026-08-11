@@ -5,13 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ChoiceDataSourceOption, ChoiceSourceDataResponse } from "./components/form-builder/components/fb-field-choice-source";
+import { ChoiceDataSourceOption, ChoiceSourceDataResponse } from "./components/form-builder/choice-source-types";
 export namespace Components {
     interface FbFieldDragDropItem {
         /**
           * Data sources and field options for choice-source dropdown fields
          */
-        "choiceDataSources": any;
+        "choiceDataSources": ChoiceDataSourceOption[] | null;
         "choiceSourceDataSourceChangeHandler": any;
         "choiceSourceSubItemChangeHandler": any;
         /**
@@ -392,7 +392,7 @@ export namespace Components {
         /**
           * Data sources and field options for choice-source dropdown fields
          */
-        "choiceDataSources": any;
+        "choiceDataSources": ChoiceDataSourceOption[] | null;
         /**
           * Callback invoked when the choice source data source dropdown changes
          */
@@ -635,7 +635,7 @@ export namespace Components {
         /**
           * Data sources and field options for choice-source dropdown fields. Shape: `{ value, text, has_sub_items?, fields: [{ value, text, column_name?, option_value_path?, option_label_path?, has_dependents? }], subItems? }`.  When `has_sub_items` is true, `fields` are typically empty until the host refreshes them from `choiceSourceSubItemChangeHandler` after a sub-item is chosen.
          */
-        "choiceDataSources": any;
+        "choiceDataSources": ChoiceDataSourceOption[] | null;
         /**
           * Callback invoked when the choice source data source dropdown changes
          */
@@ -1152,7 +1152,7 @@ declare namespace LocalJSX {
         /**
           * Data sources and field options for choice-source dropdown fields
          */
-        "choiceDataSources"?: any;
+        "choiceDataSources"?: ChoiceDataSourceOption[] | null;
         "choiceSourceDataSourceChangeHandler"?: any;
         "choiceSourceSubItemChangeHandler"?: any;
         /**
@@ -1577,7 +1577,7 @@ declare namespace LocalJSX {
         /**
           * Data sources and field options for choice-source dropdown fields
          */
-        "choiceDataSources"?: any;
+        "choiceDataSources"?: ChoiceDataSourceOption[] | null;
         /**
           * Callback invoked when the choice source data source dropdown changes
          */
@@ -1844,7 +1844,7 @@ declare namespace LocalJSX {
         /**
           * Data sources and field options for choice-source dropdown fields. Shape: `{ value, text, has_sub_items?, fields: [{ value, text, column_name?, option_value_path?, option_label_path?, has_dependents? }], subItems? }`.  When `has_sub_items` is true, `fields` are typically empty until the host refreshes them from `choiceSourceSubItemChangeHandler` after a sub-item is chosen.
          */
-        "choiceDataSources"?: any;
+        "choiceDataSources"?: ChoiceDataSourceOption[] | null;
         /**
           * Callback invoked when the choice source data source dropdown changes
          */

@@ -17,6 +17,15 @@ import presetSchema from '../assets/form-builder-preset.json';
 import formMapper from '../assets/form-mapper.json';
 import { TranslationController } from '../../../global/Translation';
 import {
+  ChoiceDataSourceOption,
+  ChoiceSourceDataResponse,
+  DEFAULT_CHOICE_SOURCE_DATA_SOURCE_ID,
+  isChoiceSourceDataSourceValid,
+  isChoiceSourceDropdownFieldValid,
+  isChoiceSourceSubItemValid,
+  findChoiceDataSource,
+} from '../choice-source-types';
+import {
   buildChoicesFromText,
   checkIfCustomToggleField,
   deepCloneObject,
@@ -112,7 +121,8 @@ export class FieldEditor {
   /**
    * Data sources and field options for choice-source dropdown fields
    */
-  @Prop({ mutable: true }) choiceDataSources = null;
+  @Prop({ mutable: true }) choiceDataSources: ChoiceDataSourceOption[] | null =
+    null;
   /**
    * Callback invoked when the choice source data source dropdown changes
    */
@@ -286,15 +296,7 @@ export class FieldEditor {
   /**
    * Local state for data source / dropdown field selection (avoids reset on parent re-render)
    */
-  @State() choiceSourceResponse: {
-    dataSource: string;
-    subItem?: string;
-    dropdownField: string;
-    column_name?: string;
-    option_value_path?: string;
-    option_label_path?: string;
-    has_dependents?: boolean;
-  } = null;
+  @State() choiceSourceResponse: ChoiceSourceDataResponse | null = null;
   /**
    * Triggered when the field is expanded or collapsed
    */
@@ -334,7 +336,8 @@ export class FieldEditor {
       if (this.usesChoiceSourceDropdown()) {
         const response = deepCloneObject(this.getChoiceSourceDataResponse());
         if (this.isNewField && !response.dataSource) {
-          response.dataSource = '0';
+          // Hosts map DEFAULT_CHOICE_SOURCE_DATA_SOURCE_ID ('0') → Ticket.
+          response.dataSource = DEFAULT_CHOICE_SOURCE_DATA_SOURCE_ID;
         }
         this.choiceSourceResponse = response;
       } else {
@@ -770,25 +773,32 @@ export class FieldEditor {
   private validateChoiceSourceErrors = (objChoiceSourceValues) => {
     if (
       !objChoiceSourceValues ||
-      !objChoiceSourceValues.dataSource ||
-      objChoiceSourceValues.dataSource === '' ||
-      !objChoiceSourceValues.dropdownField ||
-      objChoiceSourceValues.dropdownField === ''
+      !isChoiceSourceDataSourceValid(
+        this.choiceDataSources,
+        objChoiceSourceValues.dataSource
+      ) ||
+      !isChoiceSourceDropdownFieldValid(
+        this.choiceDataSources,
+        objChoiceSourceValues.dataSource,
+        objChoiceSourceValues.dropdownField
+      )
     ) {
       this.formErrorMessage = '';
       return false;
     }
 
-    const source = Array.isArray(this.choiceDataSources)
-      ? this.choiceDataSources.find(
-          (item) =>
-            String(item.value) === String(objChoiceSourceValues.dataSource)
-        )
-      : null;
+    const source = findChoiceDataSource(
+      this.choiceDataSources,
+      objChoiceSourceValues.dataSource
+    );
 
     if (
       source?.has_sub_items &&
-      (!objChoiceSourceValues.subItem || objChoiceSourceValues.subItem === '')
+      !isChoiceSourceSubItemValid(
+        this.choiceDataSources,
+        objChoiceSourceValues.dataSource,
+        objChoiceSourceValues.subItem
+      )
     ) {
       this.formErrorMessage = '';
       return false;
@@ -1542,13 +1552,15 @@ export class FieldEditor {
   }
 
   private renderChoiceSource(boolDisableDropdowns) {
-    // A lookup-backed field's referenceField/data_source resolves asynchronously (see
-    // resolveDropdownLookupFieldMetadata in EntityBuilder.jsx) after this panel is already expanded and this
-    // component already mounted with a blank dataResponse. Re-syncing that resolved value into an already-
-    // mounted fw-fb-field-choice-source relies on Stencil prop-change reactivity that doesn't reliably fire
-    // across this particular multi-level parent cascade. Keying on whether referenceField has resolved forces
-    // a clean remount exactly once resolution completes, reusing the mount-time init path (componentWillLoad)
-    // that's already correct - the same thing collapsing/re-expanding the field does manually today.
+    // Short-term remount workaround until prop sync is hardened: a lookup-backed field's
+    // referenceField/data_source resolves asynchronously (see resolveDropdownLookupFieldMetadata
+    // in EntityBuilder.jsx) after this panel is already expanded and this component already
+    // mounted with a blank dataResponse. Re-syncing that resolved value into an already-mounted
+    // fw-fb-field-choice-source relies on Stencil prop-change reactivity that doesn't reliably fire
+    // across this particular multi-level parent cascade. Keying on whether referenceField has
+    // resolved forces a clean remount exactly once resolution completes, reusing the mount-time
+    // init path (componentWillLoad) that's already correct — the same thing collapsing/re-expanding
+    // the field does manually today. Long term, fix @Watch('dataResponse') prop sync instead.
     const strChoiceSourceKey = `choice-source-${this.dataProvider?.id}-${
       this.dataProvider?.referenceField ? 'resolved' : 'pending'
     }`;

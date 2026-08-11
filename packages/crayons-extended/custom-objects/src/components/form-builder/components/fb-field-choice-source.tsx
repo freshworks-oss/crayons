@@ -10,33 +10,11 @@ import {
   Watch,
 } from '@stencil/core';
 import { deepCloneObject, i18nText } from '../utils/form-builder-utils';
-
-export interface ChoiceSourceFieldOption {
-  value: string;
-  text: string;
-  column_name?: string;
-  option_value_path?: string;
-  option_label_path?: string;
-  has_dependents?: boolean;
-}
-
-export interface ChoiceDataSourceOption {
-  value: string;
-  text: string;
-  has_sub_items?: boolean;
-  fields: ChoiceSourceFieldOption[];
-  subItems?: { value: string; text: string }[];
-}
-
-export interface ChoiceSourceDataResponse {
-  dataSource: string;
-  subItem?: string;
-  dropdownField: string;
-  column_name?: string;
-  option_value_path?: string;
-  option_label_path?: string;
-  has_dependents?: boolean;
-}
+import {
+  ChoiceDataSourceOption,
+  ChoiceSourceDataResponse,
+  ChoiceSourceFieldOption,
+} from '../choice-source-types';
 
 /**
  * Choice-source picker for DROPDOWN fields when `useChoiceSourceDropdown` is enabled.
@@ -326,11 +304,14 @@ export class FbFieldChoiceSource {
       ? true
       : this.isSubItemSelectionValid(dataSource, subItem);
 
+    // Always refresh localized option lists so i18n / text updates are not skipped when IDs are unchanged.
+    this.subItemOptions = subItemOptions;
+    this.dropdownFieldOptions = dropdownFieldOptions;
+
     if (
       dataSource === this.selectedDataSource &&
       subItem === this.selectedSubItem &&
       dropdownField === this.selectedDropdownField &&
-      this.dropdownFieldOptions.length > 0 &&
       boolSelectionValid &&
       boolSubItemValid
     ) {
@@ -340,8 +321,6 @@ export class FbFieldChoiceSource {
     this.selectedDataSource = dataSource;
     this.selectedSubItem = boolHasSubItems ? subItem : '';
     this.selectedDropdownField = dropdownField;
-    this.subItemOptions = subItemOptions;
-    this.dropdownFieldOptions = dropdownFieldOptions;
 
     // fw-select only re-validates its current value against options when the OPTIONS prop itself changes
     // (see the comment on the ref fields above) - force it here so a re-sync after the panel is already
@@ -453,7 +432,7 @@ export class FbFieldChoiceSource {
       !this.dropdownFieldOptions.length;
 
     return (
-      <Host tabIndex='-1'>
+      <Host>
         <div class={`${strBaseClassName}-root`}>
           <div class={strBaseClassName}>
             <div class={`${strBaseClassName}-data-source-select-container`}>

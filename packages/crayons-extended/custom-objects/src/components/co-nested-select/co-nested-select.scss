@@ -51,10 +51,11 @@
   border-radius: var(--border-radius-small, 6px);
 }
 
-// --- fw-co-nested-node (nested tiers) ---
+// --- fw-co-nested-node (nested tiers) — aligned with core nested-select ---
 
 .nest_indent {
-  padding-inline: 30px 0px;
+  border-inline-start: 1px solid var(--color-boundary-border-mild, #ebeff3);
+  padding-inline: 10px 0;
 }
 
 .nest {
