@@ -578,6 +578,10 @@ export namespace Components {
          */
         "role": 'trial' | 'admin';
         /**
+          * flag to show date time field type or not
+         */
+        "showDateTimeField": boolean;
+        /**
           * flag to show dependentField for CONVERSATION_PROPERTIES or not
          */
         "showDependentField": boolean;
@@ -1650,6 +1654,10 @@ declare namespace LocalJSX {
           * Show explore plans button and disable features for free-plan users
          */
         "role"?: 'trial' | 'admin';
+        /**
+          * flag to show date time field type or not
+         */
+        "showDateTimeField"?: boolean;
         /**
           * flag to show dependentField for CONVERSATION_PROPERTIES or not
          */

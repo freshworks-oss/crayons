@@ -103,6 +103,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showMultiSelectField = true;
   /**
+   * flag to show date time field type or not
+   */
+  @Prop({ mutable: true }) showDateTimeField = false;
+  /**
    * flag to show dependentField resolve checkbox
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = true;
@@ -266,7 +270,7 @@ export class FormBuilder {
       'NUMBER',
       'DECIMAL',
       'DATE',
-      'DATE_TIME',
+      ...(this.showDateTimeField ? ['DATE_TIME'] : []),
       'DROPDOWN',
       'DEPENDENT_FIELD',
       'RELATIONSHIP',
@@ -517,6 +521,9 @@ export class FormBuilder {
     sectionData?
   ) => {
     if (strNewFieldType === 'MULTI_SELECT' && !this.showMultiSelectField) {
+      return;
+    }
+    if (strNewFieldType === 'DATE_TIME' && !this.showDateTimeField) {
       return;
     }
     const fieldType = strNewFieldType;
@@ -1439,6 +1446,9 @@ export class FormBuilder {
     if (strFieldType === 'MULTI_SELECT' && !this.showMultiSelectField) {
       return null;
     }
+    if (strFieldType === 'DATE_TIME' && !this.showDateTimeField) {
+      return null;
+    }
     const objDefaultFieldTypeSchema =
       this.getDefaultFieldTypeSchema(strFieldType);
     if (!objDefaultFieldTypeSchema) {
@@ -1560,6 +1570,12 @@ export class FormBuilder {
       const multiSelectIndex = arrFieldOrder.indexOf('MULTI_SELECT');
       if (multiSelectIndex > -1) {
         arrFieldOrder.splice(multiSelectIndex, 1);
+      }
+    }
+    if (!this.showDateTimeField) {
+      const dateTimeIndex = arrFieldOrder.indexOf('DATE_TIME');
+      if (dateTimeIndex > -1) {
+        arrFieldOrder.splice(dateTimeIndex, 1);
       }
     }
     const boolFieldEditingState = !!Object.keys(this.currentFieldIndex).length;

@@ -2054,6 +2054,101 @@ describe('fw-form-builder', () => {
     );
   });
 
+  it('DATE_TIME field should not be shown in left nav when showDateTimeField is false', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder show-date-time-field=false product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+
+    const leftPanel = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel'
+    );
+    const fieldItems = await leftPanel.findAll(
+      '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+    );
+    expect(fieldItems.length).toEqual(
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 1
+    );
+
+    for (const fieldItem of fieldItems) {
+      expect(await fieldItem.getProperty('value')).not.toEqual('DATE_TIME');
+    }
+  });
+
+  it('DATE_TIME field should be shown in left nav after Date when showDateTimeField is true', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder show-date-time-field=true product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+
+    const leftPanel = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel'
+    );
+    const fieldItems = await leftPanel.findAll(
+      '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+    );
+    expect(fieldItems.length).toEqual(
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length
+    );
+
+    const fieldTypes = await Promise.all(
+      fieldItems.map(async (fieldItem) => fieldItem.getProperty('value'))
+    );
+    const dateIndex = fieldTypes.indexOf('DATE');
+    const dateTimeIndex = fieldTypes.indexOf('DATE_TIME');
+    expect(dateIndex).toBeGreaterThanOrEqual(0);
+    expect(dateTimeIndex).toBe(dateIndex + 1);
+
+    const dateTimeItem = fieldItems[dateTimeIndex];
+    expect(await dateTimeItem.getProperty('iconName')).toEqual('calendar');
+    expect(await dateTimeItem.getProperty('label')).toEqual('fieldTypeDateTime');
+  });
+
+  it('DATE_TIME field editor should not be shown when showDateTimeField is false', async () => {
+    const page = await newE2EPage();
+    const formValuesWithDateTime = {
+      ...formValues.CUSTOM_OBJECTS,
+      fields: [
+        ...formValues.CUSTOM_OBJECTS.fields,
+        {
+          id: 'a87ce74f-07f9-406a-bd18-bef23a5306a1',
+          name: 'datetime',
+          label: 'Date-Time',
+          type: 'DATE_TIME',
+          required: false,
+          field_options: {},
+          filterable: true,
+          searchable: false,
+        },
+      ],
+    };
+
+    await page.setContent(
+      `<fw-form-builder show-date-time-field=false product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+    await page.waitForChanges();
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { formValues }: any) => {
+        elm.formValues = formValues;
+      },
+      { formValues: formValuesWithDateTime }
+    );
+    await page.waitForChanges();
+
+    const rightPanel = await page.find(
+      'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
+    );
+    const fieldDragDropItems = await rightPanel.findAll(
+      'fb-field-drag-drop-item'
+    );
+    expect(fieldDragDropItems.length).toEqual(
+      formValuesWithDateTime.fields.length - 1
+    );
+  });
+
   it('disables left panel and displays message and button when role is trial, clicking on Explore plan button triggers fwExplorePlan event', async () => {
     const page = await newE2EPage();
 

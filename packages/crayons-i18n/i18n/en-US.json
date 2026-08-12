@@ -93,7 +93,7 @@
     "fieldTypeNumber": "Number",
     "fieldTypeDecimal": "Decimal",
     "fieldTypeDate": "Date",
-    "fieldTypeDateTime": "Date Time",
+    "fieldTypeDateTime": "Date-Time",
     "fieldTypeDropdown": "Dropdown",
     "fieldTypeCheckbox": "Checkbox",
     "fieldTypeMultiselect": "Multi select",
