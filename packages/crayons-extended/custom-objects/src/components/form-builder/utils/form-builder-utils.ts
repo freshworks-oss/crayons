@@ -119,6 +119,11 @@ export function isUniqueField(objField) {
   return false;
 }
 
+export type SupportedFieldTypeConfig = {
+  type: string;
+  limit?: number;
+};
+
 // function to retreive maximum Limits object based on the db type
 export function getMaximumLimitsConfig(productName = 'CUSTOM_OBJECTS') {
   try {
@@ -127,6 +132,54 @@ export function getMaximumLimitsConfig(productName = 'CUSTOM_OBJECTS') {
     // eslint-disable-next-line no-empty
   } catch (error) {}
   return null;
+}
+
+export function mergeHostFieldLimits(
+  baseLimits: Record<string, any> | null,
+  hostFieldLimits: Record<string, number>
+) {
+  if (!baseLimits) {
+    return null;
+  }
+  const mergedLimits = deepCloneObject(baseLimits);
+  Object.entries(hostFieldLimits).forEach(([fieldType, limit]) => {
+    if (mergedLimits[fieldType]) {
+      mergedLimits[fieldType] = { ...mergedLimits[fieldType], count: limit };
+    } else {
+      mergedLimits[fieldType] = {
+        count: limit,
+        message: 'maximumLimits.fields',
+      };
+    }
+  });
+  return mergedLimits;
+}
+
+export function buildAllowedFieldTypesConfig(
+  productName = 'CUSTOM_OBJECTS',
+  supportedFieldTypesProp: SupportedFieldTypeConfig[] | null = null
+): {
+  allowedFieldTypes: string[];
+  hostFieldLimits: Record<string, number>;
+} {
+  const hostFieldLimits: Record<string, number> = {};
+
+  if (Array.isArray(supportedFieldTypesProp) && supportedFieldTypesProp.length) {
+    const allowedFieldTypes = supportedFieldTypesProp.map(({ type, limit }) => {
+      if (typeof limit === 'number') {
+        hostFieldLimits[type] = limit;
+      }
+      return type;
+    });
+    return { allowedFieldTypes, hostFieldLimits };
+  }
+
+  try {
+    const fieldOrder = formMapper[productName]?.fieldOrder ?? [];
+    return { allowedFieldTypes: [...fieldOrder], hostFieldLimits };
+  } catch (error) {
+    return { allowedFieldTypes: [], hostFieldLimits };
+  }
 }
 
 // function to get the max limit config from mapper

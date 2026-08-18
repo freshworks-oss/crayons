@@ -18,6 +18,8 @@ import {
   getParentId,
   getChildChoices,
   getMaximumLimitsConfig,
+  mergeHostFieldLimits,
+  buildAllowedFieldTypesConfig,
 } from './form-builder-utils';
 
 describe('getFieldBasedOnLevel', () => {
@@ -622,5 +624,40 @@ describe('getMaximumLimitsConfig', () => {
   it('returns null when productName is not found in formMapper', () => {
     const result = getMaximumLimitsConfig('OTHER_PRODUCT');
     expect(result).toBeNull();
+  });
+});
+
+describe('mergeHostFieldLimits', () => {
+  it('overrides existing field type limit counts', () => {
+    const baseLimits = {
+      TEXT: { count: 80, message: 'maximumLimits.fields' },
+    };
+    const result = mergeHostFieldLimits(baseLimits, { TEXT: 5 });
+    expect(result.TEXT.count).toBe(5);
+    expect(result.TEXT.message).toBe('maximumLimits.fields');
+  });
+
+  it('adds limit entry for unknown field types', () => {
+    const result = mergeHostFieldLimits({}, { DATE_TIME: 10 });
+    expect(result.DATE_TIME.count).toBe(10);
+  });
+});
+
+describe('buildAllowedFieldTypesConfig', () => {
+  it('returns allowed types and host limits from supportedFieldTypes prop', () => {
+    const result = buildAllowedFieldTypesConfig('CUSTOM_OBJECTS', [
+      { type: 'TEXT', limit: 5 },
+      { type: 'DATE' },
+    ]);
+    expect(result.allowedFieldTypes).toEqual(['TEXT', 'DATE']);
+    expect(result.hostFieldLimits).toEqual({ TEXT: 5 });
+  });
+
+  it('falls back to product fieldOrder when supportedFieldTypes prop is empty', () => {
+    const result = buildAllowedFieldTypesConfig('CUSTOM_OBJECTS', null);
+    expect(result.allowedFieldTypes).toEqual(
+      expect.arrayContaining(['TEXT', 'DATE', 'MULTI_SELECT', 'DATE_TIME'])
+    );
+    expect(result.hostFieldLimits).toEqual({});
   });
 });

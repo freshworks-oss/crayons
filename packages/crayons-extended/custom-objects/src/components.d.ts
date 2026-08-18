@@ -578,10 +578,6 @@ export namespace Components {
          */
         "role": 'trial' | 'admin';
         /**
-          * flag to show date time field type or not
-         */
-        "showDateTimeField": boolean;
-        /**
           * flag to show dependentField for CONVERSATION_PROPERTIES or not
          */
         "showDependentField": boolean;
@@ -594,10 +590,6 @@ export namespace Components {
          */
         "showLookupField": boolean;
         /**
-          * flag to show multi select field type or not
-         */
-        "showMultiSelectField": boolean;
-        /**
           * flag to show relationshipTypeSelect dropdown or not
          */
         "showRelationshipTypeSelect": boolean;
@@ -605,6 +597,13 @@ export namespace Components {
           * flag to support dependentFields & Multi select dropdown within sections
          */
         "supportDependentAndMSDDInSections": boolean;
+        /**
+          * Host-driven list of supported field types and optional per-type limits
+         */
+        "supportedFieldTypes": Array<{
+    type: string;
+    limit?: number;
+  }>;
         /**
           * Theme configuration for the form builder UI
          */
@@ -1655,10 +1654,6 @@ declare namespace LocalJSX {
          */
         "role"?: 'trial' | 'admin';
         /**
-          * flag to show date time field type or not
-         */
-        "showDateTimeField"?: boolean;
-        /**
           * flag to show dependentField for CONVERSATION_PROPERTIES or not
          */
         "showDependentField"?: boolean;
@@ -1671,10 +1666,6 @@ declare namespace LocalJSX {
          */
         "showLookupField"?: boolean;
         /**
-          * flag to show multi select field type or not
-         */
-        "showMultiSelectField"?: boolean;
-        /**
           * flag to show relationshipTypeSelect dropdown or not
          */
         "showRelationshipTypeSelect"?: boolean;
@@ -1682,6 +1673,13 @@ declare namespace LocalJSX {
           * flag to support dependentFields & Multi select dropdown within sections
          */
         "supportDependentAndMSDDInSections"?: boolean;
+        /**
+          * Host-driven list of supported field types and optional per-type limits
+         */
+        "supportedFieldTypes"?: Array<{
+    type: string;
+    limit?: number;
+  }>;
         /**
           * Theme configuration for the form builder UI
          */

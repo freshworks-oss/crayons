@@ -2005,12 +2005,30 @@ describe('fw-form-builder', () => {
     );
   });
 
-  it('MULTI_SELECT field should not be shown in left nav when showMultiSelectField is false', async () => {
+  const customObjectsFieldTypesWithoutMultiSelect =
+    formMapper.CUSTOM_OBJECTS.fieldOrder
+      .filter((type) => type !== 'MULTI_SELECT')
+      .map((type) => ({ type }));
+
+  const customObjectsFieldTypesWithoutDateTime =
+    formMapper.CUSTOM_OBJECTS.fieldOrder
+      .filter((type) => type !== 'DATE_TIME')
+      .map((type) => ({ type }));
+
+  it('MULTI_SELECT field should not be shown in left nav when supportedFieldTypes excludes it', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      `<fw-form-builder show-multi-select-field=false product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
     );
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { supportedFieldTypes }: any) => {
+        elm.supportedFieldTypes = supportedFieldTypes;
+      },
+      { supportedFieldTypes: customObjectsFieldTypesWithoutMultiSelect }
+    );
+    await page.waitForChanges();
 
     const leftPanel = await page.find(
       'fw-form-builder >>> .form-builder-left-panel'
@@ -2019,7 +2037,7 @@ describe('fw-form-builder', () => {
       '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
     );
     expect(fieldItems.length).toEqual(
-      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 2
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 1
     );
 
     for (const fieldItem of fieldItems) {
@@ -2027,19 +2045,23 @@ describe('fw-form-builder', () => {
     }
   });
 
-  it('MULTI_SELECT field editor should not be shown when showMultiSelectField is false', async () => {
+  it('MULTI_SELECT field editor should not be shown when supportedFieldTypes excludes it', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      `<fw-form-builder show-multi-select-field=false product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
     );
     await page.waitForChanges();
     await page.$eval(
       'fw-form-builder',
-      (elm: any, { formValues }: any) => {
+      (elm: any, { formValues, supportedFieldTypes }: any) => {
+        elm.supportedFieldTypes = supportedFieldTypes;
         elm.formValues = formValues;
       },
-      { formValues: formValues.CUSTOM_OBJECTS }
+      {
+        supportedFieldTypes: customObjectsFieldTypesWithoutMultiSelect,
+        formValues: formValues.CUSTOM_OBJECTS,
+      }
     );
     await page.waitForChanges();
 
@@ -2054,12 +2076,20 @@ describe('fw-form-builder', () => {
     );
   });
 
-  it('DATE_TIME field should not be shown in left nav when showDateTimeField is false', async () => {
+  it('DATE_TIME field should not be shown in left nav when supportedFieldTypes excludes it', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      `<fw-form-builder show-date-time-field=false product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
     );
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { supportedFieldTypes }: any) => {
+        elm.supportedFieldTypes = supportedFieldTypes;
+      },
+      { supportedFieldTypes: customObjectsFieldTypesWithoutDateTime }
+    );
+    await page.waitForChanges();
 
     const leftPanel = await page.find(
       'fw-form-builder >>> .form-builder-left-panel'
@@ -2076,11 +2106,11 @@ describe('fw-form-builder', () => {
     }
   });
 
-  it('DATE_TIME field should be shown in left nav after Date when showDateTimeField is true', async () => {
+  it('DATE_TIME field should be shown in left nav after Date when supportedFieldTypes includes it', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      `<fw-form-builder show-date-time-field=true product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
     );
 
     const leftPanel = await page.find(
@@ -2106,7 +2136,7 @@ describe('fw-form-builder', () => {
     expect(await dateTimeItem.getProperty('label')).toEqual('fieldTypeDateTime');
   });
 
-  it('DATE_TIME field editor should not be shown when showDateTimeField is false', async () => {
+  it('DATE_TIME field editor should not be shown when supportedFieldTypes excludes it', async () => {
     const page = await newE2EPage();
     const formValuesWithDateTime = {
       ...formValues.CUSTOM_OBJECTS,
@@ -2126,15 +2156,19 @@ describe('fw-form-builder', () => {
     };
 
     await page.setContent(
-      `<fw-form-builder show-date-time-field=false product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
     );
     await page.waitForChanges();
     await page.$eval(
       'fw-form-builder',
-      (elm: any, { formValues }: any) => {
+      (elm: any, { formValues, supportedFieldTypes }: any) => {
+        elm.supportedFieldTypes = supportedFieldTypes;
         elm.formValues = formValues;
       },
-      { formValues: formValuesWithDateTime }
+      {
+        supportedFieldTypes: customObjectsFieldTypesWithoutDateTime,
+        formValues: formValuesWithDateTime,
+      }
     );
     await page.waitForChanges();
 

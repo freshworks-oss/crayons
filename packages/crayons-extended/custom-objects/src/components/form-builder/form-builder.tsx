@@ -16,7 +16,9 @@ import {
   deepCloneObject,
   getFieldTypeCheckboxes,
   getMappedCustomFieldType,
+  buildAllowedFieldTypesConfig,
   getMaximumLimitsConfig,
+  mergeHostFieldLimits,
   hasCustomProperty,
   hasPermission,
   i18nText,
@@ -45,7 +47,9 @@ export class FormBuilder {
   private modalCustomizeWidget!: any;
   private isWidgetValuesChanged = false;
   private filterByFieldTypeOptions = null;
-  private supportedFieldTypes;
+  private allowedFieldTypes: string[] = [];
+  private hostFieldLimits: Record<string, number> = {};
+  private effectiveMaximumLimits = null;
   private resizeObserver;
   private FILTER_ALL_FIELDS = 'ALL_FIELDS';
 
@@ -99,13 +103,12 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showDependentField = true;
   /**
-   * flag to show multi select field type or not
+   * Host-driven list of supported field types and optional per-type limits
    */
-  @Prop({ mutable: true }) showMultiSelectField = true;
-  /**
-   * flag to show date time field type or not
-   */
-  @Prop({ mutable: true }) showDateTimeField = false;
+  @Prop({ mutable: true }) supportedFieldTypes: Array<{
+    type: string;
+    limit?: number;
+  }> = null;
   /**
    * flag to show dependentField resolve checkbox
    */
@@ -261,21 +264,37 @@ export class FormBuilder {
 
   componentWillLoad(): void {
     this.initializeSearchDebounce();
+    this.initializeAllowedFieldTypes();
     this.validateFormValues();
-    this.supportedFieldTypes = [
-      'TEXT',
-      'EMAIL',
-      'CHECKBOX',
-      'PARAGRAPH',
-      'NUMBER',
-      'DECIMAL',
-      'DATE',
-      ...(this.showDateTimeField ? ['DATE_TIME'] : []),
-      'DROPDOWN',
-      'DEPENDENT_FIELD',
-      'RELATIONSHIP',
-      ...(this.showMultiSelectField ? ['MULTI_SELECT'] : []),
-    ];
+  }
+
+  @Watch('supportedFieldTypes')
+  onSupportedFieldTypesChange(): void {
+    this.initializeAllowedFieldTypes();
+  }
+
+  private initializeAllowedFieldTypes(): void {
+    const { allowedFieldTypes, hostFieldLimits } = buildAllowedFieldTypesConfig(
+      this.productName,
+      this.supportedFieldTypes
+    );
+    this.allowedFieldTypes = allowedFieldTypes;
+    this.hostFieldLimits = hostFieldLimits;
+    this.effectiveMaximumLimits = mergeHostFieldLimits(
+      getMaximumLimitsConfig(this.productName),
+      this.hostFieldLimits
+    );
+  }
+
+  private isFieldTypeAllowed(strFieldType: string): boolean {
+    return this.allowedFieldTypes.includes(strFieldType);
+  }
+
+  private getEffectiveMaximumLimits() {
+    return (
+      this.effectiveMaximumLimits ??
+      getMaximumLimitsConfig(this.productName)
+    );
   }
 
   disconnectedCallback(): void {
@@ -414,7 +433,7 @@ export class FormBuilder {
           }
         }
 
-        const objMaxLimits = getMaximumLimitsConfig(this.productName);
+        const objMaxLimits = this.getEffectiveMaximumLimits();
         this.enableFieldType =
           intValidActiveFieldCount < objMaxLimits.fields.count;
         this.enableFilterable =
@@ -432,7 +451,7 @@ export class FormBuilder {
   private getInterpolatedMaxLimitLabel = (strProperty) => {
     if (strProperty && strProperty !== '') {
       try {
-        const objMaxLimit = getMaximumLimitsConfig(this.productName)?.[
+        const objMaxLimit = this.getEffectiveMaximumLimits()?.[
           strProperty
         ];
         if (objMaxLimit) {
@@ -520,15 +539,12 @@ export class FormBuilder {
     intIndex = -1,
     sectionData?
   ) => {
-    if (strNewFieldType === 'MULTI_SELECT' && !this.showMultiSelectField) {
-      return;
-    }
-    if (strNewFieldType === 'DATE_TIME' && !this.showDateTimeField) {
+    if (!this.isFieldTypeAllowed(strNewFieldType)) {
       return;
     }
     const fieldType = strNewFieldType;
     const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
-    const objMaxLimits = getMaximumLimitsConfig(this.productName);
+    const objMaxLimits = this.getEffectiveMaximumLimits();
 
     try {
       const arrFields = this.localFormValues?.fields;
@@ -568,7 +584,7 @@ export class FormBuilder {
       objNewField.type
     );
     this.fwComposeNewField.emit({
-      maximumLimits: getMaximumLimitsConfig(this.productName),
+      maximumLimits: this.getEffectiveMaximumLimits(),
       fieldSchema: objNewField,
       value: { ...objFieldData },
       index: intIndex,
@@ -868,7 +884,7 @@ export class FormBuilder {
         arrWidgetIds = [...arrWidgetIds, arrPrecedenceObjects[0]];
       }
 
-      const objMaxLimits = getMaximumLimitsConfig(this.productName);
+      const objMaxLimits = this.getEffectiveMaximumLimits();
       const intMaxWidgetFields = objMaxLimits?.widgets?.count || 0;
       const intFieldsLength = arrFields.length;
       for (let f1 = 0; f1 < intFieldsLength; f1++) {
@@ -916,7 +932,7 @@ export class FormBuilder {
     if (this.arrWidgetFields) {
       // const strFieldName = event.detail.data.name;
       const strFieldID = event.detail.data.id;
-      const objMaxLimits = getMaximumLimitsConfig(this.productName);
+      const objMaxLimits = this.getEffectiveMaximumLimits();
       const intMaxWidgetsCount = objMaxLimits?.widgets?.count || 0;
 
       if (boolChecked && this.arrWidgetFields.length < intMaxWidgetsCount) {
@@ -1087,7 +1103,7 @@ export class FormBuilder {
     const dataItem = presetFieldTypes[key];
     const strFieldType = dataItem.type;
 
-    if (!this.supportedFieldTypes.includes(strFieldType)) {
+    if (!this.isFieldTypeAllowed(strFieldType)) {
       return null;
     }
 
@@ -1096,7 +1112,7 @@ export class FormBuilder {
       ? this.getInterpolatedMaxLimitLabel('fields')
       : '';
 
-    const objMaxLimits = getMaximumLimitsConfig(this.productName);
+    const objMaxLimits = this.getEffectiveMaximumLimits();
     if (
       !boolDisableFieldType &&
       hasCustomProperty(this.fieldTypesCount, strFieldType) &&
@@ -1443,10 +1459,7 @@ export class FormBuilder {
       return null;
     }
     const strFieldType = dataItem.type;
-    if (strFieldType === 'MULTI_SELECT' && !this.showMultiSelectField) {
-      return null;
-    }
-    if (strFieldType === 'DATE_TIME' && !this.showDateTimeField) {
+    if (!this.isFieldTypeAllowed(strFieldType)) {
       return null;
     }
     const objDefaultFieldTypeSchema =
@@ -1512,7 +1525,7 @@ export class FormBuilder {
   }
 
   private renderWidgetElement(dataItem, intIndex) {
-    const objMaxLimits = getMaximumLimitsConfig(this.productName);
+    const objMaxLimits = this.getEffectiveMaximumLimits();
     const intMaxWidgetsCount = objMaxLimits?.widgets?.count || 0;
 
     const isPrimaryField = isPrimaryFieldType(
@@ -1553,31 +1566,20 @@ export class FormBuilder {
     const objProductPreset = formMapper[this.productName];
     const objProductPresetConfig = objProductPreset?.config;
     const objLabelsDb = objProductPreset?.labels;
-    const arrFieldOrder = objProductPreset?.fieldOrder;
-    if (!this.showLookupField) {
-      const relationshipIndex = arrFieldOrder.indexOf('RELATIONSHIP');
-      if (relationshipIndex > -1) {
-        arrFieldOrder.splice(relationshipIndex, 1);
+    const arrFieldOrder = [...(objProductPreset?.fieldOrder ?? [])].filter(
+      (fieldType) => {
+        if (!this.isFieldTypeAllowed(fieldType)) {
+          return false;
+        }
+        if (fieldType === 'RELATIONSHIP' && !this.showLookupField) {
+          return false;
+        }
+        if (fieldType === 'DEPENDENT_FIELD' && !this.showDependentField) {
+          return false;
+        }
+        return true;
       }
-    }
-    if (!this.showDependentField) {
-      const dependentIndex = arrFieldOrder.indexOf('DEPENDENT_FIELD');
-      if (dependentIndex > -1) {
-        arrFieldOrder.splice(dependentIndex, 1);
-      }
-    }
-    if (!this.showMultiSelectField) {
-      const multiSelectIndex = arrFieldOrder.indexOf('MULTI_SELECT');
-      if (multiSelectIndex > -1) {
-        arrFieldOrder.splice(multiSelectIndex, 1);
-      }
-    }
-    if (!this.showDateTimeField) {
-      const dateTimeIndex = arrFieldOrder.indexOf('DATE_TIME');
-      if (dateTimeIndex > -1) {
-        arrFieldOrder.splice(dateTimeIndex, 1);
-      }
-    }
+    );
     const boolFieldEditingState = !!Object.keys(this.currentFieldIndex).length;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
     const strFieldEditHeader = hasCustomProperty(objLabelsDb, 'fieldsHeader')
