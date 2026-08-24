@@ -92,6 +92,10 @@ export class FbFieldChoiceSource {
   @State() selectedDropdownField = '';
   @State() subItemOptions: { value: string; text: string }[] = [];
   @State() dropdownFieldOptions: { value: string; text: string }[] = [];
+  // Last validity syncFromDataResponse actually ref-synced against - see its skip-guard for why this
+  // needs to be tracked separately from the selected ids themselves.
+  private lastSelectionValid = false;
+  private lastSubItemValid = false;
 
   @Watch('dataResponse')
   watchDataResponseHandler(): void {
@@ -312,8 +316,8 @@ export class FbFieldChoiceSource {
       dataSource === this.selectedDataSource &&
       subItem === this.selectedSubItem &&
       dropdownField === this.selectedDropdownField &&
-      boolSelectionValid &&
-      boolSubItemValid
+      boolSelectionValid === this.lastSelectionValid &&
+      boolSubItemValid === this.lastSubItemValid
     ) {
       return;
     }
@@ -321,10 +325,16 @@ export class FbFieldChoiceSource {
     this.selectedDataSource = dataSource;
     this.selectedSubItem = boolHasSubItems ? subItem : '';
     this.selectedDropdownField = dropdownField;
+    this.lastSelectionValid = boolSelectionValid;
+    this.lastSubItemValid = boolSubItemValid;
 
     // fw-select only re-validates its current value against options when the OPTIONS prop itself changes
     // (see the comment on the ref fields above) - force it here so a re-sync after the panel is already
     // open (e.g. once an async lookup resolution completes) doesn't leave the select showing blank.
+    // Comparing validity above (not just the raw ids) matters because choiceDataSources typically arrives
+    // *after* dataResponse: on that pass the ids are unchanged from the previous (invalid) sync but
+    // boolSelectionValid/boolSubItemValid flip true - without tracking that transition, this whole branch
+    // (and the setSelectedValues calls below) would be skipped in exactly the case it exists to handle.
     this.dataSourceSelectRef?.setSelectedValues(this.selectedDataSource);
     this.subItemSelectRef?.setSelectedValues(this.selectedSubItem);
     this.dropdownFieldSelectRef?.setSelectedValues(this.selectedDropdownField);

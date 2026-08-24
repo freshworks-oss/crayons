@@ -631,7 +631,12 @@ export class FieldEditor {
     Object.keys(this.dictInteractiveElements)
       .filter((ele) => ele.includes(prefix))
       .forEach((ele) => {
-        attributesToValidate[ele] = this.dictInteractiveElements[ele].value;
+        // A ref entry can be null between an element unmounting and its replacement mounting
+        // (e.g. the choiceSource key-remount in renderChoiceSource) - skip until it repopulates.
+        const elInteractive = this.dictInteractiveElements[ele];
+        if (elInteractive) {
+          attributesToValidate[ele] = elInteractive.value;
+        }
       });
 
     this.dependentErrors = hasStringDuplicates(attributesToValidate, i18nText);
@@ -883,6 +888,12 @@ export class FieldEditor {
     // this.showErrors = false;
     for (const key in this.dictInteractiveElements) {
       const elInteractive = this.dictInteractiveElements[key];
+      // A ref entry can be null between an element unmounting and its replacement mounting
+      // (e.g. the choiceSource key-remount in renderChoiceSource) - skip it rather than crash
+      // if Add/Save is clicked while that swap is still in flight.
+      if (!elInteractive) {
+        continue;
+      }
       const strTagName = elInteractive.tagName.toLowerCase();
 
       switch (strTagName) {
@@ -1570,12 +1581,21 @@ export class FieldEditor {
     const strChoiceSourceKey = `choice-source-${this.dataProvider?.id}-${
       this.dataProvider?.referenceField ? 'resolved' : 'pending'
     }`;
+    // Once a choice source has actually been saved and resolved (referenceField is only ever populated
+    // from a prior save - see getChoiceSourceDataResponse/resolveDropdownLookupFieldMetadata in
+    // EntityBuilder.jsx, never by choiceSourceChangeHandler's in-session, not-yet-saved selection), lock
+    // the data source / service item / dropdown field selects so the user can't repoint an already-saved
+    // lookup field at a different source. `isNewField` is deliberately not used here: a pre-existing plain
+    // DROPDOWN field being given a choice source for the first time is not "new" but must still be
+    // editable until that first save resolves.
+    const boolDisableChoiceSource =
+      boolDisableDropdowns || !!this.dataProvider?.referenceField;
     return (
       <fw-fb-field-choice-source
         key={strChoiceSourceKey}
         ref={(el) => (this.dictInteractiveElements['choiceSource'] = el)}
         showErrors={this.showErrors}
-        disabled={boolDisableDropdowns}
+        disabled={boolDisableChoiceSource}
         choiceDataSources={this.choiceDataSources}
         choiceSourceDataSourceChangeHandler={
           this.choiceSourceDataSourceChangeHandler
