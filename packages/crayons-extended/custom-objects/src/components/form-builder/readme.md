@@ -1135,55 +1135,196 @@ export default function EntityBuilder() {
 </code-block>
 </code-group>
 
+
+## Choice source dropdowns
+
+When `useChoiceSourceDropdown` is `true`, DROPDOWN fields use `fw-fb-field-choice-source`
+instead of manual choice editing.
+
+`choiceDataSources` shape:
+
+```ts
+{
+  value: string;
+  text: string;
+  has_sub_items?: boolean;
+  fields: Array<{
+    value: string;
+    text: string;
+    column_name?: string;
+    option_value_path?: string;
+    option_label_path?: string;
+    has_dependents?: boolean;
+  }>;
+  subItems?: Array<{ value: string; text: string }>;
+}
+```
+
+When a source has `has_sub_items: true`, the host must refresh that source’s `fields`
+from `choiceSourceSubItemChangeHandler` after a sub-item is chosen (see
+`fw-fb-field-choice-source` docs).
+
 <!-- Auto Generated Below -->
+
 
 ## Properties
 
-| Property         | Attribute          | Description                                                                                                | Type                      | Default     |
-| ---------------- | ------------------ | ---------------------------------------------------------------------------------------------------------- | ------------------------- | ----------- |
-| `dataProvider`   | `data-provider`    | data source used to set and edit the field values                                                          | `any`                     | `null`      |
-| `disabled`       | `disabled`         | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false. | `boolean`                 | `false`     |
-| `index`          | `index`            | index attached inside the parent group component                                                           | `number`                  | `-1`        |
-| `isPrimaryField` | `is-primary-field` | defines if the field is primary                                                                            | `boolean`                 | `false`     |
-| `label`          | `label`            | Label displayed as header in the card.                                                                     | `string`                  | `''`        |
-| `name`           | `name`             | Name of the component, saved as part of the form data.                                                     | `string`                  | `''`        |
-| `pinned`         | `pinned`           | Pinned position of the drag item, other drag item cannot be placed above or below it.                      | `"" \| "bottom" \| "top"` | `undefined` |
-| `selected`       | `selected`         | selected property of the component                                                                         | `boolean`                 | `false`     |
+| Property                              | Attribute                                   | Description                                                                                                                                                                                                                                                                                                                                                                            | Type                                                                  | Default                                                  |
+| ------------------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------- |
+| `choiceDataSources`                   | --                                          | Data sources and field options for choice-source dropdown fields. Shape: `{ value, text, has_sub_items?, fields: [{ value, text, column_name?, option_value_path?, option_label_path?, has_dependents? }], subItems? }`.  When `has_sub_items` is true, `fields` are typically empty until the host refreshes them from `choiceSourceSubItemChangeHandler` after a sub-item is chosen. | `ChoiceDataSourceOption[]`                                            | `null`                                                   |
+| `choiceSourceDataSourceChangeHandler` | --                                          | Callback invoked when the choice source data source dropdown changes                                                                                                                                                                                                                                                                                                                   | `(sourceId: string) => void \| Promise<void>`                         | `undefined`                                              |
+| `choiceSourceSubItemChangeHandler`    | --                                          | Callback invoked when the choice source sub-item dropdown changes. Host must update `choiceDataSources` so the selected source’s `fields` match the chosen sub-item before the dropdown-field select can be used.                                                                                                                                                                      | `(sourceId: string, subItemId: string) => void \| Promise<void>`      | `undefined`                                              |
+| `currentFieldIndex`                   | --                                          | Prop to store the expanded field index                                                                                                                                                                                                                                                                                                                                                 | `{}`                                                                  | `{}`                                                     |
+| `customizeWidgetFields`               | `customize-widget-fields`                   | variable to store customize widget fields                                                                                                                                                                                                                                                                                                                                              | `any`                                                                 | `null`                                                   |
+| `dependentFieldLink`                  | `dependent-field-link`                      | link to show dependent field document                                                                                                                                                                                                                                                                                                                                                  | `string`                                                              | `''`                                                     |
+| `dynamicSectionsBetaEnabled`          | `dynamic-sections-beta-enabled`             |                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                                                             | `false`                                                  |
+| `emptySearchImage`                    | `empty-search-image`                        | svg image to be shown for empty record                                                                                                                                                                                                                                                                                                                                                 | `any`                                                                 | `null`                                                   |
+| `formValues`                          | `form-values`                               | variable to store form values                                                                                                                                                                                                                                                                                                                                                          | `any`                                                                 | `null`                                                   |
+| `isLoading`                           | `is-loading`                                | flag to notify if an api call is in progress                                                                                                                                                                                                                                                                                                                                           | `boolean`                                                             | `false`                                                  |
+| `isSavingCustomizeWidget`             | `is-saving-customize-widget`                | flag to notify if an api call to save the widget is completed                                                                                                                                                                                                                                                                                                                          | `boolean`                                                             | `false`                                                  |
+| `lookupTargetObjects`                 | `lookup-target-objects`                     | object to store the lookup target entities                                                                                                                                                                                                                                                                                                                                             | `any`                                                                 | `null`                                                   |
+| `permission`                          | --                                          | Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }                                                                      | `{ view: boolean; create: boolean; edit: boolean; delete: boolean; }` | `{ view: true, create: true, edit: true, delete: true }` |
+| `productName`                         | `product-name`                              | The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES                                                                                                                                                                                                                                                                                        | `"CONVERSATION_PROPERTIES" \| "CUSTOM_OBJECTS"`                       | `'CUSTOM_OBJECTS'`                                       |
+| `role`                                | `role`                                      | Show explore plans button and disable features for free-plan users                                                                                                                                                                                                                                                                                                                     | `"admin" \| "trial"`                                                  | `'admin'`                                                |
+| `showDependentField`                  | `show-dependent-field`                      | flag to show dependentField for CONVERSATION_PROPERTIES or not                                                                                                                                                                                                                                                                                                                         | `boolean`                                                             | `true`                                                   |
+| `showDependentFieldResolveProp`       | `show-dependent-field-resolve-prop`         | flag to show dependentField resolve checkbox                                                                                                                                                                                                                                                                                                                                           | `boolean`                                                             | `true`                                                   |
+| `showLookupField`                     | `show-lookup-field`                         | flag to show lookupField for CONVERSATION_PROPERTIES or not                                                                                                                                                                                                                                                                                                                            | `boolean`                                                             | `true`                                                   |
+| `showRelationshipTypeSelect`          | `show-relationship-type-select`             | flag to show relationshipTypeSelect dropdown or not                                                                                                                                                                                                                                                                                                                                    | `boolean`                                                             | `true`                                                   |
+| `supportDependentAndMSDDInSections`   | `support-dependent-and-m-s-d-d-in-sections` | flag to support dependentFields & Multi select dropdown within sections                                                                                                                                                                                                                                                                                                                | `boolean`                                                             | `false`                                                  |
+| `theme`                               | `theme`                                     | Theme configuration for the form builder UI                                                                                                                                                                                                                                                                                                                                            | `"default" \| "dew-dark-theme" \| "dew-light-theme"`                  | `'default'`                                              |
+| `useChoiceSourceDropdown`             | `use-choice-source-dropdown`                | When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices                                                                                                                                                                                                                                                                                                     | `boolean`                                                             | `false`                                                  |
+| `userPlan`                            | `user-plan`                                 | Show explore plans and disable features for user having free-plan                                                                                                                                                                                                                                                                                                                      | `"admin" \| "trial"`                                                  | `'admin'`                                                |
+
 
 ## Events
 
-| Event     | Description                                   | Type               |
-| --------- | --------------------------------------------- | ------------------ |
-| `fwCheck` | Triggered when the card in focus is selected. | `CustomEvent<any>` |
+| Event                | Description                                                               | Type               |
+| -------------------- | ------------------------------------------------------------------------- | ------------------ |
+| `fwComposeNewField`  | Triggered when a new field type is dropped / added inside the fields area | `CustomEvent<any>` |
+| `fwDeleteField`      | Triggered on Delete field button click from the field list items          | `CustomEvent<any>` |
+| `fwExpandField`      | Triggered when the field is expanded or collapsed                         | `CustomEvent<any>` |
+| `fwExplorePlan`      | Triggered when the explore plans button is clicked for free plan users    | `CustomEvent<any>` |
+| `fwRepositionField`  | Triggered when the position of a field is changed using drag and drop     | `CustomEvent<any>` |
+| `fwSaveField`        | Triggered on Add/Save field button click from the field list items        | `CustomEvent<any>` |
+| `fwSaveWidgetFields` | Triggered on saving the widget fields                                     | `CustomEvent<any>` |
+| `fwSearchField`      | Triggered on search                                                       | `CustomEvent<any>` |
+
+
+## Methods
+
+### `forceRenderFields() => Promise<void>`
+
+Method to force render the drag container's children containing all the added fields
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
-### Used by
-
-- [fw-form-builder](.)
-
 ### Depends on
 
-- fw-checkbox
+- fw-icon
+- fw-button
+- [fw-field-type-menu-item](components)
+- fw-tooltip
+- [fb-section-create](components)
+- fw-drag-container
+- fw-modal
+- fw-inline-message
+- [fb-field-drag-drop-item](components)
+- [fw-widget-customize-field-item](components)
+- fw-select
+- fw-input
+- fw-modal-title
+- fw-modal-content
+- fw-modal-footer
 
 ### Graph
-
 ```mermaid
 graph TD;
-  fw-widget-customize-field-item --> fw-checkbox
-  fw-checkbox --> fw-icon
+  fw-form-builder --> fw-icon
+  fw-form-builder --> fw-button
+  fw-form-builder --> fw-field-type-menu-item
+  fw-form-builder --> fw-tooltip
+  fw-form-builder --> fb-section-create
+  fw-form-builder --> fw-drag-container
+  fw-form-builder --> fw-modal
+  fw-form-builder --> fw-inline-message
+  fw-form-builder --> fb-field-drag-drop-item
   fw-form-builder --> fw-widget-customize-field-item
-  style fw-widget-customize-field-item fill:#f9f,stroke:#333,stroke-width:4px
+  fw-form-builder --> fw-select
+  fw-form-builder --> fw-input
+  fw-form-builder --> fw-modal-title
+  fw-form-builder --> fw-modal-content
+  fw-form-builder --> fw-modal-footer
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
+  fw-field-type-menu-item --> fw-tooltip
+  fw-field-type-menu-item --> fw-icon
+  fw-tooltip --> fw-popover
+  fb-section-create --> fw-button
+  fb-section-create --> fw-input
+  fb-section-create --> fw-select
+  fw-input --> fw-icon
+  fw-select --> fw-tag
+  fw-select --> fw-popover
+  fw-select --> fw-button
+  fw-select --> fw-spinner
+  fw-select --> fw-icon
+  fw-select --> fw-list-options
+  fw-tag --> fw-tooltip
+  fw-tag --> fw-avatar
+  fw-tag --> fw-icon
+  fw-list-options --> fw-select-option
+  fw-list-options --> fw-input
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
+  fw-modal --> fw-icon
+  fw-modal --> fw-modal-title
+  fw-modal --> fw-modal-content
+  fw-modal --> fw-modal-footer
+  fw-modal-title --> fw-icon
+  fw-modal-footer --> fw-button
+  fw-inline-message --> fw-icon
+  fb-field-drag-drop-item --> fw-field-editor
+  fb-field-drag-drop-item --> fw-button
+  fb-field-drag-drop-item --> fw-icon
+  fb-field-drag-drop-item --> fb-section-create
+  fw-field-editor --> fw-label
+  fw-field-editor --> fw-checkbox
+  fw-field-editor --> fw-tooltip
+  fw-field-editor --> fw-icon
+  fw-field-editor --> fw-fb-field-choice-source
+  fw-field-editor --> fw-fb-field-dropdown
+  fw-field-editor --> fw-toggle
+  fw-field-editor --> fw-input
+  fw-field-editor --> fw-fb-field-lookup
+  fw-field-editor --> fw-button
+  fw-field-editor --> fw-spinner
+  fw-field-editor --> fw-modal
+  fw-field-editor --> fw-inline-message
+  fw-fb-field-choice-source --> fw-select
+  fw-fb-field-dropdown --> fw-fb-field-dropdown-item
+  fw-fb-field-dropdown --> fw-tooltip
+  fw-fb-field-dropdown --> fw-drag-container
+  fw-fb-field-dropdown --> fw-button
+  fw-fb-field-dropdown --> fw-icon
+  fw-fb-field-dropdown --> fw-modal
+  fw-fb-field-dropdown-item --> fw-icon
+  fw-fb-field-dropdown-item --> fw-input
+  fw-toggle --> fw-icon
+  fw-fb-field-lookup --> fw-input
+  fw-fb-field-lookup --> fw-select
+  fw-widget-customize-field-item --> fw-checkbox
+  style fw-form-builder fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
-
-```
-
-```
-
-```
-
-```
+Built with ❤ at Freshworks

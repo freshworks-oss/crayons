@@ -2870,4 +2870,722 @@ describe('fw-form-builder', () => {
       }
     );
   });
+
+  describe('choice source dropdown (useChoiceSourceDropdown)', () => {
+    const choiceDataSources = [
+      {
+        value: '1',
+        text: 'Ticket',
+        fields: [
+          {
+            value: 'group',
+            text: 'Group',
+            column_name: 'group',
+            option_value_path: 'id',
+            option_label_path: 'value',
+          },
+          {
+            value: 'status',
+            text: 'Status',
+            column_name: 'status',
+            option_value_path: 'id',
+            option_label_path: 'value',
+          },
+        ],
+      },
+      {
+        value: '2',
+        text: 'Contact',
+        fields: [
+          {
+            value: 'email',
+            text: 'Email',
+            column_name: 'email',
+            option_value_path: 'id',
+            option_label_path: 'value',
+          },
+        ],
+      },
+      {
+        value: '4853',
+        text: 'Booking ID',
+        fields: [
+          {
+            value: 'booking_id',
+            text: 'Booking ID',
+            column_name: 'booking_id',
+            option_value_path: 'id',
+            option_label_path: 'value',
+            has_dependents: true,
+          },
+        ],
+      },
+      {
+        value: '90',
+        text: 'Service Catalog',
+        has_sub_items: true,
+        fields: [],
+        subItems: [
+          { value: 'si1', text: 'Laptop Request' },
+          { value: 'si2', text: 'Software License' },
+        ],
+      },
+    ];
+
+    const SUB_ITEM_FIELDS_BY_ID = {
+      si1: [
+        {
+          value: 'priority',
+          text: 'Priority',
+          column_name: 'priority',
+          option_value_path: 'id',
+          option_label_path: 'value',
+        },
+      ],
+      si2: [
+        {
+          value: 'license_type',
+          text: 'License Type',
+          column_name: 'license_type',
+          option_value_path: 'id',
+          option_label_path: 'value',
+        },
+      ],
+    };
+
+    const DROPDOWN_FIELD_INDEX = 7;
+    const MULTI_SELECT_FIELD_INDEX = 9;
+
+    async function setupChoiceSourceFormBuilder(
+      page,
+      fieldIndex: number,
+      options: {
+        useChoiceSourceDropdown?: boolean;
+        formValues?: any;
+        choiceDataSources?: any[];
+        attachSubItemHostHandler?: boolean;
+      } = {}
+    ) {
+      const fields = options.formValues || formValues.CUSTOM_OBJECTS;
+      const field = fields.fields[fieldIndex];
+      const cds = options.choiceDataSources || choiceDataSources;
+
+      await page.$eval(
+        'fw-form-builder',
+        (
+          elm: any,
+          {
+            formValues: fv,
+            currentFieldIndex,
+            useChoiceSourceDropdown,
+            choiceDataSources: nextCds,
+            attachSubItemHostHandler,
+            subItemFieldsById,
+          }: any
+        ) => {
+          elm.formValues = fv;
+          elm.currentFieldIndex = currentFieldIndex;
+          elm.useChoiceSourceDropdown = useChoiceSourceDropdown;
+          elm.choiceDataSources = nextCds;
+          if (attachSubItemHostHandler) {
+            elm.choiceSourceSubItemChangeHandler = (
+              sourceId: string,
+              subItemId: string
+            ) => {
+              const nextSources = JSON.parse(
+                JSON.stringify(elm.choiceDataSources || [])
+              );
+              const source = nextSources.find(
+                (item) => String(item.value) === String(sourceId)
+              );
+              if (source) {
+                source.fields = subItemFieldsById[subItemId] || [];
+                elm.choiceDataSources = nextSources;
+              }
+            };
+          }
+        },
+        {
+          formValues: fields,
+          currentFieldIndex: { [field.id]: fieldIndex },
+          useChoiceSourceDropdown: options.useChoiceSourceDropdown ?? true,
+          choiceDataSources: cds,
+          attachSubItemHostHandler: options.attachSubItemHostHandler ?? false,
+          subItemFieldsById: SUB_ITEM_FIELDS_BY_ID,
+        }
+      );
+      await page.waitForChanges();
+
+      const rightPanel = await page.find(
+        'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
+      );
+      const fieldDragDropItem = await rightPanel.findAll(
+        'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+      );
+
+      return fieldDragDropItem[fieldIndex].find(
+        'fw-field-editor >>> .fw-field-editor'
+      );
+    }
+
+    it('renders fw-fb-field-choice-source for DROPDOWN when useChoiceSourceDropdown is true', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const choiceSource = await fieldEditor.find('fw-fb-field-choice-source');
+      const fieldDropdown = await fieldEditor.find('fw-fb-field-dropdown');
+
+      expect(choiceSource).toBeTruthy();
+      expect(fieldDropdown).toBeFalsy();
+    });
+
+    it('renders fw-fb-field-dropdown for MULTI_SELECT when useChoiceSourceDropdown is true', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        MULTI_SELECT_FIELD_INDEX
+      );
+      const choiceSource = await fieldEditor.find('fw-fb-field-choice-source');
+      const fieldDropdown = await fieldEditor.find('fw-fb-field-dropdown');
+
+      expect(choiceSource).toBeFalsy();
+      expect(fieldDropdown).toBeTruthy();
+    });
+
+    it('renders fw-fb-field-dropdown for DROPDOWN when useChoiceSourceDropdown is false', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX,
+        { useChoiceSourceDropdown: false }
+      );
+      const choiceSource = await fieldEditor.find('fw-fb-field-choice-source');
+      const fieldDropdown = await fieldEditor.find('fw-fb-field-dropdown');
+
+      expect(choiceSource).toBeFalsy();
+      expect(fieldDropdown).toBeTruthy();
+    });
+
+    it('hides manual dropdown choices label when useChoiceSourceDropdown is true', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const dropdownChoicesLabel = await fieldEditor.find(
+        '.fw-field-editor-content-dropdown > .fw-field-editor-content-label'
+      );
+
+      expect(dropdownChoicesLabel).toBeFalsy();
+    });
+
+    it('renders data source and dropdown field selects with expected labels', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+
+      expect(dataSourceSelect).toBeTruthy();
+      expect(dropdownFieldSelect).toBeTruthy();
+      expect(await dataSourceSelect.getProperty('label')).toBe('Data source');
+      expect(await dropdownFieldSelect.getProperty('label')).toBe(
+        'Dropdown field'
+      );
+    });
+
+    it('disables dropdown field select until a data source is selected', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+
+      expect(await dropdownFieldSelect.getProperty('disabled')).toBe(true);
+    });
+
+    it('enables dropdown field select and loads field options after data source is selected', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      await dataSourceSelect.triggerEvent('fwChange', {
+        detail: { value: '1' },
+      });
+      await page.waitForChanges();
+
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+      const dropdownOptions = await dropdownFieldSelect.getProperty('options');
+
+      expect(await dropdownFieldSelect.getProperty('disabled')).toBe(false);
+      expect(dropdownOptions).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ value: 'group', text: 'Group' }),
+          expect.objectContaining({ value: 'status', text: 'Status' }),
+        ])
+      );
+    });
+
+    it('clears dropdown field selection when data source changes', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+
+      await dataSourceSelect.triggerEvent('fwChange', {
+        detail: { value: '1' },
+      });
+      await page.waitForChanges();
+      await dropdownFieldSelect.triggerEvent('fwChange', {
+        detail: { value: 'status' },
+      });
+      await page.waitForChanges();
+      expect(await dropdownFieldSelect.getProperty('value')).toBe('status');
+
+      await dataSourceSelect.triggerEvent('fwChange', {
+        detail: { value: '2' },
+      });
+      await page.waitForChanges();
+
+      expect(await dropdownFieldSelect.getProperty('value')).toBe('');
+    });
+
+    it('shows validation errors on save when data source and dropdown field are empty', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const labelInput = await fieldEditor.find(
+        '.fw-field-editor-content-required-input'
+      );
+      await labelInput.click();
+      await labelInput.press('a');
+      await page.waitForChanges();
+
+      const saveBtn = await fieldEditor.find('#submitFieldBtn');
+      await saveBtn.click();
+      await page.waitForChanges();
+
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+
+      expect(await dataSourceSelect.getProperty('state')).toBe('error');
+      expect(await dropdownFieldSelect.getProperty('state')).toBe('error');
+    });
+
+    it('emits fwSaveField with choice source field_options when selections are valid', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      const fwSaveField = await page.spyOnEvent('fwSaveField');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const labelInput = await fieldEditor.find(
+        '.fw-field-editor-content-required-input'
+      );
+      await labelInput.click();
+      await labelInput.press('a');
+      await page.waitForChanges();
+
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+      await dataSourceSelect.triggerEvent('fwChange', {
+        detail: { value: '1' },
+      });
+      await page.waitForChanges();
+      await dropdownFieldSelect.triggerEvent('fwChange', {
+        detail: { value: 'status' },
+      });
+      await page.waitForChanges();
+
+      const saveBtn = await fieldEditor.find('#submitFieldBtn');
+      await saveBtn.click();
+      await page.waitForChanges();
+
+      expect(fwSaveField).toHaveReceivedEvent();
+      const saveDetail = fwSaveField.events[0].detail;
+      expect(saveDetail.index).toBe(DROPDOWN_FIELD_INDEX);
+      expect(saveDetail.value.field_options).toEqual(
+        expect.objectContaining({
+          reference: 'true',
+          data_source: '1',
+          option_value_path: 'id',
+          option_label_path: 'value',
+        })
+      );
+      expect(saveDetail.value.column_name).toBe('status');
+      expect(saveDetail.value.referenceField).toBe('status');
+      expect(saveDetail.value.has_dependents).toBe(false);
+    });
+
+    it('sets has_dependents on save when selected field has dependents', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      const fwSaveField = await page.spyOnEvent('fwSaveField');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const labelInput = await fieldEditor.find(
+        '.fw-field-editor-content-required-input'
+      );
+      await labelInput.click();
+      await labelInput.press('a');
+      await page.waitForChanges();
+
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+      await dataSourceSelect.triggerEvent('fwChange', {
+        detail: { value: '4853' },
+      });
+      await page.waitForChanges();
+      await dropdownFieldSelect.triggerEvent('fwChange', {
+        detail: { value: 'booking_id' },
+      });
+      await page.waitForChanges();
+
+      const saveBtn = await fieldEditor.find('#submitFieldBtn');
+      await saveBtn.click();
+      await page.waitForChanges();
+
+      const saveDetail = fwSaveField.events[0].detail;
+      expect(saveDetail.value.has_dependents).toBe(true);
+      expect(saveDetail.value.column_name).toBe('booking_id');
+      expect(saveDetail.value.referenceField).toBe('booking_id');
+    });
+
+    it('preserves has_dependents on edit-save without reselection', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      const fwSaveField = await page.spyOnEvent('fwSaveField');
+      await page.waitForChanges();
+
+      const formValuesWithDependents = JSON.parse(
+        JSON.stringify(formValues.CUSTOM_OBJECTS)
+      );
+      formValuesWithDependents.fields[DROPDOWN_FIELD_INDEX] = {
+        ...formValuesWithDependents.fields[DROPDOWN_FIELD_INDEX],
+        has_dependents: true,
+        field_options: {
+          reference: 'true',
+          data_source: '4853',
+          option_value_path: 'id',
+          option_label_path: 'value',
+        },
+        column_name: 'booking_id',
+        referenceField: 'booking_id',
+      };
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX,
+        { formValues: formValuesWithDependents }
+      );
+      const labelInput = await fieldEditor.find(
+        '.fw-field-editor-content-required-input'
+      );
+      await labelInput.click();
+      await labelInput.press('a');
+      await page.waitForChanges();
+
+      const saveBtn = await fieldEditor.find('#submitFieldBtn');
+      await saveBtn.click();
+      await page.waitForChanges();
+
+      expect(fwSaveField).toHaveReceivedEvent();
+      expect(fwSaveField.events[0].detail.value.has_dependents).toBe(true);
+    });
+
+    it('pre-populates choice source selects from existing field data', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const formValuesWithChoiceSource = JSON.parse(
+        JSON.stringify(formValues.CUSTOM_OBJECTS)
+      );
+      formValuesWithChoiceSource.fields[DROPDOWN_FIELD_INDEX] = {
+        ...formValuesWithChoiceSource.fields[DROPDOWN_FIELD_INDEX],
+        field_options: {
+          reference: 'true',
+          data_source: '1',
+          option_value_path: 'id',
+          option_label_path: 'value',
+        },
+        column_name: 'status',
+        referenceField: 'status',
+      };
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX,
+        { formValues: formValuesWithChoiceSource }
+      );
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+
+      expect(await dataSourceSelect.getProperty('value')).toBe('1');
+      expect(await dropdownFieldSelect.getProperty('value')).toBe('status');
+    });
+
+    it('shows sub-item select when selected data source has_sub_items', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      let subItemSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-sub-item-select'
+      );
+      expect(subItemSelect).toBeFalsy();
+
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      await dataSourceSelect.triggerEvent('fwChange', {
+        detail: { value: '90' },
+      });
+      await page.waitForChanges();
+
+      subItemSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-sub-item-select'
+      );
+      expect(subItemSelect).toBeTruthy();
+      expect(await subItemSelect.getProperty('label')).toBe(
+        'Select service item'
+      );
+      expect(await subItemSelect.getProperty('options')).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ value: 'si1', text: 'Laptop Request' }),
+          expect.objectContaining({
+            value: 'si2',
+            text: 'Software License',
+          }),
+        ])
+      );
+
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+      expect(await dropdownFieldSelect.getProperty('disabled')).toBe(true);
+    });
+
+    it('shows emptySubItem validation when saving without a sub-item', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX
+      );
+      const labelInput = await fieldEditor.find(
+        '.fw-field-editor-content-required-input'
+      );
+      await labelInput.click();
+      await labelInput.press('a');
+      await page.waitForChanges();
+
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      await dataSourceSelect.triggerEvent('fwChange', {
+        detail: { value: '90' },
+      });
+      await page.waitForChanges();
+
+      const saveBtn = await fieldEditor.find('#submitFieldBtn');
+      await saveBtn.click();
+      await page.waitForChanges();
+
+      const subItemSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-sub-item-select'
+      );
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+
+      expect(await subItemSelect.getProperty('state')).toBe('error');
+      expect(await subItemSelect.getProperty('errorText')).toBe(
+        'Service item is required.'
+      );
+      expect(await dropdownFieldSelect.getProperty('state')).toBe('error');
+    });
+
+    it('loads dropdown-field options after host updates fields on sub-item change', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX,
+        { attachSubItemHostHandler: true }
+      );
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      await dataSourceSelect.triggerEvent('fwChange', {
+        detail: { value: '90' },
+      });
+      await page.waitForChanges();
+
+      const subItemSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-sub-item-select'
+      );
+      await subItemSelect.triggerEvent('fwChange', {
+        detail: { value: 'si1' },
+      });
+      await page.waitForChanges();
+
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+      const dropdownOptions = await dropdownFieldSelect.getProperty('options');
+
+      expect(await dropdownFieldSelect.getProperty('disabled')).toBe(false);
+      expect(dropdownOptions).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ value: 'priority', text: 'Priority' }),
+        ])
+      );
+    });
+
+    it('emits fwSaveField with sub_item_id when has_sub_items selections are valid', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-form-builder></fw-form-builder>');
+      const fwSaveField = await page.spyOnEvent('fwSaveField');
+      await page.waitForChanges();
+
+      const fieldEditor = await setupChoiceSourceFormBuilder(
+        page,
+        DROPDOWN_FIELD_INDEX,
+        { attachSubItemHostHandler: true }
+      );
+      const labelInput = await fieldEditor.find(
+        '.fw-field-editor-content-required-input'
+      );
+      await labelInput.click();
+      await labelInput.press('a');
+      await page.waitForChanges();
+
+      const dataSourceSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-data-source-select'
+      );
+      await dataSourceSelect.triggerEvent('fwChange', {
+        detail: { value: '90' },
+      });
+      await page.waitForChanges();
+
+      const subItemSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-sub-item-select'
+      );
+      await subItemSelect.triggerEvent('fwChange', {
+        detail: { value: 'si1' },
+      });
+      await page.waitForChanges();
+
+      const dropdownFieldSelect = await fieldEditor.find(
+        'fw-fb-field-choice-source >>> .fb-field-choice-source-dropdown-field-select'
+      );
+      await dropdownFieldSelect.triggerEvent('fwChange', {
+        detail: { value: 'priority' },
+      });
+      await page.waitForChanges();
+
+      const saveBtn = await fieldEditor.find('#submitFieldBtn');
+      await saveBtn.click();
+      await page.waitForChanges();
+
+      expect(fwSaveField).toHaveReceivedEvent();
+      const saveDetail = fwSaveField.events[0].detail;
+      expect(saveDetail.value.field_options).toEqual(
+        expect.objectContaining({
+          reference: 'true',
+          data_source: '90',
+          sub_item_id: 'si1',
+          option_value_path: 'id',
+          option_label_path: 'value',
+        })
+      );
+      expect(saveDetail.value.column_name).toBe('priority');
+      expect(saveDetail.value.referenceField).toBe('priority');
+    });
+  });
 });

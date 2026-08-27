@@ -5,8 +5,16 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ChoiceDataSourceOption, ChoiceSourceDataResponse } from "./components/form-builder/choice-source-types";
+import { CoNestedSelectPropsFn } from "./components/co-nested-select/co-nested-select-types";
 export namespace Components {
     interface FbFieldDragDropItem {
+        /**
+          * Data sources and field options for choice-source dropdown fields
+         */
+        "choiceDataSources": ChoiceDataSourceOption[] | null;
+        "choiceSourceDataSourceChangeHandler": any;
+        "choiceSourceSubItemChangeHandler": any;
         /**
           * data source used to set and edit the field values
          */
@@ -114,6 +122,10 @@ export namespace Components {
           * Theme configuration for the form builder UI
          */
         "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use the DEPENDENT_FIELD editor (composed as DEPENDENT_FIELD on drag)
+         */
+        "useChoiceSourceDropdown": boolean;
     }
     interface FbSectionCreate {
         /**
@@ -152,6 +164,54 @@ export namespace Components {
          */
         "value": any;
     }
+    interface FwCoNestedNode {
+        "disabled": boolean;
+        "errorText": string;
+        "hintText": string;
+        "label": string;
+        "level": number;
+        "name": string;
+        "optionLabelPath": string;
+        "optionValuePath": string;
+        "options": any[];
+        "placeholder"?: string | null;
+        "required": boolean;
+        /**
+          * When set (host passes the id of the external field label), the root `fw-select` uses `labelledBy` and omits its own `label` text to avoid duplicate visible labels.
+         */
+        "rootLabelledBy": string;
+        "selectProps"?: CoNestedSelectPropsFn;
+        "state": 'normal' | 'warning' | 'error';
+        "value": string;
+        /**
+          * Root-to-leaf display value at every cascade depth, see `fw-co-nested-select`.
+         */
+        "valuePath"?: string[];
+        "warningText": string;
+    }
+    interface FwCoNestedSelect {
+        "disabled": boolean;
+        "errorText": string;
+        "hintText": string;
+        "label": string;
+        "name": string;
+        "optionLabelPath": string;
+        "optionValuePath": string;
+        "options": any[];
+        "placeholder"?: string | null;
+        "required": boolean;
+        /**
+          * Initial values helper from `fw-form` / `controlProps.selectProps`.
+         */
+        "selectProps"?: CoNestedSelectPropsFn;
+        "state": 'normal' | 'warning' | 'error';
+        "value": string;
+        /**
+          * Root-to-leaf display value at every cascade depth for a previously saved selection - only the leaf value is persisted on the record, so restoring the full cascade on edit needs each level's own value, not just the leaf's. Example: `['hardware', 'computer', 'mac']`.
+         */
+        "valuePath"?: string[];
+        "warningText": string;
+    }
     interface FwDateCondition {
         /**
           * The props to be passed to the crayons component.
@@ -172,6 +232,37 @@ export namespace Components {
           * The value of the input
          */
         "value": any;
+    }
+    interface FwFbFieldChoiceSource {
+        /**
+          * Data sources and their field options (provided by fw-form-builder)
+         */
+        "choiceDataSources": ChoiceDataSourceOption[];
+        /**
+          * Callback invoked when the data source dropdown selection changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the sub-item dropdown selection changes. Host must refresh `choiceDataSources` so the selected source’s `fields` match the chosen sub-item before the dropdown-field select is usable.
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
+        /**
+          * Selected data source and dropdown field values (controlled input from parent)
+         */
+        "dataResponse": ChoiceSourceDataResponse;
+        /**
+          * Disables both dropdowns when set to true
+         */
+        "disabled": boolean;
+        /**
+          * property to show the errors on click of the save/add button from the parent
+         */
+        "showErrors": boolean;
     }
     interface FwFbFieldDropdown {
         /**
@@ -301,6 +392,23 @@ export namespace Components {
         "targetObjects": any;
     }
     interface FwFieldEditor {
+        /**
+          * Data sources and field options for choice-source dropdown fields
+         */
+        "choiceDataSources": ChoiceDataSourceOption[] | null;
+        /**
+          * Callback invoked when the choice source data source dropdown changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the choice source sub-item dropdown changes. Host must refresh `choiceDataSources` fields for the selected sub-item.
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
         "createDynamicSection": boolean;
         /**
           * data source used to set and edit the field values
@@ -413,6 +521,10 @@ export namespace Components {
           * Theme configuration for the form builder UI
          */
         "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+         */
+        "useChoiceSourceDropdown": boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -524,6 +636,23 @@ export namespace Components {
     }
     interface FwFormBuilder {
         /**
+          * Data sources and field options for choice-source dropdown fields. Shape: `{ value, text, has_sub_items?, fields: [{ value, text, column_name?, option_value_path?, option_label_path?, has_dependents? }], subItems? }`.  When `has_sub_items` is true, `fields` are typically empty until the host refreshes them from `choiceSourceSubItemChangeHandler` after a sub-item is chosen.
+         */
+        "choiceDataSources": ChoiceDataSourceOption[] | null;
+        /**
+          * Callback invoked when the choice source data source dropdown changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the choice source sub-item dropdown changes. Host must update `choiceDataSources` so the selected source’s `fields` match the chosen sub-item before the dropdown-field select can be used.
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
+        /**
           * Prop to store the expanded field index
          */
         "currentFieldIndex": {};
@@ -601,6 +730,10 @@ export namespace Components {
           * Theme configuration for the form builder UI
          */
         "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+         */
+        "useChoiceSourceDropdown": boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */
@@ -781,6 +914,18 @@ export interface FwCoExportFieldCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwCoExportFieldElement;
 }
+export interface FwCoNestedNodeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwCoNestedNodeElement;
+}
+export interface FwCoNestedSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwCoNestedSelectElement;
+}
+export interface FwFbFieldChoiceSourceCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFbFieldChoiceSourceElement;
+}
 export interface FwFbFieldDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwFbFieldDropdownElement;
@@ -858,11 +1003,29 @@ declare global {
         prototype: HTMLFwCoExportFieldElement;
         new (): HTMLFwCoExportFieldElement;
     };
+    interface HTMLFwCoNestedNodeElement extends Components.FwCoNestedNode, HTMLStencilElement {
+    }
+    var HTMLFwCoNestedNodeElement: {
+        prototype: HTMLFwCoNestedNodeElement;
+        new (): HTMLFwCoNestedNodeElement;
+    };
+    interface HTMLFwCoNestedSelectElement extends Components.FwCoNestedSelect, HTMLStencilElement {
+    }
+    var HTMLFwCoNestedSelectElement: {
+        prototype: HTMLFwCoNestedSelectElement;
+        new (): HTMLFwCoNestedSelectElement;
+    };
     interface HTMLFwDateConditionElement extends Components.FwDateCondition, HTMLStencilElement {
     }
     var HTMLFwDateConditionElement: {
         prototype: HTMLFwDateConditionElement;
         new (): HTMLFwDateConditionElement;
+    };
+    interface HTMLFwFbFieldChoiceSourceElement extends Components.FwFbFieldChoiceSource, HTMLStencilElement {
+    }
+    var HTMLFwFbFieldChoiceSourceElement: {
+        prototype: HTMLFwFbFieldChoiceSourceElement;
+        new (): HTMLFwFbFieldChoiceSourceElement;
     };
     interface HTMLFwFbFieldDropdownElement extends Components.FwFbFieldDropdown, HTMLStencilElement {
     }
@@ -965,7 +1128,10 @@ declare global {
         "fb-section-create": HTMLFbSectionCreateElement;
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
+        "fw-co-nested-node": HTMLFwCoNestedNodeElement;
+        "fw-co-nested-select": HTMLFwCoNestedSelectElement;
         "fw-date-condition": HTMLFwDateConditionElement;
+        "fw-fb-field-choice-source": HTMLFwFbFieldChoiceSourceElement;
         "fw-fb-field-dropdown": HTMLFwFbFieldDropdownElement;
         "fw-fb-field-dropdown-item": HTMLFwFbFieldDropdownItemElement;
         "fw-fb-field-lookup": HTMLFwFbFieldLookupElement;
@@ -986,6 +1152,12 @@ declare global {
 }
 declare namespace LocalJSX {
     interface FbFieldDragDropItem {
+        /**
+          * Data sources and field options for choice-source dropdown fields
+         */
+        "choiceDataSources"?: ChoiceDataSourceOption[] | null;
+        "choiceSourceDataSourceChangeHandler"?: any;
+        "choiceSourceSubItemChangeHandler"?: any;
         /**
           * data source used to set and edit the field values
          */
@@ -1093,6 +1265,10 @@ declare namespace LocalJSX {
           * Theme configuration for the form builder UI
          */
         "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use the DEPENDENT_FIELD editor (composed as DEPENDENT_FIELD on drag)
+         */
+        "useChoiceSourceDropdown"?: boolean;
     }
     interface FbSectionCreate {
         /**
@@ -1149,6 +1325,59 @@ declare namespace LocalJSX {
          */
         "value"?: any;
     }
+    interface FwCoNestedNode {
+        "disabled"?: boolean;
+        "errorText"?: string;
+        "hintText"?: string;
+        "label"?: string;
+        "level"?: number;
+        "name"?: string;
+        "onFwPropertyChange"?: (event: FwCoNestedNodeCustomEvent<any>) => void;
+        "optionLabelPath"?: string;
+        "optionValuePath"?: string;
+        "options"?: any[];
+        "placeholder"?: string | null;
+        "required"?: boolean;
+        /**
+          * When set (host passes the id of the external field label), the root `fw-select` uses `labelledBy` and omits its own `label` text to avoid duplicate visible labels.
+         */
+        "rootLabelledBy"?: string;
+        "selectProps"?: CoNestedSelectPropsFn;
+        "state"?: 'normal' | 'warning' | 'error';
+        "value"?: string;
+        /**
+          * Root-to-leaf display value at every cascade depth, see `fw-co-nested-select`.
+         */
+        "valuePath"?: string[];
+        "warningText"?: string;
+    }
+    interface FwCoNestedSelect {
+        "disabled"?: boolean;
+        "errorText"?: string;
+        "hintText"?: string;
+        "label"?: string;
+        "name"?: string;
+        /**
+          * Emitted when cascade selection changes. Detail: `{ name: string, value: string }` — leaf option id for this field.
+         */
+        "onFwChange"?: (event: FwCoNestedSelectCustomEvent<any>) => void;
+        "optionLabelPath"?: string;
+        "optionValuePath"?: string;
+        "options"?: any[];
+        "placeholder"?: string | null;
+        "required"?: boolean;
+        /**
+          * Initial values helper from `fw-form` / `controlProps.selectProps`.
+         */
+        "selectProps"?: CoNestedSelectPropsFn;
+        "state"?: 'normal' | 'warning' | 'error';
+        "value"?: string;
+        /**
+          * Root-to-leaf display value at every cascade depth for a previously saved selection - only the leaf value is persisted on the record, so restoring the full cascade on edit needs each level's own value, not just the leaf's. Example: `['hardware', 'computer', 'mac']`.
+         */
+        "valuePath"?: string[];
+        "warningText"?: string;
+    }
     interface FwDateCondition {
         /**
           * The props to be passed to the crayons component.
@@ -1166,6 +1395,41 @@ declare namespace LocalJSX {
           * The value of the input
          */
         "value"?: any;
+    }
+    interface FwFbFieldChoiceSource {
+        /**
+          * Data sources and their field options (provided by fw-form-builder)
+         */
+        "choiceDataSources"?: ChoiceDataSourceOption[];
+        /**
+          * Callback invoked when the data source dropdown selection changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the sub-item dropdown selection changes. Host must refresh `choiceDataSources` so the selected source’s `fields` match the chosen sub-item before the dropdown-field select is usable.
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
+        /**
+          * Selected data source and dropdown field values (controlled input from parent)
+         */
+        "dataResponse"?: ChoiceSourceDataResponse;
+        /**
+          * Disables both dropdowns when set to true
+         */
+        "disabled"?: boolean;
+        /**
+          * Triggered on data change for error handling on parent
+         */
+        "onFwChange"?: (event: FwFbFieldChoiceSourceCustomEvent<any>) => void;
+        /**
+          * property to show the errors on click of the save/add button from the parent
+         */
+        "showErrors"?: boolean;
     }
     interface FwFbFieldDropdown {
         /**
@@ -1318,6 +1582,23 @@ declare namespace LocalJSX {
         "targetObjects"?: any;
     }
     interface FwFieldEditor {
+        /**
+          * Data sources and field options for choice-source dropdown fields
+         */
+        "choiceDataSources"?: ChoiceDataSourceOption[] | null;
+        /**
+          * Callback invoked when the choice source data source dropdown changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the choice source sub-item dropdown changes. Host must refresh `choiceDataSources` fields for the selected sub-item.
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
         "createDynamicSection"?: boolean;
         /**
           * data source used to set and edit the field values
@@ -1446,6 +1727,10 @@ declare namespace LocalJSX {
           * Theme configuration for the form builder UI
          */
         "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+         */
+        "useChoiceSourceDropdown"?: boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1565,6 +1850,23 @@ declare namespace LocalJSX {
     }
     interface FwFormBuilder {
         /**
+          * Data sources and field options for choice-source dropdown fields. Shape: `{ value, text, has_sub_items?, fields: [{ value, text, column_name?, option_value_path?, option_label_path?, has_dependents? }], subItems? }`.  When `has_sub_items` is true, `fields` are typically empty until the host refreshes them from `choiceSourceSubItemChangeHandler` after a sub-item is chosen.
+         */
+        "choiceDataSources"?: ChoiceDataSourceOption[] | null;
+        /**
+          * Callback invoked when the choice source data source dropdown changes
+         */
+        "choiceSourceDataSourceChangeHandler"?: (
+    sourceId: string
+  ) => void | Promise<void>;
+        /**
+          * Callback invoked when the choice source sub-item dropdown changes. Host must update `choiceDataSources` so the selected source’s `fields` match the chosen sub-item before the dropdown-field select can be used.
+         */
+        "choiceSourceSubItemChangeHandler"?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
+        /**
           * Prop to store the expanded field index
          */
         "currentFieldIndex"?: {};
@@ -1670,6 +1972,10 @@ declare namespace LocalJSX {
           * Theme configuration for the form builder UI
          */
         "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
+        /**
+          * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+         */
+        "useChoiceSourceDropdown"?: boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */
@@ -1855,7 +2161,10 @@ declare namespace LocalJSX {
         "fb-section-create": FbSectionCreate;
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
+        "fw-co-nested-node": FwCoNestedNode;
+        "fw-co-nested-select": FwCoNestedSelect;
         "fw-date-condition": FwDateCondition;
+        "fw-fb-field-choice-source": FwFbFieldChoiceSource;
         "fw-fb-field-dropdown": FwFbFieldDropdown;
         "fw-fb-field-dropdown-item": FwFbFieldDropdownItem;
         "fw-fb-field-lookup": FwFbFieldLookup;
@@ -1882,7 +2191,10 @@ declare module "@stencil/core" {
             "fb-section-create": LocalJSX.FbSectionCreate & JSXBase.HTMLAttributes<HTMLFbSectionCreateElement>;
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
+            "fw-co-nested-node": LocalJSX.FwCoNestedNode & JSXBase.HTMLAttributes<HTMLFwCoNestedNodeElement>;
+            "fw-co-nested-select": LocalJSX.FwCoNestedSelect & JSXBase.HTMLAttributes<HTMLFwCoNestedSelectElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;
+            "fw-fb-field-choice-source": LocalJSX.FwFbFieldChoiceSource & JSXBase.HTMLAttributes<HTMLFwFbFieldChoiceSourceElement>;
             "fw-fb-field-dropdown": LocalJSX.FwFbFieldDropdown & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownElement>;
             "fw-fb-field-dropdown-item": LocalJSX.FwFbFieldDropdownItem & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownItemElement>;
             "fw-fb-field-lookup": LocalJSX.FwFbFieldLookup & JSXBase.HTMLAttributes<HTMLFwFbFieldLookupElement>;
