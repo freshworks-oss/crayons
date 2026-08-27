@@ -12,7 +12,6 @@ import {
 } from '@stencil/core';
 import {
   isValid,
-  parse as parseDate,
   parseISO,
   getYear,
   getMonth,
@@ -21,7 +20,6 @@ import {
   startOfDay,
   getDaysInMonth,
   format,
-  isMatch as parseIsMatch,
   formatISO,
   addDays,
   startOfWeek,
@@ -37,6 +35,10 @@ import FieldControl from '../../function-components/field-control';
 
 import { TranslationController } from '../../global/Translation';
 import { addRTL } from '../../utils';
+import {
+  parseDatepickerValue as parse,
+  matchDatepickerValue as isMatch,
+} from './datepicker-utils';
 
 const defaultweekDays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -80,67 +82,6 @@ const getWeekDays = (lang): any => {
   return Array.from(Array(7)).map((_e, i) =>
     format(addDays(startOfWeek(new Date()), i), 'EEEEE', { locale: lang })
   );
-};
-
-const toWideMonthFormat = (displayFormat) =>
-  displayFormat.replace(/MMM(?!M)/g, 'MMMM');
-
-const parseSwedishDate = (value, displayFormat, date, langModule) => {
-  // date-fns parse with MMM fails for Swedish months whose abbreviated name
-  // matches the wide name (e.g. mars, juni, juli). Parse with MMMM instead.
-  if (!value) return value;
-  return parseDate(value, toWideMonthFormat(displayFormat), date, langModule);
-};
-
-const parseIcelandicDate = (value, langModule) => {
-  // For Icelandic language, the date format is different. There is a discrepency which is handled in this PR https://github.com/date-fns/date-fns/pull/3934
-  if (!value) return value;
-  const icelandicLanguageDisplayFormat = 'dd MMMM yyyy';
-  const icelandicMonthMapper = {
-    'jan.': 'jan.',
-    'feb.': 'feb.',
-    'mars': 'm',
-    'apríl': 'apríl',
-    'maí': 'maí',
-    'júní': 'júní',
-    'júlí': 'júlí',
-    'ágúst': 'á',
-    'sept.': 's',
-    'okt.': 'ó',
-    'nóv.': 'n',
-    'des.': 'd',
-  };
-  const correctedDate = value?.replace(
-    /jan\.|feb\.|mars|apríl|maí|júní|júlí|ágúst|sept\.|okt\.|nóv\.|des\./g,
-    (match) => icelandicMonthMapper[match]
-  );
-  return parseDate(
-    correctedDate,
-    icelandicLanguageDisplayFormat,
-    new Date(),
-    langModule
-  );
-};
-
-const parse = (value, displayFormat, date, langModule) => {
-  if (!value) return value;
-  if (langModule?.locale?.code === 'is' && displayFormat === 'dd MMM yyyy') {
-    return parseIcelandicDate(value, langModule);
-  }
-  if (langModule?.locale?.code === 'sv' && /MMM(?!M)/.test(displayFormat)) {
-    return parseSwedishDate(value, displayFormat, date, langModule);
-  }
-  return parseDate(value, displayFormat, date, langModule);
-};
-
-const isMatch = (value, displayFormat, langModule) => {
-  if (langModule?.locale?.code === 'is') {
-    return true;
-  }
-  if (langModule?.locale?.code === 'sv' && /MMM(?!M)/.test(displayFormat)) {
-    return parseIsMatch(value, toWideMonthFormat(displayFormat), langModule);
-  }
-  return parseIsMatch(value, displayFormat, langModule);
 };
 
 @Component({ tag: 'fw-datepicker', styleUrl: 'datepicker.scss', shadow: true })
