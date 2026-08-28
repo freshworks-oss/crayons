@@ -91,6 +91,12 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) lookupTargetObjects = null;
   /**
+   * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside
+   * fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an
+   * empty object, so existing consumers who don't set this see no behavior change.
+   */
+  @Prop({ mutable: true }) targetSelectProps = {};
+  /**
    * flag to show lookupField for CONVERSATION_PROPERTIES or not
    */
   @Prop({ mutable: true }) showLookupField = true;
@@ -1498,6 +1504,7 @@ export class FormBuilder {
         enableFilterable={this.enableFilterable}
         defaultFieldTypeSchema={objDefaultFieldTypeSchema}
         lookupTargetObjects={this.lookupTargetObjects}
+        targetSelectProps={this.targetSelectProps}
         formValues={this.localFormValues}
         isLoading={this.isLoading}
         showDependentFieldResolveProp={this.showDependentFieldResolveProp}
