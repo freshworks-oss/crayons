@@ -17,6 +17,16 @@ import presetSchema from '../assets/form-builder-preset.json';
 import formMapper from '../assets/form-mapper.json';
 import { TranslationController } from '../../../global/Translation';
 import {
+  ChoiceDataSourceOption,
+  ChoiceSourceDataResponse,
+  DEFAULT_CHOICE_SOURCE_DATA_SOURCE_ID,
+  isChoiceSourceDataSourceValid,
+  isChoiceSourceDropdownFieldValid,
+  isChoiceSourceSubItemValid,
+  findChoiceDataSource,
+  resolveChoiceSourceHasDependents,
+} from '../choice-source-types';
+import {
   buildChoicesFromText,
   checkIfCustomToggleField,
   deepCloneObject,
@@ -74,6 +84,10 @@ export class FieldEditor {
    */
   @Prop() productName = 'CUSTOM_OBJECTS';
   /**
+   * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+   */
+  @Prop() useChoiceSourceDropdown = false;
+  /**
    * Pinned position of the drag item, other drag item cannot be placed above or below it.
    */
   @Prop() pinned: 'top' | 'bottom' | '';
@@ -111,6 +125,25 @@ export class FieldEditor {
    * empty object, so existing consumers who don't set this see no behavior change.
    */
   @Prop({ mutable: true }) targetSelectProps = {};
+  /**
+   * Data sources and field options for choice-source dropdown fields
+   */
+  @Prop({ mutable: true }) choiceDataSources: ChoiceDataSourceOption[] | null =
+    null;
+  /**
+   * Callback invoked when the choice source data source dropdown changes
+   */
+  @Prop() choiceSourceDataSourceChangeHandler?: (
+    sourceId: string
+  ) => void | Promise<void>;
+  /**
+   * Callback invoked when the choice source sub-item dropdown changes.
+   * Host must refresh `choiceDataSources` fields for the selected sub-item.
+   */
+  @Prop() choiceSourceSubItemChangeHandler?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
   /**
    * flag to show dependentField resolve checkbox
    */
@@ -268,6 +301,10 @@ export class FieldEditor {
    */
   @State() showDependentFieldTextbox = false;
   /**
+   * Local state for data source / dropdown field selection (avoids reset on parent re-render)
+   */
+  @State() choiceSourceResponse: ChoiceSourceDataResponse | null = null;
+  /**
    * Triggered when the field is expanded or collapsed
    */
   @Event() fwExpand!: EventEmitter;
@@ -292,6 +329,28 @@ export class FieldEditor {
   @Watch('enableFilterable')
   watchEnableFilterableChangeHandler(): void {
     this.setCheckboxesAvailability(this.fieldBuilderOptions);
+  }
+
+  @Watch('expanded')
+  watchExpandedChangeHandler(isExpanded: boolean): void {
+    if (isExpanded && this.dataProvider) {
+      this.syncChoiceSourceResponse();
+    }
+  }
+
+  private syncChoiceSourceResponse(): void {
+    if (this.dataProvider) {
+      if (this.usesChoiceSourceDropdown()) {
+        const response = deepCloneObject(this.getChoiceSourceDataResponse());
+        if (this.isNewField && !response.dataSource) {
+          // Hosts map DEFAULT_CHOICE_SOURCE_DATA_SOURCE_ID ('0') → Ticket.
+          response.dataSource = DEFAULT_CHOICE_SOURCE_DATA_SOURCE_ID;
+        }
+        this.choiceSourceResponse = response;
+      } else {
+        this.choiceSourceResponse = null;
+      }
+    }
   }
 
   @Watch('dataProvider')
@@ -353,9 +412,12 @@ export class FieldEditor {
 
         this.setCheckboxesAvailability(objDefaultFieldTypeSchema);
       }
+
+      this.syncChoiceSourceResponse();
     } else {
       this.isNewField = false;
       this.fieldBuilderOptions = null;
+      this.choiceSourceResponse = null;
     }
   }
 
@@ -575,7 +637,12 @@ export class FieldEditor {
     Object.keys(this.dictInteractiveElements)
       .filter((ele) => ele.includes(prefix))
       .forEach((ele) => {
-        attributesToValidate[ele] = this.dictInteractiveElements[ele].value;
+        // A ref entry can be null between an element unmounting and its replacement mounting
+        // (e.g. the choiceSource key-remount in renderChoiceSource) - skip until it repopulates.
+        const elInteractive = this.dictInteractiveElements[ele];
+        if (elInteractive) {
+          attributesToValidate[ele] = elInteractive.value;
+        }
       });
 
     this.dependentErrors = hasStringDuplicates(attributesToValidate, i18nText);
@@ -715,6 +782,77 @@ export class FieldEditor {
     return false;
   };
 
+  private validateChoiceSourceErrors = (objChoiceSourceValues) => {
+    if (
+      !objChoiceSourceValues ||
+      !isChoiceSourceDataSourceValid(
+        this.choiceDataSources,
+        objChoiceSourceValues.dataSource
+      ) ||
+      !isChoiceSourceDropdownFieldValid(
+        this.choiceDataSources,
+        objChoiceSourceValues.dataSource,
+        objChoiceSourceValues.dropdownField
+      )
+    ) {
+      this.formErrorMessage = '';
+      return false;
+    }
+
+    const source = findChoiceDataSource(
+      this.choiceDataSources,
+      objChoiceSourceValues.dataSource
+    );
+
+    if (
+      source?.has_sub_items &&
+      !isChoiceSourceSubItemValid(
+        this.choiceDataSources,
+        objChoiceSourceValues.dataSource,
+        objChoiceSourceValues.subItem
+      )
+    ) {
+      this.formErrorMessage = '';
+      return false;
+    }
+
+    return true;
+  };
+
+  private usesChoiceSourceDropdown = (): boolean => {
+    if (this.useChoiceSourceDropdown !== true) {
+      return false;
+    }
+    const strFieldType = hasCustomProperty(this.fieldBuilderOptions, 'type')
+      ? this.fieldBuilderOptions.type
+      : '';
+    return strFieldType === 'DROPDOWN';
+  };
+
+  private getChoiceSourceDataResponse = () => {
+    const fieldOptions = this.dataProvider?.field_options || {};
+    const strDataSource = fieldOptions.data_source
+      ? String(fieldOptions.data_source)
+      : '';
+    const strReferenceField = this.dataProvider?.referenceField
+      ? String(this.dataProvider.referenceField)
+      : '';
+    const strColumnName = this.dataProvider?.column_name
+      ? String(this.dataProvider.column_name)
+      : '';
+
+    return {
+      dataSource: strDataSource,
+      subItem: fieldOptions.sub_item_id ? String(fieldOptions.sub_item_id) : '',
+      dropdownField: strReferenceField,
+      column_name: strColumnName,
+      option_value_path: fieldOptions.option_value_path || 'id',
+      option_label_path: fieldOptions.option_label_path || 'value',
+      // Preserve on edit so save without reselection does not wipe dependents.
+      has_dependents: !!this.dataProvider?.has_dependents,
+    };
+  };
+
   private addFieldHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
@@ -756,6 +894,12 @@ export class FieldEditor {
     // this.showErrors = false;
     for (const key in this.dictInteractiveElements) {
       const elInteractive = this.dictInteractiveElements[key];
+      // A ref entry can be null between an element unmounting and its replacement mounting
+      // (e.g. the choiceSource key-remount in renderChoiceSource) - skip it rather than crash
+      // if Add/Save is clicked while that swap is still in flight.
+      if (!elInteractive) {
+        continue;
+      }
       const strTagName = elInteractive.tagName.toLowerCase();
 
       switch (strTagName) {
@@ -870,6 +1014,40 @@ export class FieldEditor {
           if (boolValidForm) {
             this.showErrors = false;
             objValues[key] = objLookupValues;
+          } else {
+            this.showErrors = true;
+            return;
+          }
+          break;
+        }
+        case 'fw-fb-field-choice-source': {
+          const objChoiceSourceValues = deepCloneObject(
+            this.choiceSourceResponse
+          );
+          boolValidForm = this.validateChoiceSourceErrors(
+            objChoiceSourceValues
+          );
+          if (boolValidForm) {
+            this.showErrors = false;
+            objValues['field_options'] = {
+              ...(this.dataProvider?.field_options || {}),
+              reference: 'true',
+              data_source: objChoiceSourceValues.dataSource,
+              sub_item_id: objChoiceSourceValues.subItem || undefined,
+              option_value_path:
+                objChoiceSourceValues.option_value_path || 'id',
+              option_label_path:
+                objChoiceSourceValues.option_label_path || 'value',
+            };
+            objValues['column_name'] =
+              objChoiceSourceValues.column_name ||
+              objChoiceSourceValues.dropdownField;
+            objValues['referenceField'] = objChoiceSourceValues.dropdownField;
+            objValues['has_dependents'] = resolveChoiceSourceHasDependents(
+              this.choiceDataSources,
+              objChoiceSourceValues,
+              this.dataProvider?.has_dependents
+            );
           } else {
             this.showErrors = true;
             return;
@@ -1059,6 +1237,14 @@ export class FieldEditor {
     event.stopPropagation();
     this.isValuesChanged = true;
     this.validateLookupErrors(event.detail.value);
+  };
+
+  private choiceSourceChangeHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    this.isValuesChanged = true;
+    this.choiceSourceResponse = deepCloneObject(event.detail.value);
+    this.validateChoiceSourceErrors(this.choiceSourceResponse);
   };
 
   private checkboxSelectionChangeHandler = (event: CustomEvent) => {
@@ -1388,12 +1574,61 @@ export class FieldEditor {
     );
   }
 
+  private renderChoiceSource(boolDisableDropdowns) {
+    // Short-term remount workaround until prop sync is hardened: a lookup-backed field's
+    // referenceField/data_source resolves asynchronously (see resolveDropdownLookupFieldMetadata
+    // in EntityBuilder.jsx) after this panel is already expanded and this component already
+    // mounted with a blank dataResponse. Re-syncing that resolved value into an already-mounted
+    // fw-fb-field-choice-source relies on Stencil prop-change reactivity that doesn't reliably fire
+    // across this particular multi-level parent cascade. Keying on whether referenceField has
+    // resolved forces a clean remount exactly once resolution completes, reusing the mount-time
+    // init path (componentWillLoad) that's already correct — the same thing collapsing/re-expanding
+    // the field does manually today. Long term, fix @Watch('dataResponse') prop sync instead.
+    const strChoiceSourceKey = `choice-source-${this.dataProvider?.id}-${
+      this.dataProvider?.referenceField ? 'resolved' : 'pending'
+    }`;
+    // Once a choice source has actually been saved and resolved (referenceField is only ever populated
+    // from a prior save - see getChoiceSourceDataResponse/resolveDropdownLookupFieldMetadata in
+    // EntityBuilder.jsx, never by choiceSourceChangeHandler's in-session, not-yet-saved selection), lock
+    // the data source / service item / dropdown field selects so the user can't repoint an already-saved
+    // lookup field at a different source. `isNewField` is deliberately not used here: a pre-existing plain
+    // DROPDOWN field being given a choice source for the first time is not "new" but must still be
+    // editable until that first save resolves.
+    const boolDisableChoiceSource =
+      boolDisableDropdowns || !!this.dataProvider?.referenceField;
+    return (
+      <fw-fb-field-choice-source
+        key={strChoiceSourceKey}
+        ref={(el) => (this.dictInteractiveElements['choiceSource'] = el)}
+        showErrors={this.showErrors}
+        disabled={boolDisableChoiceSource}
+        choiceDataSources={this.choiceDataSources}
+        choiceSourceDataSourceChangeHandler={
+          this.choiceSourceDataSourceChangeHandler
+        }
+        choiceSourceSubItemChangeHandler={this.choiceSourceSubItemChangeHandler}
+        dataResponse={
+          this.choiceSourceResponse ?? {
+            dataSource: '',
+            subItem: '',
+            dropdownField: '',
+          }
+        }
+        onFwChange={this.choiceSourceChangeHandler}
+      ></fw-fb-field-choice-source>
+    );
+  }
+
   private renderDropdown(
     boolDisableDropdowns,
     fieldBuilderOptions = null,
     choiceIds = [],
     parentId = null
   ) {
+    if (!this.isDependentField && this.usesChoiceSourceDropdown()) {
+      return this.renderChoiceSource(boolDisableDropdowns);
+    }
+
     // Dependent Level checks
     const level = fieldBuilderOptions?.field_options?.level;
     const dictElName = this.isDependentField
@@ -1916,6 +2151,11 @@ export class FieldEditor {
           {elementStatusToggle}
           {isDropdownType && (
             <div class={`${strBaseClassName}-content-dropdown`}>
+              {!this.usesChoiceSourceDropdown() && (
+                <label class={`${strBaseClassName}-content-label`}>
+                  {i18nText('dropdownChoices')}
+                </label>
+              )}
               {elementDropdown}
             </div>
           )}

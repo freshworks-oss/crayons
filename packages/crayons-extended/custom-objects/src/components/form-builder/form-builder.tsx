@@ -30,6 +30,7 @@ import {
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
+import { ChoiceDataSourceOption } from './choice-source-types';
 import { debounce } from '../../utils/utils';
 import { TranslationController } from '../../global/Translation';
 import { parseBoolean } from '../../utils/utils';
@@ -151,6 +152,34 @@ export class FormBuilder {
    * Beta flag to enable Dynamic sections
    */
   @Prop() dynamicSectionsBetaEnabled = false;
+  /**
+   * When true, DROPDOWN fields use fw-fb-field-choice-source instead of manual choices
+   */
+  @Prop() useChoiceSourceDropdown = false;
+  /**
+   * Data sources and field options for choice-source dropdown fields.
+   * Shape: `{ value, text, has_sub_items?, fields: [{ value, text, column_name?, option_value_path?, option_label_path?, has_dependents? }], subItems? }`.
+   *
+   * When `has_sub_items` is true, `fields` are typically empty until the host
+   * refreshes them from `choiceSourceSubItemChangeHandler` after a sub-item is chosen.
+   */
+  @Prop({ mutable: true }) choiceDataSources: ChoiceDataSourceOption[] | null =
+    null;
+  /**
+   * Callback invoked when the choice source data source dropdown changes
+   */
+  @Prop() choiceSourceDataSourceChangeHandler?: (
+    sourceId: string
+  ) => void | Promise<void>;
+  /**
+   * Callback invoked when the choice source sub-item dropdown changes.
+   * Host must update `choiceDataSources` so the selected source’s `fields`
+   * match the chosen sub-item before the dropdown-field select can be used.
+   */
+  @Prop() choiceSourceSubItemChangeHandler?: (
+    sourceId: string,
+    subItemId: string
+  ) => void | Promise<void>;
   /**
    * State to store the formValues as a state to transfer the field types
    */
@@ -298,8 +327,7 @@ export class FormBuilder {
 
   private getEffectiveMaximumLimits() {
     return (
-      this.effectiveMaximumLimits ??
-      getMaximumLimitsConfig(this.productName)
+      this.effectiveMaximumLimits ?? getMaximumLimitsConfig(this.productName)
     );
   }
 
@@ -457,9 +485,7 @@ export class FormBuilder {
   private getInterpolatedMaxLimitLabel = (strProperty) => {
     if (strProperty && strProperty !== '') {
       try {
-        const objMaxLimit = this.getEffectiveMaximumLimits()?.[
-          strProperty
-        ];
+        const objMaxLimit = this.getEffectiveMaximumLimits()?.[strProperty];
         if (objMaxLimit) {
           return i18nText(objMaxLimit.message, { count: objMaxLimit.count });
         }
@@ -1491,6 +1517,7 @@ export class FormBuilder {
         keyProp={strKey}
         productName={this.productName}
         showRelationshipTypeSelect={this.showRelationshipTypeSelect}
+        useChoiceSourceDropdown={this.useChoiceSourceDropdown}
         dataProvider={dataItem}
         entityName={strEntityName}
         expanded={boolItemExpanded}
@@ -1505,6 +1532,7 @@ export class FormBuilder {
         defaultFieldTypeSchema={objDefaultFieldTypeSchema}
         lookupTargetObjects={this.lookupTargetObjects}
         targetSelectProps={this.targetSelectProps}
+        choiceDataSources={this.choiceDataSources}
         formValues={this.localFormValues}
         isLoading={this.isLoading}
         showDependentFieldResolveProp={this.showDependentFieldResolveProp}
@@ -1513,6 +1541,10 @@ export class FormBuilder {
         saveFieldHandler={this.saveFieldHandler}
         deleteFieldHandler={this.deleteFieldHandler}
         expandFieldHandler={this.expandFieldHandler}
+        choiceSourceDataSourceChangeHandler={
+          this.choiceSourceDataSourceChangeHandler
+        }
+        choiceSourceSubItemChangeHandler={this.choiceSourceSubItemChangeHandler}
         reorderFieldProgressHandler={this.reorderFieldProgressHandler}
         sectionName={sectionName}
         parentIndex={parentIndex}

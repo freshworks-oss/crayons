@@ -1,0 +1,63 @@
+// fw-co-nested-select + fw-co-nested-node — single stylesheet; Stencil scopes rules per component tag.
+
+:host {
+  display: block;
+  box-sizing: border-box;
+}
+
+// --- fw-co-nested-select (panel chrome) ---
+
+.field-control {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-200, 16px);
+  box-sizing: border-box;
+
+  fw-co-nested-node {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+.field-control-label {
+  display: block;
+  font-size: 12px;
+  color: var(--fw-label-color, var(--color-text-secondary, #475867));
+  font-weight: var(--font-weight-regular, 600);
+  margin-block-end: 4px;
+  padding-inline-start: 2px;
+  line-height: 20px;
+}
+
+.field-control-label.required::after {
+  content: '*';
+  position: relative;
+  display: inline-block;
+  inset-block-start: 2px;
+  font-size: 14px;
+  color: var(--color-text-semantic-error, #d72d30);
+  padding-inline-start: 2px;
+  font-weight: 700;
+}
+
+.field-control-panel {
+  box-sizing: border-box;
+  padding-block: var(--spacing-150, 12px);
+  padding-inline: var(--spacing-150, 12px);
+  background: var(--color-fill-container, #f6f7f8);
+  border-radius: var(--border-radius-small, 6px);
+}
+
+// --- fw-co-nested-node (nested tiers) — aligned with core nested-select ---
+
+.nest_indent {
+  border-inline-start: 1px solid var(--color-boundary-border-mild, #ebeff3);
+  padding-inline: 10px 0;
+}
+
+.nest {
+  margin-block: 10px;
+}

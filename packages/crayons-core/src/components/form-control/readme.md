@@ -3,6 +3,13 @@
 `Form Control` component used with `fw-form` component. Please refer [fw-form](../form/#demo-static-form) for usage 
 
 
+### Lookup field types
+
+| `type` | Renders | Bundle requirement |
+| --- | --- | --- |
+| `DROPDOWN_LOOKUP` | `fw-select` | `@freshworks/crayons` (core) only |
+| `DROPDOWN_LOOKUP_SECTION` | `fw-co-nested-select` | Requires `@freshworks/crayons-custom-objects` to be loaded; otherwise the custom element is undefined |
+
 <!-- Auto Generated Below -->
 
 
@@ -23,7 +30,7 @@
 | `required`     | `required`      |                                                                                                                                                           | `boolean`                                                                                                                                                                                                                                      | `false`     |
 | `shouldRender` | `should-render` | Prop to determine whether to render the form-control or not. Default to true.                                                                             | `boolean`                                                                                                                                                                                                                                      | `true`      |
 | `touched`      | `touched`       |                                                                                                                                                           | `boolean`                                                                                                                                                                                                                                      | `false`     |
-| `type`         | `type`          |                                                                                                                                                           | `"AUTO_COMPLETE" \| "CHECKBOX" \| "DATE" \| "DATE_TIME" \| "DECIMAL" \| "DEPENDENT_FIELD" \| "DROPDOWN" \| "EMAIL" \| "FILES" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "RELATIONSHIP" \| "TEL" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
+| `type`         | `type`          |                                                                                                                                                           | `"AUTO_COMPLETE" \| "CHECKBOX" \| "DATE" \| "DATE_TIME" \| "DECIMAL" \| "DEPENDENT_FIELD" \| "DROPDOWN" \| "DROPDOWN_LOOKUP" \| "DROPDOWN_LOOKUP_SECTION" \| "EMAIL" \| "FILES" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "RELATIONSHIP" \| "TEL" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
 | `value`        | `value`         | Value of the slotted custom field on fw-form-control                                                                                                      | `any`                                                                                                                                                                                                                                          | `undefined` |
 
 

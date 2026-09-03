@@ -1,0 +1,45 @@
+@import '../styles/variables/form-builder-style-utils.scss';
+
+:host {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.fb-field-choice-source-root {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.fb-field-choice-source {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+
+  .fb-field-choice-source-data-source-select-container,
+  .fb-field-choice-source-sub-item-select-container,
+  .fb-field-choice-source-dropdown-field-select-container {
+    height: auto;
+    box-sizing: border-box;
+    width: 220px;
+    max-width: 100%;
+  }
+
+  .fb-field-choice-source-sub-item-select-container {
+    margin-inline-start: 24px;
+    padding-inline-start: 16px;
+    border-inline-start: 1px dotted var(--color-border-secondary, #cfd7df);
+  }
+
+  .fb-field-choice-source-data-source-select,
+  .fb-field-choice-source-sub-item-select,
+  .fb-field-choice-source-dropdown-field-select {
+    width: 100%;
+  }
+}

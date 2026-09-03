@@ -1,6 +1,7 @@
 import { Component, Prop, h, Host, State } from '@stencil/core';
 import { TranslationController } from '../../../global/Translation';
 import formMapper from '../assets/form-mapper.json';
+import { ChoiceDataSourceOption } from '../choice-source-types';
 import {
   hasCustomProperty,
   isDropdownField,
@@ -17,6 +18,10 @@ export class FormBuilderFieldDragDropItem {
    * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
    */
   @Prop() productName = 'CUSTOM_OBJECTS';
+  /**
+   * When true, DROPDOWN fields use the DEPENDENT_FIELD editor (composed as DEPENDENT_FIELD on drag)
+   */
+  @Prop() useChoiceSourceDropdown = false;
   /**
    * Pinned position of the drag item, other drag item cannot be placed above or below it.
    */
@@ -55,6 +60,11 @@ export class FormBuilderFieldDragDropItem {
    * empty object, so existing consumers who don't set this see no behavior change.
    */
   @Prop({ mutable: true }) targetSelectProps = {};
+  /**
+   * Data sources and field options for choice-source dropdown fields
+   */
+  @Prop({ mutable: true }) choiceDataSources: ChoiceDataSourceOption[] | null =
+    null;
   /**
    * flag to show dependentField resolve checkbox
    */
@@ -135,6 +145,14 @@ export class FormBuilderFieldDragDropItem {
    * Handler function for on field expand
    */
   @Prop() expandFieldHandler;
+  /*
+   * Handler function for choice source data source change
+   */
+  @Prop() choiceSourceDataSourceChangeHandler;
+  /*
+   * Handler function for choice source sub-item change
+   */
+  @Prop() choiceSourceSubItemChangeHandler;
   /*
    * Handler function for field drag and drop
    */
@@ -220,6 +238,7 @@ export class FormBuilderFieldDragDropItem {
             defaultFieldTypeSchema={this.defaultFieldTypeSchema}
             lookupTargetObjects={this.lookupTargetObjects}
             targetSelectProps={this.targetSelectProps}
+            choiceDataSources={this.choiceDataSources}
             formValues={this.formValues}
             isLoading={this.isLoading}
             sectionsExpanded={this.sectionsExpanded}
@@ -235,10 +254,17 @@ export class FormBuilderFieldDragDropItem {
             onFwDelete={this.deleteFieldHandler}
             onFwExpand={this.expandFieldHandler}
             onFwReorder={this.reorderFieldProgressHandler}
+            choiceSourceDataSourceChangeHandler={
+              this.choiceSourceDataSourceChangeHandler
+            }
+            choiceSourceSubItemChangeHandler={
+              this.choiceSourceSubItemChangeHandler
+            }
             createDynamicSection={this.createDynamicSection}
             parentIndex={this.parentIndex}
             sectionName={this.sectionName}
             theme={this.theme}
+            useChoiceSourceDropdown={this.useChoiceSourceDropdown}
           ></fw-field-editor>
 
           {showDynamicFieldSections && (
