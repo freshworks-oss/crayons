@@ -1491,7 +1491,7 @@ export class FormBuilder {
       return null;
     }
     const strFieldType = dataItem.type;
-    if (!this.isFieldTypeAllowed(strFieldType)) {
+    if (strFieldType !== 'PRIMARY' && !this.isFieldTypeAllowed(strFieldType)) {
       return null;
     }
     const objDefaultFieldTypeSchema =
