@@ -1465,7 +1465,11 @@ export class FormBuilder {
       return null;
     }
     const strFieldType = dataItem.type;
-    if (!this.isFieldTypeAllowed(strFieldType)) {
+    // PRIMARY is an implicit, non-addable field that every entity already
+    // has - it should never be hidden by the addable-types allowlist, which
+    // only governs what can be newly composed (mirrors the same carve-out
+    // in renderFieldTypeElement's palette rendering).
+    if (strFieldType !== 'PRIMARY' && !this.isFieldTypeAllowed(strFieldType)) {
       return null;
     }
     const objDefaultFieldTypeSchema =
