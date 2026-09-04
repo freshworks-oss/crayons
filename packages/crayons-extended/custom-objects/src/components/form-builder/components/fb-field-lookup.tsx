@@ -57,6 +57,12 @@ export class FbFieldDropdown {
    */
   @Prop({ mutable: true }) showErrors = false;
   /**
+   * Additional props (e.g. search, debounceTimer, optionLabelPath) passed through to the target object
+   * fw-select, so a consumer can opt in to server-backed/async search for the target picker. Defaults to
+   * an empty object, so existing consumers who don't set this see no behavior change.
+   */
+  @Prop({ mutable: true }) targetSelectProps = {};
+  /**
    * Disables all the options which can't be edited, reordered or deleted if set to true.
    */
   @Prop() disabled = false;
@@ -243,6 +249,7 @@ export class FbFieldDropdown {
             )}
             <div class={`${strBaseClassName}-target-select-container`}>
               <fw-select
+                {...this.targetSelectProps}
                 required={true}
                 state={strTargetState}
                 class={`${strBaseClassName}-target-select`}

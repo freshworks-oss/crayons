@@ -111,6 +111,10 @@ export namespace Components {
          */
         "showRelationshipTypeSelect": boolean;
         /**
+          * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an empty object, so existing consumers who don't set this see no behavior change.
+         */
+        "targetSelectProps": {};
+        /**
           * Theme configuration for the form builder UI
          */
         "theme": 'default' | 'dew-light-theme' | 'dew-dark-theme';
@@ -299,6 +303,10 @@ export namespace Components {
           * array for target objects
          */
         "targetObjects": any;
+        /**
+          * Additional props (e.g. search, debounceTimer, optionLabelPath) passed through to the target object fw-select, so a consumer can opt in to server-backed/async search for the target picker. Defaults to an empty object, so existing consumers who don't set this see no behavior change.
+         */
+        "targetSelectProps": {};
     }
     interface FwFieldEditor {
         "createDynamicSection": boolean;
@@ -409,6 +417,10 @@ export namespace Components {
          */
         "showRelationshipTypeSelect": boolean;
         "showSections": boolean;
+        /**
+          * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an empty object, so existing consumers who don't set this see no behavior change.
+         */
+        "targetSelectProps": {};
         /**
           * Theme configuration for the form builder UI
          */
@@ -597,6 +609,17 @@ export namespace Components {
           * flag to support dependentFields & Multi select dropdown within sections
          */
         "supportDependentAndMSDDInSections": boolean;
+        /**
+          * Host-driven list of supported field types and optional per-type limits. Governs what's visible/creatable in this builder session only: a type left out is hidden from the left-nav, field editor, and customize-widget modal, including any field of that type already present in a loaded schema. Excluded fields' data is left untouched in formValues.fields and will still be included on save - this prop is not a data migration tool, so a host that needs to fully retire a type must filter/migrate the underlying schema itself.
+         */
+        "supportedFieldTypes": Array<{
+    type: string;
+    limit?: number;
+  }>;
+        /**
+          * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an empty object, so existing consumers who don't set this see no behavior change.
+         */
+        "targetSelectProps": {};
         /**
           * Theme configuration for the form builder UI
          */
@@ -1090,6 +1113,10 @@ declare namespace LocalJSX {
          */
         "showRelationshipTypeSelect"?: boolean;
         /**
+          * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an empty object, so existing consumers who don't set this see no behavior change.
+         */
+        "targetSelectProps"?: {};
+        /**
           * Theme configuration for the form builder UI
          */
         "theme"?: 'default' | 'dew-light-theme' | 'dew-dark-theme';
@@ -1316,6 +1343,10 @@ declare namespace LocalJSX {
           * array for target objects
          */
         "targetObjects"?: any;
+        /**
+          * Additional props (e.g. search, debounceTimer, optionLabelPath) passed through to the target object fw-select, so a consumer can opt in to server-backed/async search for the target picker. Defaults to an empty object, so existing consumers who don't set this see no behavior change.
+         */
+        "targetSelectProps"?: {};
     }
     interface FwFieldEditor {
         "createDynamicSection"?: boolean;
@@ -1442,6 +1473,10 @@ declare namespace LocalJSX {
          */
         "showRelationshipTypeSelect"?: boolean;
         "showSections"?: boolean;
+        /**
+          * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an empty object, so existing consumers who don't set this see no behavior change.
+         */
+        "targetSelectProps"?: {};
         /**
           * Theme configuration for the form builder UI
          */
@@ -1666,6 +1701,17 @@ declare namespace LocalJSX {
           * flag to support dependentFields & Multi select dropdown within sections
          */
         "supportDependentAndMSDDInSections"?: boolean;
+        /**
+          * Host-driven list of supported field types and optional per-type limits. Governs what's visible/creatable in this builder session only: a type left out is hidden from the left-nav, field editor, and customize-widget modal, including any field of that type already present in a loaded schema. Excluded fields' data is left untouched in formValues.fields and will still be included on save - this prop is not a data migration tool, so a host that needs to fully retire a type must filter/migrate the underlying schema itself.
+         */
+        "supportedFieldTypes"?: Array<{
+    type: string;
+    limit?: number;
+  }>;
+        /**
+          * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an empty object, so existing consumers who don't set this see no behavior change.
+         */
+        "targetSelectProps"?: {};
         /**
           * Theme configuration for the form builder UI
          */

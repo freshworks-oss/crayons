@@ -2005,6 +2005,238 @@ describe('fw-form-builder', () => {
     );
   });
 
+  const customObjectsFieldTypesWithoutMultiSelect =
+    formMapper.CUSTOM_OBJECTS.fieldOrder
+      .filter((type) => type !== 'MULTI_SELECT')
+      .map((type) => ({ type }));
+
+  const customObjectsFieldTypesWithoutDateTime =
+    formMapper.CUSTOM_OBJECTS.fieldOrder
+      .filter((type) => type !== 'DATE_TIME')
+      .map((type) => ({ type }));
+
+  it('MULTI_SELECT field should not be shown in left nav when supportedFieldTypes excludes it', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { supportedFieldTypes }: any) => {
+        elm.supportedFieldTypes = supportedFieldTypes;
+      },
+      { supportedFieldTypes: customObjectsFieldTypesWithoutMultiSelect }
+    );
+    await page.waitForChanges();
+
+    const leftPanel = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel'
+    );
+    const fieldItems = await leftPanel.findAll(
+      '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+    );
+    // -2, not -1: renderFieldTypeElement always hides PRIMARY from this
+    // "add field" palette (it's implicit, non-addable) on top of the
+    // MULTI_SELECT exclusion from supportedFieldTypes.
+    expect(fieldItems.length).toEqual(
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 2
+    );
+
+    for (const fieldItem of fieldItems) {
+      expect(await fieldItem.getProperty('value')).not.toEqual('MULTI_SELECT');
+    }
+  });
+
+  it('MULTI_SELECT field editor should not be shown when supportedFieldTypes excludes it', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+    await page.waitForChanges();
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { formValues, supportedFieldTypes }: any) => {
+        elm.supportedFieldTypes = supportedFieldTypes;
+        elm.formValues = formValues;
+      },
+      {
+        supportedFieldTypes: customObjectsFieldTypesWithoutMultiSelect,
+        formValues: formValues.CUSTOM_OBJECTS,
+      }
+    );
+    await page.waitForChanges();
+
+    const rightPanel = await page.find(
+      'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
+    );
+    const fieldDragDropItems = await rightPanel.findAll(
+      'fb-field-drag-drop-item'
+    );
+    expect(fieldDragDropItems.length).toEqual(
+      formValues.CUSTOM_OBJECTS.fields.length - 1
+    );
+  });
+
+  it('DATE_TIME field should not be shown in left nav when supportedFieldTypes excludes it', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { supportedFieldTypes }: any) => {
+        elm.supportedFieldTypes = supportedFieldTypes;
+      },
+      { supportedFieldTypes: customObjectsFieldTypesWithoutDateTime }
+    );
+    await page.waitForChanges();
+
+    const leftPanel = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel'
+    );
+    const fieldItems = await leftPanel.findAll(
+      '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+    );
+    // -2, not -1: same PRIMARY carve-out as the MULTI_SELECT exclusion test
+    // above, on top of the DATE_TIME exclusion from supportedFieldTypes.
+    expect(fieldItems.length).toEqual(
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 2
+    );
+
+    for (const fieldItem of fieldItems) {
+      expect(await fieldItem.getProperty('value')).not.toEqual('DATE_TIME');
+    }
+  });
+
+  it('DATE_TIME field should be shown in left nav after Date when supportedFieldTypes includes it', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+
+    const leftPanel = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel'
+    );
+    const fieldItems = await leftPanel.findAll(
+      '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+    );
+    // -1: renderFieldTypeElement always hides PRIMARY from this "add
+    // field" palette (it's implicit, non-addable), independent of
+    // supportedFieldTypes - nothing is excluded here otherwise.
+    expect(fieldItems.length).toEqual(
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 1
+    );
+
+    const fieldTypes = await Promise.all(
+      fieldItems.map(async (fieldItem) => fieldItem.getProperty('value'))
+    );
+    const dateIndex = fieldTypes.indexOf('DATE');
+    const dateTimeIndex = fieldTypes.indexOf('DATE_TIME');
+    expect(dateIndex).toBeGreaterThanOrEqual(0);
+    expect(dateTimeIndex).toBe(dateIndex + 1);
+
+    const dateTimeItem = fieldItems[dateTimeIndex];
+    expect(await dateTimeItem.getProperty('iconName')).toEqual('calendar');
+    expect(await dateTimeItem.getProperty('label')).toEqual('fieldTypeDateTime');
+  });
+
+  it('DATE_TIME field editor should not be shown when supportedFieldTypes excludes it', async () => {
+    const page = await newE2EPage();
+    const formValuesWithDateTime = {
+      ...formValues.CUSTOM_OBJECTS,
+      fields: [
+        ...formValues.CUSTOM_OBJECTS.fields,
+        {
+          id: 'a87ce74f-07f9-406a-bd18-bef23a5306a1',
+          name: 'datetime',
+          label: 'Date-Time',
+          type: 'DATE_TIME',
+          required: false,
+          field_options: {},
+          filterable: true,
+          searchable: false,
+        },
+      ],
+    };
+
+    await page.setContent(
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+    await page.waitForChanges();
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { formValues, supportedFieldTypes }: any) => {
+        elm.supportedFieldTypes = supportedFieldTypes;
+        elm.formValues = formValues;
+      },
+      {
+        supportedFieldTypes: customObjectsFieldTypesWithoutDateTime,
+        formValues: formValuesWithDateTime,
+      }
+    );
+    await page.waitForChanges();
+
+    const rightPanel = await page.find(
+      'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
+    );
+    const fieldDragDropItems = await rightPanel.findAll(
+      'fb-field-drag-drop-item'
+    );
+    expect(fieldDragDropItems.length).toEqual(
+      formValuesWithDateTime.fields.length - 1
+    );
+  });
+
+  it('disables the left-nav item once a host-provided per-type limit is reached', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+    await page.waitForChanges();
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { formValues, supportedFieldTypes }: any) => {
+        elm.formValues = formValues;
+        elm.supportedFieldTypes = supportedFieldTypes;
+      },
+      {
+        // formValues.CUSTOM_OBJECTS already has 2 fields counted as TEXT
+        // (1 PRIMARY, which the component parses as TEXT for count
+        // purposes, + 1 TEXT) - a host-provided limit of 1 should disable
+        // TEXT. DATE_TIME is absent from the fixture and left at its
+        // default (no override), so it acts as a control and must stay
+        // enabled.
+        formValues: formValues.CUSTOM_OBJECTS,
+        supportedFieldTypes: [{ type: 'TEXT', limit: 1 }, { type: 'DATE_TIME' }],
+      }
+    );
+    await page.waitForChanges();
+
+    const leftPanel = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel'
+    );
+    const fieldItems = await leftPanel.findAll(
+      '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+    );
+    const fieldTypeValues = await Promise.all(
+      fieldItems.map((item) => item.getProperty('value'))
+    );
+    const textIndex = fieldTypeValues.indexOf('TEXT');
+    const dateTimeIndex = fieldTypeValues.indexOf('DATE_TIME');
+    expect(textIndex).toBeGreaterThanOrEqual(0);
+    expect(dateTimeIndex).toBeGreaterThanOrEqual(0);
+
+    expect(await fieldItems[textIndex].getProperty('disabled')).toBe(true);
+    expect(await fieldItems[dateTimeIndex].getProperty('disabled')).toBe(
+      false
+    );
+  });
+
   it('disables left panel and displays message and button when role is trial, clicking on Explore plan button triggers fwExplorePlan event', async () => {
     const page = await newE2EPage();
 

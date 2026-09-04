@@ -50,6 +50,12 @@ export class FormBuilderFieldDragDropItem {
    */
   @Prop({ mutable: true }) lookupTargetObjects = false;
   /**
+   * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside
+   * fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an
+   * empty object, so existing consumers who don't set this see no behavior change.
+   */
+  @Prop({ mutable: true }) targetSelectProps = {};
+  /**
    * flag to show dependentField resolve checkbox
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = false;
@@ -213,6 +219,7 @@ export class FormBuilderFieldDragDropItem {
             enableFilterable={this.enableFilterable}
             defaultFieldTypeSchema={this.defaultFieldTypeSchema}
             lookupTargetObjects={this.lookupTargetObjects}
+            targetSelectProps={this.targetSelectProps}
             formValues={this.formValues}
             isLoading={this.isLoading}
             sectionsExpanded={this.sectionsExpanded}
