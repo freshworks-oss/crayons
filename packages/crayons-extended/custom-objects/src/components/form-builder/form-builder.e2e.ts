@@ -2036,8 +2036,11 @@ describe('fw-form-builder', () => {
     const fieldItems = await leftPanel.findAll(
       '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
     );
+    // -2, not -1: renderFieldTypeElement always hides PRIMARY from this
+    // "add field" palette (it's implicit, non-addable) on top of the
+    // MULTI_SELECT exclusion from supportedFieldTypes.
     expect(fieldItems.length).toEqual(
-      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 1
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 2
     );
 
     for (const fieldItem of fieldItems) {
@@ -2097,8 +2100,10 @@ describe('fw-form-builder', () => {
     const fieldItems = await leftPanel.findAll(
       '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
     );
+    // -2, not -1: same PRIMARY carve-out as the MULTI_SELECT exclusion test
+    // above, on top of the DATE_TIME exclusion from supportedFieldTypes.
     expect(fieldItems.length).toEqual(
-      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 1
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 2
     );
 
     for (const fieldItem of fieldItems) {
@@ -2119,8 +2124,11 @@ describe('fw-form-builder', () => {
     const fieldItems = await leftPanel.findAll(
       '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
     );
+    // -1: renderFieldTypeElement always hides PRIMARY from this "add
+    // field" palette (it's implicit, non-addable), independent of
+    // supportedFieldTypes - nothing is excluded here otherwise.
     expect(fieldItems.length).toEqual(
-      formMapper.CUSTOM_OBJECTS.fieldOrder.length
+      formMapper.CUSTOM_OBJECTS.fieldOrder.length - 1
     );
 
     const fieldTypes = await Promise.all(
@@ -2182,6 +2190,52 @@ describe('fw-form-builder', () => {
     );
     expect(fieldDragDropItems.length).toEqual(
       formValuesWithDateTime.fields.length - 1
+    );
+  });
+
+  it('disables the left-nav item once a host-provided per-type limit is reached', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-form-builder product-name="CUSTOM_OBJECTS"></fw-form-builder>`
+    );
+    await page.waitForChanges();
+    await page.$eval(
+      'fw-form-builder',
+      (elm: any, { formValues, supportedFieldTypes }: any) => {
+        elm.formValues = formValues;
+        elm.supportedFieldTypes = supportedFieldTypes;
+      },
+      {
+        // formValues.CUSTOM_OBJECTS already has 2 fields counted as TEXT
+        // (1 PRIMARY, which the component parses as TEXT for count
+        // purposes, + 1 TEXT) - a host-provided limit of 1 should disable
+        // TEXT. DATE_TIME is absent from the fixture and left at its
+        // default (no override), so it acts as a control and must stay
+        // enabled.
+        formValues: formValues.CUSTOM_OBJECTS,
+        supportedFieldTypes: [{ type: 'TEXT', limit: 1 }, { type: 'DATE_TIME' }],
+      }
+    );
+    await page.waitForChanges();
+
+    const leftPanel = await page.find(
+      'fw-form-builder >>> .form-builder-left-panel'
+    );
+    const fieldItems = await leftPanel.findAll(
+      '.form-builder-left-panel-field-types-list > fw-field-type-menu-item'
+    );
+    const fieldTypeValues = await Promise.all(
+      fieldItems.map((item) => item.getProperty('value'))
+    );
+    const textIndex = fieldTypeValues.indexOf('TEXT');
+    const dateTimeIndex = fieldTypeValues.indexOf('DATE_TIME');
+    expect(textIndex).toBeGreaterThanOrEqual(0);
+    expect(dateTimeIndex).toBeGreaterThanOrEqual(0);
+
+    expect(await fieldItems[textIndex].getProperty('disabled')).toBe(true);
+    expect(await fieldItems[dateTimeIndex].getProperty('disabled')).toBe(
+      false
     );
   });
 

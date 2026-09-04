@@ -182,6 +182,46 @@ export function buildAllowedFieldTypesConfig(
   }
 }
 
+// Builds a map from "nth field actually rendered in the main fields drag
+// container" -> "real index of that field in arrFieldElements". Needed
+// because a field whose type isFieldTypeAllowed excludes renders as null
+// (see renderFieldEditorElement) and contributes no DOM node, so a raw
+// DOM-child-position count (draggable.ts's droppedIndex) undercounts the
+// true array index by the number of hidden fields preceding it.
+export function buildVisibleFieldIndexMap(
+  arrFieldElements: any[],
+  isFieldTypeAllowed: (fieldType: string) => boolean
+): number[] {
+  const arrMap: number[] = [];
+  (arrFieldElements || []).forEach((dataItem, idx) => {
+    const strFieldType = dataItem?.type;
+    const boolVisible =
+      strFieldType === 'PRIMARY' || isFieldTypeAllowed(strFieldType);
+    if (boolVisible) {
+      arrMap.push(idx);
+    }
+  });
+  return arrMap;
+}
+
+// Converts a drop position reported as a DOM child ordinal back into the
+// real index within arrFieldElements, using the map built above.
+export function resolveDroppedIndex(
+  intDroppedIndex: number,
+  arrVisibleFieldIndexMap: number[]
+): number {
+  if (!arrVisibleFieldIndexMap || arrVisibleFieldIndexMap.length === 0) {
+    return intDroppedIndex;
+  }
+  if (intDroppedIndex < arrVisibleFieldIndexMap.length) {
+    return arrVisibleFieldIndexMap[intDroppedIndex];
+  }
+  // Dropped after the last visible field - place it right after that
+  // field's real index rather than at the absolute end of the array, so
+  // it doesn't jump past any hidden fields trailing the visible list.
+  return arrVisibleFieldIndexMap[arrVisibleFieldIndexMap.length - 1] + 1;
+}
+
 // function to get the max limit config from mapper
 export function getMaxLimitProperty(
   productName = 'CUSTOM_OBJECTS',

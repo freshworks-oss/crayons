@@ -739,7 +739,7 @@ export namespace Components {
          */
         "supportDependentAndMSDDInSections": boolean;
         /**
-          * Host-driven list of supported field types and optional per-type limits
+          * Host-driven list of supported field types and optional per-type limits. Governs what's visible/creatable in this builder session only: a type left out is hidden from the left-nav, field editor, and customize-widget modal, including any field of that type already present in a loaded schema. Excluded fields' data is left untouched in formValues.fields and will still be included on save - this prop is not a data migration tool, so a host that needs to fully retire a type must filter/migrate the underlying schema itself.
          */
         "supportedFieldTypes": Array<{
     type: string;
@@ -2004,7 +2004,7 @@ declare namespace LocalJSX {
          */
         "supportDependentAndMSDDInSections"?: boolean;
         /**
-          * Host-driven list of supported field types and optional per-type limits
+          * Host-driven list of supported field types and optional per-type limits. Governs what's visible/creatable in this builder session only: a type left out is hidden from the left-nav, field editor, and customize-widget modal, including any field of that type already present in a loaded schema. Excluded fields' data is left untouched in formValues.fields and will still be included on save - this prop is not a data migration tool, so a host that needs to fully retire a type must filter/migrate the underlying schema itself.
          */
         "supportedFieldTypes"?: Array<{
     type: string;

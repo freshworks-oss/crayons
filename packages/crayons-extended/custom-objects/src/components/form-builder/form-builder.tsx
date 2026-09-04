@@ -17,8 +17,10 @@ import {
   getFieldTypeCheckboxes,
   getMappedCustomFieldType,
   buildAllowedFieldTypesConfig,
+  buildVisibleFieldIndexMap,
   getMaximumLimitsConfig,
   mergeHostFieldLimits,
+  resolveDroppedIndex,
   hasCustomProperty,
   hasPermission,
   i18nText,
@@ -51,6 +53,12 @@ export class FormBuilder {
   private allowedFieldTypes: string[] = [];
   private hostFieldLimits: Record<string, number> = {};
   private effectiveMaximumLimits = null;
+  // Maps a rendered (DOM) child ordinal in the main fields drag container to
+  // its real index inside arrFieldElements, since fields whose type is
+  // excluded via isFieldTypeAllowed render as null and contribute no DOM
+  // node. Rebuilt every render() alongside fieldElements; see
+  // resolveDroppedIndex().
+  private visibleFieldIndexMap: number[] = [];
   private resizeObserver;
   private FILTER_ALL_FIELDS = 'ALL_FIELDS';
 
@@ -110,7 +118,14 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showDependentField = true;
   /**
-   * Host-driven list of supported field types and optional per-type limits
+   * Host-driven list of supported field types and optional per-type limits.
+   * Governs what's visible/creatable in this builder session only: a type
+   * left out is hidden from the left-nav, field editor, and
+   * customize-widget modal, including any field of that type already
+   * present in a loaded schema. Excluded fields' data is left untouched in
+   * formValues.fields and will still be included on save - this prop is
+   * not a data migration tool, so a host that needs to fully retire a type
+   * must filter/migrate the underlying schema itself.
    */
   @Prop({ mutable: true }) supportedFieldTypes: Array<{
     type: string;
@@ -691,7 +706,16 @@ export class FormBuilder {
     this.removeFieldReorderClass();
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
-    const intDroppedIndex = objDetail.droppedIndex;
+    let intDroppedIndex = objDetail.droppedIndex;
+    // Only the main fields list can have hidden (isFieldTypeAllowed-excluded)
+    // entries interspersed, so only remap drops landing there - a section's
+    // own drag container never renders excluded top-level field types.
+    if (objDetail.dropToId?.includes('fieldsContainer')) {
+      intDroppedIndex = resolveDroppedIndex(
+        intDroppedIndex,
+        this.visibleFieldIndexMap
+      );
+    }
     let sectionData = {
       data: dataItem,
       name: sectionName,
@@ -920,6 +944,18 @@ export class FormBuilder {
       const intMaxWidgetFields = objMaxLimits?.widgets?.count || 0;
       const intFieldsLength = arrFields.length;
       for (let f1 = 0; f1 < intFieldsLength; f1++) {
+        // Don't newly offer a type the host has excluded via
+        // supportedFieldTypes as a widget candidate (mirrors the
+        // field-editor/left-nav allowlist). Fields already saved as widget
+        // fields via customizeWidgetFields (arrPrecedenceObjects, above)
+        // are untouched - we only gate what gets freshly added here.
+        const strWidgetFieldType = arrFields[f1]?.type;
+        if (
+          strWidgetFieldType !== 'PRIMARY' &&
+          !this.isFieldTypeAllowed(strWidgetFieldType)
+        ) {
+          continue;
+        }
         if (!arrWidgetIds.includes(arrFields[f1].id)) {
           arrWidgetIds = [...arrWidgetIds, arrFields[f1].id];
         }
@@ -1491,6 +1527,10 @@ export class FormBuilder {
       return null;
     }
     const strFieldType = dataItem.type;
+    // PRIMARY is an implicit, non-addable field that every entity already
+    // has - it should never be hidden by the addable-types allowlist, which
+    // only governs what can be newly composed (mirrors the same carve-out
+    // in renderFieldTypeElement's palette rendering).
     if (strFieldType !== 'PRIMARY' && !this.isFieldTypeAllowed(strFieldType)) {
       return null;
     }
@@ -1564,6 +1604,13 @@ export class FormBuilder {
   }
 
   private renderWidgetElement(dataItem, intIndex) {
+    const strFieldType = dataItem?.type;
+    // Same allowlist carve-out as renderFieldEditorElement: hide a field
+    // whose type the host has excluded via supportedFieldTypes from the
+    // customize-widget modal too, PRIMARY excepted since it's implicit.
+    if (strFieldType !== 'PRIMARY' && !this.isFieldTypeAllowed(strFieldType)) {
+      return null;
+    }
     const objMaxLimits = this.getEffectiveMaximumLimits();
     const intMaxWidgetsCount = objMaxLimits?.widgets?.count || 0;
 
@@ -1664,9 +1711,23 @@ export class FormBuilder {
           )
         : null;
 
+    // fieldElements entries are null wherever isFieldTypeAllowed() excluded
+    // the field (see renderFieldEditorElement), so they contribute no DOM
+    // node under fw-drag-container. Use the actually-rendered count (not
+    // the raw array length) to decide whether to show the "no results"
+    // empty state, and rebuild the visible-ordinal -> real index map
+    // consumed by resolveDroppedIndex() in fieldTypeDropHandler.
+    const arrRenderedFieldElements = fieldElements
+      ? fieldElements.filter((element) => element != null)
+      : [];
+    this.visibleFieldIndexMap = buildVisibleFieldIndexMap(
+      arrFieldElements,
+      (fieldType) => this.isFieldTypeAllowed(fieldType)
+    );
+
     const boolShowEmptySearchResults =
-      (this.searching && (!fieldElements || fieldElements.length === 0)) ||
-      (boolFilterApplied && (!fieldElements || fieldElements.length === 0));
+      (this.searching && arrRenderedFieldElements.length === 0) ||
+      (boolFilterApplied && arrRenderedFieldElements.length === 0);
     const boolHasCustomizeWidgetOption =
       objProductPresetConfig?.customizeWidget || false;
     const fieldWidgetElements =
