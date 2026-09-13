@@ -18,6 +18,10 @@ import {
   getParentId,
   getChildChoices,
   getMaximumLimitsConfig,
+  mergeHostFieldLimits,
+  buildAllowedFieldTypesConfig,
+  buildVisibleFieldIndexMap,
+  resolveDroppedIndex,
 } from './form-builder-utils';
 
 describe('getFieldBasedOnLevel', () => {
@@ -622,5 +626,110 @@ describe('getMaximumLimitsConfig', () => {
   it('returns null when productName is not found in formMapper', () => {
     const result = getMaximumLimitsConfig('OTHER_PRODUCT');
     expect(result).toBeNull();
+  });
+});
+
+describe('mergeHostFieldLimits', () => {
+  it('overrides existing field type limit counts', () => {
+    const baseLimits = {
+      TEXT: { count: 80, message: 'maximumLimits.fields' },
+    };
+    const result = mergeHostFieldLimits(baseLimits, { TEXT: 5 });
+    expect(result.TEXT.count).toBe(5);
+    expect(result.TEXT.message).toBe('maximumLimits.fields');
+  });
+
+  it('adds limit entry for unknown field types', () => {
+    const result = mergeHostFieldLimits({}, { DATE_TIME: 10 });
+    expect(result.DATE_TIME.count).toBe(10);
+  });
+});
+
+describe('buildAllowedFieldTypesConfig', () => {
+  it('returns allowed types and host limits from supportedFieldTypes prop', () => {
+    const result = buildAllowedFieldTypesConfig('CUSTOM_OBJECTS', [
+      { type: 'TEXT', limit: 5 },
+      { type: 'DATE' },
+    ]);
+    expect(result.allowedFieldTypes).toEqual(['TEXT', 'DATE']);
+    expect(result.hostFieldLimits).toEqual({ TEXT: 5 });
+  });
+
+  it('falls back to product fieldOrder when supportedFieldTypes prop is empty', () => {
+    const result = buildAllowedFieldTypesConfig('CUSTOM_OBJECTS', null);
+    expect(result.allowedFieldTypes).toEqual(
+      expect.arrayContaining(['TEXT', 'DATE', 'MULTI_SELECT', 'DATE_TIME'])
+    );
+    expect(result.hostFieldLimits).toEqual({});
+  });
+});
+
+describe('buildVisibleFieldIndexMap', () => {
+  const isFieldTypeAllowed = (allowed: string[]) => (type: string) =>
+    allowed.includes(type);
+
+  it('maps every field 1:1 when nothing is excluded', () => {
+    const fields = [
+      { type: 'PRIMARY' },
+      { type: 'TEXT' },
+      { type: 'MULTI_SELECT' },
+    ];
+    const result = buildVisibleFieldIndexMap(
+      fields,
+      isFieldTypeAllowed(['TEXT', 'MULTI_SELECT'])
+    );
+    expect(result).toEqual([0, 1, 2]);
+  });
+
+  it('skips the real index of any excluded, non-PRIMARY field type', () => {
+    // Mirrors a legacy schema with MULTI_SELECT sitting mid-list, which is
+    // what P0-1 flagged: index 2 (MULTI_SELECT) must be absent from the
+    // map, not just trimmed off the end.
+    const fields = [
+      { type: 'PRIMARY' },
+      { type: 'TEXT' },
+      { type: 'MULTI_SELECT' },
+      { type: 'DATE' },
+    ];
+    const result = buildVisibleFieldIndexMap(
+      fields,
+      isFieldTypeAllowed(['TEXT', 'DATE'])
+    );
+    expect(result).toEqual([0, 1, 3]);
+  });
+
+  it('always keeps PRIMARY visible even if it is not in the allowlist', () => {
+    const fields = [{ type: 'PRIMARY' }, { type: 'TEXT' }];
+    const result = buildVisibleFieldIndexMap(fields, isFieldTypeAllowed([]));
+    expect(result).toEqual([0]);
+  });
+});
+
+describe('resolveDroppedIndex', () => {
+  it('returns the DOM ordinal unchanged when there is no visible-index map', () => {
+    expect(resolveDroppedIndex(2, [])).toBe(2);
+    expect(resolveDroppedIndex(2, null)).toBe(2);
+  });
+
+  it('remaps an in-range DOM ordinal to the real array index, skipping a hidden mid-list field', () => {
+    // arrFieldElements = [PRIMARY(0), TEXT(1), MULTI_SELECT(2, hidden), DATE(3)]
+    // Rendered DOM children, in order, are indices [0, 1, 3].
+    const arrVisibleFieldIndexMap = [0, 1, 3];
+
+    // Dropping on the 3rd rendered child (DOM ordinal 2) must resolve to
+    // the real array index 3 (DATE), not 2 (the hidden MULTI_SELECT).
+    expect(resolveDroppedIndex(2, arrVisibleFieldIndexMap)).toBe(3);
+    // Dropping on the 1st/2nd rendered child is unaffected, since no
+    // hidden field precedes them.
+    expect(resolveDroppedIndex(0, arrVisibleFieldIndexMap)).toBe(0);
+    expect(resolveDroppedIndex(1, arrVisibleFieldIndexMap)).toBe(1);
+  });
+
+  it('places a drop after the last visible field right after its real index, not at the absolute array end', () => {
+    // arrFieldElements = [TEXT(0), MULTI_SELECT(1, hidden)]; only TEXT
+    // renders, so the only valid DOM ordinal is 0 (before TEXT) or 1
+    // (after TEXT, i.e. past the last visible child).
+    const arrVisibleFieldIndexMap = [0];
+    expect(resolveDroppedIndex(1, arrVisibleFieldIndexMap)).toBe(1);
   });
 });
