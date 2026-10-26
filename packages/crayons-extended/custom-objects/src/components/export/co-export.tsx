@@ -7,6 +7,7 @@ import {
   EventEmitter,
   Method,
   State,
+  Watch,
 } from '@stencil/core';
 import { TranslationController } from '../../global/Translation';
 import { debounce } from '../../utils/utils';
@@ -29,6 +30,7 @@ export class CoExport {
   @State() searchText = '';
   @State() clearFilter = false;
   @State() selectedFieldCount = 0;
+  @State() canExport = false;
 
   /**
    * The value to show the modal or close
@@ -68,6 +70,11 @@ export class CoExport {
     this.initializeSearchDebounce();
   }
 
+  @Watch('value')
+  valueChangeHandler(): void {
+    this.updateSelectedCount();
+  }
+
   componentDidUpdate(): void {
     this.addClearFilterEvent();
   }
@@ -84,6 +91,7 @@ export class CoExport {
     this.allFieldsSelected = false;
     this.clearFilter = false;
     this.selectedFieldCount = 0;
+    this.canExport = false;
     this.value = null;
   };
 
@@ -109,6 +117,7 @@ export class CoExport {
     if (!this.value?.fields?.length) {
       this.selectedFieldCount = 0;
       this.allFieldsSelected = false;
+      this.canExport = false;
       return;
     }
 
@@ -118,6 +127,9 @@ export class CoExport {
     this.selectedFieldCount = selectedFields.length;
     this.allFieldsSelected =
       this.selectedFieldCount === this.value.fields.length;
+    this.canExport = this.value.fields.some(
+      (field) => !field.disabled && field.selected === true
+    );
   }
 
   private clearFiltersHandler = (event: Event) => {
@@ -162,7 +174,13 @@ export class CoExport {
     event.stopImmediatePropagation();
     event.stopPropagation();
 
-    const boolSelected = event.detail.meta.checked;
+    const selectableFields =
+      this.value?.fields?.filter((field) => !field.disabled) || [];
+    const allSelectableSelected =
+      selectableFields.length > 0 &&
+      selectableFields.every((field) => field.selected === true);
+    // Select all when none or some fields are selected; clear only when every selectable field is already selected.
+    const boolSelected = !allSelectableSelected;
     this.allFieldsSelected = boolSelected;
 
     // Update search results if searching
@@ -209,6 +227,10 @@ export class CoExport {
 
     if (!this.value) {
       console.warn('No export data available');
+      return;
+    }
+
+    if (!this.canExport) {
       return;
     }
 
@@ -367,7 +389,10 @@ export class CoExport {
             <fw-button color='secondary' onFwClick={this.closeModalHandler}>
               {TranslationController.t('export.cancelButton')}
             </fw-button>
-            <fw-button onFwClick={this.exportHandler}>
+            <fw-button
+              disabled={!this.canExport}
+              onFwClick={this.exportHandler}
+            >
               {TranslationController.t('export.submitButton')}
             </fw-button>
           </span>
