@@ -210,7 +210,17 @@ export class CoExport {
 
     const field = this.value.fields.find((field) => field.id === fieldId);
     if (field) {
-      field.selected = isSelected;
+      // Replace objects immutably so child checkboxes re-render with the
+      // latest state (otherwise their `checked` prop stays stale and a later
+      // "select all" doesn't update them).
+      this.value.fields = this.value.fields.map((f) =>
+        f.id === fieldId ? { ...f, selected: isSelected } : f
+      );
+      if (this.searching && this.arrSearchedFields) {
+        this.arrSearchedFields = this.arrSearchedFields.map((f) =>
+          f.id === fieldId ? { ...f, selected: isSelected } : f
+        );
+      }
       this.updateSelectedCount();
     }
   };
