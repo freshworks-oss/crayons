@@ -1481,6 +1481,10 @@ export class Datepicker {
   onDateClick = (e, { date, timestamp }) => {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
+      // Default time to 12:00 AM (00:00) when a date is picked without a time
+      if (this.showTimePicker && !this.timeValue) {
+        this.timeValue = this.selectedTime = '00:00';
+      }
       this.clickedDateValue = this.formatDateTime();
       this.showTimePicker && this.setTimepickerDate();
       if (!this.showFooter) {
