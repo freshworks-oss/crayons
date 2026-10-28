@@ -3,21 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.19...@freshworks/crayons@4.3.0-dew.20) (2026-10-28)
-
+## [4.3.0-dew.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.19...@freshworks/crayons@4.3.0-dew.20) (2026-10-28)
 
 ### Bug Fixes
 
-* pull ([8d58e2e](https://github.com/freshworks/crayons/commit/8d58e2e4691ae0c9a8f5830fdd049c0e6fda6066))
-
+- pull ([8d58e2e](https://github.com/freshworks/crayons/commit/8d58e2e4691ae0c9a8f5830fdd049c0e6fda6066))
 
 ### Features
 
-* **nested-dropdown:** nested dropdown changes ([3af062d](https://github.com/freshworks/crayons/commit/3af062d1d152c57507aebc632b6d48335e16f077))
-
-
-
-
+- **nested-dropdown:** nested dropdown changes ([3af062d](https://github.com/freshworks/crayons/commit/3af062d1d152c57507aebc632b6d48335e16f077))
 
 ## [4.3.0-dew.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.18...@freshworks/crayons@4.3.0-dew.19) (2026-09-12)
 
