@@ -64,7 +64,7 @@ From the repo root, on branch `feat/dew2.0`, with Node matching the project engi
 
    ```bash
    gh auth switch --user arvindanta
-   npm run update-dew
+   GH_TOKEN=$(gh auth token) CROWDIN_PROJECT_ID=<CROWDIN_PROJECT_ID> CROWDIN_TOKEN=<CROWDIN_TOKEN> npm run update-dew
    ```
 
    This runs translations + build, `lerna version` with `--preid dew`, creates a GitHub Release, then `update-tag:dew` (changelog cleanup commit and `git push origin feat/dew2.0` plus tags).
