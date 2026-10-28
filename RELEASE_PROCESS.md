@@ -84,4 +84,5 @@ Install in other projects:
 npm i @freshworks/crayons@dew
 ```
 
-If publish returns `E404` on `https://npm.pkg.github.com/@freshworks%2f...`, the npm token’s GitHub user cannot write `@freshworks` packages (org `freshworks`). Git access to `freshworks-oss` does not grant that. Use the `aashwathanarayanan_fwinc` PAT, or ask a `freshworks` admin for package write.
+If publish returns `E404` on `https://npm.pkg.github.com/@freshworks%2f...`, the npm token’s GitHub user cannot write `@freshworks` packages (org `freshworks`). Git access to `freshworks-oss` does not grant that. Use the `aashwathanarayanan_fwinc` PAT, or ask a `freshworks` admin for package write to `@freshworks/crayons-custom-objects`, `@freshworks/crayons`, `@freshworks/crayons-icon`, `@freshworks/crayons-i18n`
+
