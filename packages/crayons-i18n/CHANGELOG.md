@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-dew.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.3.0-dew.3...@freshworks/crayons-i18n@4.3.0-dew.4) (2026-10-28)
+
+
+### Bug Fixes
+
+* **dropdown:** dropdown fix ([c1ec0eb](https://github.com/freshworks/crayons/commit/c1ec0eb6017910d53b8abacad398644eb1a59ec2))
+
+
+
+
+
 ## [4.3.0-dew.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.3.0...@freshworks/crayons-i18n@4.3.0-dew.3) (2026-02-18)
 
 ### Reverts

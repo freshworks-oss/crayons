@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-dew.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.19...@freshworks/crayons-custom-objects@1.4.0-dew.20) (2026-10-28)
+
+
+### Bug Fixes
+
+* changes to disable the dropdown when values are already selected ([c05e23b](https://github.com/freshworks/crayons/commit/c05e23bcc59fb1ac58809815bf48e76e3333cad7))
+* **dropdown:** dropdown fix ([c1ec0eb](https://github.com/freshworks/crayons/commit/c1ec0eb6017910d53b8abacad398644eb1a59ec2))
+* **dropdown:** dropdown hang fix ([6999848](https://github.com/freshworks/crayons/commit/6999848d84ef3f550ccdc82a1838aa25bb1adfe5))
+* **form-builder:** fixed components ts file ([67c3086](https://github.com/freshworks/crayons/commit/67c3086e4951acc58d64cf3d128a096fa678d214))
+* nested select bugfix ([c6286e6](https://github.com/freshworks/crayons/commit/c6286e63b465603b47c255a37595b300a83e252f))
+
+
+### Features
+
+* **form-builder:** chnages to dropdown component to accept datasource as input ([576970f](https://github.com/freshworks/crayons/commit/576970fc5eef49475e3bd87203964a8127774860))
+* **form-builder:** updated approach as per API changes ([fbf9607](https://github.com/freshworks/crayons/commit/fbf9607023d1d082f90fc21e59401b23733d6b28))
+* **nested-dropdown:** nested dropdown changes ([3af062d](https://github.com/freshworks/crayons/commit/3af062d1d152c57507aebc632b6d48335e16f077))
+
+
+
+
+
 ## [1.4.0-dew.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.18...@freshworks/crayons-custom-objects@1.4.0-dew.19) (2026-09-12)
 
 ### Bug Fixes
