@@ -45,6 +45,14 @@ gh auth status                    # arvindanta for update-dew
 npm whoami --registry=https://npm.pkg.github.com   # aashwathanarayanan_fwinc for release-dew:ci
 ```
 
+
+Here is a sample `.nmprc` file, replace your PAT Token here
+```
+//npm.pkg.github.com/:_authToken=<CLASSIC_PAT_TOKEN>
+
+@freshworks:registry=https://npm.pkg.github.com
+
+```
 Do not commit `.npmrc` (it is gitignored).
 
 ### One-time SSH SSO (`arvindanta`)
