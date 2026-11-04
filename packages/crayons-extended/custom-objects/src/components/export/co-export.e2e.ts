@@ -25,6 +25,62 @@ describe('fw-co-export', () => {
     expect(await modal.getProperty('isOpen')).toBe(true);
   });
 
+  it('should disable export when only record-id is selected', async () => {
+    const page = await newE2EPage();
+    const testValue = {
+      fields: [
+        {
+          id: 'record-id',
+          label: 'Record id',
+          selected: true,
+          disabled: true,
+        },
+        { id: '2', label: 'Field 2', selected: false },
+      ],
+    };
+
+    await page.setContent(`<fw-co-export is-open="true"></fw-co-export>`);
+    const element = await page.find('fw-co-export');
+
+    element.setProperty('value', testValue);
+    await page.waitForChanges();
+    await page.waitForTimeout(100);
+    await page.waitForChanges();
+
+    const exportButton = await page.find(
+      'fw-co-export >>> fw-modal-footer fw-button:last-child'
+    );
+    expect(await exportButton.getProperty('disabled')).toBe(true);
+  });
+
+  it('should enable export when a field other than record-id is selected', async () => {
+    const page = await newE2EPage();
+    const testValue = {
+      fields: [
+        {
+          id: 'record-id',
+          label: 'Record id',
+          selected: true,
+          disabled: true,
+        },
+        { id: '2', label: 'Field 2', selected: true },
+      ],
+    };
+
+    await page.setContent(`<fw-co-export is-open="true"></fw-co-export>`);
+    const element = await page.find('fw-co-export');
+
+    element.setProperty('value', testValue);
+    await page.waitForChanges();
+    await page.waitForTimeout(100);
+    await page.waitForChanges();
+
+    const exportButton = await page.find(
+      'fw-co-export >>> fw-modal-footer fw-button:last-child'
+    );
+    expect(await exportButton.getProperty('disabled')).toBe(false);
+  });
+
   it('should emit fwExport event when export button is clicked', async () => {
     const page = await newE2EPage();
 
@@ -188,6 +244,55 @@ describe('fw-co-export', () => {
       'fw-co-export >>> .co-export-field-header-selected-count-label:last-child'
     );
     expect(selectedCount.textContent).toContain('2/2 selected');
+  });
+
+  it('should re-select all fields when select all is clicked after partial deselection', async () => {
+    const page = await newE2EPage();
+    const testValue = {
+      fields: [
+        { id: '1', label: 'Field 1', selected: false },
+        { id: '2', label: 'Field 2', selected: false },
+        { id: '3', label: 'Field 3', selected: false },
+      ],
+    };
+
+    await page.setContent(`<fw-co-export is-open="true"></fw-co-export>`);
+    const element = await page.find('fw-co-export');
+
+    element.setProperty('value', testValue);
+    await page.waitForChanges();
+
+    const selectAllCheckbox = await page.find(
+      'fw-co-export >>> fw-checkbox.co-export-field-select-all'
+    );
+
+    await selectAllCheckbox.triggerEvent('fwChange', {
+      detail: { meta: { checked: true } },
+    });
+    await page.waitForChanges();
+
+    const fieldCheckboxes = await page.findAll(
+      'fw-co-export >>> fw-co-export-field >>> fw-checkbox'
+    );
+    await fieldCheckboxes[1].triggerEvent('fwChange', {
+      detail: { meta: { checked: false } },
+    });
+    await page.waitForChanges();
+
+    let selectedCount = await page.find(
+      'fw-co-export >>> .co-export-field-header-selected-count-label:last-child'
+    );
+    expect(selectedCount.textContent).toContain('2/3 selected');
+
+    await selectAllCheckbox.triggerEvent('fwChange', {
+      detail: { meta: { checked: false } },
+    });
+    await page.waitForChanges();
+
+    selectedCount = await page.find(
+      'fw-co-export >>> .co-export-field-header-selected-count-label:last-child'
+    );
+    expect(selectedCount.textContent).toContain('3/3 selected');
   });
 
   it('should render field with info and show info icon with tooltip', async () => {
