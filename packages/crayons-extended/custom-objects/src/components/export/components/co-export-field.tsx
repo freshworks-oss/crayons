@@ -71,7 +71,10 @@ export class CoExportField {
     return (
       <span
         ref={(el) => (this.spanLabel = el)}
-        class={`${strBaseClassName}-fw-checkbox-label`}
+        class={{
+          [`${strBaseClassName}-fw-checkbox-label`]: true,
+          [`${strBaseClassName}-fw-checkbox-label--truncated`]: this.addTooltip,
+        }}
       >
         {this.value.label}
       </span>

@@ -902,6 +902,16 @@ export class FieldEditor {
       }
       const strTagName = elInteractive.tagName.toLowerCase();
 
+      // A broken field's source/target can't be resolved, so its (locked) source/target pickers are empty and
+      // would fail validation - only the label is editable, so they are neither validated nor sent.
+      if (
+        this.isBrokenField() &&
+        (strTagName === 'fw-fb-field-choice-source' ||
+          strTagName === 'fw-fb-field-lookup')
+      ) {
+        continue;
+      }
+
       switch (strTagName) {
         case 'fw-input':
           // eslint-disable-next-line no-case-declarations
@@ -1522,7 +1532,10 @@ export class FieldEditor {
       ? this.isSectionField
       : this.editSectionField ?? false; //When it is inside section required field should be disabled.
     const boolDisableCheckbox =
-      !boolEditCheckboxAllowed || !dataCheckbox.enabled || sectionEditMode;
+      !boolEditCheckboxAllowed ||
+      !dataCheckbox.enabled ||
+      sectionEditMode ||
+      this.isBrokenField();
     const strBaseClassName = 'fw-field-editor';
     const strKey = dataCheckbox.key;
 
@@ -1727,6 +1740,28 @@ export class FieldEditor {
             </div>
           );
         })}
+      </div>
+    );
+  }
+
+  /**
+   * A field is broken when the host flags it (`isBroken`) because the source it points at
+   * (lookup target object / dropdown datasource or field) no longer exists.
+   */
+  private isBrokenField(): boolean {
+    return this.dataProvider?.isBroken === true;
+  }
+
+  private renderBrokenFieldMessage() {
+    const strMessage = this.dataProvider?.brokenMessage;
+    if (!this.isBrokenField() || !strMessage) {
+      return null;
+    }
+    const strBaseClassName = 'fw-field-editor';
+    return (
+      <div class={`${strBaseClassName}-broken-message`} role='alert'>
+        <fw-icon size={14} name='warning' color='#d72d30' />
+        <span>{strMessage}</span>
       </div>
     );
   }
@@ -2071,8 +2106,10 @@ export class FieldEditor {
       objFormValue.name
     );
 
+    // A broken field (its source/target no longer exists) only allows its label to be edited -
+    // the source/target pickers are locked so it can't be re-pointed.
     const boolDisableDropdowns =
-      this.isDefaultNonCustomField || !boolEditAllowed;
+      this.isDefaultNonCustomField || !boolEditAllowed || this.isBrokenField();
 
     const strFieldType = hasCustomProperty(objFieldBuilder, 'type')
       ? objFieldBuilder.type
@@ -2311,6 +2348,9 @@ export class FieldEditor {
     if (this.isPrimaryField) {
       strComponentClassName += ` ${strBaseClassName}--primary`;
     }
+    if (this.isBrokenField()) {
+      strComponentClassName += ` ${strBaseClassName}--broken`;
+    }
     if (this.expanded) {
       strComponentClassName += ` ${strBaseClassName}--expanded`;
     } else if (this.disabled) {
@@ -2489,6 +2529,7 @@ export class FieldEditor {
             </div>
           )}
         </div>
+        {this.renderBrokenFieldMessage()}
         <fw-modal
           ref={(el) => (this.modalConfirmDelete = el)}
           icon='delete'

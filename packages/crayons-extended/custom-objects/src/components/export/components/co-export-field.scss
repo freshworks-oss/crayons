@@ -25,8 +25,15 @@
 
       word-break: break-word;
       overflow: hidden;
-      text-overflow: ellipsis;
+      // `clip`, not `ellipsis`, by default: Firefox lays `width: max-content` out about 1/60px narrower than the text, and
+      // `ellipsis` then replaced the end of short labels ("test" -> "t..."). The ellipsis is only turned on once the
+      // component has measured the label as really truncated (see the --truncated modifier and `addTooltip`).
+      text-overflow: clip;
       white-space: nowrap;
+
+      &.fw-co-export-field-fw-checkbox-label--truncated {
+        text-overflow: ellipsis;
+      }
     }
   }
 
