@@ -2164,8 +2164,10 @@ describe('fw-form-builder', () => {
     expect(dateTimeIndex).toBe(dateIndex + 1);
 
     const dateTimeItem = fieldItems[dateTimeIndex];
-    expect(await dateTimeItem.getProperty('iconName')).toEqual('calendar');
-    expect(await dateTimeItem.getProperty('label')).toEqual('fieldTypeDateTime');
+    expect(await dateTimeItem.getProperty('iconName')).toEqual('calendar-time');
+    expect(await dateTimeItem.getProperty('label')).toEqual(
+      'fieldTypeDateTime'
+    );
   });
 
   it('DATE_TIME field editor should not be shown when supportedFieldTypes excludes it', async () => {
@@ -2236,7 +2238,10 @@ describe('fw-form-builder', () => {
         // default (no override), so it acts as a control and must stay
         // enabled.
         formValues: formValues.CUSTOM_OBJECTS,
-        supportedFieldTypes: [{ type: 'TEXT', limit: 1 }, { type: 'DATE_TIME' }],
+        supportedFieldTypes: [
+          { type: 'TEXT', limit: 1 },
+          { type: 'DATE_TIME' },
+        ],
       }
     );
     await page.waitForChanges();
@@ -2256,9 +2261,7 @@ describe('fw-form-builder', () => {
     expect(dateTimeIndex).toBeGreaterThanOrEqual(0);
 
     expect(await fieldItems[textIndex].getProperty('disabled')).toBe(true);
-    expect(await fieldItems[dateTimeIndex].getProperty('disabled')).toBe(
-      false
-    );
+    expect(await fieldItems[dateTimeIndex].getProperty('disabled')).toBe(false);
   });
 
   it('disables left panel and displays message and button when role is trial, clicking on Explore plan button triggers fwExplorePlan event', async () => {
