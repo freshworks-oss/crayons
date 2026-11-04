@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build:packages": "lerna run build --stream",
-    "build": "lerna run build --stream && npm run storybook:build && npm run docs:build",
+    "build": "lerna run build --stream",
     "check-next": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --cd-version prerelease --conventional-prerelease --preid beta --no-push --no-git-tag-version",
     "check-latest": "HUSKY_INSTALL=1 HUSKY_SKIP_HOOKS=1 lerna version --conventional-commits --conventional-graduate --no-push --no-git-tag-version",
     "clean-changelog": "lernacleanchangelog '**'",

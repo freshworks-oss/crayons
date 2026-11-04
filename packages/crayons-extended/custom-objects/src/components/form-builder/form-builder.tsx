@@ -774,6 +774,15 @@ export class FormBuilder {
         sectionData
       );
     } else {
+      const boolEditAllowed = hasPermission(
+        this.role,
+        this.permission,
+        'EDIT'
+      );
+      if (!boolEditAllowed) {
+        return;
+      }
+
       // Reposition inside the fields list
       if (elFieldType.index !== intDroppedIndex || isRepositionSection) {
         this.fwRepositionField.emit({
@@ -1569,15 +1578,18 @@ export class FormBuilder {
         isPrimaryField={isPrimaryField}
         pinned={isPrimaryField ? 'top' : ''}
         disabled={boolFieldEditingState}
-        disabledSort={this.searching}
+        disabledSort={
+          this.searching ||
+          !hasPermission(this.role, this.permission, 'EDIT')
+        }
         permission={this.permission}
         role={this.role}
         enableUnique={this.enableUnique}
         enableFilterable={this.enableFilterable}
         defaultFieldTypeSchema={objDefaultFieldTypeSchema}
         lookupTargetObjects={this.lookupTargetObjects}
-        targetSelectProps={this.targetSelectProps}
         choiceDataSources={this.choiceDataSources}
+        targetSelectProps={this.targetSelectProps}
         formValues={this.localFormValues}
         isLoading={this.isLoading}
         showDependentFieldResolveProp={this.showDependentFieldResolveProp}

@@ -1,6 +1,6 @@
 {
   "name": "@freshworks/crayons-i18n",
-  "version": "4.3.0-dew.3",
+  "version": "4.3.0-dew.4",
   "description": "Crayons i18n Library",
   "repository": {
     "type": "git",
@@ -53,5 +53,5 @@
     "date-fns": "^2.28.0"
   },
   "sideEffects": false,
-  "gitHead": "67504142fb4408e6b950436cfa0f9880cec5009c"
+  "gitHead": "66c0dc8b0f2a677581e12f1f61060ae4096c10f0"
 }

@@ -120,12 +120,6 @@ export class FieldEditor {
    */
   @Prop({ mutable: true }) lookupTargetObjects = false;
   /**
-   * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside
-   * fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an
-   * empty object, so existing consumers who don't set this see no behavior change.
-   */
-  @Prop({ mutable: true }) targetSelectProps = {};
-  /**
    * Data sources and field options for choice-source dropdown fields
    */
   @Prop({ mutable: true }) choiceDataSources: ChoiceDataSourceOption[] | null =
@@ -144,6 +138,12 @@ export class FieldEditor {
     sourceId: string,
     subItemId: string
   ) => void | Promise<void>;
+  /**
+   * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside
+   * fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an
+   * empty object, so existing consumers who don't set this see no behavior change.
+   */
+  @Prop({ mutable: true }) targetSelectProps = {};
   /**
    * flag to show dependentField resolve checkbox
    */

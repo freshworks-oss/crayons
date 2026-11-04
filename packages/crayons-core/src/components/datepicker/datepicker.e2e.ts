@@ -850,4 +850,75 @@ describe('fw-datepicker', () => {
     const alertElement = await shadow.find('.invalid-alert');
     expect(alertElement).toBeFalsy();
   });
+
+  describe('Swedish locale with dd MMM yyyy display format', () => {
+    const swedishDatepicker = (
+      attrs = 'locale="sv" display-format="dd MMM yyyy"'
+    ) => `<fw-datepicker ${attrs}></fw-datepicker>`;
+
+    const getInvalidAlert = async (page) => {
+      const shadow = await page.find(
+        'fw-datepicker >>> fw-input >>> :first-child'
+      );
+      return shadow.find('.invalid-alert');
+    };
+
+    it('should format ISO value as Swedish display format on load', async () => {
+      const page = await newE2EPage();
+      await page.setContent(
+        swedishDatepicker('locale="sv" display-format="dd MMM yyyy" value="2026-07-28"')
+      );
+      await page.waitForChanges();
+      const dp = await page.find('fw-datepicker');
+      const val = await dp.getProperty('value');
+      expect(val).toBe('28 juli 2026');
+      const alertElement = await getInvalidAlert(page);
+      expect(alertElement).toBeFalsy();
+    });
+
+    it.each([
+      ['28 juli 2026', '2026-07-28'],
+      ['28 mars 2026', '2026-03-28'],
+      ['15 juni 2026', '2026-06-15'],
+      ['15 jan. 2026', '2026-01-15'],
+    ])(
+      'should accept Swedish display format "%s" when value is set programmatically',
+      async (displayValue, isoValue) => {
+        const page = await newE2EPage();
+        await page.setContent(swedishDatepicker());
+        await page.waitForChanges();
+        const dp = await page.find('fw-datepicker');
+        await dp.setProperty('value', displayValue);
+        await page.waitForChanges();
+        const val = await dp.getProperty('value');
+        expect(val).toBe(displayValue);
+        const alertElement = await getInvalidAlert(page);
+        expect(alertElement).toBeFalsy();
+        const isoVal = await dp.callMethod('getValue');
+        expect(isoVal).toContain(isoValue);
+      }
+    );
+
+    it('should show error for invalid Swedish display format', async () => {
+      const page = await newE2EPage();
+      await page.setContent(swedishDatepicker());
+      await page.waitForChanges();
+      const dp = await page.find('fw-datepicker');
+      await dp.setProperty('value', '28 foo 2026');
+      await page.waitForChanges();
+      const alertElement = await getInvalidAlert(page);
+      expect(alertElement).toBeTruthy();
+    });
+
+    it('should validate non-Swedish display format for default locale', async () => {
+      const page = await newE2EPage();
+      await page.setContent('<fw-datepicker value="2022-07-31"></fw-datepicker>');
+      await page.waitForChanges();
+      const dp = await page.find('fw-datepicker');
+      await dp.setProperty('value', 'not-a-date');
+      await page.waitForChanges();
+      const alertElement = await getInvalidAlert(page);
+      expect(alertElement).toBeTruthy();
+    });
+  });
 });

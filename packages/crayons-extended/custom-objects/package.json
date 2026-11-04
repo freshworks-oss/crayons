@@ -1,7 +1,7 @@
 {
   "name": "@freshworks/crayons-custom-objects",
   "author": "Freshworks Inc",
-  "version": "1.4.0-dew.18",
+  "version": "1.4.0-dew.20",
   "description": "Custom Objects with Crayons",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -18,8 +18,7 @@
   "files": [
     "dist/",
     "loader/",
-    "react/",
-    "hydrate/"
+    "react/"
   ],
   "scripts": {
     "add:css": "npm run clean:css && npx mkdirp css",
@@ -28,7 +27,7 @@
     "build:components": "stencil build --docs",
     "build:mincss": "cleancss -b css/*.css css",
     "build:react": "tsc --project tsconfig-react.json",
-    "build:scss": "node-sass --include-path node_modules --include-path ../../node_modules --output-style compressed --recursive ../../styles/global/ -o css",
+    "build:scss": "sass --load-path=node_modules --load-path=../../node_modules --style=compressed --no-source-map ../../styles/global/:css",
     "build:styles": "npm run build:scss && npm run build:autoprefix && npm run build:mincss ",
     "clean:react": "rimraf react",
     "directional-to-logical": "npx postcss './src/**/*.scss' --config ../../crayons-core/plugins/postcss-plugins/postcss.config.js --replace --no-map --verbose",
@@ -39,8 +38,8 @@
     "test": "stencil test --spec --e2e --max-workers=1"
   },
   "dependencies": {
-    "@freshworks/crayons": "^4.3.0-dew.18",
-    "@freshworks/crayons-i18n": "^4.3.0-dew.3",
+    "@freshworks/crayons": "^4.3.0-dew.20",
+    "@freshworks/crayons-i18n": "^4.3.0-dew.4",
     "@stencil/core": "2.17.4",
     "stencil": "^0.0.5",
     "uuid": "^8.3.2"
@@ -54,7 +53,6 @@
     "clean-css-cli": "^5.5.0",
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
-    "node-sass": "^7.0.1",
     "postcss": "^8.3.9",
     "postcss-cli": "^9.0.1",
     "postcss-rtlcss": "^3.6.3",
@@ -62,6 +60,7 @@
     "puppeteer": "^10.0.0",
     "react-output-target": "^0.0.9",
     "rimraf": "^3.0.2",
+    "sass": "~1.77.8",
     "typescript": "^4.5.5"
   },
   "license": "MIT",
@@ -69,5 +68,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "67504142fb4408e6b950436cfa0f9880cec5009c"
+  "gitHead": "66c0dc8b0f2a677581e12f1f61060ae4096c10f0"
 }
