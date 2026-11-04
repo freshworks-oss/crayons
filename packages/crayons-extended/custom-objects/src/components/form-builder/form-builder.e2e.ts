@@ -2165,7 +2165,9 @@ describe('fw-form-builder', () => {
 
     const dateTimeItem = fieldItems[dateTimeIndex];
     expect(await dateTimeItem.getProperty('iconName')).toEqual('calendar');
-    expect(await dateTimeItem.getProperty('label')).toEqual('fieldTypeDateTime');
+    expect(await dateTimeItem.getProperty('label')).toEqual(
+      'fieldTypeDateTime'
+    );
   });
 
   it('DATE_TIME field editor should not be shown when supportedFieldTypes excludes it', async () => {

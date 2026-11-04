@@ -347,8 +347,7 @@ export class FormBuilder {
 
   private getEffectiveMaximumLimits() {
     return (
-      this.effectiveMaximumLimits ??
-      getMaximumLimitsConfig(this.productName)
+      this.effectiveMaximumLimits ?? getMaximumLimitsConfig(this.productName)
     );
   }
 
@@ -506,9 +505,7 @@ export class FormBuilder {
   private getInterpolatedMaxLimitLabel = (strProperty) => {
     if (strProperty && strProperty !== '') {
       try {
-        const objMaxLimit = this.getEffectiveMaximumLimits()?.[
-          strProperty
-        ];
+        const objMaxLimit = this.getEffectiveMaximumLimits()?.[strProperty];
         if (objMaxLimit) {
           return i18nText(objMaxLimit.message, { count: objMaxLimit.count });
         }
