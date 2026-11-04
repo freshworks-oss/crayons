@@ -408,6 +408,11 @@
     }
   }
 
+  &--broken,
+  &--broken.fw-field-editor--expanded {
+    border: 1px solid $app-error;
+  }
+
   &--required {
     .fw-field-editor-header {
       .fw-field-editor-label:after {
@@ -516,4 +521,22 @@
   flex-direction: column;
   gap: 16px;
   padding-block-start: 4px;
+}
+
+// Warning shown under a broken field's card (see field-editor.tsx renderBrokenFieldMessage)
+.fw-field-editor-broken-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-block-start: 8px;
+  max-width: $form-builder-field-editor-max-width;
+  box-sizing: border-box;
+  font-size: $font-size-12;
+  line-height: 18px;
+  color: $app-error;
+
+  fw-icon {
+    flex: none;
+    margin-block-start: 2px;
+  }
 }
