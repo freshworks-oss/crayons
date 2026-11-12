@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-dew.21](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.20...@freshworks/crayons-custom-objects@1.4.0-dew.21) (2026-11-12)
+
+
+### Bug Fixes
+
+* bug fixes in CO UI for FS ([91aa8af](https://github.com/freshworks/crayons/commit/91aa8af8d5df2a85713dbcece781a1b30796b5af))
+* test cases fixes ([52885fd](https://github.com/freshworks/crayons/commit/52885fdaa7511beeb081c8723cb90ed66410495b))
+
+
+
+
+
 ## [1.4.0-dew.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.19...@freshworks/crayons-custom-objects@1.4.0-dew.20) (2026-10-28)
 
 ### Bug Fixes
