@@ -5,3 +5,6 @@ www-dist/
 .idea/
 .npmrc
 packages/crayons-extended/crayons-core
+
+.claude/
+.cursor/
