@@ -289,7 +289,12 @@ export class Popover {
   }
 
   componentDidRender = () => {
-    // Observe popper content for change in size and update popper position
+    // Observe popper content for change in size and update popper position.
+    // Create the observer only once; creating a new one on every render leaks
+    // observers, each of which triggers a popper update on resize.
+    if (this.resizeObserver) {
+      return;
+    }
     this.resizeObserver = new ResizeObserver(this.updatePopper.bind(this));
     this.resizeObserver.observe(this.popperDiv);
   };
