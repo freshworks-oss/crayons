@@ -5,6 +5,7 @@
   .paragraph-text {
     overflow: hidden;
     margin: 0px;
+    white-space: pre-wrap;
   }
 
   .paragraph-text.expanded {
