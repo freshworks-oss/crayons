@@ -1,5 +1,11 @@
 import { newE2EPage } from '@stencil/core/testing';
 
+interface ROTrackedWindow extends Window {
+  ResizeObserver: new (cb: () => void) => { disconnect(): void };
+  __roCreated: number;
+  __roDisconnected: number;
+}
+
 describe('fw-popover', () => {
   it('renders', async () => {
     const page = await newE2EPage();
@@ -93,6 +99,105 @@ describe('fw-popover', () => {
     await page.waitForChanges();
     const content = await page.find('fw-popover >>> .popper-content');
     expect(content).toHaveAttribute('data-show');
+  });
+
+  describe('resize observer', () => {
+    const popoverHtml = `<fw-popover>
+        <fw-button slot="popover-trigger">Open</fw-button>
+        <div slot="popover-content">Content</div>
+    </fw-popover>`;
+
+    // Wraps the native ResizeObserver to track instances created and
+    // the number of disconnect() calls, before any component code runs.
+    const trackResizeObserver = async (page) => {
+      await page.evaluateOnNewDocument(() => {
+        const w = window as unknown as ROTrackedWindow;
+        const Native = w.ResizeObserver;
+        w.__roCreated = 0;
+        w.__roDisconnected = 0;
+        w.ResizeObserver = class extends Native {
+          constructor(cb) {
+            super(cb);
+            w.__roCreated++;
+          }
+          disconnect() {
+            w.__roDisconnected++;
+            super.disconnect();
+          }
+        };
+      });
+    };
+
+    it('should create only one ResizeObserver across multiple re-renders', async () => {
+      const page = await newE2EPage();
+      await trackResizeObserver(page);
+      await page.setContent(popoverHtml);
+      await page.waitForChanges();
+
+      const popover = await page.find('fw-popover');
+      const created = () =>
+        page.evaluate(() => (window as unknown as ROTrackedWindow).__roCreated);
+      expect(await created()).toBe(1);
+
+      // Trigger several re-renders by toggling the popover and a prop
+      for (let i = 0; i < 3; i++) {
+        await popover.callMethod('show');
+        await page.waitForChanges();
+        await popover.callMethod('hide');
+        await page.waitForChanges();
+      }
+      popover.setProperty('placement', 'top');
+      await page.waitForChanges();
+      popover.setProperty('placement', 'bottom');
+      await page.waitForChanges();
+
+      expect(await created()).toBe(1);
+    });
+
+    it('should reposition the popper when the content is resized', async () => {
+      const page = await newE2EPage();
+      await page.setContent(popoverHtml);
+      await page.waitForChanges();
+
+      const popover = await page.find('fw-popover');
+      await popover.callMethod('show');
+      await page.waitForChanges();
+
+      const content = await page.find('fw-popover >>> .popper-content');
+      expect(content).toHaveAttribute('data-show');
+
+      // Grow the slotted content; the popover should stay open and rendered
+      await page.evaluate(() => {
+        const el = document.querySelector('[slot="popover-content"]');
+        (el as HTMLElement).style.height = '300px';
+      });
+      await page.waitForChanges();
+
+      const afterResize = await page.find('fw-popover >>> .popper-content');
+      expect(afterResize).toHaveAttribute('data-show');
+    });
+
+    it('should disconnect the ResizeObserver when the popover is removed', async () => {
+      const page = await newE2EPage();
+      await trackResizeObserver(page);
+      await page.setContent(popoverHtml);
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(
+          () => (window as unknown as ROTrackedWindow).__roDisconnected
+        )
+      ).toBe(0);
+
+      await page.evaluate(() => document.querySelector('fw-popover')?.remove());
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(
+          () => (window as unknown as ROTrackedWindow).__roDisconnected
+        )
+      ).toBe(1);
+    });
   });
 
   it('should open and show content when inside fw-modal', async () => {
