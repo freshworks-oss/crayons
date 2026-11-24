@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.22](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.21...@freshworks/crayons@4.3.0-dew.22) (2026-11-24)
-
+## [4.3.0-dew.22](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.21...@freshworks/crayons@4.3.0-dew.22) (2026-11-24)
 
 ### Bug Fixes
 
-* **data-table:** popover resize and pre-wrap for paragraph fields ([8919674](https://github.com/freshworks/crayons/commit/8919674b6b18f3226d407091650dabbe43b46f1b))
-
-
-
-
+- **data-table:** popover resize and pre-wrap for paragraph fields ([8919674](https://github.com/freshworks/crayons/commit/8919674b6b18f3226d407091650dabbe43b46f1b))
 
 ## [4.3.0-dew.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.19...@freshworks/crayons@4.3.0-dew.20) (2026-10-28)
 
