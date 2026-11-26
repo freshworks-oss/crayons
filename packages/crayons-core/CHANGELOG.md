@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-dew.23](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.22...@freshworks/crayons@4.3.0-dew.23) (2026-11-26)
-
+## [4.3.0-dew.23](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.22...@freshworks/crayons@4.3.0-dew.23) (2026-11-26)
 
 ### Bug Fixes
 
-* add disable for button ([cbb6ca6](https://github.com/freshworks/crayons/commit/cbb6ca61d4b79ba41c092da25c81aba72198eec1))
-
-
-
-
+- add disable for button ([cbb6ca6](https://github.com/freshworks/crayons/commit/cbb6ca61d4b79ba41c092da25c81aba72198eec1))
 
 ## [4.3.0-dew.22](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-dew.21...@freshworks/crayons@4.3.0-dew.22) (2026-11-24)
 
