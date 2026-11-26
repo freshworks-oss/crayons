@@ -80,6 +80,7 @@ export type DataTableAction = {
   iconName?: string;
   iconLibrary?: string;
   hideForRowIds?: string[];
+  disabledForRowIds?: string[];
   handler: (row: DataTableRow) => any;
 };
 
@@ -101,6 +102,7 @@ export type GraphicsProps = {
 export type DataTableActionWithGraphics = {
   name: string;
   hideForRowIds?: string[];
+  disabledForRowIds?: string[];
   handler: (row: DataTableRow) => any;
   graphicsProps?: GraphicsProps;
 };

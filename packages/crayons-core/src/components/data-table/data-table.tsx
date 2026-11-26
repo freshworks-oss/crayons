@@ -1021,6 +1021,19 @@ export class DataTable {
   }
 
   /**
+   * isRowActionDisabled
+   * @param action action object
+   * @param rowData rowData - complete data of the current row
+   * @returns true when the action is listed as disabled for this row
+   */
+  isRowActionDisabled(
+    action: DataTableAction | DataTableActionWithGraphics,
+    rowData: DataTableRow
+  ) {
+    return !!action.disabledForRowIds?.includes(rowData.id);
+  }
+
+  /**
    * performRowAction
    * @param action action object - has information related to the action to be performed
    * @param rowData rowData - complete data of the current row
@@ -1029,6 +1042,9 @@ export class DataTable {
     action: DataTableAction | DataTableActionWithGraphics,
     rowData: DataTableRow
   ) {
+    if (this.isRowActionDisabled(action, rowData)) {
+      return;
+    }
     const selectAll: any = this.el.shadowRoot.querySelector(
       'fw-checkbox#select-all'
     );
@@ -1065,6 +1081,7 @@ export class DataTable {
         options.push({
           text: action.name,
           value: actionId,
+          disabled: this.isRowActionDisabled(action, rowData),
           ...(action?.graphicsProps
             ? {
                 graphicsProps: action.graphicsProps,
@@ -1495,6 +1512,10 @@ export class DataTable {
                                   tabIndex={0}
                                   size={buttonSize}
                                   color='secondary'
+                                  disabled={this.isRowActionDisabled(
+                                    action,
+                                    row
+                                  )}
                                   onKeyUp={(event) =>
                                     (event.code === 'Space' ||
                                       event.code === 'Enter') &&
